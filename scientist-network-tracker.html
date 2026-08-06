@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vanishing: US Scientists Dead or Missing (2021-2026)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    /* TypeUI Levels Design Tokens */
+    --primary: #27272A;
+    --secondary: #8B5CF6;
+    --secondary-soft: rgba(139,92,246,0.08);
+    --secondary-border: rgba(139,92,246,0.20);
+    --success: #16A34A;
+    --success-soft: rgba(22,163,74,0.08);
+    --success-border: rgba(22,163,74,0.18);
+    --warning: #D97706;
+    --warning-soft: rgba(217,119,6,0.08);
+    --warning-border: rgba(217,119,6,0.18);
+    --danger: #DC2626;
+    --danger-soft: rgba(220,38,38,0.08);
+    --danger-border: rgba(220,38,38,0.18);
+    --surface: #FFFFFF;
+    --text: #111827;
+    --text-secondary: #6B7280;
+    --text-muted: #9CA3AF;
+    --border: #E5E7EB;
+    --border-strong: #D1D5DB;
+    --bg: #F9FAFB;
+    --bg-alt: #F3F4F6;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-xs: 6px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+  /* CARD BASE */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card:hover {
+    box-shadow: var(--shadow-md);
+  }
+  .card-elevated {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .card-elevated:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 48px 24px 32px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--danger-soft);
+    color: var(--danger);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--danger);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .header h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .header .subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* STATS */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 32px 0;
+  }
+  .stat {
+    padding: 20px;
+    text-align: center;
+  }
+  .stat .num {
+    font-size: 32px;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1;
+  }
+  .stat .num.red { color: var(--danger); }
+  .stat .num.amber { color: var(--warning); }
+  .stat .num.violet { color: var(--secondary); }
+  .stat .label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  /* FILTER */
+  .filter-bar { display: flex; justify-content: center; gap: 4px; margin-bottom: 32px; background: var(--bg-alt); border-radius: var(--radius-sm); padding: 4px; display: inline-flex; margin-left: auto; margin-right: auto; }
+  .filter-wrap { text-align: center; margin-bottom: 32px; }
+  .filter-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 8px 20px;
+    border-radius: var(--radius-xs);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .filter-btn:hover { color: var(--text); background: rgba(0,0,0,0.03); }
+  .filter-btn.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); font-weight: 600; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .section-heading {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  /* TIMELINE */
+  .timeline-strip { position: relative; margin: 0 0 40px; padding: 16px 0; overflow-x: auto; }
+  .timeline-track {
+    display: flex;
+    align-items: center;
+    min-width: max-content;
+    padding: 0 32px;
+    position: relative;
+  }
+  .timeline-track::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 32px; right: 32px;
+    height: 2px;
+    background: var(--border);
+    transform: translateY(-50%);
+  }
+  .tl-event {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+    cursor: pointer;
+    padding: 8px;
+    transition: transform 0.15s;
+  }
+  .tl-event:hover { transform: scale(1.05); }
+  .tl-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    border: 2px solid var(--surface);
+    box-shadow: 0 0 0 2px var(--border);
+  }
+  .tl-dot.dead { background: var(--danger); box-shadow: 0 0 0 2px var(--danger); }
+  .tl-dot.missing { background: var(--warning); box-shadow: 0 0 0 2px var(--warning); }
+  .tl-name { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.3; }
+  .tl-date { font-size: 10px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; margin-top: 2px; }
+
+  /* NETWORK SVG */
+  .network-container { padding: 24px; overflow: hidden; }
+  #network-svg { width: 100%; height: 750px; }
+  .node-label { font-family: 'Inter', sans-serif; font-weight: 600; pointer-events: none; }
+  .link-line { stroke: #E5E7EB; stroke-width: 1.5; }
+
+  /* PERSON CARDS */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .person-card {
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .person-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    border-radius: var(--radius) 0 0 var(--radius);
+  }
+  .person-card.dead::before { background: var(--danger); }
+  .person-card.missing::before { background: var(--warning); }
+  .person-card:hover { transform: translateY(-2px); }
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .card-avatar {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .card-avatar.dead { background: var(--danger-soft); color: var(--danger); }
+  .card-avatar.missing { background: var(--warning-soft); color: var(--warning); }
+  .card-info h3 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .card-info .role { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    margin-top: 4px;
+  }
+  .status-badge.dead { background: var(--danger-soft); color: var(--danger); }
+  .status-badge.missing { background: var(--warning-soft); color: var(--warning); }
+  .card-body { font-size: 13px; line-height: 1.7; color: var(--text-secondary); }
+  .card-body p { margin-bottom: 8px; }
+  .card-detail { display: flex; gap: 8px; align-items: baseline; margin-bottom: 4px; font-size: 13px; }
+  .card-detail .dt { color: var(--text-muted); font-weight: 500; min-width: 80px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px; flex-shrink: 0; }
+  .card-detail .dd { color: var(--text); }
+  .connections { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .conn-tag {
+    display: inline-block;
+    background: var(--secondary-soft);
+    color: var(--secondary);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 100px;
+    margin: 2px 2px 2px 0;
+  }
+
+  /* KEY CONNECTIONS */
+  .key-connections { padding: 24px; margin-top: 32px; }
+  .connection-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .connection-item:last-child { border-bottom: none; }
+  .conn-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--secondary-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+  .conn-text h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .conn-text p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* INSTITUTIONS */
+  .institutions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .inst-card {
+    padding: 20px;
+    text-align: center;
+  }
+  .inst-card:hover { transform: translateY(-1px); }
+  .inst-icon {
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    background: var(--bg-alt);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 20px;
+  }
+  .inst-card h4 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .inst-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+  .inst-card .linked { font-size: 11px; color: var(--secondary); margin-top: 8px; font-weight: 500; }
+
+  /* DEEP ANALYSIS */
+  .analysis-card {
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+    position: relative;
+  }
+  .analysis-card:hover { box-shadow: var(--shadow-md); }
+  .analysis-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+  .analysis-card .body-text { font-size: 13px; line-height: 1.75; color: var(--text-secondary); }
+  .analysis-card .body-text p { margin-bottom: 10px; }
+  .analysis-card .body-text strong { color: var(--text); font-weight: 600; }
+  .analysis-card .body-text em { color: var(--secondary); font-style: normal; font-weight: 500; }
+  .quote-block {
+    padding: 12px 16px;
+    border-left: 3px solid;
+    margin: 10px 0;
+    background: var(--bg);
+    border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  /* OPEN QUESTIONS */
+  .question-card {
+    background: var(--surface);
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    border-left: 3px solid;
+    transition: all 0.15s;
+  }
+  .question-card:hover { box-shadow: var(--shadow); }
+  .question-card strong { color: var(--text); font-size: 13px; font-weight: 600; }
+  .question-card span { color: var(--text-secondary); font-size: 12px; display: block; margin-top: 4px; line-height: 1.5; }
+
+  /* GEO CLUSTER */
+  .geo-card {
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    transition: all 0.15s;
+  }
+  .geo-card:hover { box-shadow: var(--shadow-sm); }
+
+  /* TIMELINE TABLE */
+  .tl-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  .tl-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+  .tl-table tr:last-child td { border-bottom: none; }
+  .tl-table .date-col { color: var(--text-muted); white-space: nowrap; font-family: 'JetBrains Mono', monospace; font-size: 12px; vertical-align: top; }
+  .tl-table .highlight-row { background: var(--secondary-soft); }
+
+  /* DIVIDER */
+  .section-break { border: none; border-top: 1px solid var(--border); margin: 48px 0 32px; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    margin-top: 48px;
+    border-top: 1px solid var(--border);
+  }
+  .footer p { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .cards-grid { grid-template-columns: 1fr; }
+    .institutions-grid { grid-template-columns: 1fr 1fr; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat .num { font-size: 24px; }
+    #network-svg { height: 400px; }
+  }
+  @media (max-width: 480px) {
+    .stats-bar { grid-template-columns: 1fr 1fr; }
+    .institutions-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="badge">Active Investigation</div>
+    <h1>The Vanishing</h1>
+    <p class="subtitle">
+      Fourteen scientists, engineers, and intelligence officers connected to defense research, nuclear science, advanced propulsion, UAP programs, and classified government work have died or disappeared under suspicious circumstances since 2021.
+    </p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat card"><div class="num red">10</div><div class="label">Confirmed Dead</div></div>
+    <div class="stat card"><div class="num amber">4</div><div class="label">Missing</div></div>
+    <div class="stat card"><div class="num violet">12+</div><div class="label">Institutions</div></div>
+    <div class="stat card"><div class="num" style="color:var(--text)">~60</div><div class="label">Months (Span)</div></div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-wrap">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCards('all')">All Cases</button>
+      <button class="filter-btn" onclick="filterCards('dead')">Dead</button>
+      <button class="filter-btn" onclick="filterCards('missing')">Missing</button>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-title">Chronological Timeline</div>
+  <div class="timeline-strip card-elevated" style="padding:24px 0; margin-bottom:40px;">
+    <div class="timeline-track">
+      <div class="tl-event" onclick="scrollToCard('li')"><div class="tl-dot dead"></div><div class="tl-name">Ning Li</div><div class="tl-date">Jul 27, 2021</div></div>
+      <div class="tl-event" onclick="scrollToCard('eskridge')"><div class="tl-dot dead"></div><div class="tl-name">Amy Eskridge</div><div class="tl-date">Jun 11, 2022</div></div>
+      <div class="tl-event" onclick="scrollToCard('hicks')"><div class="tl-dot dead"></div><div class="tl-name">Michael Hicks</div><div class="tl-date">Jul 30, 2023</div></div>
+      <div class="tl-event" onclick="scrollToCard('sullivan')"><div class="tl-dot dead"></div><div class="tl-name">Matthew Sullivan</div><div class="tl-date">May 12, 2024</div></div>
+      <div class="tl-event" onclick="scrollToCard('maiwald')"><div class="tl-dot dead"></div><div class="tl-name">Frank Maiwald</div><div class="tl-date">Jul 4, 2024</div></div>
+      <div class="tl-event" onclick="scrollToCard('chavez')"><div class="tl-dot missing"></div><div class="tl-name">Anthony Chavez</div><div class="tl-date">May 4, 2025</div></div>
+      <div class="tl-event" onclick="scrollToCard('reza')"><div class="tl-dot missing"></div><div class="tl-name">Monica Reza</div><div class="tl-date">Jun 22, 2025</div></div>
+      <div class="tl-event" onclick="scrollToCard('casias')"><div class="tl-dot dead"></div><div class="tl-name">Melissa Casias</div><div class="tl-date">Jun 26, 2025</div></div>
+      <div class="tl-event" onclick="scrollToCard('leblanc')"><div class="tl-dot dead"></div><div class="tl-name">Joshua LeBlanc</div><div class="tl-date">Jul 22, 2025</div></div>
+      <div class="tl-event" onclick="scrollToCard('garcia')"><div class="tl-dot missing"></div><div class="tl-name">Steven Garcia</div><div class="tl-date">Aug 28, 2025</div></div>
+      <div class="tl-event" onclick="scrollToCard('thomas')"><div class="tl-dot dead"></div><div class="tl-name">Jason Thomas</div><div class="tl-date">Dec 12, 2025</div></div>
+      <div class="tl-event" onclick="scrollToCard('loureiro')"><div class="tl-dot dead"></div><div class="tl-name">Nuno Loureiro</div><div class="tl-date">Dec 15, 2025</div></div>
+      <div class="tl-event" onclick="scrollToCard('grillmair')"><div class="tl-dot dead"></div><div class="tl-name">Carl Grillmair</div><div class="tl-date">Feb 16, 2026</div></div>
+      <div class="tl-event" onclick="scrollToCard('mccasland')"><div class="tl-dot missing"></div><div class="tl-name">Neil McCasland</div><div class="tl-date">Feb 27, 2026</div></div>
+    </div>
+  </div>
+
+  <!-- NETWORK DIAGRAM -->
+  <div class="section-title">Research Network Crossovers</div>
+  <div class="network-container card-elevated">
+    <svg id="network-svg" viewBox="0 0 1400 900">
+      <!-- Connection lines (original) -->
+      <line x1="200" y1="120" x2="440" y2="180" class="link-line" />
+      <line x1="200" y1="120" x2="600" y2="80" class="link-line" stroke-dasharray="6,4" />
+      <line x1="800" y1="100" x2="600" y2="80" class="link-line" />
+      <line x1="800" y1="100" x2="440" y2="180" class="link-line" stroke-dasharray="6,4" />
+      <line x1="200" y1="320" x2="440" y2="180" class="link-line" />
+      <line x1="200" y1="320" x2="440" y2="400" class="link-line" />
+      <line x1="200" y1="320" x2="760" y2="400" class="link-line" />
+      <line x1="1000" y1="350" x2="760" y2="400" class="link-line" />
+      <line x1="1000" y1="350" x2="440" y2="400" class="link-line" stroke-dasharray="6,4" />
+      <line x1="440" y1="400" x2="600" y2="520" class="link-line" />
+      <line x1="400" y1="540" x2="600" y2="520" class="link-line" />
+      <line x1="800" y1="540" x2="600" y2="520" class="link-line" />
+      <line x1="1100" y1="160" x2="760" y2="400" class="link-line" stroke-dasharray="3,6" style="opacity:0.3" />
+
+      <!-- New connection lines -->
+      <line x1="100" y1="700" x2="250" y2="650" class="link-line" />
+      <line x1="300" y1="700" x2="250" y2="650" class="link-line" />
+      <line x1="200" y1="800" x2="250" y2="650" class="link-line" />
+      <line x1="200" y1="220" x2="440" y2="180" class="link-line" />
+      <line x1="500" y1="750" x2="600" y2="750" class="link-line" />
+      <line x1="1100" y1="500" x2="1050" y2="500" class="link-line" />
+      <line x1="600" y1="750" x2="600" y2="520" class="link-line" stroke-dasharray="6,4" />
+      <line x1="1050" y1="500" x2="760" y2="400" class="link-line" stroke-dasharray="6,4" />
+
+      <!-- Institution nodes (original) -->
+      <g transform="translate(440,180)">
+        <rect x="-55" y="-22" width="110" height="44" rx="8" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="0" y="1" text-anchor="middle" class="node-label" font-size="12" fill="#8B5CF6">NASA JPL</text>
+        <text x="0" y="14" text-anchor="middle" font-size="8" fill="#9CA3AF" font-family="Inter">Pasadena, CA</text>
+      </g>
+      <g transform="translate(600,80)">
+        <rect x="-55" y="-22" width="110" height="44" rx="8" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="0" y="1" text-anchor="middle" class="node-label" font-size="12" fill="#8B5CF6">Caltech IPAC</text>
+        <text x="0" y="14" text-anchor="middle" font-size="8" fill="#9CA3AF" font-family="Inter">Astronomy Center</text>
+      </g>
+      <g transform="translate(440,400)">
+        <rect x="-60" y="-22" width="120" height="44" rx="8" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="0" y="1" text-anchor="middle" class="node-label" font-size="11" fill="#8B5CF6">AFRL Kirtland</text>
+        <text x="0" y="14" text-anchor="middle" font-size="8" fill="#9CA3AF" font-family="Inter">Albuquerque, NM</text>
+      </g>
+      <g transform="translate(760,400)">
+        <rect x="-65" y="-22" width="130" height="44" rx="8" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="0" y="1" text-anchor="middle" class="node-label" font-size="11" fill="#8B5CF6">AFRL Wright-Pat</text>
+        <text x="0" y="14" text-anchor="middle" font-size="8" fill="#9CA3AF" font-family="Inter">Dayton, OH</text>
+      </g>
+      <g transform="translate(600,520)">
+        <rect x="-50" y="-22" width="100" height="44" rx="8" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="0" y="1" text-anchor="middle" class="node-label" font-size="12" fill="#8B5CF6">LANL</text>
+        <text x="0" y="14" text-anchor="middle" font-size="8" fill="#9CA3AF" font-family="Inter">Los Alamos, NM</text>
+      </g>
+
+      <!-- New institution nodes -->
+      <g transform="translate(250,650)">
+        <rect x="-60" y="-22" width="120" height="44" rx="8" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="0" y="1" text-anchor="middle" class="node-label" font-size="11" fill="#8B5CF6">UAH / Huntsville</text>
+        <text x="0" y="14" text-anchor="middle" font-size="8" fill="#9CA3AF" font-family="Inter">Rocket City, AL</text>
+      </g>
+      <g transform="translate(600,750)">
+        <rect x="-60" y="-22" width="120" height="44" rx="8" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="0" y="1" text-anchor="middle" class="node-label" font-size="11" fill="#8B5CF6">KCNSC</text>
+        <text x="0" y="14" text-anchor="middle" font-size="8" fill="#9CA3AF" font-family="Inter">Kansas City NSC</text>
+      </g>
+      <g transform="translate(1050,500)">
+        <rect x="-55" y="-22" width="110" height="44" rx="8" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="0" y="1" text-anchor="middle" class="node-label" font-size="11" fill="#8B5CF6">NSA / NASIC</text>
+        <text x="0" y="14" text-anchor="middle" font-size="8" fill="#9CA3AF" font-family="Inter">Intelligence</text>
+      </g>
+      <g transform="translate(1200,200)">
+        <rect x="-50" y="-22" width="100" height="44" rx="8" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="0" y="1" text-anchor="middle" class="node-label" font-size="12" fill="#8B5CF6">Novartis</text>
+        <text x="0" y="14" text-anchor="middle" font-size="8" fill="#9CA3AF" font-family="Inter">Pharma / DoD</text>
+      </g>
+
+      <!-- Person nodes (original) -->
+      <g transform="translate(200,120)" style="cursor:pointer" onclick="scrollToCard('maiwald')">
+        <circle r="26" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="11" fill="#DC2626">FM</text>
+        <text x="0" y="48" text-anchor="middle" class="node-label" font-size="11" fill="#111827">Frank Maiwald</text>
+        <text x="0" y="60" text-anchor="middle" font-size="9" fill="#DC2626" font-family="Inter" font-weight="600">DEAD</text>
+      </g>
+      <g transform="translate(800,100)" style="cursor:pointer" onclick="scrollToCard('grillmair')">
+        <circle r="26" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="11" fill="#DC2626">CG</text>
+        <text x="0" y="48" text-anchor="middle" class="node-label" font-size="11" fill="#111827">Carl Grillmair</text>
+        <text x="0" y="60" text-anchor="middle" font-size="9" fill="#DC2626" font-family="Inter" font-weight="600">DEAD</text>
+      </g>
+      <g transform="translate(200,320)" style="cursor:pointer" onclick="scrollToCard('reza')">
+        <circle r="26" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="11" fill="#D97706">MR</text>
+        <text x="0" y="48" text-anchor="middle" class="node-label" font-size="11" fill="#111827">Monica Reza</text>
+        <text x="0" y="60" text-anchor="middle" font-size="9" fill="#D97706" font-family="Inter" font-weight="600">MISSING</text>
+      </g>
+      <g transform="translate(1000,350)" style="cursor:pointer" onclick="scrollToCard('mccasland')">
+        <circle r="26" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="11" fill="#D97706">NM</text>
+        <text x="0" y="48" text-anchor="middle" class="node-label" font-size="11" fill="#111827">Neil McCasland</text>
+        <text x="0" y="60" text-anchor="middle" font-size="9" fill="#D97706" font-family="Inter" font-weight="600">MISSING</text>
+      </g>
+      <g transform="translate(400,540)" style="cursor:pointer" onclick="scrollToCard('chavez')">
+        <circle r="20" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="10" fill="#D97706">AC</text>
+        <text x="0" y="36" text-anchor="middle" class="node-label" font-size="10" fill="#111827">Anthony Chavez</text>
+        <text x="0" y="48" text-anchor="middle" font-size="9" fill="#D97706" font-family="Inter" font-weight="600">MISSING</text>
+      </g>
+      <g transform="translate(800,540)" style="cursor:pointer" onclick="scrollToCard('casias')">
+        <circle r="20" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="10" fill="#DC2626">MC</text>
+        <text x="0" y="36" text-anchor="middle" class="node-label" font-size="10" fill="#111827">Melissa Casias</text>
+        <text x="0" y="48" text-anchor="middle" font-size="9" fill="#DC2626" font-family="Inter" font-weight="600">DEAD</text>
+      </g>
+      <g transform="translate(1100,160)" style="cursor:pointer" onclick="scrollToCard('loureiro')">
+        <circle r="26" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="11" fill="#DC2626">NLo</text>
+        <text x="0" y="48" text-anchor="middle" class="node-label" font-size="11" fill="#111827">Nuno Loureiro</text>
+        <text x="0" y="60" text-anchor="middle" font-size="9" fill="#DC2626" font-family="Inter" font-weight="600">DEAD</text>
+      </g>
+      <g transform="translate(80,480)" style="cursor:pointer" onclick="scrollToCard('thomas')">
+        <circle r="20" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="10" fill="#DC2626">JT</text>
+        <text x="0" y="36" text-anchor="middle" class="node-label" font-size="10" fill="#111827">Jason Thomas</text>
+        <text x="0" y="48" text-anchor="middle" font-size="9" fill="#DC2626" font-family="Inter" font-weight="600">DEAD</text>
+      </g>
+
+      <!-- New person nodes -->
+      <g transform="translate(100,700)" style="cursor:pointer" onclick="scrollToCard('li')">
+        <circle r="26" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="11" fill="#DC2626">NL</text>
+        <text x="0" y="48" text-anchor="middle" class="node-label" font-size="11" fill="#111827">Ning Li</text>
+        <text x="0" y="60" text-anchor="middle" font-size="9" fill="#DC2626" font-family="Inter" font-weight="600">DEAD</text>
+      </g>
+      <g transform="translate(300,700)" style="cursor:pointer" onclick="scrollToCard('eskridge')">
+        <circle r="26" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="11" fill="#DC2626">AE</text>
+        <text x="0" y="48" text-anchor="middle" class="node-label" font-size="11" fill="#111827">Amy Eskridge</text>
+        <text x="0" y="60" text-anchor="middle" font-size="9" fill="#DC2626" font-family="Inter" font-weight="600">DEAD</text>
+      </g>
+      <g transform="translate(200,220)" style="cursor:pointer" onclick="scrollToCard('hicks')">
+        <circle r="26" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="11" fill="#DC2626">MH</text>
+        <text x="0" y="48" text-anchor="middle" class="node-label" font-size="11" fill="#111827">Michael Hicks</text>
+        <text x="0" y="60" text-anchor="middle" font-size="9" fill="#DC2626" font-family="Inter" font-weight="600">DEAD</text>
+      </g>
+      <g transform="translate(1100,500)" style="cursor:pointer" onclick="scrollToCard('sullivan')">
+        <circle r="26" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="11" fill="#DC2626">MS</text>
+        <text x="0" y="48" text-anchor="middle" class="node-label" font-size="11" fill="#111827">Matt Sullivan</text>
+        <text x="0" y="60" text-anchor="middle" font-size="9" fill="#DC2626" font-family="Inter" font-weight="600">DEAD</text>
+      </g>
+      <g transform="translate(200,800)" style="cursor:pointer" onclick="scrollToCard('leblanc')">
+        <circle r="26" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="11" fill="#DC2626">JL</text>
+        <text x="0" y="48" text-anchor="middle" class="node-label" font-size="11" fill="#111827">Joshua LeBlanc</text>
+        <text x="0" y="60" text-anchor="middle" font-size="9" fill="#DC2626" font-family="Inter" font-weight="600">DEAD</text>
+      </g>
+      <g transform="translate(500,750)" style="cursor:pointer" onclick="scrollToCard('garcia')">
+        <circle r="20" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5"/>
+        <text x="0" y="4" text-anchor="middle" class="node-label" font-size="10" fill="#D97706">SG</text>
+        <text x="0" y="36" text-anchor="middle" class="node-label" font-size="10" fill="#111827">Steven Garcia</text>
+        <text x="0" y="48" text-anchor="middle" font-size="9" fill="#D97706" font-family="Inter" font-weight="600">MISSING</text>
+      </g>
+
+      <!-- Annotations -->
+      <text x="300" y="142" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Researcher since 1999</text>
+      <text x="310" y="255" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Moved to JPL</text>
+      <text x="310" y="365" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Mondaloy funding</text>
+      <text x="880" y="370" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Commanded 2011-13</text>
+      <text x="700" y="92" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Staff since 1997</text>
+      <text x="510" y="465" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Nuclear collaboration</text>
+      <text x="490" y="530" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Former employee</text>
+      <text x="710" y="535" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Admin assistant</text>
+      <text x="170" y="670" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Anti-gravity research</text>
+      <text x="300" y="665" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Exotic propulsion</text>
+      <text x="250" y="770" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Nuclear propulsion</text>
+      <text x="1100" y="465" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Grusch witness</text>
+      <text x="560" y="720" text-anchor="middle" font-size="9" fill="#9CA3AF" font-family="Inter">Nuclear weapons</text>
+
+      <!-- Legend -->
+      <g transform="translate(40,20)">
+        <rect x="0" y="0" width="140" height="72" rx="8" fill="#FFFFFF" stroke="#E5E7EB"/>
+        <circle cx="18" cy="20" r="5" fill="#DC2626"/>
+        <text x="30" y="24" font-size="11" fill="#111827" font-family="Inter" font-weight="500">Dead</text>
+        <circle cx="18" cy="38" r="5" fill="#D97706"/>
+        <text x="30" y="42" font-size="11" fill="#111827" font-family="Inter" font-weight="500">Missing</text>
+        <rect x="12" y="54" width="12" height="2" rx="1" fill="#8B5CF6"/>
+        <text x="30" y="58" font-size="11" fill="#111827" font-family="Inter" font-weight="500">Institution</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- CASE FILES -->
+  <hr class="section-break">
+  <div class="section-title">Case Files</div>
+  <div class="section-heading">Individual Case Profiles</div>
+  <div class="cards-grid" id="cards-grid">
+
+    <!-- Ning Li -->
+    <div class="person-card card dead" id="card-li" data-status="dead">
+      <div class="card-header">
+        <div class="card-avatar dead">NL</div>
+        <div class="card-info">
+          <h3>Ning Li</h3>
+          <div class="role">Anti-Gravity Physicist &middot; University of Alabama Huntsville</div>
+          <span class="status-badge dead">Dead - Jul 27, 2021</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">78</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Huntsville, AL</span></div>
+        <div class="card-detail"><span class="dt">Cause</span><span class="dd">Undisclosed. Died after years of complete public silence.</span></div>
+        <p>In the 1990s, co-authored groundbreaking papers on producing anti-gravity effects through rotating ions creating a gravitomagnetic field. In 1999, left UAH to form AC Gravity LLC with reported DoD funding. Published no papers after 2003 and went completely dark for 18 years until her death. Her anti-gravity research had direct implications for exotic propulsion systems.</p>
+        <div class="connections">
+          <span class="conn-tag">UAH</span><span class="conn-tag">AC Gravity LLC</span><span class="conn-tag">Anti-Gravity Research</span><span class="conn-tag">DoD Funding</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Amy Eskridge -->
+    <div class="person-card card dead" id="card-eskridge" data-status="dead">
+      <div class="card-header">
+        <div class="card-avatar dead">AE</div>
+        <div class="card-info">
+          <h3>Amy Eskridge</h3>
+          <div class="role">Plasma Physicist &middot; Institute for Exotic Science Co-Founder</div>
+          <span class="status-badge dead">Dead - Jun 11, 2022</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">34</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Huntsville, AL</span></div>
+        <div class="card-detail"><span class="dt">Cause</span><span class="dd">Officially self-inflicted gunshot wound. Disputed.</span></div>
+        <p>Co-founded the Institute for Exotic Science in Huntsville, focusing on experimental propulsion including antigravity research. One month before her death, texted a friend: "I definitely did not plan to kill myself." Claimed she had been struck by a "directed energy weapon" and feared for her life because of her propulsion work. A former British intelligence officer corroborated her claims to NewsNation. Her father, a former NASA employee, insists nothing suspicious.</p>
+        <div class="connections">
+          <span class="conn-tag">Exotic Propulsion</span><span class="conn-tag">Anti-Gravity</span><span class="conn-tag">Huntsville</span><span class="conn-tag">Directed Energy Claim</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Michael David Hicks -->
+    <div class="person-card card dead" id="card-hicks" data-status="dead">
+      <div class="card-header">
+        <div class="card-avatar dead">MH</div>
+        <div class="card-info">
+          <h3>Michael David Hicks</h3>
+          <div class="role">NASA JPL Scientist &middot; Asteroid &amp; Comet Researcher</div>
+          <span class="status-badge dead">Dead - Jul 30, 2023</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">59</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Sunland, CA</span></div>
+        <div class="card-detail"><span class="dt">Cause</span><span class="dd">No cause of death was made public.</span></div>
+        <p>Scientist at NASA's Jet Propulsion Laboratory from 1998 to 2022. Contributed to more than 80 scientific papers. Key roles on NASA's Deep Space 1 mission and the DART asteroid-deflection project. Third JPL-connected death or disappearance in the pattern, alongside Maiwald and Reza.</p>
+        <div class="connections">
+          <span class="conn-tag">NASA JPL</span><span class="conn-tag">DART Project</span><span class="conn-tag">Deep Space 1</span><span class="conn-tag">Asteroid Research</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Matthew James Sullivan -->
+    <div class="person-card card dead" id="card-sullivan" data-status="dead">
+      <div class="card-header">
+        <div class="card-avatar dead">MS</div>
+        <div class="card-info">
+          <h3>Matthew James Sullivan</h3>
+          <div class="role">Former USAF Intelligence Officer &middot; UAP Witness</div>
+          <span class="status-badge dead">Dead - May 12, 2024</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">39</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Falls Church, VA</span></div>
+        <div class="card-detail"><span class="dt">Cause</span><span class="dd">Accidental drug overdose from multiple medications.</span></div>
+        <p>Served at the NSA and National Air &amp; Space Intelligence Center (NASIC). Deployed to CENTCOM and U.S. Indo-Pacific Command. Bronze Star recipient. Was a key witness behind David Grusch's inspector general complaint about UAP crash retrieval programs. At the time of his death, he had been scheduled to be interviewed by lawmakers in the coming weeks about what he knew. Rep. Burlison asked the FBI to investigate due to national security implications.</p>
+        <div class="connections">
+          <span class="conn-tag">NSA</span><span class="conn-tag">NASIC</span><span class="conn-tag">UAP Witness</span><span class="conn-tag">Grusch Source</span><span class="conn-tag">Congressional Testimony</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Joshua LeBlanc -->
+    <div class="person-card card dead" id="card-leblanc" data-status="dead">
+      <div class="card-header">
+        <div class="card-avatar dead">JL</div>
+        <div class="card-info">
+          <h3>Joshua LeBlanc</h3>
+          <div class="role">NASA Nuclear Propulsion Engineer</div>
+          <span class="status-badge dead">Dead - Jul 22, 2025</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">29</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Florence/Huntsville, AL</span></div>
+        <div class="card-detail"><span class="dt">Cause</span><span class="dd">Fatal Tesla crash. Vehicle struck guardrail and trees, burst into flames.</span></div>
+        <p>Aerospace Technologies Electrical Engineer at NASA working on nuclear propulsion projects. Reported missing after failing to show up for work. His phone, wallet, and pet dog were still at his apartment. His Tesla was parked at Huntsville International Airport for four hours before the fatal crash. Body identified days later by state forensics. Third scientist death in Huntsville alongside Ning Li and Amy Eskridge.</p>
+        <div class="connections">
+          <span class="conn-tag">NASA</span><span class="conn-tag">Nuclear Propulsion</span><span class="conn-tag">Huntsville</span><span class="conn-tag">Tesla Crash</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Steven Garcia -->
+    <div class="person-card card missing" id="card-garcia" data-status="missing">
+      <div class="card-header">
+        <div class="card-avatar missing">SG</div>
+        <div class="card-info">
+          <h3>Steven Garcia</h3>
+          <div class="role">Government Contractor &middot; Kansas City National Security Campus</div>
+          <span class="status-badge missing">Missing - Aug 28, 2025</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">48</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Albuquerque, NM</span></div>
+        <div class="card-detail"><span class="dt">Cause</span><span class="dd">Vanished without a trace. Left on foot from home.</span></div>
+        <p>Property custodian at the Kansas City National Security Campus (KCNSC) New Mexico facility with top security clearance and broad access to the site's nuclear weapons components. Last captured on camera leaving his house around 9 AM wearing shorts and a green camo shirt. Left behind phone, wallet, keys, and car. Was carrying a handgun. Police said he "may be a danger to himself," but sources refuted claims of mental health issues. Fourth person to disappear in New Mexico.</p>
+        <div class="connections">
+          <span class="conn-tag">KCNSC</span><span class="conn-tag">Nuclear Weapons</span><span class="conn-tag">Top Security Clearance</span><span class="conn-tag">Albuquerque NM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Frank Maiwald -->
+    <div class="person-card card dead" id="card-maiwald" data-status="dead">
+      <div class="card-header">
+        <div class="card-avatar dead">FM</div>
+        <div class="card-info">
+          <h3>Frank Maiwald</h3>
+          <div class="role">NASA JPL Researcher &middot; Submillimeter Wave Astrophysicist</div>
+          <span class="status-badge dead">Dead - Jul 4, 2024</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">61</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Los Angeles, CA</span></div>
+        <div class="card-detail"><span class="dt">Cause</span><span class="dd">Undisclosed. No autopsy performed.</span></div>
+        <p>Lead researcher at JPL since 1999, working on advanced satellite technology for planetary scanning. In June 2023, just 13 months before his death, he led a breakthrough on detecting signs of life on other worlds, including Jupiter's moon Europa and Saturn's moon Enceladus. NASA has never publicly commented on his death.</p>
+        <div class="connections">
+          <span class="conn-tag">NASA JPL</span><span class="conn-tag">Biosignature Detection</span><span class="conn-tag">Submillimeter Wave Tech</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carl Grillmair -->
+    <div class="person-card card dead" id="card-grillmair" data-status="dead">
+      <div class="card-header">
+        <div class="card-avatar dead">CG</div>
+        <div class="card-info">
+          <h3>Carl Grillmair</h3>
+          <div class="role">Caltech IPAC Astronomer &middot; Exoplanet Researcher</div>
+          <span class="status-badge dead">Dead - Feb 16, 2026</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">67</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Llano, CA (Antelope Valley)</span></div>
+        <div class="card-detail"><span class="dt">Cause</span><span class="dd">Shot on front porch at 6 AM. Suspect Freddy Snyder arrested.</span></div>
+        <p>At Caltech's IPAC since 1997. Worked on NASA Spitzer Space Telescope infrared instruments. In 2007, co-authored the first paper capturing light from exoplanets and identifying molecules in their atmospheres, including the first detection of water on an exoplanet. 2011 NASA Exceptional Scientific Achievement Medal.</p>
+        <p><strong>UPDATE (May 2026):</strong> Suspect Freddy Snyder, 30, pled not guilty at arraignment on May 26. Preliminary hearing scheduled for June 5. $3.175M bail. Snyder lived 2 miles from Grillmair and had a history of trespassing on his property.</p>
+        <div class="connections">
+          <span class="conn-tag">Caltech IPAC</span><span class="conn-tag">NASA Spitzer</span><span class="conn-tag">Exoplanet Water Discovery</span><span class="conn-tag">Infrared Spectroscopy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nuno Loureiro -->
+    <div class="person-card card dead" id="card-loureiro" data-status="dead">
+      <div class="card-header">
+        <div class="card-avatar dead">NL</div>
+        <div class="card-info">
+          <h3>Nuno Loureiro</h3>
+          <div class="role">MIT Plasma Science &amp; Fusion Center Director</div>
+          <span class="status-badge dead">Dead - Dec 15, 2025</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">47</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Brookline, MA</span></div>
+        <div class="card-detail"><span class="dt">Cause</span><span class="dd">Shot at his home. Suspect (Claudio Neves Valente) found dead of self-inflicted gunshot.</span></div>
+        <p>Herman Feshbach Professor of Physics at MIT and director of the Plasma Science and Fusion Center since 2024. Advancing breakthrough research in plasma turbulence and fusion energy. Valente also killed two Brown University students and injured nine others two days prior. Both attended the same academic program in Portugal (1995-2000).</p>
+        <div class="connections">
+          <span class="conn-tag">MIT</span><span class="conn-tag">Plasma Physics</span><span class="conn-tag">Nuclear Fusion</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jason Thomas -->
+    <div class="person-card card dead" id="card-thomas" data-status="dead">
+      <div class="card-header">
+        <div class="card-avatar dead">JT</div>
+        <div class="card-info">
+          <h3>Jason Thomas</h3>
+          <div class="role">Novartis &middot; Pharmaceutical Researcher</div>
+          <span class="status-badge dead">Dead - Dec 12, 2025</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">45</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Wakefield, MA</span></div>
+        <div class="card-detail"><span class="dt">Cause</span><span class="dd">Found in lake ~3 months after disappearing.</span></div>
+        <p>Assistant Director at Novartis Institutes for BioMedical Research with over 4,500 citations in chemical biology and chemoproteomics. Reported DoD contracts. His wife stated he had been struggling with both parents dying before his disappearance.</p>
+        <div class="connections">
+          <span class="conn-tag">Novartis</span><span class="conn-tag">DoD Contracts (Reported)</span><span class="conn-tag">Chemoproteomics</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monica Reza -->
+    <div class="person-card card missing" id="card-reza" data-status="missing">
+      <div class="card-header">
+        <div class="card-avatar missing">MR</div>
+        <div class="card-info">
+          <h3>Monica Jacinto Reza</h3>
+          <div class="role">Aerospace Engineer &middot; Mondaloy Co-Inventor</div>
+          <span class="status-badge missing">Missing - Jun 22, 2025</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">60</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Angeles National Forest, CA</span></div>
+        <div class="card-detail"><span class="dt">Details</span><span class="dd">Vanished while hiking. Last seen waving to companion. Only a beanie and lip balm recovered. Declared dead 4 days later while helicopters still searched.</span></div>
+        <p>Technical Fellow at Aerojet Rocketdyne for 30 years, then moved to NASA JPL. Co-invented Mondaloy, an ITAR-protected nickel superalloy used in 12 components of the AR1 rocket engine replacing Russian RD-180s for national security satellite launches. AFRL funded her work since 1999. McCasland's budget directly funded programs using her alloy.</p>
+        <div class="connections">
+          <span class="conn-tag">NASA JPL</span><span class="conn-tag">Aerojet Rocketdyne</span><span class="conn-tag">AFRL Kirtland</span><span class="conn-tag">AFRL Wright-Patterson</span><span class="conn-tag">Mondaloy Patent</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Neil McCasland -->
+    <div class="person-card card missing" id="card-mccasland" data-status="missing">
+      <div class="card-header">
+        <div class="card-avatar missing">NM</div>
+        <div class="card-info">
+          <h3>Maj. Gen. William Neil McCasland (Ret.)</h3>
+          <div class="role">Former AFRL Commander &middot; Wright-Patterson AFB</div>
+          <span class="status-badge missing">Missing - Feb 27, 2026</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">68</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Left Albuquerque, NM home on foot</span></div>
+        <div class="card-detail"><span class="dt">Details</span><span class="dd">Left ~11 AM. Missing: wallet, .38 revolver, leather holster, red backpack. Left behind: phone, wearables, Rx glasses. FBI, Kirtland AFB, NM SAR involved. Silver Alert. Search expanded to his second home in Pagosa Springs, Colorado. Hiking boots and a shirt recovered there. REI surveillance photo from Feb 26 shows him purchasing outdoor supplies including a first aid kit. Reportedly divulged fears of mental and physical decline.</span></div>
+        <p>Commanded AFRL at Wright-Patterson AFB, overseeing $2.2B+ in science and technology programs. Chief engineer on the DoD GPS program. Director of Special Programs at the Pentagon. After retirement, worked with Tom DeLonge's To The Stars, Inc. on UAP research. Named in 2016 WikiLeaks emails as advisor on UFO disclosure. Disappeared 7 days after Trump directed Pentagon to release UFO records.</p>
+        <div class="connections">
+          <span class="conn-tag">AFRL Wright-Patterson</span><span class="conn-tag">Pentagon Special Programs</span><span class="conn-tag">To The Stars / UAP</span><span class="conn-tag">GPS Program</span><span class="conn-tag">WikiLeaks UFO Emails</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anthony Chavez -->
+    <div class="person-card card missing" id="card-chavez" data-status="missing">
+      <div class="card-header">
+        <div class="card-avatar missing">AC</div>
+        <div class="card-info">
+          <h3>Anthony "Tony" Chavez</h3>
+          <div class="role">Former Los Alamos National Lab Employee</div>
+          <span class="status-badge missing">Missing - May 4, 2025</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">78</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Los Alamos, NM</span></div>
+        <div class="card-detail"><span class="dt">Details</span><span class="dd">Vanished without a trace. No new information after nearly a year.</span></div>
+        <p>Former worker at Los Alamos National Laboratory, the birthplace of nuclear weapons and a hub for national security science. Despite ongoing police searches, almost a year later no new leads have emerged.</p>
+        <div class="connections"><span class="conn-tag">LANL</span><span class="conn-tag">Nuclear Research Facility</span></div>
+      </div>
+    </div>
+
+    <!-- Melissa Casias -->
+    <div class="person-card card dead" id="card-casias" data-status="dead">
+      <div class="card-header">
+        <div class="card-avatar dead">MC</div>
+        <div class="card-info">
+          <h3>Melissa Casias</h3>
+          <div class="role">Administrative Assistant &middot; Los Alamos National Lab</div>
+          <span class="status-badge dead">Dead - Remains Found May 28, 2026</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-detail"><span class="dt">Age</span><span class="dd">53</span></div>
+        <div class="card-detail"><span class="dt">Location</span><span class="dd">Talpa, Taos County, NM</span></div>
+        <div class="card-detail"><span class="dt">Details</span><span class="dd">Disappeared Jun 26, 2025. Remains found May 28, 2026 by a hiker in McGaffey Ridge area of Carson National Forest, NM. A handgun was located alongside the remains. Cause and manner of death not yet determined. Found near an area SAR teams had previously searched.</span></div>
+        <p>LANL administrative assistant believed to have held security clearance for sensitive data. Disappeared just 53 days after fellow LANL-connected Anthony Chavez, under eerily similar circumstances in rural New Mexico.</p>
+        <div class="connections"><span class="conn-tag">LANL</span><span class="conn-tag">Security Clearance</span><span class="conn-tag">Nuclear Research Facility</span><span class="conn-tag">Remains Found 2026</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- KEY NETWORK THREADS -->
+  <hr class="section-break">
+  <div class="section-title">Key Network Threads</div>
+  <div class="key-connections card-elevated">
+    <div class="connection-item"><div class="conn-icon">&#128640;</div><div class="conn-text"><h4>The Mondaloy Thread: Reza &#8596; McCasland</h4><p>Reza co-invented Mondaloy, an ITAR-protected superalloy critical to US national security rocket engines. McCasland's AFRL command (2011-2013) directly oversaw the $4.4B budget funding programs dependent on her alloy. Both vanished within 8 months of each other.</p></div></div>
+    <div class="connection-item"><div class="conn-icon">&#9762;</div><div class="conn-text"><h4>The Los Alamos Cluster: Chavez &amp; Casias</h4><p>Two LANL-connected people vanished 53 days apart in rural New Mexico. LANL is the birthplace of nuclear weapons. AFRL Kirtland, which funded Reza's research, actively collaborates with LANL on nuclear and advanced materials programs.</p></div></div>
+    <div class="connection-item"><div class="conn-icon">&#127756;</div><div class="conn-text"><h4>The Astrobiology Thread: Maiwald &amp; Grillmair</h4><p>Both NASA-affiliated scientists made breakthroughs in detecting conditions for extraterrestrial life. Maiwald's 2023 biosignature detection breakthrough, 13 months before his unexplained death with no autopsy. Grillmair's 2007 first detection of water on an exoplanet.</p></div></div>
+    <div class="connection-item"><div class="conn-icon">&#128125;</div><div class="conn-text"><h4>The UAP Disclosure Timing</h4><p>McCasland, named in WikiLeaks emails as a UFO disclosure advisor, disappeared 7 days after Trump's Feb 20, 2026 disclosure directive. Rep. Burchett (R-TN) confirmed intelligence agencies are thwarting his investigation into these cases.</p></div></div>
+    <div class="connection-item"><div class="conn-icon">&#128300;</div><div class="conn-text"><h4>The Huntsville Triangle: Li, Eskridge &amp; LeBlanc</h4><p>Three scientists died in Huntsville, Alabama between 2021-2025. All worked on propulsion or gravity-related research. Huntsville hosts Marshall Space Flight Center, Redstone Arsenal, and the highest concentration of aerospace defense contractors outside D.C. Ning Li's anti-gravity work went dark with DoD funding in 2003. Eskridge texted she wasn't suicidal a month before her death. LeBlanc's Tesla sat at the airport for 4 hours before his fatal crash.</p></div></div>
+    <div class="connection-item"><div class="conn-icon">&#127894;</div><div class="conn-text"><h4>The Sullivan Thread: Death Before Testimony</h4><p>Matthew James Sullivan, a former USAF intelligence officer and key Grusch witness, died of an accidental overdose on May 12, 2024, weeks before he was scheduled to testify to Congress about UAP crash retrieval programs. His death represents the most direct link between this pattern and the UAP disclosure timeline.</p></div></div>
+    <div class="connection-item"><div class="conn-icon">&#128241;</div><div class="conn-text"><h4>The Left-Behind Pattern</h4><p>A striking pattern across cases: McCasland left phone, glasses, wearables. Garcia left phone, wallet, keys, car. Thomas left phone, wallet, Apple Watch. LeBlanc left phone, wallet, dog. Chavez left wallet, keys, phone. Five separate individuals leaving behind their digital tethers before vanishing or dying.</p></div></div>
+  </div>
+
+  <!-- DEEP ANALYSIS -->
+  <hr class="section-break">
+  <div class="section-title">Speculative Analysis</div>
+  <div class="section-heading">Deep Analysis: The UAP Connection</div>
+  <p style="text-align:center;color:var(--text-muted);font-size:13px;margin-bottom:24px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.6;">Hypotheses synthesized from publicly available information. Not established facts.</p>
+
+  <!-- Thread 1 -->
+  <div class="analysis-card" style="border-left: 3px solid var(--danger);">
+    <h3 style="color:var(--danger);">Thread 1: The Disclosure Trigger Event</h3>
+    <div class="body-text">
+      <p>On <strong>February 20, 2026</strong>, Trump signed an executive directive ordering the Pentagon, CIA, and all relevant agencies to release files on alien life, UAP, and UFOs. <strong>Seven days later</strong>, McCasland walked out of his Albuquerque home.</p>
+      <p>The 2016 WikiLeaks Podesta emails contain DeLonge's message (subject: "General McCasland") telling Clinton's campaign chair:</p>
+      <div class="quote-block" style="border-color:var(--secondary);"><em>"When Roswell crashed, they shipped it to the laboratory at Wright Patterson Air Force Base. [McCasland] was in charge of that exact laboratory."</em></div>
+      <p>McCasland subsequently worked with DeLonge's To The Stars on UAP research. If the Trump disclosure order threatened to unseal records from programs he oversaw, he becomes either the most valuable corroborating witness in history, or the most dangerous loose end.</p>
+    </div>
+  </div>
+
+  <!-- Thread 2 -->
+  <div class="analysis-card" style="border-left: 3px solid var(--secondary);">
+    <h3 style="color:var(--secondary);">Thread 2: Wright-Patterson AFB - The Original Repository</h3>
+    <div class="body-text">
+      <p>Wright-Patterson housed the <strong>Foreign Technology Division</strong> (reverse-engineering) and <strong>Project Blue Book</strong> (1952-1969). The alleged "Hangar 18" (officially Building 18 complex, sub-buildings 18A-18G) is where Roswell debris was reportedly shipped.</p>
+      <p>McCasland <strong>commanded AFRL at this exact base</strong>, overseeing a $2.2B+ science portfolio. He also served as <strong>Director of Special Programs at the Pentagon</strong> - a title denoting SAP (Special Access Program) oversight, the compartmented classification structure Grusch alleges houses crash retrieval programs.</p>
+    </div>
+  </div>
+
+  <!-- Thread 3 -->
+  <div class="analysis-card" style="border-left: 3px solid var(--warning);">
+    <h3 style="color:var(--warning);">Thread 3: Exotic Materials - The Mondaloy Question</h3>
+    <div class="body-text">
+      <p>Mondaloy is a family of nickel-based superalloys governed by <strong>ITAR</strong>. Its composition, processing parameters, and additive manufacturing procedures are proprietary and classified. Twelve AR1 engine components use it. AFRL funded Reza's work since <strong>1999</strong>.</p>
+      <p>The UAP discourse has consistently pointed to <strong>anomalous materials</strong> as key evidence. Jacques Vallee has publicly discussed analyzing material samples. If a reverse-engineering program exists, the people working on advanced aerospace metallurgy would be exactly who you'd want involved - or exactly who you'd want silenced.</p>
+      <p>The unasked question: Was Mondaloy developed entirely from conventional R&amp;D, or could any of its properties have been informed by analysis of recovered non-terrestrial materials?</p>
+    </div>
+  </div>
+
+  <!-- Thread 4 -->
+  <div class="analysis-card" style="border-left: 3px solid var(--success);">
+    <h3 style="color:var(--success);">Thread 4: The Nuclear-UAP Nexus</h3>
+    <div class="body-text">
+      <p>The correlation between UAP and nuclear facilities is extensively documented:</p>
+      <div class="quote-block" style="border-color:var(--success);">
+        <strong>Los Alamos, 1948-50:</strong> ~150 UAP observations. "Green fireballs" over LANL. FBI memos document multi-agency concern.<br><br>
+        <strong>Kirtland AFB, 1980:</strong> Disk-shaped light at Manzano nuclear weapons storage. Radar jammed for 6 hours. AFOSI documented.<br><br>
+        <strong>George Knapp:</strong> "All of the nuclear facilities - Los Alamos, Livermore, Sandia, Savannah River - all had dramatic incidents."
+      </div>
+      <p>Chavez and Casias both vanished in rural NM, 53 days apart. AFRL Kirtland (which funded Reza's work) collaborates with LANL. Admin staff with clearance often have access to filing systems and document routing - metadata that can be as dangerous as classified content itself.</p>
+    </div>
+  </div>
+
+  <!-- Thread 5 -->
+  <div class="analysis-card" style="border-left: 3px solid #7C3AED;">
+    <h3 style="color:#7C3AED;">Thread 5: The Biosignature Scientists</h3>
+    <div class="body-text">
+      <p>If Grusch's claim of recovered "non-human biologics" is accurate, the scientists best positioned to analyze them would be researchers developing extraterrestrial biosignature detection.</p>
+      <div class="quote-block" style="border-color:#7C3AED;">
+        <strong>Maiwald (JPL, d. Jul 2024):</strong> Submillimeter-wave instruments for Europa/Enceladus plume analysis. 2023 life-detection breakthrough. No autopsy. NASA silent.<br><br>
+        <strong>Grillmair (IPAC, d. Feb 2026):</strong> First exoplanet atmospheric water detection (2007). NASA medal. Shot at dawn. Suspect arrested (carjacking link).
+      </div>
+      <p>Grillmair's case has a suspect, possibly removing it from the pattern. But Maiwald's case remains deeply anomalous: an unexplained death of a life-detection scientist at NASA's most UAP-adjacent laboratory, with institutional silence.</p>
+    </div>
+  </div>
+
+  <!-- Thread 6 -->
+  <div class="analysis-card" style="border-left: 3px solid #EC4899;">
+    <h3 style="color:#EC4899;">Thread 6: The Grusch Framework</h3>
+    <div class="body-text">
+      <p>David Grusch's July 2023 testimony provides the scaffolding connecting all threads. Every category of expertise needed for a crash retrieval program is represented:</p>
+      <div class="quote-block" style="border-color:#EC4899;">
+        <strong>SAP Oversight:</strong> McCasland (Dir. of Special Programs, AFRL Commander)<br>
+        <strong>Materials / Reverse Engineering:</strong> Reza (exotic alloy inventor, ITAR-protected)<br>
+        <strong>Anti-Gravity / Exotic Propulsion:</strong> Li (gravitomagnetic field), Eskridge (Institute for Exotic Science), LeBlanc (nuclear propulsion)<br>
+        <strong>Nuclear/Plasma Physics:</strong> Loureiro (fusion center director), Chavez &amp; Casias (LANL), Garcia (KCNSC nuclear weapons)<br>
+        <strong>Biosignature Detection:</strong> Maiwald (life detection), Grillmair (atmospheric analysis), Hicks (asteroid/comet research)<br>
+        <strong>Intelligence / Witnesses:</strong> Sullivan (NSA/NASIC, Grusch source, died before testimony)<br>
+        <strong>Pharmaceutical/Bio:</strong> Thomas (Novartis, DoD contracts, chemoproteomics)
+      </div>
+      <p>The probability of this exact combination of specialties appearing in a random cluster of deaths and disappearances is worth contemplating.</p>
+    </div>
+  </div>
+
+  <!-- Thread 7 -->
+  <div class="analysis-card" style="border-left: 3px solid #F59E0B;">
+    <h3 style="color:#F59E0B;">Thread 7: The Timeline Tells a Story</h3>
+    <div class="body-text">
+      <table class="tl-table">
+        <tr><td class="date-col">Jul 2021</td><td style="color:var(--danger);">Ning Li dies (Huntsville, anti-gravity physicist)</td></tr>
+        <tr><td class="date-col">Jun 2022</td><td style="color:var(--danger);">Eskridge dies (Huntsville, exotic propulsion). Texted "I did not kill myself."</td></tr>
+        <tr><td class="date-col">Jul 2023</td><td style="color:var(--danger);">Hicks dies (JPL, asteroid research). No cause disclosed.</td></tr>
+        <tr><td class="date-col">Jul 2023</td><td style="color:var(--secondary);">Grusch testifies before Congress on crash retrievals</td></tr>
+        <tr><td class="date-col">May 2024</td><td style="color:var(--danger);">Sullivan dies (USAF intel, Grusch witness). Weeks before scheduled testimony.</td></tr>
+        <tr><td class="date-col">Jul 4, 2024</td><td style="color:var(--danger);">Maiwald dies (JPL, biosignature detection). No autopsy.</td></tr>
+        <tr><td class="date-col">May 4, 2025</td><td style="color:var(--warning);">Chavez vanishes (former LANL employee)</td></tr>
+        <tr><td class="date-col">Jun 22, 2025</td><td style="color:var(--warning);">Reza vanishes (Mondaloy inventor, JPL/AFRL)</td></tr>
+        <tr><td class="date-col">Jun 26, 2025</td><td style="color:var(--danger);">Casias vanishes (LANL admin). 53 days after Chavez.</td></tr>
+        <tr><td class="date-col">Jul 22, 2025</td><td style="color:var(--danger);">LeBlanc dies (NASA, nuclear propulsion). Tesla crash in Huntsville.</td></tr>
+        <tr><td class="date-col">Aug 28, 2025</td><td style="color:var(--warning);">Garcia vanishes (KCNSC, nuclear weapons). Left everything behind.</td></tr>
+        <tr><td class="date-col">Dec 12, 2025</td><td style="color:var(--danger);">Thomas disappears (Novartis, DoD contracts)</td></tr>
+        <tr><td class="date-col">Dec 15, 2025</td><td style="color:var(--danger);">Loureiro murdered (MIT Fusion Center director)</td></tr>
+        <tr><td class="date-col">Feb 16, 2026</td><td style="color:var(--danger);">Grillmair murdered (Caltech IPAC, exoplanet water)</td></tr>
+        <tr class="highlight-row"><td class="date-col" style="color:var(--secondary);font-weight:700;">Feb 20, 2026</td><td style="color:var(--secondary);font-weight:600;">&#9889; Trump signs UFO disclosure directive</td></tr>
+        <tr><td class="date-col" style="font-weight:700;">Feb 27, 2026</td><td style="color:var(--warning);font-weight:600;">McCasland vanishes. 7 days after disclosure order.</td></tr>
+        <tr><td class="date-col">Mar 24, 2026</td><td style="color:var(--secondary);">Burchett confirms intel agencies thwarting investigation</td></tr>
+        <tr class="highlight-row"><td class="date-col" style="color:var(--secondary);font-weight:700;">Apr 20, 2026</td><td style="color:var(--secondary);font-weight:600;">House Oversight sends letters to FBI, DOD, NASA, DOE</td></tr>
+        <tr class="highlight-row"><td class="date-col" style="color:var(--secondary);">May 8, 2026</td><td style="color:var(--secondary);">PURSUE Release 1: 132 declassified UAP files published</td></tr>
+        <tr class="highlight-row"><td class="date-col" style="color:var(--secondary);">May 22, 2026</td><td style="color:var(--secondary);">PURSUE Release 2: 222 documents + 51 videos</td></tr>
+        <tr><td class="date-col">May 26, 2026</td><td>Grillmair suspect Snyder pleads not guilty</td></tr>
+        <tr><td class="date-col">May 28, 2026</td><td style="color:var(--danger);">Casias remains found in Carson National Forest</td></tr>
+        <tr class="highlight-row"><td class="date-col" style="color:var(--secondary);">Jun 11, 2026</td><td style="color:var(--secondary);">Comer &amp; Burlison seek additional briefings</td></tr>
+      </table>
+      <p>Note the acceleration: the pattern spans five years, from Li's death in 2021 through the present. Early cases (Li, Eskridge, Hicks) occurred before Grusch's testimony. Sullivan died weeks before his own scheduled testimony. Then the pace quickens: two in summer 2024-2025, then a cascade of seven cases in the 12 months surrounding the disclosure order. Congress and the FBI are now formally investigating. If you were cleaning a network before records became public, you'd work periphery inward. That is exactly what this expanded timeline shows.</p>
+    </div>
+  </div>
+
+  <!-- Thread 9 -->
+  <div class="analysis-card" style="border-left: 3px solid #0EA5E9;">
+    <h3 style="color:#0EA5E9;">Thread 9: The Congressional Reckoning</h3>
+    <div class="body-text">
+      <p>On April 20, 2026, House Oversight Chairman James Comer and Subcommittee Chair Eric Burlison sent formal letters to FBI Director Kash Patel, Energy Secretary Chris Wright, Defense Secretary Pete Hegseth, and NASA Administrator Jared Isaacman. Burlison stated the cases have "all the hallmarks of a foreign operation." Comer called it a "national security threat." The White House confirmed Trump is "actively working with all relevant agencies and the FBI" to review the cases. This represents the first time the pattern has been formally acknowledged at the highest levels of government.</p>
+    </div>
+  </div>
+
+  <!-- Thread 10 -->
+  <div class="analysis-card" style="border-left: 3px solid #14B8A6;">
+    <h3 style="color:#14B8A6;">Thread 10: PURSUE and the Disclosure Acceleration</h3>
+    <div class="body-text">
+      <p>The PURSUE UAP file drops began May 8, 2026, with ~132 declassified files including photos, videos, and military reports of metallic spheres, flying discs, and glowing orbs. Release 2 on May 22 added ~222 documents and 51 videos. Published on war.gov/UFO. The UAP research community responded: "Data alone is not disclosure." The question hanging over the missing scientists pattern: as more files are released, does the risk to people who know more than what's in the files increase or decrease?</p>
+    </div>
+  </div>
+
+  <!-- Thread 8 -->
+  <div class="analysis-card" style="border-left: 3px solid var(--text-muted);">
+    <h3>Thread 8: The Counterarguments</h3>
+    <div class="body-text">
+      <div class="quote-block" style="border-color:var(--border-strong);">
+        <strong>Grillmair:</strong> Suspect arrested (carjacking). Possibly random.<br>
+        <strong>Loureiro:</strong> Killer was a former academic rival from Portugal. Personal vendetta.<br>
+        <strong>Thomas:</strong> Wife cited personal struggles. Could be suicide/accident.<br>
+        <strong>McCasland:</strong> Has an unspecified "medical issue."<br>
+        <strong>Li:</strong> Elderly, died at 78, family says natural causes.<br>
+        <strong>Eskridge:</strong> Father (ex-NASA) insists nothing suspicious.<br>
+        <strong>Hicks:</strong> No known suspicious circumstances beyond undisclosed cause.<br>
+        <strong>Sullivan:</strong> Accidental overdose. Coroner ruled it accidental.<br>
+        <strong>LeBlanc:</strong> Car accident. Tesla fires are documented.<br>
+        <strong>Garcia:</strong> Police noted possible danger to self.<br>
+        <strong>Selection bias:</strong> Thousands of defense-adjacent scientists exist. Media may be pattern-matching.<br>
+        <strong>Skeptics:</strong> Scientific American, Skeptic Magazine, and Psychology Today published analyses calling this "apophenia" - the tendency to see patterns in unrelated events. Wikipedia classifies it as a conspiracy theory.
+      </div>
+      <p>However, even excluding cases with apparent explanations, the concentration in three geographic clusters (Huntsville, New Mexico, JPL/Pasadena), the identical "left everything behind" pattern, the timing around disclosure milestones, and the fact that Congress and the FBI are formally investigating suggests this goes beyond random coincidence.</p>
+      <p>And the most sophisticated counterargument - that you'd use plausible cover stories like a random carjacking or old academic rival - is also the most paranoid one. If you were running a silencing operation, you'd want exactly two or three cases with "obvious" explanations mixed into the pattern.</p>
+    </div>
+  </div>
+
+  <!-- OPEN QUESTIONS -->
+  <hr class="section-break">
+  <div class="section-title">Open Questions</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-bottom:40px;">
+    <div class="question-card" style="border-left-color:var(--secondary);"><strong>Why no autopsy for Maiwald?</strong><span>A JPL researcher dies and LA County doesn't perform an autopsy? Who made that decision?</span></div>
+    <div class="question-card" style="border-left-color:var(--warning);"><strong>Was Mondaloy derived from conventional R&amp;D alone?</strong><span>Has any FOIA targeted the original 1999 AFRL contract that initiated Reza's superalloy work?</span></div>
+    <div class="question-card" style="border-left-color:var(--danger);"><strong>What were McCasland's "Special Programs"?</strong><span>Has anyone in Congress subpoenaed a list of programs he oversaw?</span></div>
+    <div class="question-card" style="border-left-color:var(--success);"><strong>Why is Burchett being blocked?</strong><span>He confirmed intel agencies are thwarting his investigation. What agencies, under what authority?</span></div>
+    <div class="question-card" style="border-left-color:#7C3AED;"><strong>What happens to the disclosure order?</strong><span>Hegseth said it's not a priority. Will the pattern continue as this unfolds?</span></div>
+    <div class="question-card" style="border-left-color:#EC4899;"><strong>Are there more names?</strong><span>The count went from 6 to 8 in a week. If real, this likely extends beyond what media has uncovered.</span></div>
+    <div class="question-card" style="border-left-color:var(--danger);"><strong>Why did Sullivan die before testifying?</strong><span>He was Grusch's key witness and had a Congressional interview scheduled. The coroner ruled accidental overdose. Who else knew about his scheduled testimony?</span></div>
+    <div class="question-card" style="border-left-color:var(--warning);"><strong>What did LeBlanc's Tesla do at the airport?</strong><span>His car sat at Huntsville International for 4 hours. Where did he go? Did he meet someone? Airport records should exist.</span></div>
+    <div class="question-card" style="border-left-color:#0EA5E9;"><strong>What did the PURSUE files NOT include?</strong><span>Two releases totaling 354+ files. What was withheld? Are files related to the institutions in this network still classified?</span></div>
+    <div class="question-card" style="border-left-color:#14B8A6;"><strong>Will the FBI investigation find connections?</strong><span>The FBI is "spearheading" the review. But if the threat is domestic (SAP protection), would the FBI find it? If foreign, why the nuclear focus?</span></div>
+  </div>
+
+  <!-- GEOGRAPHIC CLUSTER -->
+  <div class="section-title">Geographic Clustering</div>
+
+  <div class="section-heading">The Huntsville Problem</div>
+  <div class="card-elevated" style="padding:24px;margin-bottom:40px;">
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;">Three scientists died in Huntsville, Alabama - America's "Rocket City" - between 2021 and 2025:</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
+      <div class="geo-card" style="background:var(--danger-soft);border:1px solid var(--danger-border);"><div style="font-weight:600;color:var(--danger);margin-bottom:4px;">Ning Li</div><div style="color:var(--text);font-size:13px;">Huntsville, AL</div><div style="color:var(--text-secondary);font-size:12px;">Anti-gravity physicist. Jul 27, 2021.</div></div>
+      <div class="geo-card" style="background:var(--danger-soft);border:1px solid var(--danger-border);"><div style="font-weight:600;color:var(--danger);margin-bottom:4px;">Amy Eskridge</div><div style="color:var(--text);font-size:13px;">Huntsville, AL</div><div style="color:var(--text-secondary);font-size:12px;">Exotic propulsion researcher. Jun 11, 2022.</div></div>
+      <div class="geo-card" style="background:var(--danger-soft);border:1px solid var(--danger-border);"><div style="font-weight:600;color:var(--danger);margin-bottom:4px;">Joshua LeBlanc</div><div style="color:var(--text);font-size:13px;">Florence/Huntsville, AL</div><div style="color:var(--text-secondary);font-size:12px;">Nuclear propulsion engineer. Jul 22, 2025.</div></div>
+      <div class="geo-card" style="background:var(--secondary-soft);border:1px solid var(--secondary-border);"><div style="font-weight:600;color:var(--secondary);margin-bottom:4px;">Huntsville Facility Density</div><div style="color:var(--text);font-size:13px;">Within 20-mile radius:</div><div style="color:var(--text-secondary);font-size:12px;">Marshall Space Flight Center, Redstone Arsenal, MDA, AMCOM, dozens of defense contractors (Boeing, Lockheed, Northrop, Raytheon).</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-top:16px;">Huntsville is home to the highest concentration of engineers per capita in the US. All three worked on propulsion. All three died.</p>
+  </div>
+
+  <div class="section-heading">The New Mexico Problem</div>
+  <div class="card-elevated" style="padding:24px;margin-bottom:40px;">
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;">Four missing/dead in New Mexico:</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;">
+      <div class="geo-card" style="background:var(--warning-soft);border:1px solid var(--warning-border);"><div style="font-weight:600;color:var(--warning);margin-bottom:4px;">Anthony Chavez</div><div style="color:var(--text);font-size:13px;">Los Alamos, NM</div><div style="color:var(--text-secondary);font-size:12px;">Former LANL employee. May 4, 2025.</div></div>
+      <div class="geo-card" style="background:var(--danger-soft);border:1px solid var(--danger-border);"><div style="font-weight:600;color:var(--danger);margin-bottom:4px;">Melissa Casias</div><div style="color:var(--text);font-size:13px;">Talpa (Taos County), NM</div><div style="color:var(--text-secondary);font-size:12px;">LANL admin. Found dead May 2026.</div></div>
+      <div class="geo-card" style="background:var(--warning-soft);border:1px solid var(--warning-border);"><div style="font-weight:600;color:var(--warning);margin-bottom:4px;">Steven Garcia</div><div style="color:var(--text);font-size:13px;">Albuquerque, NM</div><div style="color:var(--text-secondary);font-size:12px;">Nuclear security contractor. Aug 28, 2025.</div></div>
+      <div class="geo-card" style="background:var(--warning-soft);border:1px solid var(--warning-border);"><div style="font-weight:600;color:var(--warning);margin-bottom:4px;">Neil McCasland</div><div style="color:var(--text);font-size:13px;">Albuquerque, NM</div><div style="color:var(--text-secondary);font-size:12px;">Ret. AFRL Commander. Feb 27, 2026.</div></div>
+      <div class="geo-card" style="background:var(--secondary-soft);border:1px solid var(--secondary-border);"><div style="font-weight:600;color:var(--secondary);margin-bottom:4px;">NM Facility Density</div><div style="color:var(--text);font-size:13px;">Within 100-mile radius:</div><div style="color:var(--text-secondary);font-size:12px;">LANL, Sandia, Kirtland AFB, White Sands, Trinity Site, Roswell debris field.</div></div>
+    </div>
+    <p style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-top:16px;">New Mexico: first nuclear detonation (Trinity, 1945), Roswell (1947), green fireballs at LANL (1948-50), Kirtland/Manzano nuclear storage UAP incidents (1980). Four people connected to nuclear/defense work disappeared or died within this corridor.</p>
+  </div>
+
+  <!-- INSTITUTIONS -->
+  <div class="section-title">Institutions in the Network</div>
+  <div class="institutions-grid">
+    <div class="inst-card card"><div class="inst-icon">&#128752;</div><h4>NASA JPL</h4><p>Jet Propulsion Laboratory, Pasadena. Robotic space missions and planetary science.</p><div class="linked">Linked: Maiwald, Hicks, Reza, Grillmair</div></div>
+    <div class="inst-card card"><div class="inst-icon">&#9733;</div><h4>Caltech IPAC</h4><p>Infrared Processing and Analysis Center. NASA telescope data archives.</p><div class="linked">Linked: Grillmair</div></div>
+    <div class="inst-card card"><div class="inst-icon">&#9992;</div><h4>AFRL Kirtland AFB</h4><p>Directed energy, space vehicles, nuclear weapons research. Albuquerque, NM.</p><div class="linked">Linked: Reza (funding), LANL (collaboration)</div></div>
+    <div class="inst-card card"><div class="inst-icon">&#9992;</div><h4>AFRL Wright-Patterson</h4><p>$2.2B+ science/tech portfolio. Project Blue Book. UFO lore.</p><div class="linked">Linked: McCasland, Reza (2011-13)</div></div>
+    <div class="inst-card card"><div class="inst-icon">&#9762;</div><h4>Los Alamos National Lab</h4><p>Birthplace of nuclear weapons. Classified national security research.</p><div class="linked">Linked: Chavez, Casias</div></div>
+    <div class="inst-card card"><div class="inst-icon">&#127891;</div><h4>MIT Plasma Science Center</h4><p>Leading fusion energy and plasma physics research.</p><div class="linked">Linked: Loureiro (director)</div></div>
+    <div class="inst-card card"><div class="inst-icon">&#128640;</div><h4>UAH / Huntsville</h4><p>University of Alabama Huntsville and surrounding Rocket City defense complex.</p><div class="linked">Linked: Li, Eskridge, LeBlanc</div></div>
+    <div class="inst-card card"><div class="inst-icon">&#9762;</div><h4>KCNSC</h4><p>Kansas City National Security Campus. Nuclear weapons components manufacturing and maintenance.</p><div class="linked">Linked: Garcia</div></div>
+    <div class="inst-card card"><div class="inst-icon">&#128373;</div><h4>NSA / NASIC</h4><p>National Security Agency and National Air &amp; Space Intelligence Center.</p><div class="linked">Linked: Sullivan</div></div>
+    <div class="inst-card card"><div class="inst-icon">&#128300;</div><h4>Institute for Exotic Science</h4><p>Huntsville-based experimental propulsion lab co-founded by Eskridge.</p><div class="linked">Linked: Eskridge</div></div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Compiled from publicly reported sources as of June 2026. Deep analysis sections contain speculative hypotheses.<br>
+    Sources: CNN, NBC, ABC, Fox, Al Jazeera, Nature, Scientific American, Time, Newsweek, WikiLeaks, SpaceNews, NewsNation, Caltech, MIT News, Los Alamos Reporter, HISTORY, ABQ Journal, The Sentinel Network, David Grusch Congressional Testimony (Jul 2023), House Oversight Committee, PURSUE/war.gov, PolitiFact, Rolling Stone, Axios, Psychology Today, DefenseScoop</p>
+  </div>
+
+</div>
+
+<script>
+  function filterCards(status) {
+    document.querySelectorAll('.person-card').forEach(c => {
+      c.style.display = (status === 'all' || c.dataset.status === status) ? '' : 'none';
+    });
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+  function scrollToCard(id) {
+    const el = document.getElementById('card-' + id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.style.boxShadow = '0 0 0 2px #8B5CF6';
+      setTimeout(() => { el.style.boxShadow = ''; }, 2500);
+    }
+  }
+</script>
+</body>
+</html>
