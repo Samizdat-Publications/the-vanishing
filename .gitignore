@@ -1,0 +1,90 @@
+# The Vanishing -- repository ignore rules
+
+# ---------------------------------------------------------------
+# Secrets. Never commit these.
+# ---------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.json
+credentials.json
+config.local.*
+api-keys.*
+*_secret*
+*_token*
+.claude/settings.local.json
+
+# ---------------------------------------------------------------
+# OneDrive sync artifacts
+# ---------------------------------------------------------------
+*.tmp
+~$*
+.tmp.drivedownload/
+.tmp.driveupload/
+*-Conflict.*
+*conflicted copy*
+
+# ---------------------------------------------------------------
+# Git lock files. These caused real problems in Aug 2026 when a
+# cloud session created .git/index.lock and could not remove it.
+# ---------------------------------------------------------------
+*.lock
+!package-lock.json
+!yarn.lock
+!pnpm-lock.yaml
+index.lock*
+_to_delete/
+
+# ---------------------------------------------------------------
+# Windows / macOS
+# ---------------------------------------------------------------
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+._*
+
+# ---------------------------------------------------------------
+# Editors
+# ---------------------------------------------------------------
+.vscode/
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------------------------------------------------------------
+# Node, if a v2 build toolchain lands here
+# ---------------------------------------------------------------
+node_modules/
+dist/
+build/
+.next/
+.cache/
+npm-debug.log*
+yarn-error.log*
+
+# ---------------------------------------------------------------
+# Python, for research scripts
+# ---------------------------------------------------------------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ---------------------------------------------------------------
+# Scratch. Working notes that are not part of the record.
+# Named snapshots and FINDINGS files are tracked deliberately.
+# ---------------------------------------------------------------
+scratch/
+_scratch/
+*.draft.md
