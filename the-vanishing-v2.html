@@ -186,7 +186,9 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 .dock>.dock-body{flex:1 1 auto;min-height:0}
 .dock-empty{padding:16px;font-size:11.5px;line-height:1.7;color:var(--text-dim);text-wrap:pretty}
 .dock-empty .eyebrow{margin-bottom:9px;display:block}
-.dock-h{padding:12px 13px;border-bottom:1px solid var(--line)}
+.dock-h{padding:12px 13px;border-bottom:1px solid var(--line);position:relative}
+.dock-close{position:absolute;top:8px;right:10px;font-size:16px;line-height:1;color:var(--text-faint);cursor:pointer}
+.dock-close:hover{color:var(--text)}
 .dock-flag{display:flex;align-items:center;gap:7px;margin-bottom:8px;flex-wrap:wrap}
 .badge{font-size:8.5px;letter-spacing:.11em;padding:2px 6px;border:1px solid;white-space:nowrap}
 .dock-id{display:flex;gap:11px;align-items:flex-start}
@@ -383,8 +385,24 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   .dock.open{transform:none}
 }
 @media (max-width:899px){
-  .body{grid-template-columns:1fr}
-  .rail{display:none}
+  /* Spec 2: the rail becomes a top tab strip. Hiding it outright, which is what
+     the first pass did, left the views and every filter completely unreachable
+     without a keyboard. */
+  .body{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+  .rail{flex-direction:row;display:flex;align-items:stretch;overflow-x:auto;overflow-y:hidden;
+    border-right:none;border-bottom:1px solid var(--line-2)}
+  .rail-sec{padding:0;display:flex;align-items:center;flex:none}
+  .rail-sec>.eyebrow{display:none}
+  #views{display:flex}
+  .rail-item{width:auto;white-space:nowrap;border-left:none;border-bottom:2px solid transparent;padding:9px 11px}
+  .rail-item.on{border-left-color:transparent;border-bottom-color:var(--signal)}
+  .rail-sec:nth-of-type(2){display:none}
+  .rail-scroll{display:flex;align-items:center;gap:0;overflow-x:auto;overflow-y:hidden;
+    padding:5px 8px;flex:1 1 auto;white-space:nowrap;border-left:1px solid var(--line)}
+  .rail-scroll>.eyebrow{display:inline-block;margin:0 7px 0 9px;flex:none}
+  .rail-scroll .chip{margin:0 4px 0 0;flex:none}
+  .rail-reset{margin:0 0 0 8px;flex:none}
+  .dock{width:min(340px,88vw)}
   .an-scroll{max-height:132px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -629,7 +647,7 @@ const PEOPLE = [
     claims: [
       { tier: 1, text: 'No public cause of death, more than two years on.', source: 'Absence of record' },
     ],
-    sources: [],
+    sources: [{ outlet: 'Los Angeles Times', url: 'https://www.latimes.com/politics/story/2026-04-21/fbi-probes-missing-or-dead-scientists-including-four-from-la-area', date: '2026-04-21' }, { outlet: 'Boston Globe', url: 'https://www.bostonglobe.com/2026/04/24/nation/missing-deceased-scientists-investigation/', date: '2026-04-24' }],
   }),
   P_({
     id: 'chavez', label: 'Anthony Chavez', status: 'missing', date: '2025-05-08', age: 78,
@@ -786,7 +804,7 @@ const PEOPLE = [
     claims: [
       { tier: 1, text: 'Middlesex County Medical Examiner found no foul play.', source: 'Middlesex County ME' },
     ],
-    sources: [],
+    sources: [{ outlet: 'Boston Globe', url: 'https://www.bostonglobe.com/2026/04/24/nation/missing-deceased-scientists-investigation/', date: '2026-04-24' }, { outlet: 'CNN', url: 'https://www.cnn.com/2026/04/30/us/missing-scientists-media-conspiracy-theories-cec', date: '2026-04-30' }],
   }),
   P_({
     id: 'loureiro', label: 'Nuno Loureiro', status: 'resolved', date: '2025-12-15', age: 47,
@@ -2011,11 +2029,11 @@ const CMD = {
   selectNode(id){
     const n = NODES.find(x=>x.id===id);
     if (!n) return warn('no entity with id "'+id+'"');
-    S.sel = id; S.tab = 'DOSSIER'; S.path = null;
+    S.sel = id; S.tab = 'DOSSIER'; S.path = null; S.frame = null;
     if (S.view !== 'NETWORK') S.view = 'NETWORK';
     paint({ map:'select' });
   },
-  clearSelection(){ S.sel = null; S.path = null; S.frame = null; paint({ map:'select' }); },
+  clearSelection(){ S.sel = null; S.path = null; S.frame = null; paint({ map:'reset' }); },
   setHops(n){
     n = Math.max(1, Math.min(3, parseInt(n,10)||1));
     S.hops = n; paint({ map:'select' });
@@ -2024,7 +2042,7 @@ const CMD = {
     if (!NODES.some(n=>n.id===from)) return warn('no entity with id "'+from+'"');
     if (!NODES.some(n=>n.id===to))   return warn('no entity with id "'+to+'"');
     S.path = computePath(from, to, hops || 4);
-    S.sel = from; S.view = 'NETWORK';
+    S.sel = null; S.frame = null; S.view = 'NETWORK';
     paint({ map:'select' });
     if (S.path.unreachable) warn('no path found between '+from+' and '+to+' within '+(hops||4)+' hops');
   },
@@ -2051,16 +2069,16 @@ const CMD = {
   },
   focusCluster(c){
     if (!CLUSTERS[c]) return warn('no cluster named "'+c+'"');
-    S.filters = new Set([c]); S.view = 'NETWORK'; S.sel = null;
+    S.filters = new Set([c]); S.view = 'NETWORK'; S.sel = null; S.path = null;
     S.frame = PEOPLE.filter(p=>p.cluster===c).map(p=>p.id);
-    paint({ map:'filter', full:true });
+    paint({ map:'frame', full:true });
   },
   frameNodes(ids){
     if (!Array.isArray(ids)) ids = [ids];
     const good = ids.filter(id=>NODES.some(n=>n.id===id));
     if (!good.length) return warn('none of those ids exist');
-    S.frame = good; S.view = 'NETWORK';
-    paint({ map:'frame', full:true });
+    S.frame = good; S.sel = null; S.path = null; S.view = 'NETWORK';
+    paint({ map:'frame' });
   },
   expandCase(id){
     if (!PEOPLE.some(p=>p.id===id)) return warn('no case with id "'+id+'"');
@@ -2072,8 +2090,19 @@ const CMD = {
     });
   },
   search(q){ S.query = String(q||''); S.view = 'SEARCH'; paint({ full:true }); },
-  showInsight(i){ S.insight = Math.max(0, parseInt(i,10)||0) % INSIGHTS().length; S.insightOpen = true; paint({}); },
-  dismissInsight(){ S.insightOpen = false; paint({}); },
+  showInsight(i){
+    const list = INSIGHTS();
+    if (!list.length) return;
+    S.insight = ((parseInt(i,10)||0) % list.length + list.length) % list.length;
+    S.insightOpen = true;
+    // Stepping to a pattern shows it. Reading about a finding you cannot see on
+    // the map is the failure this callout exists to prevent.
+    S.sel = null; S.path = null;
+    S.frame = list[S.insight].ids.slice();
+    S.view = 'NETWORK';
+    paint({ map:'frame' });
+  },
+  dismissInsight(){ S.insightOpen = false; S.frame = null; paint({ map:'frame' }); },
   setTimelineZoom(z){
     if (!['year','quarter','month'].includes(z)) return warn('zoom must be year, quarter or month');
     S.tlZoom = z; paint({ full:true });
@@ -2175,14 +2204,18 @@ function dominantType(types){
 }
 
 /* --- background shared by every tier -------------------------------------- */
-function drawBase2D(ctx, W, H, nodes){
-  const g = ctx.createLinearGradient(0,0,0,H);
+/* ox/oy are the world coordinates of the top-left of the viewport, so the base
+   and grid still cover the canvas once the camera has panned or zoomed. */
+function drawBase2D(ctx, W, H, nodes, ox, oy){
+  ox = ox || 0; oy = oy || 0;
+  const g = ctx.createLinearGradient(0,oy,0,oy+H);
   g.addColorStop(0,'#161a20'); g.addColorStop(1,'#11141a');
-  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = g; ctx.fillRect(ox,oy,W,H);
   ctx.strokeStyle = 'rgba(59,68,79,0.18)'; ctx.lineWidth = 1;
   ctx.beginPath();
-  for (let x=0;x<W;x+=44){ ctx.moveTo(x,0); ctx.lineTo(x,H); }
-  for (let y=0;y<H;y+=44){ ctx.moveTo(0,y); ctx.lineTo(W,y); }
+  const gx = Math.floor(ox/44)*44, gy = Math.floor(oy/44)*44;
+  for (let x=gx;x<ox+W+44;x+=44){ ctx.moveTo(x,oy); ctx.lineTo(x,oy+H); }
+  for (let y=gy;y<oy+H+44;y+=44){ ctx.moveTo(ox,y); ctx.lineTo(ox+W,y); }
   ctx.stroke();
   const tints = { california:'94,212,230', 'new-mexico':'239,181,85', huntsville:'167,149,232' };
   for (const [key,tint] of Object.entries(tints)){
@@ -2314,7 +2347,8 @@ function makeGL2Edges(canvas){
 
   return {
     kind:'webgl2',
-    draw(insts, W, H, dpr){
+    draw(insts, W, H, dpr, cam){
+      const K = cam ? cam.k : 1, CX = cam ? cam.x : 0, CY = cam ? cam.y : 0;
       const bw = Math.round(W*dpr), bh = Math.round(H*dpr);
       if (canvas.width !== bw || canvas.height !== bh){ canvas.width = bw; canvas.height = bh; }
       gl.viewport(0,0,canvas.width,canvas.height);
@@ -2327,11 +2361,15 @@ function makeGL2Edges(canvas){
         for (const e of insts){
           if (e.alpha <= 0.005) continue;
           if (pass === 0 && !e.glow) continue;
-          const w = pass === 0 ? e.width + e.glow*0.55 : e.width;
+          const w = (pass === 0 ? e.width + e.glow*0.55 : e.width) * K;
           const a = pass === 0 ? e.alpha * 0.16 : e.alpha;
           const c = hex2rgb(e.color);
           for (let i=1;i<e.pts.length;i++){
-            rows.push([e.pts[i-1][0]*dpr, e.pts[i-1][1]*dpr, e.pts[i][0]*dpr, e.pts[i][1]*dpr, w*dpr, a, c[0],c[1],c[2]]);
+            rows.push([
+              (e.pts[i-1][0]*K + CX)*dpr, (e.pts[i-1][1]*K + CY)*dpr,
+              (e.pts[i][0]  *K + CX)*dpr, (e.pts[i][1]  *K + CY)*dpr,
+              w*dpr, a, c[0],c[1],c[2],
+            ]);
           }
         }
       }
@@ -2425,7 +2463,8 @@ async function makeWebGPUEdges(canvas){
 
   return {
     kind:'webgpu',
-    draw(insts, W, H, dpr){
+    draw(insts, W, H, dpr, cam){
+      const K = cam ? cam.k : 1, CX = cam ? cam.x : 0, CY = cam ? cam.y : 0;
       const bw = Math.round(W*dpr), bh = Math.round(H*dpr);
       if (canvas.width !== bw || canvas.height !== bh){ canvas.width = bw; canvas.height = bh; }
       const rows = [];
@@ -2433,11 +2472,15 @@ async function makeWebGPUEdges(canvas){
         for (const e of insts){
           if (e.alpha <= 0.005) continue;
           if (pass === 0 && !e.glow) continue;
-          const w = pass === 0 ? e.width + e.glow*0.55 : e.width;
+          const w = (pass === 0 ? e.width + e.glow*0.55 : e.width) * K;
           const a = pass === 0 ? e.alpha * 0.16 : e.alpha;
           const c = hex2rgb(e.color);
           for (let i=1;i<e.pts.length;i++){
-            rows.push([e.pts[i-1][0]*dpr, e.pts[i-1][1]*dpr, e.pts[i][0]*dpr, e.pts[i][1]*dpr, w*dpr, a, c[0],c[1],c[2]]);
+            rows.push([
+              (e.pts[i-1][0]*K + CX)*dpr, (e.pts[i-1][1]*K + CY)*dpr,
+              (e.pts[i][0]  *K + CX)*dpr, (e.pts[i][1]  *K + CY)*dpr,
+              w*dpr, a, c[0],c[1],c[2],
+            ]);
           }
         }
       }
@@ -2500,6 +2543,10 @@ function mountNetwork(host){
   let W=0,H=0,dpr=1,sim=null,pairs=[],raf=null,dead=false;
   let hover=null, edgeLayer=null, tier=detectTier(), t0=performance.now();
   let frames=0, fpsT=performance.now(), fps=0;
+  // Camera. World coordinates are what the layout produces; screen = world*k + offset.
+  // cam is where we are, camTo is where we are going. Nodes never jump, so every
+  // reframe interpolates rather than snapping.
+  const cam = { x:0, y:0, k:1 }, camTo = { x:0, y:0, k:1 };
 
   const badge = document.createElement('div');
   badge.className = 'rmode';
@@ -2537,8 +2584,13 @@ function mountNetwork(host){
     return ok;
   }
 
-  function hitTest(mx,my){
+  /* Screen to world, so hit testing keeps working at any zoom. */
+  function toWorld(sx, sy){ return [ (sx - cam.x) / cam.k, (sy - cam.y) / cam.k ]; }
+
+  function hitTest(sx,sy){
+    const [mx,my] = toWorld(sx,sy);
     let best=null, bd=1e9;
+    const tol = 260 / (cam.k*cam.k);
     for (const n of nodes){
       if (n.alpha < 0.05) continue;
       if (n.cls === 'person'){
@@ -2546,16 +2598,41 @@ function mountNetwork(host){
         if (Math.abs(mx-n.x) < hw && Math.abs(my-n.y) < 20) return n;
       } else {
         const d = (mx-n.x)**2 + (my-n.y)**2;
-        if (d < 260 && d < bd){ bd = d; best = n; }
+        if (d < tol && d < bd){ bd = d; best = n; }
       }
     }
     return best;
   }
 
+  /* Zoom and pan so exactly these nodes fill the canvas, with room for the
+     plates and the callout. Sets the target; the draw loop eases into it. */
+  function frameTo(ids){
+    const set = new Set(ids || []);
+    const pts = nodes.filter(n => set.has(n.id));
+    if (!pts.length) return;
+    let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+    for (const n of pts){
+      const hw = n.cls==='person' ? (n.photo?132:100)/2 + 14 : 46;
+      const hh = n.cls==='person' ? 34 : 30;
+      x0=Math.min(x0,n.x-hw); x1=Math.max(x1,n.x+hw);
+      y0=Math.min(y0,n.y-hh); y1=Math.max(y1,n.y+hh);
+    }
+    const padL = 24, padR = 24, padT = 58, padB = 150; // hop buttons above, callout below
+    const availW = Math.max(120, W - padL - padR), availH = Math.max(120, H - padT - padB);
+    const k = Math.max(0.45, Math.min(2.2, Math.min(availW/(x1-x0||1), availH/(y1-y0||1))));
+    camTo.k = k;
+    camTo.x = padL + availW/2 - ((x0+x1)/2) * k;
+    camTo.y = padT + availH/2 - ((y0+y1)/2) * k;
+  }
+  function resetCam(){ camTo.k = 1; camTo.x = 0; camTo.y = 0; }
+
+  /* Precedence: an explicit path beats a selection, a selection beats a framed
+     highlight. All three dim everything outside the set. */
   function activeSet(){
     if (S.path) return S.path.ids;
-    if (!S.sel) return null;
-    return neighborhood(sim.links, S.sel, S.hops);
+    if (S.sel) return neighborhood(sim.links, S.sel, S.hops);
+    if (S.frame && S.frame.length) return new Set(S.frame);
+    return null;
   }
 
   function draw(){
@@ -2575,6 +2652,12 @@ function mountNetwork(host){
     }
     if (sim.alpha > 0.061) sim.step();
 
+    // Ease the camera. Nodes never jump; a reframe interpolates like any other
+    // layout change, so the reader keeps track of what moved where.
+    cam.k += (camTo.k - cam.k) * 0.12;
+    cam.x += (camTo.x - cam.x) * 0.12;
+    cam.y += (camTo.y - cam.y) * 0.12;
+
     // filtered-out nodes animate to alpha 0 over --t-layout, then stop being hit tested
     const vis = visibleSet();
     for (const n of nodes){
@@ -2590,15 +2673,18 @@ function mountNetwork(host){
 
     // Bottom layer: base, grid and cluster wells. Opaque, and never on top.
     bctx.save(); bctx.scale(dpr,dpr);
-    drawBase2D(bctx, W, H, nodes);
+    bctx.fillStyle = '#11141a'; bctx.fillRect(0,0,W,H);   // cover the area the camera pans off
+    bctx.translate(cam.x, cam.y); bctx.scale(cam.k, cam.k);
+    drawBase2D(bctx, W/cam.k, H/cam.k, nodes, -cam.x/cam.k, -cam.y/cam.k);
     if (!edgeLayer) drawEdges2D(bctx, insts, t);   // floor tier draws edges here too
     bctx.restore();
 
     ctx.save();
     ctx.scale(dpr,dpr);
     ctx.clearRect(0,0,W,H);
+    ctx.translate(cam.x, cam.y); ctx.scale(cam.k, cam.k);
     if (edgeLayer){
-      try { edgeLayer.draw(insts, W, H, dpr); }
+      try { edgeLayer.draw(insts, W, H, dpr, cam); }
       catch(e){
         edgeLayer = null; gpuCanvas.style.display = 'none';
         badge.textContent = 'RENDERER canvas2d (gpu lost)';
@@ -2615,7 +2701,7 @@ function mountNetwork(host){
       if (hover && hover.id === n.id && st !== 'selected') st = 'hover';
       ctx.save();
       ctx.globalAlpha = n.alpha;
-      drawNode(ctx, n, { scale:1, state:st });
+      drawNode(ctx, n, { scale:cam.k, state:st });
       ctx.restore();
     }
     ctx.restore();
@@ -2681,17 +2767,11 @@ function mountNetwork(host){
     get pairs(){ return pairs; },
     get nodes(){ return nodes; },
     get links(){ return sim.links; },
-    frame(ids){
-      // Pull the named nodes toward the centre so they fill the canvas.
-      const set = new Set(ids);
-      const targets = nodes.filter(n=>set.has(n.id));
-      if (!targets.length) return;
-      const cx = targets.reduce((s,n)=>s+n.x,0)/targets.length;
-      const cy = targets.reduce((s,n)=>s+n.y,0)/targets.length;
-      const ox = W/2 - cx, oy = H/2 - cy;
-      for (const n of nodes){ n.x += ox*0.9; n.y += oy*0.9; }
-      sim.alpha = Math.max(sim.alpha, 0.35);
-    },
+    /* Zoom and pan so exactly these nodes fill the canvas. The layout is not
+       disturbed: moving the nodes to fake a reframe would destroy the spatial
+       memory the reader has built, so the camera moves instead. */
+    frame(ids){ frameTo(ids); },
+    resetCamera(){ resetCam(); },
     destroy(){
       dead = true; cancelAnimationFrame(raf);
       if (ro) ro.disconnect();
@@ -2758,11 +2838,23 @@ function meters(p){
 function paint(opts){
   opts = opts || {};
   renderStats(); renderRail(); renderSurface(opts); renderDock(); renderAnalystChrome();
-  if (S.view === 'NETWORK' && MAP && opts.map === 'frame' && S.frame) MAP.frame(S.frame);
+  if (S.view === 'NETWORK' && MAP){
+    if (opts.map === 'frame' && S.frame && S.frame.length) MAP.frame(S.frame);
+    else if (opts.map === 'frame' || opts.map === 'reset') MAP.resetCamera();
+    else if (opts.map === 'select' && S.path && S.path.ids) MAP.frame([...S.path.ids]);
+  }
   writeUrl();
 }
 
 /* --- 6.1 stats strip ------------------------------------------------------- */
+/* Derived, never typed. A hardcoded span goes stale the moment a case is added,
+   and a stale number in the stats strip is the first thing a hostile reader
+   checks. */
+function spanMonths(){
+  const ds = PEOPLE.map(p=>p.date).filter(Boolean).sort();
+  if (!ds.length) return '0';
+  return String(Math.round((new Date(ds[ds.length-1]) - new Date(ds[0])) / 86400000 / 30.44));
+}
 function renderStats(){
   const P = visiblePeople();
   const k = [
@@ -2771,7 +2863,7 @@ function renderStats(){
     ['MISSING', P.filter(p=>p.status==='missing').length, '', 'var(--missing)'],
     ['TIER A', P.filter(p=>p.tier==='A').length, 'load-bearing', 'var(--signal)'],
     ['I3 CHANNEL', P.filter(p=>p.I===3).length, 'FFRDC / lab', 'var(--institution)'],
-    ['SPAN', '57', 'months', 'var(--text)'],
+    ['SPAN', spanMonths(), 'months', 'var(--text)'],
   ];
   $('#stats').innerHTML =
     k.map(([l,v,u,c])=>'<div class="kpi"><div class="kpi-l">'+l+'</div><div class="kpi-v"><b style="color:'+c+'">'+v+'</b><i>'+u+'</i></div></div>').join('')
@@ -2783,10 +2875,14 @@ function renderStats(){
 
 /* --- rail ------------------------------------------------------------------ */
 function renderRail(){
+  const compact = window.matchMedia('(max-width:899px)').matches;
   $('#views').innerHTML = VIEWS.map(v=>{
     const n = v==='CASES' ? visiblePeople().length : v==='TIMELINE' ? TIMELINE.length : '';
-    return '<button class="rail-item'+(S.view===v?' on':'')+'" data-view="'+v+'">'
-      + leader(VIEW_LABEL[v], n===''?'':String(n), 22) + '</button>';
+    // Dot leaders read as noise once the rail is a horizontal strip.
+    const body = compact
+      ? esc(VIEW_LABEL[v]) + (n===''?'':' <span style="color:var(--text-faint)">'+n+'</span>')
+      : leader(VIEW_LABEL[v], n===''?'':String(n), 22);
+    return '<button class="rail-item'+(S.view===v?' on':'')+'" data-view="'+v+'">'+body+'</button>';
   }).join('');
 
   const sel = S.sel ? NODES.find(n=>n.id===S.sel) : null;
@@ -2829,7 +2925,7 @@ function INSIGHTS(){
     const inst = INSTITUTIONS.find(i=>i.id===bi[0]);
     out.push({
       eyebrow:'INSTITUTIONAL OVERLAP · COMPUTED',
-      text: (inst?inst.label:bi[0])+' accounts for '+bi[1]+' of '+PEOPLE.length+' cases, and ten of fifteen sit at I3. Read that in both directions: it supports the argument that these people worked inside institutions with real classified channels, and it reflects that FFRDCs and national labs employ tens of thousands, which is the denominator problem the base-rate analysis raises.',
+      text: (inst?inst.label:bi[0])+' accounts for '+bi[1]+' of '+PEOPLE.length+' cases, and '+PEOPLE.filter(x=>x.I===3).length+' of '+PEOPLE.length+' sit at I3. Read that in both directions: it supports the argument that these people worked inside institutions with real classified channels, and it reflects that FFRDCs and national labs employ tens of thousands, which is the denominator problem the base-rate analysis raises.',
       ids: PEOPLE.filter(p=>p.instId===bi[0]).map(p=>p.id).concat(bi[0]),
     });
   }
@@ -2852,11 +2948,17 @@ function INSIGHTS(){
 }
 
 /* --- view surface ---------------------------------------------------------- */
+let mountedView = null;
 function renderSurface(opts){
   const host = $('#surface');
-  const leavingNetwork = S.view !== 'NETWORK' && MAP;
-  if (leavingNetwork){ MAP.destroy(); MAP = null; }
-  if (!opts.full && S.view === 'NETWORK' && MAP){ renderNetworkChrome(); return; }
+  // NETWORK is stateful: it owns a layout, a camera and a running draw loop.
+  // Wiping the host without destroying the controller leaves an orphaned
+  // requestAnimationFrame drawing into a detached canvas forever, and rebuilds
+  // the layout from scratch, which is why the map appeared to ignore commands.
+  // Never re-mount it while it is alive and still the current view.
+  if (S.view === 'NETWORK' && MAP && mountedView === 'NETWORK'){ renderNetworkChrome(); return; }
+  if (MAP){ MAP.destroy(); MAP = null; }
+  mountedView = S.view;
   host.innerHTML = '';
   const v = el('div','view'+(S.view==='NETWORK'?'':' pad'));
   host.appendChild(v);
@@ -2879,7 +2981,11 @@ function renderNetworkChrome(){
   const ins = INSIGHTS(); const cur = ins[S.insight % Math.max(1,ins.length)];
   let h = '<div class="hops">'
     + [1,2,3].map(n=>'<button class="hopb'+(S.hops===n&&S.sel?' on':'')+'" data-hops="'+n+'">'+n+' hop'+(n>1?'s':'')+'</button>').join('')
-    + '<button class="hopb" data-clear="1">clear</button></div>';
+    + '<button class="hopb" data-clear="1">clear</button>'
+    // Without this the dismiss X is a one-way door and the computed patterns
+    // become unreachable except by typing a command.
+    + (S.insightOpen ? '' : '<button class="hopb" data-reopen="1">patterns</button>')
+    + '</div>';
   if (cur && S.insightOpen){
     h += '<div class="callout"><div class="callout-h"><span class="eyebrow">'+esc(cur.eyebrow)+'</span>'
       + '<span class="spacer"></span><span class="callout-x" data-dismiss="1">&times;</span></div>'
@@ -2887,7 +2993,8 @@ function renderNetworkChrome(){
       + '<div class="callout-a"><button class="mini" data-show="1">Show me on the map</button>'
       + '<button class="mini" data-next="1">Next pattern</button></div></div>';
   }
-  h += '<div class="legend'+(S.sel?' on':'')+'"><div class="eyebrow">Connection types</div>'
+  const hasActive = !!(S.sel || S.path || (S.frame && S.frame.length));
+  h += '<div class="legend'+(hasActive?' on':'')+'"><div class="eyebrow">Connection types</div>'
     + ALL_EDGE_TYPES.map(t=>'<div class="legend-row'+(S.edgeTypes.has(t)?'':' off')+'" data-edge="'+t+'">'
       + '<span class="legend-sw" style="border-top-color:'+EDGE_TYPES[t].color+'"></span>'+esc(EDGE_TYPES[t].label)+'</div>').join('')
     + '</div>';
@@ -3178,6 +3285,13 @@ function renderDock(){
   const n = NODES.find(x=>x.id===S.sel);
   if (!n){ d.innerHTML = '<div class="dock-empty">Entity not found.</div>'; return; }
   d.innerHTML = (n.cls === 'person') ? personDock(n) : otherDock(n);
+  // Below 1180px the dock slides in over the view surface. Escape closes it, but
+  // a pointer-only user needs a visible way out.
+  if (window.matchMedia('(max-width:1179px)').matches){
+    const x = el('span','dock-close','&times;');
+    x.setAttribute('data-clear','1');
+    d.querySelector('.dock-h').appendChild(x);
+  }
 }
 
 function personDock(p){
@@ -3541,7 +3655,7 @@ function scriptedReply(q){
    ========================================================================= */
 document.addEventListener('click', (ev) => {
   const t = ev.target.closest('[data-view],[data-filter],[data-edge],[data-hops],[data-clear],'
-    + '[data-dismiss],[data-show],[data-next],[data-goto],[data-expand],[data-tab],[data-cmd],'
+    + '[data-dismiss],[data-reopen],[data-show],[data-next],[data-goto],[data-expand],[data-tab],[data-cmd],'
     + '[data-sugg],[data-model],[data-effort],[data-frame],[data-tlzoom],[data-tltrack],#resetf');
   if (!t) return;
   const d = t.dataset;
@@ -3556,6 +3670,7 @@ document.addEventListener('click', (ev) => {
   if (d.hops)                return CMD.setHops(d.hops);
   if (d.clear)               return CMD.clearSelection();
   if (d.dismiss)             return CMD.dismissInsight();
+  if (d.reopen)              return CMD.showInsight(S.insight);
   if (d.next)                return CMD.showInsight(S.insight + 1);
   if (d.show){
     const ins = INSIGHTS()[S.insight % Math.max(1, INSIGHTS().length)];
@@ -3612,6 +3727,13 @@ document.addEventListener('keydown', e => {
   const n = parseInt(e.key, 10);
   if (n >= 1 && n <= 7) CMD.setView(VIEWS[n-1]);
 });
+
+/* the rail switches between a vertical list and a horizontal tab strip */
+if (window.matchMedia){
+  const mq = window.matchMedia('(max-width:899px)');
+  const onMq = () => paint({ full:true });
+  mq.addEventListener ? mq.addEventListener('change', onMq) : mq.addListener(onMq);
+}
 
 /* the timeline restacks below 820px of surface width, measured on the surface */
 if (typeof ResizeObserver !== 'undefined'){
