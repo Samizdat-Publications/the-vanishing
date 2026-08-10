@@ -88,3 +88,6 @@ venv/
 scratch/
 _scratch/
 *.draft.md
+
+# QA screenshots, regenerated on demand
+.qa/
