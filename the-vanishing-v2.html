@@ -249,7 +249,15 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 .link-why{font-size:10px;line-height:1.55;color:var(--text-dim);text-wrap:pretty}
 
 /* --- 6.3 Case cards ------------------------------------------------------- */
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:11px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:11px;align-items:start}
+/* An expanded card carries the narrative, the chain and the sources. Left in a
+   268px column it squeezes the chain to a ribbon and leaves the rest of its grid
+   row empty, so it takes the full row instead. */
+.card.open{grid-column:1/-1}
+.card.open .card-in{max-width:none}
+.card.open .card-body{columns:2;column-gap:26px;column-fill:balance}
+.card.open .card-body>*{break-inside:avoid}
+@media (max-width:1100px){ .card.open .card-body{columns:1} }
 .card{background:var(--panel-2);border:1px solid var(--line-2);position:relative;overflow:hidden}
 .card-face{display:flex;gap:0;cursor:pointer}
 .card-stripe{width:3px;flex:none}
@@ -3102,7 +3110,7 @@ function viewCases(v){
 function caseCard(p){
   const open = S.expanded.has(p.id);
   const c = tierColor(p.tier);
-  let h = '<div class="card" id="card-'+p.id+'">'
+  let h = '<div class="card'+(open?' open':'')+'" id="card-'+p.id+'">'
     + '<div class="card-face" data-expand="'+p.id+'"><div class="card-stripe" style="background:'+statusColor(p.status)+'"></div>'
     + '<div class="card-in">'
     + (p.photo ? '<div class="card-ph" style="background-image:url(\''+p.photo+'\')"></div>' : '')
@@ -3426,10 +3434,29 @@ const MODELS = [
   { id:'claude-opus-5', label:'Claude Opus 5', note:'Genuinely hard comparative questions, such as whether an overlap survives a base-rate objection.' },
 ];
 const EFFORTS = [
-  { id:'instant',  label:'Instant',  note:'No thinking budget. Map commands stay instant; comparative answers get shallower.' },
-  { id:'balanced', label:'Balanced', note:'Default. A short thinking budget on questions that need it and none on map commands, which keeps driving the interface instant while still reasoning properly across cases.' },
-  { id:'deep',     label:'Deep',     note:'A long thinking budget on every turn. Slower, and worth it when the question is whether the data actually supports a reading.' },
+  { id:'instant',  label:'Instant',  note:'No extended thinking at all. Map commands stay instant; comparative answers get shallower.' },
+  { id:'balanced', label:'Balanced', note:'Default. Adaptive thinking at medium effort, so the model spends reasoning on questions that need it and none on map commands. That keeps driving the interface instant while still reasoning properly across cases.' },
+  { id:'deep',     label:'Deep',     note:'Adaptive thinking at high effort. Slower, and worth it when the question is whether the data actually supports a reading.' },
 ];
+
+/* Model capability table. Verified against the live API on August 10 2026, not
+   assumed. Sonnet 5 and Opus 5 take thinking.type "adaptive" plus
+   output_config.effort. The older thinking.type "enabled" with budget_tokens is
+   rejected outright by both. Haiku 4.5 supports NEITHER adaptive thinking nor
+   the effort parameter and 400s if you send either, so it gets neither. */
+const MODEL_CAPS = {
+  'claude-sonnet-5':            { effort:true },
+  'claude-opus-5':              { effort:true },
+  'claude-haiku-4-5-20251001':  { effort:false,
+    why:'Haiku 4.5 does not support extended thinking or the effort parameter. Reasoning effort is ignored while it is selected.' },
+};
+function modelCaps(id){ return MODEL_CAPS[id] || { effort:false, why:'Unknown model. Sending no thinking parameters, which every model accepts.' }; }
+function applyEffort(body, model, effort){
+  if (!modelCaps(model).effort) return;              // sending either field would 400
+  if (effort === 'instant') return;                  // no thinking is a valid, fast state
+  body.thinking = { type:'adaptive' };
+  body.output_config = { effort: effort === 'deep' ? 'high' : 'medium' };
+}
 const SUGGESTIONS = [
   'What connects Sullivan to the Congressional investigation?',
   'Is the JPL overlap meaningful or just base rate?',
@@ -3453,7 +3480,7 @@ function renderAnalystChrome(){
     st.classList.add('warn');
     st.textContent = 'no API key configured -- running scripted replies. The dashboard stays fully usable by hand.';
   } else {
-    st.textContent = 'ready · key stored in this browser · ' + S.model + ' · ' + S.effort;
+    st.textContent = 'ready · key stored in this browser · ' + S.model + (modelCaps(S.model).effort ? ' · ' + S.effort : ' · effort not supported');
   }
   $('#keybtn').textContent = S.hasKey ? 'API key set' : 'Set API key';
   $('#antoggle').textContent = S.anOpen ? 'Collapse' : 'Expand';
@@ -3485,8 +3512,12 @@ function renderSettings(){
   $('#models').innerHTML = MODELS.map(m=>'<div class="opt'+(S.model===m.id?' on':'')+'" data-model="'+m.id+'">'
     + '<div class="opt-h"><b>'+esc(m.label)+'</b><i>'+esc(m.id)+'</i></div>'
     + '<div class="opt-n">'+esc(m.note)+'</div></div>').join('');
-  $('#efforts').innerHTML = EFFORTS.map(e=>'<button class="'+(S.effort===e.id?'on':'')+'" data-effort="'+e.id+'">'+esc(e.label)+'</button>').join('');
-  $('#effortnote').textContent = (EFFORTS.find(e=>e.id===S.effort)||EFFORTS[1]).note;
+  const caps = modelCaps(S.model);
+  $('#efforts').innerHTML = EFFORTS.map(e=>'<button class="'+(S.effort===e.id?'on':'')+'" data-effort="'+e.id+'"'
+    + (caps.effort?'':' style="opacity:.45"')+'>'+esc(e.label)+'</button>').join('');
+  $('#effortnote').innerHTML = caps.effort
+    ? esc((EFFORTS.find(e=>e.id===S.effort)||EFFORTS[1]).note)
+    : '<span style="color:var(--missing)">'+esc(caps.why)+'</span>';
   const ks = $('#keystate');
   ks.textContent = S.keyState;
   ks.style.color = /saved|removed/.test(S.keyState) ? 'var(--program)' : 'var(--missing)';
@@ -3549,15 +3580,14 @@ async function askAnalyst(text){
   S.anBusy = true; renderAnalystChrome();
   const turn = { role:'ANALYST', text:'', thinking:true, actions:[], cites:[] };
   S.turns.push(turn); renderTranscript();
-  const budget = { instant:0, balanced:2000, deep:10000 }[S.effort] ?? 2000;
   const body = {
     model: S.model,
-    max_tokens: 2000 + budget,
+    max_tokens: 4000,
     system: SYSTEM_PROMPT(),
     messages: S.turns.filter(t=>t.text && !t.err).slice(-10).map(t=>({
       role: t.role==='YOU' ? 'user' : 'assistant', content: t.text })).concat([{ role:'user', content:text }]),
   };
-  if (budget > 0) body.thinking = { type:'enabled', budget_tokens: budget };
+  applyEffort(body, S.model, S.effort);
   try {
     const r = await fetch('https://api.anthropic.com/v1/messages', {
       method:'POST',
