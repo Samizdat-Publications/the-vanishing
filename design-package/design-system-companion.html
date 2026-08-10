@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0f1216; }
+  * { box-sizing: border-box; }
+  a { color: #5ed4e6; text-decoration: none; border-bottom: 1px solid rgba(94,212,230,0.28); }
+  a:hover { color: #9ae6f2; border-bottom-color: #9ae6f2; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-thumb { background: #2e3a44; border-radius: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+</style>
+</helmet>
+<div style="width: 100%; min-height: 100%; background: #0f1216; font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #e6e9ee; text-shadow: 0 0 7px rgba(94,212,230,0.06); position: relative;">
+  <div style="position: fixed; inset: 0; z-index: 40; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.13) 3px, rgba(0,0,0,0) 4px); opacity: 0.45;"></div>
+
+  <div style="max-width: 1120px; margin: 0 auto; padding: 44px 34px 90px; display: grid; gap: 42px;">
+
+    <div style="display: grid; gap: 12px; padding-bottom: 24px; border-bottom: 1px solid #262e36;">
+      <div style="display: flex; align-items: center; gap: 11px;">
+        <span style="font-size: 9px; letter-spacing: 0.14em; white-space: nowrap; color: #5ed4e6; border: 1px solid rgba(94,212,230,0.35); padding: 3px 7px;">DESIGN SYSTEM</span>
+        <span style="font-size: 9.5px; color: #5c6672;">Samizdat-Publications / the-vanishing</span>
+      </div>
+      <div style="font-size: 30px; font-weight: 600; letter-spacing: -0.01em;">The Vanishing v2</div>
+      <div style="font-size: 12.5px; line-height: 1.65; color: #b9c2cd; max-width: 700px; text-wrap: pretty;">Every value here is literal and implementable. Prose companion: <span style="color: #dfe4ea;">DESIGN-SYSTEM.md</span>. Applied target: <span style="color: #dfe4ea;">The Vanishing v2 - Reference Mockup.dc.html</span>. Working graph engine: <span style="color: #dfe4ea;">vanishing-graph.js</span>.</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px;">
+        <sc-for list="{{ decisions }}" as="d" hint-placeholder-count="7">
+          <span style="font-size: 9.5px; padding: 4px 9px; border: 1px solid #262e36; background: #141920; color: #8d97a4; white-space: nowrap;"><span style="color: #5c6672;">{{ d.k }} </span>{{ d.v }}</span>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 15px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">01 &#183; COLOUR</div>
+      <div style="font-size: 12px; line-height: 1.65; color: #b9c2cd; max-width: 700px; text-wrap: pretty;">One cold graphite ramp for neutrals. Accents sit at matched lightness and chroma and vary only in hue, so no category shouts over another. Status colour touches exactly two surfaces per person: the plate stripe and the badge, never a fill behind text.</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(156px, 1fr)); gap: 1px; background: #1d242b; border: 1px solid #262e36;">
+        <sc-for list="{{ colors }}" as="c" hint-placeholder-count="16">
+          <div style="background: #12171d;">
+            <div style="height: 44px; background: {{ c.hex }}; border-bottom: 1px solid #1d242b;"></div>
+            <div style="padding: 8px 10px; display: grid; gap: 3px;">
+              <div style="font-size: 10px; color: #dfe4ea;">{{ c.token }}</div>
+              <div style="font-size: 9.5px; color: #5c6672;">{{ c.hex }}</div>
+              <div style="font-size: 9.5px; color: #8d97a4; line-height: 1.45;">{{ c.use }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 15px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">02 &#183; TYPE</div>
+      <div style="font-size: 12px; line-height: 1.65; color: #b9c2cd; max-width: 700px; text-wrap: pretty;">IBM Plex Mono at 400 / 500 / 600, and nothing else. A single mono face across the whole product is the main reason it reads as an instrument rather than a page. Nothing a user must read falls below 10px.</div>
+      <div style="border: 1px solid #262e36; background: #141920;">
+        <sc-for list="{{ typeScale }}" as="t" hint-placeholder-count="10">
+          <div style="display: grid; grid-template-columns: 158px 1fr 150px; gap: 16px; align-items: baseline; padding: 11px 14px; border-bottom: 1px solid #1d242b;">
+            <span style="font-size: 9.5px; color: #5c6672;">{{ t.role }}</span>
+            <span style="font-size: {{ t.px }}; font-weight: {{ t.weight }}; letter-spacing: {{ t.tracking }}; color: #e6e9ee;">{{ t.sample }}</span>
+            <span style="font-size: 9.5px; color: #8d97a4; text-align: right;">{{ t.spec }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="border: 1px solid #262e36; background: #141920; padding: 13px 15px;">
+        <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 9px;">DOT LEADER ROWS &#183; THE DENSITY WORKHORSE</div>
+        <div style="display: grid; gap: 3px;">
+          <sc-for list="{{ leaders }}" as="l" hint-placeholder-count="5">
+            <div style="font-size: 10.5px; white-space: pre; color: {{ l.color }};">{{ l.row }}</div>
+          </sc-for>
+        </div>
+        <div style="font-size: 10.5px; line-height: 1.6; color: #8d97a4; margin-top: 11px; text-wrap: pretty;">A key, a dot fill, a value, in one white-space:pre element at a fixed character width. Two aligned columns with no table and no alignment CSS. Absent values print as absent, never as blank or zero. Widths in use: 22 rail, 37 connections, 38 record, 40 case rows, 46 geography, 52 left-behind &#8212; each set to the widest leader that fits its column at 10px, since an over-wide leader clips rather than wraps.</div>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 15px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">03 &#183; NODES</div>
+      <div style="font-size: 12px; line-height: 1.65; color: #b9c2cd; max-width: 700px; text-wrap: pretty;">A person is a dossier plate: status stripe hard left, surname-first so fourteen plates stay scannable. The plate is 100 &#215; 40 by default and widens to 132 only when a real portrait exists to fill the slot &#8212; an empty box would spend 32px saying nothing. Other classes are small marks whose shape carries the class.</div>
+      <div style="border: 1px solid #262e36; background: #141920;">
+        <canvas ref="{{ nodeCanvas }}" style="display: block; width: 100%; height: 206px;"></canvas>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 11px;">
+        <sc-for list="{{ nodeStates }}" as="n" hint-placeholder-count="6">
+          <div style="border: 1px solid #262e36; background: #141920; padding: 11px 13px;">
+            <div style="font-size: 10px; color: #dfe4ea; margin-bottom: 4px;">{{ n.label }}</div>
+            <div style="font-size: 10px; line-height: 1.55; color: #8d97a4; text-wrap: pretty;">{{ n.spec }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 15px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">04 &#183; EDGES &#183; CIRCUIT ROUTING, STRENGTH, FLOW</div>
+      <div style="font-size: 12px; line-height: 1.65; color: #b9c2cd; max-width: 720px; text-wrap: pretty;">Right-angled traces, one per pair, one mitred corner. Weight is the number of independent connection types tying that pair together, so a thick bright trace means several categories agree. One shared employer is weak evidence; employer plus geography plus domain plus timing is where a reader should look first. Computed, not authored.</div>
+      <div style="border: 1px solid #262e36; background: #141920;">
+        <canvas ref="{{ edgeCanvas }}" style="display: block; width: 100%; height: 212px;"></canvas>
+      </div>
+      <div style="border: 1px solid #262e36; background: #141920;">
+        <div style="display: grid; grid-template-columns: 58px 1fr 104px 118px 1fr; gap: 14px; padding: 9px 14px; border-bottom: 1px solid #1d242b; font-size: 8.5px; letter-spacing: 0.12em; color: #5c6672;">
+          <span>WEIGHT</span><span>LABEL</span><span>IDLE HEX</span><span>WIDTH</span><span>EXTRA</span>
+        </div>
+        <sc-for list="{{ strengthRows }}" as="s" hint-placeholder-count="5">
+          <div style="display: grid; grid-template-columns: 58px 1fr 104px 118px 1fr; gap: 14px; padding: 9px 14px; border-bottom: 1px solid #1d242b; align-items: center; font-size: 10.5px;">
+            <span style="color: #dfe4ea;">{{ s.weight }}</span>
+            <span style="color: #dfe4ea;">{{ s.label }}</span>
+            <span style="color: #8d97a4;">{{ s.hex }}</span>
+            <span style="display: flex; align-items: center; gap: 9px; color: #8d97a4;"><span style="width: 26px; height: {{ s.h }}; background: {{ s.hex }};"></span>{{ s.width }}</span>
+            <span style="color: #8d97a4;">{{ s.extra }}</span>
+          </div>
+        </sc-for>
+        <div style="padding: 11px 14px; font-size: 10.5px; line-height: 1.6; color: #8d97a4; text-wrap: pretty;">Particles walk each trace by arc length at 0.000115 px/ms, one per link type, phase-offset per pair so they never march in lockstep. Direction carries meaning: between two people it runs earlier date to later date, so the flow reads as the sequence of events; elsewhere it runs from the person outward. At rest only corroborated pairs animate, so the idle map reads as signal rather than noise. A selection animates everything inside it.</div>
+      </div>
+      <div style="border: 1px solid #262e36; background: #141920;">
+        <div style="padding: 9px 14px; border-bottom: 1px solid #1d242b; font-size: 8.5px; letter-spacing: 0.12em; color: #5c6672;">EIGHT CONNECTION TYPES &#183; HUE TAKES OVER FROM STRENGTH INSIDE A SELECTION</div>
+        <sc-for list="{{ edgeTypes }}" as="t" hint-placeholder-count="8">
+          <div style="display: grid; grid-template-columns: 28px 148px 84px 1fr 98px; gap: 14px; padding: 9px 14px; border-bottom: 1px solid #1d242b; align-items: center; font-size: 10.5px;">
+            <span style="height: 2.6px; background: {{ t.color }}; display: block;"></span>
+            <span style="color: #dfe4ea;">{{ t.label }}</span>
+            <span style="color: #8d97a4;">{{ t.color }}</span>
+            <span style="color: #8d97a4;">{{ t.rule }}</span>
+            <span style="color: {{ t.originColor }}; font-size: 9.5px;">{{ t.origin }}</span>
+          </div>
+        </sc-for>
+        <div style="padding: 11px 14px; font-size: 10.5px; line-height: 1.6; color: #8d97a4; text-wrap: pretty;">The first five are derived by rule from the case records, so a new case creates its own connections. The last three are editorial and stay hand-written, because they come from reporting rather than from a rule. Keeping that split is what stops the graph inventing relationships.</div>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 15px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">05 &#183; CONFIDENCE</div>
+      <div style="font-size: 12px; line-height: 1.65; color: #b9c2cd; max-width: 700px; text-wrap: pretty;">Three levels, three border treatments, applied everywhere a claim appears. No claim renders without one. This is the line between a research tool and a conspiracy board, and the component library enforces it rather than a disclaimer.</div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(288px, 1fr)); gap: 11px;">
+        <sc-for list="{{ confidence }}" as="c" hint-placeholder-count="4">
+          <div style="border: 1px solid #262e36; background: #141920; border-left: 2px {{ c.style }} {{ c.color }}; padding: 12px 14px;">
+            <div style="font-size: 8.5px; letter-spacing: 0.13em; color: {{ c.color }}; margin-bottom: 6px;">{{ c.tag }}</div>
+            <div style="font-size: 11.5px; line-height: 1.6; color: #dfe4ea; text-wrap: pretty;">{{ c.example }}</div>
+            <div style="font-size: 10px; color: #5c6672; margin-top: 8px;">{{ c.spec }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 15px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">06 &#183; COMMAND SURFACE</div>
+      <div style="font-size: 12px; line-height: 1.65; color: #b9c2cd; max-width: 720px; text-wrap: pretty;">One namespace the UI and the analyst both call. No component mutates state directly. If a control exists with no entry here, the analyst cannot operate it and the "run the whole app from the chat input" requirement is broken.</div>
+      <div style="border: 1px solid #262e36; background: #141920;">
+        <sc-for list="{{ commands }}" as="c" hint-placeholder-count="16">
+          <div style="display: grid; grid-template-columns: 208px 1fr; gap: 16px; padding: 9px 14px; border-bottom: 1px solid #1d242b; align-items: baseline;">
+            <span style="font-size: 10.5px; color: #66d69f; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ c.sig }}</span>
+            <span style="font-size: 10.5px; line-height: 1.55; color: #b9c2cd; text-wrap: pretty;">{{ c.effect }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 15px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">07 &#183; ANALYST STATES</div>
+      <div style="border: 1px solid #262e36; background: #141920;">
+        <sc-for list="{{ analystStates }}" as="a" hint-placeholder-count="8">
+          <div style="display: grid; grid-template-columns: 148px 1fr; gap: 16px; padding: 9px 14px; border-bottom: 1px solid #1d242b; align-items: baseline;">
+            <span style="font-size: 10.5px; color: {{ a.color }};">{{ a.state }}</span>
+            <span style="font-size: 10.5px; line-height: 1.55; color: #8d97a4; text-wrap: pretty;">{{ a.spec }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="border: 1px solid #262e36; background: #141920; padding: 13px 15px;">
+        <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 9px;">ACTION NARRATION &#183; VERBATIM CALLS, NOT PROSE</div>
+        <div style="display: grid; gap: 2px;">
+          <sc-for list="{{ narration }}" as="n" hint-placeholder-count="3">
+            <div style="font-size: 9.5px; color: #66d69f; background: rgba(102,214,159,0.05); border-left: 2px solid rgba(102,214,159,0.45); padding: 4px 9px; white-space: pre;">{{ n }}</div>
+          </sc-for>
+        </div>
+        <div style="font-size: 10.5px; line-height: 1.6; color: #8d97a4; margin-top: 11px; text-wrap: pretty;">Printed in the same beat as the answer, before the prose. The user sees the map move and the reason for it together, learns the command surface by watching it used, and can retype any line.</div>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 15px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">08 &#183; MOTION</div>
+      <div style="border: 1px solid #262e36; background: #141920;">
+        <div style="display: grid; grid-template-columns: 146px 82px 1fr; gap: 16px; padding: 9px 14px; border-bottom: 1px solid #1d242b; font-size: 8.5px; letter-spacing: 0.12em; color: #5c6672;">
+          <span>TOKEN</span><span>DURATION</span><span>EASING / APPLIES TO</span>
+        </div>
+        <sc-for list="{{ motion }}" as="m" hint-placeholder-count="8">
+          <div style="display: grid; grid-template-columns: 146px 82px 1fr; gap: 16px; padding: 9px 14px; border-bottom: 1px solid #1d242b; font-size: 10.5px; align-items: baseline;">
+            <span style="color: #dfe4ea;">{{ m.token }}</span>
+            <span style="color: #8d97a4;">{{ m.dur }}</span>
+            <span style="color: #8d97a4;">{{ m.use }}</span>
+          </div>
+        </sc-for>
+        <div style="padding: 11px 14px; font-size: 10.5px; color: #8d97a4; line-height: 1.6;">Nodes never jump: any filter or layout change interpolates. Under prefers-reduced-motion, drop the sweep, the particles, the pulse and the caret blink; keep state transitions, cut them to 100ms.</div>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 15px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">09 &#183; SHELL</div>
+      <div style="border: 1px solid #262e36; background: #141920; padding: 16px;">
+        <div style="display: grid; grid-template-rows: 26px 26px 1fr 56px; gap: 3px; height: 296px; font-size: 9.5px;">
+          <div style="border: 1px solid #333c47; display: grid; place-items: center; color: #8d97a4;">top bar &#183; 46px &#183; identity, live status, API key</div>
+          <div style="border: 1px solid #333c47; display: grid; place-items: center; color: #8d97a4;">stats strip &#183; 46px &#183; six KPIs + permanent confidence key</div>
+          <div style="display: grid; grid-template-columns: 148px 1fr 214px; gap: 3px; min-height: 0;">
+            <div style="border: 1px solid #333c47; display: grid; place-items: center; text-align: center; color: #8d97a4; padding: 6px; line-height: 1.7;">rail &#183; 202px<br>views<br>filters<br>legends</div>
+            <div style="border: 1px solid #5ed4e6; display: grid; place-items: center; text-align: center; color: #5ed4e6; padding: 6px; line-height: 1.7;">view surface &#183; 1fr<br><span style="color: #8d97a4;">the only region that changes<br>between the seven views</span></div>
+            <div style="border: 1px solid #333c47; display: grid; place-items: center; text-align: center; color: #8d97a4; padding: 6px; line-height: 1.7;">detail dock &#183; 306px<br>one component,<br>all five node classes</div>
+          </div>
+          <div style="border: 1px solid #333c47; display: grid; place-items: center; text-align: center; color: #8d97a4; padding: 6px;">analyst &#183; full width &#183; header, transcript, suggestions, command line</div>
+        </div>
+        <div style="font-size: 10.5px; line-height: 1.6; color: #8d97a4; margin-top: 14px; text-wrap: pretty;">Rail, stats, dock and analyst are constant. Swapping exactly one region is what makes the analyst able to drive the product. It takes the full bottom width so a long answer has room to be read and is never covering the map it is describing.</div>
+      </div>
+      <div style="border: 1px solid #262e36; background: #141920;">
+        <sc-for list="{{ breakpoints }}" as="b" hint-placeholder-count="4">
+          <div style="display: grid; grid-template-columns: 138px 1fr; gap: 16px; padding: 9px 14px; border-bottom: 1px solid #1d242b; font-size: 10.5px; align-items: baseline;">
+            <span style="color: #dfe4ea;">{{ b.w }}</span>
+            <span style="color: #8d97a4; line-height: 1.55; text-wrap: pretty;">{{ b.spec }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 15px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">10 &#183; CREDIBILITY RULES THE DESIGN ENFORCES</div>
+      <div style="border: 1px solid #262e36; background: #141920; border-left: 2px solid #5ed4e6;">
+        <sc-for list="{{ credibility }}" as="c" hint-placeholder-count="7">
+          <div style="display: grid; grid-template-columns: 26px 1fr; gap: 12px; padding: 10px 15px; border-bottom: 1px solid #1d242b; font-size: 11px; align-items: baseline;">
+            <span style="color: #5c6672;">{{ c.n }}</span>
+            <span style="color: #b9c2cd; line-height: 1.6; text-wrap: pretty;">{{ c.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: grid; gap: 12px; border-top: 1px solid #262e36; padding-top: 24px;">
+      <div style="font-size: 9px; letter-spacing: 0.14em; color: #5ed4e6;">HANDOFF</div>
+      <div style="display: grid; gap: 8px; font-size: 11px;">
+        <sc-for list="{{ handoff }}" as="h" hint-placeholder-count="5">
+          <div style="display: grid; grid-template-columns: 320px 1fr; gap: 14px;">
+            <span style="color: #dfe4ea;">{{ h.file }}</span>
+            <span style="color: #8d97a4; line-height: 1.55;">{{ h.what }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.nodeCanvas = React.createRef();
+    this.edgeCanvas = React.createRef();
+  }
+
+  async componentDidMount() {
+    this.G = await import('./vanishing-graph.js');
+    this.forceUpdate();
+    this.t0 = performance.now();
+    this.tick = () => { this.paint(); this.raf = requestAnimationFrame(this.tick); };
+    this.paint();
+    this.raf = requestAnimationFrame(this.tick);
+    setTimeout(() => { if (!this.painted) this.fb = setInterval(() => this.paint(), 40); }, 350);
+    this.onResize = () => this.paint();
+    window.addEventListener('resize', this.onResize);
+  }
+
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    if (this.fb) clearInterval(this.fb);
+    window.removeEventListener('resize', this.onResize);
+  }
+
+  fit(cv) {
+    const r = cv.getBoundingClientRect();
+    if (!r.width) return null;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    if (cv.width !== Math.round(r.width * dpr)) { cv.width = r.width * dpr; cv.height = r.height * dpr; }
+    const ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx, w: r.width, h: r.height };
+  }
+
+  grid(ctx, w, h) {
+    ctx.fillStyle = '#11141a'; ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = 'rgba(59,68,79,0.18)'; ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = 0; x < w; x += 44) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
+    for (let y = 0; y < h; y += 44) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
+    ctx.stroke();
+  }
+
+  paint() {
+    const G = this.G;
+    if (!G) return;
+    this.painted = true;
+    const t = performance.now() - (this.t0 || 0);
+
+    const nc = this.nodeCanvas.current;
+    if (nc) {
+      const f = this.fit(nc);
+      if (f) {
+        const { ctx, w, h } = f;
+        ctx.clearRect(0, 0, w, h);
+        this.grid(ctx, w, h);
+        const states = ['default', 'hover', 'selected', 'connected', 'dimmed'];
+        const ids = ['sullivan', 'chavez', 'casias', 'garcia', 'grillmair'];
+        const colW = w / 5;
+        states.forEach((state, i) => {
+          const src = G.PEOPLE.find(p => p.id === ids[i]);
+          const parts = src.label.split(' ');
+          const n = { ...src, x: colW * (i + 0.5), y: 62, rad: 58, short: (parts[parts.length - 1] + ', ' + parts[0][0] + '.').toUpperCase() };
+          G.drawNode(ctx, n, { scale: 1, state });
+          ctx.fillStyle = '#5c6672';
+          ctx.font = '400 9px "IBM Plex Mono", monospace';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+          ctx.fillText(state.toUpperCase(), n.x, 92);
+        });
+        [['jpl'], ['oversight'], ['l-abq'], ['d-prop']].forEach(([id], i) => {
+          const src = G.NODES.find(x => x.id === id);
+          const n = { ...src, x: (w / 4) * (i + 0.5), y: 148, rad: 20, deg: 4 };
+          G.drawNode(ctx, n, { scale: 1, state: i === 1 ? 'selected' : 'default' });
+        });
+        ctx.fillStyle = '#5c6672';
+        ctx.font = '400 9px "IBM Plex Mono", monospace';
+        ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+        ctx.fillText('SHAPE CARRIES CLASS: SQUARE INSTITUTION, DIAMOND PROGRAMME, RING LOCATION, CORED DOT DOMAIN', 14, 186);
+      }
+    }
+
+    const ec = this.edgeCanvas.current;
+    if (ec) {
+      const f = this.fit(ec);
+      if (f) {
+        const { ctx, w, h } = f;
+        ctx.clearRect(0, 0, w, h);
+        this.grid(ctx, w, h);
+        const cols = 5, colW = w / cols;
+        const types = ['institutional', 'geographic', 'research', 'temporal', 'behavioral'];
+        const pairs = [];
+        for (let i = 0; i < cols; i++) {
+          const cx = colW * (i + 0.5);
+          pairs.push({
+            s: { id: 'a' + i, x: cx - 50, y: 48, deg: 4, cluster: 'other', cls: 'x' },
+            t: { id: 'b' + i, x: cx + 50, y: 132, deg: 4, cluster: 'other', cls: 'x' },
+            weight: i + 1, types: types.slice(0, i + 1), dominant: 'institutional',
+            flip: false, phase: i / 5,
+          });
+        }
+        G.drawEdgesCircuit(ctx, [], { active: null, pairs, t });
+        for (let i = 0; i < cols; i++) {
+          const cx = colW * (i + 0.5);
+          const ramp = G.strengthStyle(i + 1);
+          for (const [dx, dy] of [[-50, 48], [50, 132]]) {
+            ctx.fillStyle = '#1e232a'; ctx.strokeStyle = '#3b444f'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.arc(cx + dx, dy, 4.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+          }
+          ctx.fillStyle = ramp.color;
+          ctx.font = '600 10px "IBM Plex Mono", monospace';
+          ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+          ctx.fillText((i + 1) + '\u00d7  ' + ramp.label.toUpperCase(), cx, 164);
+          ctx.fillStyle = '#5c6672';
+          ctx.font = '400 9px "IBM Plex Mono", monospace';
+          ctx.fillText(ramp.width.toFixed(1) + 'px', cx, 180);
+        }
+      }
+    }
+  }
+
+  renderVals() {
+    const lead = (k, v, w) => k + '.'.repeat(Math.max(1, w - k.length - String(v).length)) + v;
+    return {
+      nodeCanvas: this.nodeCanvas,
+      edgeCanvas: this.edgeCanvas,
+      decisions: [
+        { k: 'SHELL', v: 'workstation' }, { k: 'EDGES', v: 'circuit + strength + flow' },
+        { k: 'NODES', v: 'dossier plate' }, { k: 'ANALYST', v: 'bottom command bar' },
+        { k: 'RENDER', v: 'WebGPU \u2192 WebGL' }, { k: 'CHROME', v: 'modern, terminal surface' },
+        { k: 'KEY', v: 'user-supplied, localStorage' },
+      ],
+      colors: [
+        { token: '--bg', hex: '#0f1216', use: 'App background, canvas base' },
+        { token: '--panel', hex: '#12171d', use: 'Rails and docks' },
+        { token: '--panel-2', hex: '#141920', use: 'Cards, top bar' },
+        { token: '--line-2', hex: '#262e36', use: 'Panel boundary' },
+        { token: '--line-3', hex: '#333c47', use: 'Input and chip borders' },
+        { token: '--text', hex: '#e6e9ee', use: 'Primary text' },
+        { token: '--text-dim', hex: '#8d97a4', use: 'Labels, inactive rail items' },
+        { token: '--text-faint', hex: '#5c6672', use: 'Metadata, leaders, absent values' },
+        { token: '--signal', hex: '#5ed4e6', use: 'System voice: analyst, computed, confirmed, selection' },
+        { token: '--dead', hex: '#e8705f', use: 'Status dead. Behavioural edges' },
+        { token: '--missing', hex: '#efb555', use: 'Status missing. Claim level. Temporal edges' },
+        { token: '--transitioned', hex: '#d98a6a', use: 'Was missing, now dead' },
+        { token: '--institution', hex: '#a795e8', use: 'Node class institution' },
+        { token: '--program', hex: '#66d69f', use: 'Node class programme. Action narration' },
+        { token: '--location', hex: '#7fb4e8', use: 'Node class location' },
+        { token: '--domain', hex: '#e08ad0', use: 'Node class research domain' },
+      ],
+      typeScale: [
+        { role: 'Product name', px: '14px', weight: 600, tracking: '0.01em', sample: 'The Vanishing', spec: '14 / 600 / 0.01em' },
+        { role: 'Panel title', px: '14.5px', weight: 600, tracking: '0', sample: 'Anthony Chavez', spec: '14.5 / 600' },
+        { role: 'KPI value', px: '16px', weight: 600, tracking: '0', sample: '14', spec: '16 / 600' },
+        { role: 'Card title', px: '12px', weight: 600, tracking: '0', sample: 'California / JPL corridor', spec: '12 / 600' },
+        { role: 'Body', px: '11.5px', weight: 400, tracking: '0', sample: 'Five individuals left a phone or wallet behind.', spec: '11.5 / 400 / pretty' },
+        { role: 'UI default', px: '11px', weight: 400, tracking: '0', sample: 'Ask the analyst', spec: '11 / 400' },
+        { role: 'Data row', px: '10.5px', weight: 400, tracking: '0', sample: 'LEFT BEHIND.......wallet, keys', spec: '10.5 / 400 / pre' },
+        { role: 'Meta', px: '10px', weight: 400, tracking: '0', sample: '2025-05-04', spec: '10 / 400' },
+        { role: 'Micro label', px: '9px', weight: 400, tracking: '0.10em', sample: '52 ENTITIES', spec: '9 / 400 / 0.10em' },
+        { role: 'Section eyebrow', px: '8.5px', weight: 400, tracking: '0.13em', sample: 'CONNECTIONS', spec: '8.5 / 400 / 0.13em' },
+      ],
+      leaders: [
+        { row: lead('STATUS', 'MISSING', 38), color: '#efb555' },
+        { row: lead('CLEARANCE', 'TOP SECRET', 38), color: '#b9c2cd' },
+        { row: lead('LEFT BEHIND', 'phone, wallet, keys, car', 38), color: '#b9c2cd' },
+        { row: lead('AGE', 'NOT REPORTED', 38), color: '#5c6672' },
+        { row: lead('Melissa Casias', '4\u00d7 institutional', 37), color: '#8ee6f0' },
+      ],
+      nodeStates: [
+        { label: 'Default, no photo', spec: '100\u00d740, --panel fill, --line border, 3px status stripe. No empty slot' },
+        { label: 'Default, with photo', spec: '132\u00d740. The extra 32px exists only when a portrait fills it' },
+        { label: 'Hover', spec: 'Border to class colour, shadowBlur 11, label to --text. Tooltip after 85ms' },
+        { label: 'Selected', spec: 'Border 1.5px class colour, --panel-2 fill, shadowBlur 24' },
+        { label: 'Connected to selection', spec: 'Border to #56616e only. No glow. Legibility, not celebration' },
+        { label: 'Dimmed', spec: 'globalAlpha 0.16, still hit-testable' },
+        { label: 'Filtered out', spec: 'Fades to 0 over --t-layout, then stops being hit-tested' },
+      ],
+      strengthRows: (this.G ? this.G.STRENGTH_RAMP : []).map(r => ({
+        weight: r.weight + '\u00d7', label: r.label, hex: r.color,
+        width: r.width.toFixed(1) + 'px', h: Math.max(2, r.width) + 'px',
+        extra: r.weight >= 3 ? 'glow + ' + r.weight + ' tick marks' : 'no glow',
+      })),
+      edgeTypes: [
+        { label: 'Institutional', color: '#a795e8', rule: 'Same instId', origin: 'DERIVED', originColor: '#66d69f' },
+        { label: 'Geographic', color: '#7fb4e8', rule: 'Same geoCluster', origin: 'DERIVED', originColor: '#66d69f' },
+        { label: 'Research domain', color: '#e08ad0', rule: 'Shared researchDomain', origin: 'DERIVED', originColor: '#66d69f' },
+        { label: 'Temporal', color: '#efb555', rule: 'Dates within 60 days', origin: 'DERIVED', originColor: '#66d69f' },
+        { label: 'Behavioural', color: '#e8705f', rule: 'Shared leftBehind item', origin: 'DERIVED', originColor: '#66d69f' },
+        { label: 'Programmatic', color: '#66d69f', rule: 'Same government programme', origin: 'EDITORIAL', originColor: '#efb555' },
+        { label: 'Investigative', color: '#5ed4e6', rule: 'Same investigation', origin: 'EDITORIAL', originColor: '#efb555' },
+        { label: 'Witness chain', color: '#f0d264', rule: 'Sourced testimony chain', origin: 'EDITORIAL', originColor: '#efb555' },
+      ],
+      confidence: [
+        { tag: 'CONFIRMED \u00b7 COMPUTED', color: '#5ed4e6', style: 'solid', example: 'Chavez and Casias are linked by four independent connection types: institutional, geographic, research, temporal.', spec: '2px solid --signal' },
+        { tag: 'CLAIM \u00b7 REPORTED', color: '#efb555', style: 'dashed', example: 'Three propulsion researchers worked within 30 miles of each other. The distance comes from reporting, not coordinates.', spec: '2px dashed --missing' },
+        { tag: 'OPEN QUESTION', color: '#8d97a4', style: 'dotted', example: 'Whether the ordering of Sullivan\u2019s death and the investigation is causal is not answerable from the record.', spec: '2px dotted --text-dim' },
+        { tag: 'DISPUTED FINDING', color: '#efb555', style: 'dashed', example: 'Ruled a self-inflicted gunshot. She had texted that she did not plan to kill herself.', spec: '2px dashed --missing on the cause block' },
+      ],
+      commands: [
+        { sig: 'selectNode(id)', effect: 'Selects any node of any class, recomputes the neighbourhood, opens the dock, switches to NETWORK if elsewhere' },
+        { sig: 'clearSelection()', effect: 'Drops the selection, restores the full network' },
+        { sig: 'setHops(1|2|3)', effect: 'Re-expands the active neighbourhood around the current selection' },
+        { sig: 'highlightPath(from,to,hops?)', effect: 'Highlights the shortest path between two entities, dims the rest' },
+        { sig: 'setView(view)', effect: 'NETWORK | TIMELINE | GEOGRAPHY | CASES | ANALYSIS | COUNTERARGS | SEARCH' },
+        { sig: 'toggleFilter(key)', effect: 'Toggles one status, cluster, domain or clearance filter. Filters compose' },
+        { sig: 'setEdgeFilter(types[])', effect: 'Restricts which of the eight connection types render' },
+        { sig: 'clearFilters()', effect: 'Resets every filter' },
+        { sig: 'focusCluster(cluster)', effect: 'Frames and selects into a named geographic cluster' },
+        { sig: 'frameNodes(ids[])', effect: 'Zooms and pans so exactly these nodes fill the canvas' },
+        { sig: 'expandCase(id)', effect: 'Switches to CASES and expands one card' },
+        { sig: 'search(q)', effect: 'Switches to SEARCH and runs the query' },
+        { sig: 'showInsight(i)', effect: 'Surfaces a specific computed pattern in the callout' },
+        { sig: 'dismissInsight()', effect: 'Hides the callout' },
+        { sig: 'setTimelineZoom(z)', effect: 'year | quarter | month' },
+        { sig: 'toggleTimelineOverlay(t)', effect: 'congress | fbi | pursue | media' },
+      ],
+      analystStates: [
+        { state: 'Idle', color: '#66d69f', spec: 'ready, key stored locally, model name. Caret blinking' },
+        { state: 'Receiving input', color: '#5ed4e6', spec: 'Input border to --signal' },
+        { state: 'Thinking', color: '#5ed4e6', spec: 'Three dots cycling. Role gutter renders with an empty content block so the layout does not jump when text arrives' },
+        { state: 'Executing actions', color: '#66d69f', spec: 'Action lines stream in before the prose, each firing its dashboard change as it prints' },
+        { state: 'Streaming', color: '#dfe4ea', spec: 'Text appends. No typewriter effect on settled text' },
+        { state: 'Error', color: '#e8705f', spec: 'Status to --dead, message inline as an analyst turn, retry affordance' },
+        { state: 'Rate limited', color: '#efb555', spec: 'Status to --missing, states the wait. Input stays enabled, send queues' },
+        { state: 'No API key', color: '#efb555', spec: 'First-class state, not an error: scripted replies, and the dashboard stays fully usable by hand' },
+      ],
+      narration: [
+        ':: selectNode("sullivan")',
+        ':: highlightPath("sullivan","oversight",hops=3)',
+        ':: setEdgeFilter(["witness-chain","programmatic"])',
+      ],
+      motion: [
+        { token: '--t-instant', dur: '85ms', use: 'linear. Tooltip opacity' },
+        { token: '--t-quick', dur: '140ms', use: 'cubic-bezier(.4,0,.2,1). Hover, chips, row highlight' },
+        { token: '--t-panel', dur: '220ms', use: 'cubic-bezier(.2,0,0,1). Dock, transcript, card expand, view swap' },
+        { token: '--t-layout', dur: '620ms', use: 'cubic-bezier(.32,.72,0,1). Node repositioning after a filter change' },
+        { token: '--t-flow', dur: '~8.7s', use: 'linear, infinite. Edge particles, 0.000115 px/ms by arc length' },
+        { token: '--t-ambient', dur: '7s', use: 'linear, infinite. Canvas sweep line' },
+        { token: '--t-pulse', dur: '2.6s', use: 'ease-in-out, infinite. Missing-status stripe, live dot' },
+        { token: '--t-caret', dur: '1.1s', use: 'steps(1), infinite. Analyst caret' },
+      ],
+      breakpoints: [
+        { w: '\u2265 1440px', spec: 'As specified. Design target.' },
+        { w: '1180 \u2013 1439px', spec: 'Rail 176px, dock 272px.' },
+        { w: '900 \u2013 1179px', spec: 'Dock becomes an overlay sliding from the right. Rail collapses to numbers only.' },
+        { w: '< 900px', spec: 'Single column: rail becomes a top tab strip, dock a bottom sheet, analyst collapses to its input row. Tablet secondary, phone nice-to-have.' },
+      ],
+      credibility: [
+        { n: '01', text: 'Three confidence levels, three border treatments, everywhere a claim appears. No claim renders without one.' },
+        { n: '02', text: 'Counterarguments get a top-level view with the same card grammar and density as Analysis. Never an appendix.' },
+        { n: '03', text: 'Unsourced entities say so: "No attributed source on file for this entity." Absence of sourcing is information.' },
+        { n: '04', text: 'Derived connections are separated from editorial ones in the data layer, so the map cannot quietly invent a relationship.' },
+        { n: '05', text: 'Distance and proximity claims are labelled as reported, not measured, until real geodata exists.' },
+        { n: '06', text: 'The analyst is designed to say the data does not support a reading. Three of the four shipped suggested questions have answers that push back.' },
+        { n: '07', text: 'Absent values print as absent, never as zero: NOT REPORTED, NOTHING RECORDED, NONE RECORDED.' },
+      ],
+      handoff: [
+        { file: 'DESIGN-SYSTEM.md', what: 'Prose spec. Same content as this page, in a form Claude Code can read line by line.' },
+        { file: 'The Vanishing v2 - Reference Mockup.dc.html', what: 'The definitive visual target. All seven views, live graph, working analyst command surface.' },
+        { file: 'vanishing-graph.js', what: 'Working engine: record schema, edge derivation, strength aggregation, force layout, node and edge renderers.' },
+        { file: 'Edge Study A\u2013D', what: 'The four edge languages prototyped before circuit routing was chosen. Kept for reference.' },
+        { file: 'Shell A / Shell B', what: 'Literal terminal versus modern chrome. Shell B won and became the mockup.' },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #14171c; }
+  * { box-sizing: border-box; }
+  a { color: #5ed4e6; text-decoration: none; }
+  a:hover { color: #9ae6f2; }
+  @keyframes scan { 0% { transform: translateY(0); } 100% { transform: translateY(100%); } }
+  @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.15; } }
+</style>
+</helmet>
+<div style="width: 100%; height: 100%; min-height: 760px; display: grid; grid-template-rows: 34px 1fr 30px; background: #14171c; font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #e6e9ee; overflow: hidden; position: relative;">
+
+  <div style="display: flex; align-items: center; gap: 14px; padding: 0 12px; border-bottom: 1px solid #2e353f; background: #191d23; font-size: 10.5px; letter-spacing: 0.09em; text-transform: uppercase;">
+    <span style="color: #5ed4e6; font-weight: 600;">Edge study D</span>
+    <span style="color: #5c6672;">/</span>
+    <span style="color: #e6e9ee; font-weight: 500;">{{ studyName }}</span>
+    <span style="flex: 1;"></span>
+    <span style="color: #8d97a4;">{{ nodeCount }} nodes</span>
+    <span style="color: #2e353f;">|</span>
+    <span style="color: #8d97a4;">{{ edgeCount }} edges</span>
+    <span style="color: #2e353f;">|</span>
+    <span style="color: #8d97a4;">canvas2d ref</span>
+  </div>
+
+  <div style="position: relative; overflow: hidden;">
+    <canvas ref="{{ canvasRef }}" onClick="{{ onClick }}" onMouseMove="{{ onMove }}" onMouseLeave="{{ onLeave }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair;"></canvas>
+
+    <div style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(94,212,230,0.5), transparent); animation: scan 9s linear infinite; pointer-events: none; opacity: 0.5;"></div>
+
+    <div style="position: absolute; right: 12px; top: 12px; bottom: 12px; width: 208px; display: grid; gap: 8px; align-content: start; pointer-events: none;">
+      <div style="background: rgba(25,29,35,0.94); border: 1px solid #2e353f; padding: 9px 10px;">
+        <div style="font-size: 9px; letter-spacing: 0.11em; color: #5c6672; text-transform: uppercase; margin-bottom: 7px;">Connection type</div>
+        <div style="display: grid; gap: 4px;">
+          <sc-for list="{{ legend }}" as="row" hint-placeholder-count="8">
+            <div style="display: flex; align-items: center; gap: 7px; font-size: 9.5px; color: #8d97a4;">
+              <span style="width: 20px; height: 2px; border-radius: 2px; background: {{ row.color }};"></span>
+              <span>{{ row.label }}</span>
+              <span style="flex: 1;"></span>
+              <span style="color: #5c6672;">{{ row.count }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="background: rgba(25,29,35,0.93); border: 1px solid #2e353f; padding: 9px 10px;">
+        <div style="font-size: 9px; letter-spacing: 0.11em; color: #5c6672; text-transform: uppercase; margin-bottom: 6px;">Node class</div>
+        <div style="display: grid; gap: 4px; font-size: 9.5px; color: #8d97a4;">
+          <div style="display: flex; align-items: center; gap: 7px;"><span style="width: 12px; height: 9px; border: 1px solid #c9d2dd; background: #1e232a;"></span> Person (dossier plate)</div>
+          <div style="display: flex; align-items: center; gap: 7px;"><span style="width: 9px; height: 9px; border: 1px solid #a795e8;"></span> Institution</div>
+          <div style="display: flex; align-items: center; gap: 7px;"><span style="width: 9px; height: 9px; border: 1px solid #66d69f; transform: rotate(45deg);"></span> Program</div>
+          <div style="display: flex; align-items: center; gap: 7px;"><span style="width: 9px; height: 9px; border: 1px solid #7fb4e8; border-radius: 50%;"></span> Location</div>
+          <div style="display: flex; align-items: center; gap: 7px;"><span style="width: 9px; height: 9px; border-radius: 50%; background: #e08ad0;"></span> Domain</div>
+        </div>
+      </div>
+      <div style="background: rgba(25,29,35,0.93); border: 1px solid #2e353f; padding: 9px 10px;">
+        <div style="font-size: 9px; letter-spacing: 0.11em; color: #5c6672; text-transform: uppercase; margin-bottom: 5px;">Treatment</div>
+        <div style="font-size: 10px; line-height: 1.55; color: #b9c2cd;">{{ studyBlurb }}</div>
+      </div>
+    </div>
+
+    <div ref="{{ tipRef }}" style="position: absolute; pointer-events: none; opacity: 0; transition: opacity 90ms linear; background: #232932; border: 1px solid #3b444f; padding: 6px 8px; font-size: 10px; white-space: nowrap; box-shadow: 0 6px 24px rgba(0,0,0,0.55); z-index: 5;"></div>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 10px; padding: 0 12px; border-top: 1px solid #2e353f; background: #191d23; font-size: 10px; color: #5c6672;">
+    <span style="color: #5ed4e6; animation: blink 1.2s steps(1) infinite;">&#9646;</span>
+    <span>{{ statusLine }}</span>
+    <span style="flex: 1;"></span>
+    <span>click a node to isolate its neighbourhood &#183; click empty space to clear</span>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:820},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;bundled&quot;,&quot;arcs&quot;,&quot;field&quot;,&quot;circuit&quot;],&quot;default&quot;:&quot;circuit&quot;,&quot;tsType&quot;:&quot;'bundled'|'arcs'|'field'|'circuit'&quot;}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.canvasRef = React.createRef();
+    this.tipRef = React.createRef();
+    this.state = { ready: false, legend: [], selected: null, status: 'initialising force layout\u2026', nodeCount: 0, edgeCount: 0 };
+    this.mouse = null;
+    this.hover = null;
+  }
+
+  get variant() { return this.props.variant || 'circuit'; }
+
+  async componentDidMount() {
+    try { await this.boot(); }
+    catch (err) { window.__bootErr = String(err && err.stack || err); }
+  }
+
+  async boot() {
+    const G = await import('./vanishing-graph.js');
+    this.G = G;
+    const cv = this.canvasRef.current;
+    if (!cv) return;
+    const box = cv.parentElement.getBoundingClientRect();
+    this.W = box.width; this.H = box.height;
+    this.inset = { l: 96, r: 244, t: 40, b: 42 };
+    this.nodes = G.NODES.map(n => ({ ...n }));
+    G.initLayout(this.nodes, this.W, this.H, this.inset);
+    this.sim = G.makeSim(this.nodes, G.EDGES, this.W, this.H, this.inset);
+    for (let i = 0; i < 900; i++) this.sim.step();
+
+    const counts = {};
+    for (const e of G.EDGES) counts[e.type] = (counts[e.type] || 0) + 1;
+    this.setState({
+      ready: true,
+      nodeCount: this.nodes.length,
+      edgeCount: G.EDGES.length,
+      status: 'layout settled \u00b7 ' + this.nodes.length + ' entities across 5 classes',
+      legend: Object.entries(G.EDGE_TYPES).map(([k, v]) => ({ key: k, label: v.label, color: v.color, count: counts[k] || 0 })),
+    });
+
+    this.resize = () => {
+      const b = cv.parentElement.getBoundingClientRect();
+      this.W = b.width; this.H = b.height;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = this.W * dpr; cv.height = this.H * dpr;
+      this.dpr = dpr;
+    };
+    this.resize();
+    window.addEventListener('resize', this.resize);
+    this.t0 = performance.now();
+    this.loop = () => {
+      if (this.fallback) { clearInterval(this.fallback); this.fallback = null; }
+      this.tick();
+      this.raf = requestAnimationFrame(this.loop);
+    };
+    this.frames = 0;
+    this.tick();
+    this.raf = requestAnimationFrame(this.loop);
+    // Some embedded/backgrounded frames never fire rAF. Keep a timer fallback so
+    // the map is always painted rather than blank.
+    setTimeout(() => {
+      if (this.frames < 2 && !this.fallback) {
+        this.fallback = setInterval(() => this.tick(), 40);
+      }
+    }, 350);
+  }
+
+  tick() {
+    this.frames++;
+    try { this.frame(); } catch (err) { window.__frameErr = String(err && err.stack || err); }
+  }
+
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    if (this.fallback) clearInterval(this.fallback);
+    window.removeEventListener('resize', this.resize);
+  }
+
+  hitTest(mx, my) {
+    let best = null, bd = 1e9;
+    for (const n of this.nodes) {
+      if (n.cls === 'person') {
+        if (Math.abs(mx - n.x) < 66 && Math.abs(my - n.y) < 20) return n;
+      } else {
+        const d = (mx - n.x) ** 2 + (my - n.y) ** 2;
+        if (d < 220 && d < bd) { bd = d; best = n; }
+      }
+    }
+    return best;
+  }
+
+  onMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const mx = e.clientX - r.left, my = e.clientY - r.top;
+    this.mouse = { mx, my };
+    if (!this.nodes) return;
+    const n = this.hitTest(mx, my);
+    this.hover = n;
+    const tip = this.tipRef.current;
+    if (!tip) return;
+    if (n) {
+      const cls = n.cls.toUpperCase();
+      const line2 = n.cls === 'person'
+        ? n.sub + ' \u00b7 ' + n.loc + ' \u00b7 ' + n.status
+        : (n.sub ? n.sub + ' \u00b7 ' : '') + n.deg + ' connections';
+      tip.innerHTML = '<div style="color:#e6e9ee;font-weight:600">' + n.label + '</div>'
+        + '<div style="color:#5c6672;font-size:9px;letter-spacing:.08em;margin-top:2px">' + cls + '</div>'
+        + '<div style="color:#8d97a4;margin-top:3px">' + line2 + '</div>';
+      tip.style.opacity = '1';
+      tip.style.left = Math.min(mx + 14, r.width - 230) + 'px';
+      tip.style.top = (my + 14) + 'px';
+    } else {
+      tip.style.opacity = '0';
+    }
+  };
+
+  onLeave = () => {
+    this.hover = null; this.mouse = null;
+    if (this.tipRef.current) this.tipRef.current.style.opacity = '0';
+  };
+
+  onClick = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const n = this.hitTest(e.clientX - r.left, e.clientY - r.top);
+    if (!n) {
+      this.active = null;
+      this.setState({ selected: null, status: 'selection cleared \u00b7 full network' });
+      return;
+    }
+    this.active = this.G.neighborhood(this.sim.links, n.id, 1);
+    const reach = this.active.size - 1;
+    this.setState({ selected: n.id, status: n.label + ' selected \u00b7 ' + reach + ' entities at 1 hop \u00b7 rest dimmed' });
+  };
+
+  frame() {
+    const cv = this.canvasRef.current;
+    if (!cv || !this.G) return;
+    const ctx = cv.getContext('2d');
+    const t = performance.now() - this.t0;
+    if (this.sim.alpha > 0.061) this.sim.step();
+
+    ctx.save();
+    ctx.scale(this.dpr, this.dpr);
+    ctx.clearRect(0, 0, this.W, this.H);
+
+    const g = ctx.createLinearGradient(0, 0, 0, this.H);
+    g.addColorStop(0, '#161a20'); g.addColorStop(1, '#11141a');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, this.W, this.H);
+
+    ctx.strokeStyle = 'rgba(59,68,79,0.20)'; ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = 0; x < this.W; x += 44) { ctx.moveTo(x, 0); ctx.lineTo(x, this.H); }
+    for (let y = 0; y < this.H; y += 44) { ctx.moveTo(0, y); ctx.lineTo(this.W, y); }
+    ctx.stroke();
+
+    // cluster fields: a soft tinted well per named cluster, labelled at its centre
+    const tints = { california: '94,212,230', 'new-mexico': '239,181,85', huntsville: '167,149,232' };
+    for (const [key, tint] of Object.entries(tints)) {
+      const pts = this.nodes.filter(n => n.cluster === key && n.cls === 'person');
+      if (!pts.length) continue;
+      const cx = pts.reduce((s, p) => s + p.x, 0) / pts.length;
+      const cy = pts.reduce((s, p) => s + p.y, 0) / pts.length;
+      const rad = Math.max(...pts.map(p => Math.hypot(p.x - cx, p.y - cy))) + 120;
+      const rg = ctx.createRadialGradient(cx, cy, 0, cx, cy, rad);
+      rg.addColorStop(0, 'rgba(' + tint + ',0.055)');
+      rg.addColorStop(0.62, 'rgba(' + tint + ',0.022)');
+      rg.addColorStop(1, 'rgba(' + tint + ',0)');
+      ctx.fillStyle = rg;
+      ctx.beginPath(); ctx.arc(cx, cy, rad, 0, Math.PI * 2); ctx.fill();
+      ctx.font = '600 9.5px "IBM Plex Mono", monospace';
+      ctx.fillStyle = 'rgba(' + tint + ',0.34)';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(this.G.CLUSTERS[key].label.toUpperCase(), cx, cy - rad + 22);
+    }
+
+    const renderer = this.G.RENDERERS[this.variant] || this.G.RENDERERS.bundled;
+    renderer(ctx, this.sim.links, { t, active: this.active || null, anchors: this.sim.anchors, scale: 1 });
+
+    const order = [...this.nodes].sort((a, b) => (a.cls === 'person' ? 1 : 0) - (b.cls === 'person' ? 1 : 0));
+    for (const n of order) {
+      let st = 'default';
+      if (this.active) st = n.id === this.state.selected ? 'selected' : (this.active.has(n.id) ? 'connected' : 'dimmed');
+      if (this.hover && this.hover.id === n.id && st !== 'selected') st = 'hover';
+      this.G.drawNode(ctx, n, { scale: 1, state: st });
+    }
+    ctx.restore();
+  }
+
+  renderVals() {
+    const names = { bundled: 'Bundled curves + travelling particle', arcs: 'Static arcs, colour + dash', field: 'Field lines / density glow', circuit: 'Orthogonal circuit routing' };
+    const blurbs = {
+      bundled: 'Edges route through cluster midpoints so long hauls braid into trunks. Idle state is quiet; the selected neighbourhood carries slow particles that give each link direction.',
+      arcs: 'One thin arc per edge, offset so pairs never overlap. Type reads from hue plus dash pattern alone. Nothing animates until you select.',
+      field: 'Additive glow weighted by endpoint degree. At rest you read density, not individual links. Crisp cores resolve only inside the selection.',
+      circuit: 'Right-angle traces with a single mitred corner and vias at terminations. Reads as a wiring diagram rather than an organic graph.',
+    };
+    return {
+      canvasRef: this.canvasRef,
+      tipRef: this.tipRef,
+      onClick: this.onClick,
+      onMove: this.onMove,
+      onLeave: this.onLeave,
+      legend: this.state.legend,
+      nodeCount: this.state.nodeCount || 52,
+      edgeCount: this.state.edgeCount || 0,
+      statusLine: this.state.status,
+      studyName: names[this.variant],
+      studyBlurb: blurbs[this.variant],
+    };
+  }
+}
+
+</script>
+</body>
+</html>

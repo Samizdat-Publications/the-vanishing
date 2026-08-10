@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #14171c; }
+  * { box-sizing: border-box; }
+  a { color: #5ed4e6; text-decoration: none; border-bottom: 1px solid rgba(94,212,230,0.3); }
+  a:hover { color: #9ae6f2; border-bottom-color: #9ae6f2; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #333c47; border-radius: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.12; } }
+  @keyframes pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+</style>
+</helmet>
+<div style="width: 100%; height: 100%; min-height: 860px; background: #14171c; font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #e6e9ee; display: grid; grid-template-rows: 44px 1fr auto; overflow: hidden;">
+
+  <div style="display: flex; align-items: center; gap: 0; border-bottom: 1px solid #2e353f; background: #191d23; padding: 0 14px;">
+    <div style="display: flex; align-items: baseline; gap: 9px;">
+      <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.02em;">The Vanishing</span>
+      <span style="font-size: 9.5px; color: #5c6672; letter-spacing: 0.1em;">V2 &#183; SHELL B &#183; MODERN CHROME</span>
+    </div>
+    <span style="flex: 1;"></span>
+    <div style="display: flex; align-items: center; gap: 16px; font-size: 10px; color: #8d97a4;">
+      <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 5px; height: 5px; border-radius: 50%; background: #66d69f; animation: pulse 2.4s ease-in-out infinite;"></span>Sweep 2026.06.20</span>
+      <span style="color: #2e353f;">|</span>
+      <span>14 cases &#183; 52 entities</span>
+      <span style="color: #2e353f;">|</span>
+      <span style="border: 1px solid #3b444f; border-radius: 3px; padding: 3px 8px; color: #b9c2cd;" style-hover="border-color: #5ed4e6; color: #5ed4e6;">Settings</span>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 194px 1fr 296px; min-height: 0;">
+
+    <div style="border-right: 1px solid #2e353f; background: #171b21; display: grid; grid-template-rows: auto auto 1fr; min-height: 0;">
+      <div style="padding: 12px 12px 6px;">
+        <div style="font-size: 9px; letter-spacing: 0.12em; color: #5c6672; margin-bottom: 8px;">VIEWS</div>
+        <div style="display: grid; gap: 2px;">
+          <sc-for list="{{ views }}" as="v" hint-placeholder-count="7">
+            <div onClick="{{ v.go }}" style="display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 3px; font-size: 11px; cursor: pointer; background: {{ v.bg }}; color: {{ v.fg }}; border-left: 2px solid {{ v.mark }};" style-hover="background: #1e232a;">
+              <span>{{ v.label }}</span>
+              <span style="flex: 1;"></span>
+              <span style="font-size: 9.5px; color: #5c6672;">{{ v.count }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding: 10px 12px; border-top: 1px solid #23292f; margin-top: 6px;">
+        <div style="font-size: 9px; letter-spacing: 0.12em; color: #5c6672; margin-bottom: 8px;">FILTERS</div>
+        <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
+            <span onClick="{{ c.toggle }}" style="font-size: 9.5px; padding: 3px 7px; border-radius: 2px; cursor: pointer; white-space: nowrap; border: 1px solid {{ c.border }}; color: {{ c.fg }}; background: {{ c.bg }};">{{ c.label }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding: 10px 12px; border-top: 1px solid #23292f; align-self: end;">
+        <div style="font-size: 9px; letter-spacing: 0.12em; color: #5c6672; margin-bottom: 7px;">CONNECTION TYPE</div>
+        <div style="display: grid; gap: 3.5px;">
+          <sc-for list="{{ legend }}" as="row" hint-placeholder-count="8">
+            <div style="display: flex; align-items: center; gap: 7px; font-size: 9.5px; color: #8d97a4;">
+              <span style="width: 16px; height: 2px; background: {{ row.color }};"></span>
+              <span>{{ row.label }}</span>
+              <span style="flex: 1;"></span>
+              <span style="color: #4f5964;">{{ row.count }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="position: relative; min-height: 0; overflow: hidden;">
+      <canvas ref="{{ canvasRef }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair;"></canvas>
+
+      <div style="position: absolute; left: 10px; top: 10px; display: flex; gap: 6px;">
+        <sc-for list="{{ hops }}" as="h" hint-placeholder-count="3">
+          <span onClick="{{ h.set }}" style="font-size: 9.5px; padding: 4px 9px; border-radius: 3px; cursor: pointer; background: {{ h.bg }}; border: 1px solid {{ h.border }}; color: {{ h.fg }};">{{ h.label }}</span>
+        </sc-for>
+      </div>
+
+      <div ref="{{ tipRef }}" style="position: absolute; opacity: 0; pointer-events: none; transition: opacity 90ms linear; background: #232932; border: 1px solid #3b444f; border-radius: 3px; padding: 7px 9px; font-size: 10px; white-space: nowrap; box-shadow: 0 8px 28px rgba(0,0,0,0.6); z-index: 4;"></div>
+
+      <div style="position: absolute; left: 10px; bottom: 10px; max-width: 340px; background: rgba(30,35,42,0.95); border: 1px solid #3b444f; border-left: 2px solid #5ed4e6; border-radius: 3px; padding: 9px 11px;">
+        <div style="display: flex; align-items: center; gap: 7px; margin-bottom: 5px;">
+          <span style="font-size: 8.5px; letter-spacing: 0.12em; color: #5ed4e6;">PATTERN &#183; COMPUTED</span>
+          <span style="flex: 1;"></span>
+          <span onClick="{{ dismissInsight }}" style="font-size: 11px; color: #5c6672; cursor: pointer; line-height: 1;" style-hover="color: #e6e9ee;">&#215;</span>
+        </div>
+        <div style="font-size: 11px; line-height: 1.55; color: #dfe4ea;">{{ insightText }}</div>
+        <div onClick="{{ showInsight }}" style="margin-top: 7px; font-size: 9.5px; color: #5ed4e6; cursor: pointer; display: inline-block; border-bottom: 1px solid rgba(94,212,230,0.35);">Show me on the map</div>
+      </div>
+    </div>
+
+    <div style="border-left: 1px solid #2e353f; background: #171b21; overflow-y: auto; min-height: 0;">
+      <sc-if value="{{ hasSelection }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="padding: 12px 13px 10px; border-bottom: 1px solid #23292f;">
+            <div style="display: flex; align-items: center; gap: 7px; margin-bottom: 9px;">
+              <span style="font-size: 8.5px; letter-spacing: 0.12em; color: #5c6672;">{{ sel.cls }}</span>
+              <span style="flex: 1;"></span>
+              <span style="font-size: 8.5px; letter-spacing: 0.1em; padding: 2px 6px; border-radius: 2px; color: {{ sel.color }}; border: 1px solid {{ sel.color }};">{{ sel.badge }}</span>
+            </div>
+            <div style="display: flex; gap: 11px; align-items: flex-start;">
+              <div style="width: 54px; height: 66px; flex: 0 0 auto; background: #101317; border: 1px solid #3b444f; display: grid; place-items: center;">
+                <span style="font-size: 7px; letter-spacing: 0.08em; color: #4f5964; text-align: center; line-height: 1.4;">PHOTO<br>PLACEHOLDER</span>
+              </div>
+              <div style="min-width: 0;">
+                <div style="font-size: 14px; font-weight: 600; line-height: 1.25;">{{ sel.name }}</div>
+                <div style="font-size: 10px; color: #8d97a4; margin-top: 4px; line-height: 1.5;">{{ sel.sub }}</div>
+                <div style="font-size: 10px; color: #5c6672; margin-top: 2px;">{{ sel.meta }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding: 11px 13px; border-bottom: 1px solid #23292f;">
+            <div style="font-size: 9px; letter-spacing: 0.12em; color: #5c6672; margin-bottom: 7px;">RECORD</div>
+            <div style="display: grid; gap: 5px;">
+              <sc-for list="{{ sel.fields }}" as="f" hint-placeholder-count="5">
+                <div style="display: grid; grid-template-columns: 84px 1fr; gap: 8px; font-size: 10px;">
+                  <span style="color: #5c6672;">{{ f.k }}</span>
+                  <span style="color: {{ f.color }}; line-height: 1.45;">{{ f.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="padding: 11px 13px; border-bottom: 1px solid #23292f;">
+            <div style="font-size: 9px; letter-spacing: 0.12em; color: #5c6672; margin-bottom: 7px;">CONNECTIONS &#183; {{ sel.connCount }}</div>
+            <div style="display: grid; gap: 3px;">
+              <sc-for list="{{ sel.conns }}" as="c" hint-placeholder-count="6">
+                <div onClick="{{ c.go }}" style="display: flex; align-items: center; gap: 7px; font-size: 10px; padding: 3px 5px; border-radius: 2px; cursor: pointer; color: #b9c2cd;" style-hover="background: #1e232a; color: #e6e9ee;">
+                  <span style="width: 11px; height: 2px; background: {{ c.color }}; flex: 0 0 auto;"></span>
+                  <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ c.label }}</span>
+                  <span style="flex: 1;"></span>
+                  <span style="font-size: 8.5px; color: #4f5964;">{{ c.type }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="padding: 11px 13px;">
+            <div style="font-size: 9px; letter-spacing: 0.12em; color: #5c6672; margin-bottom: 7px;">SOURCES</div>
+            <div style="display: grid; gap: 5px; font-size: 10px;">{{ sel.sourceList }}</div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noSelection }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 16px 14px; font-size: 10.5px; color: #5c6672; line-height: 1.6;">No entity selected. Click any node, or ask the analyst below. Every node of every class opens here: person, institution, program, location, research domain.</div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="border-top: 1px solid #2e353f; background: #191d23;">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 7px 13px; border-bottom: 1px solid #23292f;">
+      <span style="font-size: 9px; letter-spacing: 0.12em; color: #5ed4e6;">ANALYST</span>
+      <span style="font-size: 9.5px; color: #5c6672;">{{ analystStatus }}</span>
+      <span style="flex: 1;"></span>
+      <span onClick="{{ toggleTranscript }}" style="font-size: 9.5px; color: #8d97a4; cursor: pointer;" style-hover="color: #e6e9ee;">{{ toggleLabel }}</span>
+    </div>
+
+    <sc-if value="{{ transcriptOpen }}" hint-placeholder-val="{{ true }}">
+      <div ref="{{ scrollRef }}" style="max-height: 216px; overflow-y: auto; padding: 11px 13px; display: grid; gap: 11px;">
+        <sc-for list="{{ turns }}" as="turn" hint-placeholder-count="4">
+          <div style="display: grid; grid-template-columns: 62px 1fr; gap: 11px; font-size: 11px;">
+            <span style="font-size: 8.5px; letter-spacing: 0.1em; color: {{ turn.roleColor }}; padding-top: 2px;">{{ turn.role }}</span>
+            <div style="min-width: 0;">
+              <div style="line-height: 1.6; color: {{ turn.color }};">{{ turn.text }}</div>
+              <sc-if value="{{ turn.hasActions }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top: 6px; display: grid; gap: 3px;">
+                  <sc-for list="{{ turn.actions }}" as="a" hint-placeholder-count="2">
+                    <div style="display: flex; align-items: center; gap: 7px; font-size: 9.5px; color: #66d69f; background: rgba(102,214,159,0.06); border-left: 2px solid rgba(102,214,159,0.5); padding: 3px 8px;">
+                      <span>{{ a }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ turn.hasCites }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top: 6px; display: flex; flex-wrap: wrap; gap: 5px;">{{ turn.citeList }}</div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <div style="display: flex; gap: 6px; padding: 8px 13px 6px; flex-wrap: wrap; border-top: 1px solid #23292f;">
+      <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="4">
+        <span onClick="{{ s.run }}" style="font-size: 9.5px; padding: 4px 9px; border: 1px solid #333c47; border-radius: 12px; color: #8d97a4; cursor: pointer; white-space: nowrap;" style-hover="border-color: #5ed4e6; color: #5ed4e6;">{{ s.label }}</span>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px; padding: 4px 13px 11px;">
+      <span style="color: #5ed4e6; font-size: 12px; animation: blink 1.15s steps(1) infinite;">&#9646;</span>
+      <input ref="{{ inputRef }}" onKeyDown="{{ onKey }}" placeholder="Ask the analyst, or type a command. It can drive every control in this window." style="flex: 1; background: #14171c; border: 1px solid #333c47; border-radius: 3px; padding: 9px 11px; color: #e6e9ee; font-family: 'IBM Plex Mono', monospace; font-size: 11px; outline: none;" style-focus="border-color: #5ed4e6;">
+      <span onClick="{{ send }}" style="font-size: 10px; padding: 8px 14px; border: 1px solid #5ed4e6; border-radius: 3px; color: #5ed4e6; cursor: pointer; letter-spacing: 0.06em;" style-hover="background: rgba(94,212,230,0.1);">SEND</span>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.canvasRef = React.createRef();
+    this.tipRef = React.createRef();
+    this.inputRef = React.createRef();
+    this.scrollRef = React.createRef();
+    this.state = {
+      view: 'Network', hops: 1, legend: [], sel: null, open: true,
+      filters: { dead: false, missing: false, california: false, 'new-mexico': false, huntsville: false, propulsion: false },
+      insight: true,
+      turns: [
+        { role: 'YOU', text: 'What connects Sullivan to the Congressional investigation?' },
+        {
+          role: 'ANALYST',
+          text: 'A four-step witness chain. Matthew Sullivan was a source for David Grusch; Grusch\u2019s whistleblower proceedings triggered the House Oversight letters of April 20 2026; those letters are what put the FBI probe on the record. Sullivan died of an overdose weeks before scheduled Congressional testimony. The chain is documented at every step, but note what it does not establish: nothing in the record links his death to the investigation causally.',
+          actions: ['selectNode("sullivan")', 'highlightPath("sullivan" \u2192 "oversight", hops: 3)', 'setEdgeFilter(["witness-chain","programmatic"])'],
+          cites: [['sullivan', 'NewsNation'], ['oversight', 'House Oversight']],
+        },
+      ],
+    };
+  }
+
+  async componentDidMount() {
+    const G = await import('./vanishing-graph.js');
+    this.G = G;
+    const counts = {};
+    for (const e of G.EDGES) counts[e.type] = (counts[e.type] || 0) + 1;
+    this.setState({ legend: Object.entries(G.EDGE_TYPES).map(([k, v]) => ({ key: k, label: v.label, color: v.color, count: counts[k] || 0 })) });
+    const cv = this.canvasRef.current;
+    if (!cv) return;
+    this.map = G.mountMap(cv, {
+      variant: 'bundled',
+      inset: { l: 92, r: 92, t: 46, b: 92 },
+      onHover: (n, mx, my) => this.tip(n, mx, my),
+      onSelect: (n) => this.setState({ sel: n }),
+    });
+    this.map.select('sullivan', 1);
+  }
+
+  componentWillUnmount() { if (this.map) this.map.destroy(); }
+
+  tip(n, mx, my) {
+    const el = this.tipRef.current;
+    if (!el) return;
+    if (!n) { el.style.opacity = '0'; return; }
+    const line = n.cls === 'person' ? n.sub + ' \u00b7 ' + n.loc : (n.sub || n.cls) + ' \u00b7 ' + n.deg + ' connections';
+    el.innerHTML = '<div style="font-weight:600">' + n.label + '</div>'
+      + '<div style="color:#5c6672;font-size:8.5px;letter-spacing:.1em;margin-top:2px">' + n.cls.toUpperCase() + '</div>'
+      + '<div style="color:#8d97a4;margin-top:3px">' + line + '</div>';
+    el.style.opacity = '1';
+    el.style.left = (mx + 15) + 'px';
+    el.style.top = (my + 15) + 'px';
+  }
+
+  go = (id, hops) => { if (this.map) this.map.select(id, hops || this.state.hops); };
+
+  setHops = (h) => {
+    this.setState({ hops: h });
+    if (this.map && this.state.sel) this.map.select(this.state.sel.id, h);
+  };
+
+  toggleFilter = (key) => this.setState(s => ({ filters: { ...s.filters, [key]: !s.filters[key] } }));
+
+  push(turn) {
+    this.setState(s => ({ turns: [...s.turns, turn], open: true }), () => {
+      const el = this.scrollRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    });
+  }
+
+  // The command surface the analyst drives. UI controls call the same functions.
+  dispatch(action, arg) {
+    const map = {
+      selectNode: (id) => this.go(id, this.state.hops),
+      clearSelection: () => this.go(null),
+      setHops: (h) => this.setHops(h),
+      focusCluster: (c) => {
+        const first = this.G.PEOPLE.find(p => p.cluster === c);
+        if (first) this.go(first.id, 2);
+      },
+      toggleFilter: (k) => this.toggleFilter(k),
+    };
+    if (map[action]) map[action](arg);
+  }
+
+  ask = (text) => {
+    const q = text.trim();
+    if (!q) return;
+    this.push({ role: 'YOU', text: q });
+    const l = q.toLowerCase();
+    let reply;
+    if (l.includes('propulsion')) {
+      reply = {
+        role: 'ANALYST',
+        text: 'Six entities touch propulsion research: Ning Li, Amy Eskridge, Joshua LeBlanc, Monica Reza, Neil McCasland, and the Propulsion domain node itself. Three of them are inside the Huntsville triangle. That is the tightest domain-plus-geography overlap in the data, and it is also the cluster with the least documentary follow-up.',
+        actions: ['selectNode("d-prop")', 'setHops(1)', 'toggleFilter("propulsion")'],
+        cites: [['li', 'Newsweek'], ['eskridge', 'NewsNation']],
+      };
+      this.dispatch('selectNode', 'd-prop');
+    } else if (l.includes('new mexico') || l.includes('weakest')) {
+      reply = {
+        role: 'ANALYST',
+        text: 'The weakest link in the New Mexico cluster is Steven Garcia. His KCNSC employment and clearance level are documented, but nothing published ties him to LANL, to AFRL, or to any of the other three New Mexico cases beyond geography and the left-behind pattern. Treating him as part of a single cluster is an inference, not a sourced finding.',
+        actions: ['focusCluster("new-mexico")', 'selectNode("garcia")'],
+        cites: [['garcia', 'Cybernews']],
+      };
+      this.dispatch('selectNode', 'garcia');
+    } else if (l.includes('temporal') || l.includes('accelerat')) {
+      reply = {
+        role: 'ANALYST',
+        text: 'Cases cluster hard in 2025: seven of fourteen fall between May and December of that year, against three in the preceding four years combined. That looks like acceleration. It is also exactly what you would expect once national coverage began in April 2025 and reporters started retroactively classifying deaths as part of a pattern. I cannot separate a real rate change from a reporting-attention change with this data.',
+        actions: ['setView("Timeline")', 'setTimelineZoom("month")'],
+        cites: [['fbi', 'CNN']],
+      };
+    } else if (l.includes('coincidence') || l.includes('meaningful') || l.includes('base rate')) {
+      reply = {
+        role: 'ANALYST',
+        text: 'NASA JPL appears in three cases, more than any other institution. JPL employs roughly 6,000 people, so three deaths across five years is not obviously above base rate. Scientific American ran that arithmetic and concluded the pattern does not survive it. The data here does not support calling JPL a signal.',
+        cites: [['fbi', 'CNN']],
+      };
+    } else {
+      reply = {
+        role: 'ANALYST',
+        text: 'I can answer that against the case records, or drive the map for you. Try asking about propulsion researchers, the New Mexico cluster, temporal patterns, or whether an institutional overlap is meaningful. If a question needs data the records do not hold, I will say so rather than infer.',
+      };
+    }
+    setTimeout(() => this.push(reply), 260);
+  };
+
+  onKey = (e) => {
+    if (e.key !== 'Enter') return;
+    this.ask(e.currentTarget.value);
+    e.currentTarget.value = '';
+  };
+
+  send = () => {
+    const el = this.inputRef.current;
+    if (!el) return;
+    this.ask(el.value);
+    el.value = '';
+  };
+
+  renderVals() {
+    const G = this.G;
+    const sel = this.state.sel;
+    const colorOf = (n) => (G ? G.nodeColor(n) : '#c9d2dd');
+
+    const views = [
+      ['Network', 52], ['Timeline', 14], ['Geography', 3], ['Cases', 14],
+      ['Analysis', 13], ['Counterarguments', 5], ['Search', ''],
+    ].map(([label, count]) => {
+      const on = this.state.view === label;
+      return {
+        label, count,
+        bg: on ? '#1e232a' : 'transparent',
+        fg: on ? '#e6e9ee' : '#8d97a4',
+        mark: on ? '#5ed4e6' : 'transparent',
+        go: () => this.setState({ view: label }),
+      };
+    });
+
+    const chipDefs = [['dead', 'Dead'], ['missing', 'Missing'], ['california', 'California'], ['new-mexico', 'New Mexico'], ['huntsville', 'Huntsville'], ['propulsion', 'Propulsion']];
+    const chips = chipDefs.map(([k, label]) => {
+      const on = this.state.filters[k];
+      return {
+        label,
+        toggle: () => this.toggleFilter(k),
+        border: on ? '#5ed4e6' : '#333c47',
+        fg: on ? '#5ed4e6' : '#8d97a4',
+        bg: on ? 'rgba(94,212,230,0.09)' : 'transparent',
+      };
+    });
+
+    const hops = [1, 2, 3].map(h => {
+      const on = this.state.hops === h;
+      return {
+        label: h + ' hop' + (h > 1 ? 's' : ''),
+        set: () => this.setHops(h),
+        bg: on ? 'rgba(94,212,230,0.12)' : 'rgba(25,29,35,0.9)',
+        border: on ? '#5ed4e6' : '#333c47',
+        fg: on ? '#5ed4e6' : '#8d97a4',
+      };
+    });
+
+    let selVals = null;
+    if (sel && G) {
+      const conns = this.map ? this.map.links
+        .filter(l => l.s.id === sel.id || l.t.id === sel.id)
+        .map(l => {
+          const o = l.s.id === sel.id ? l.t : l.s;
+          return {
+            label: o.label, type: G.EDGE_TYPES[l.type].label.toLowerCase(),
+            color: G.EDGE_TYPES[l.type].color, go: () => this.go(o.id),
+          };
+        }) : [];
+      const fields = sel.cls === 'person'
+        ? [
+            { k: 'Status', v: sel.status === 'transitioned' ? 'Dead (was missing)' : sel.status, color: colorOf(sel) },
+            { k: 'Date', v: sel.date, color: '#dfe4ea' },
+            { k: 'Age', v: sel.age == null ? 'not reported' : String(sel.age), color: sel.age == null ? '#5c6672' : '#dfe4ea' },
+            { k: 'Location', v: sel.loc, color: '#dfe4ea' },
+            { k: 'Affiliation', v: sel.sub, color: '#dfe4ea' },
+            { k: 'Cluster', v: G.CLUSTERS[sel.cluster].label, color: '#dfe4ea' },
+          ]
+        : [
+            { k: 'Class', v: sel.cls, color: '#dfe4ea' },
+            { k: 'Sub-type', v: sel.sub || 'not classified', color: sel.sub ? '#dfe4ea' : '#5c6672' },
+            { k: 'Degree', v: sel.deg + ' connections', color: '#dfe4ea' },
+            { k: 'Cluster', v: G.CLUSTERS[sel.cluster].label, color: '#dfe4ea' },
+          ];
+      const srcs = G.SOURCES[sel.id];
+      selVals = {
+        cls: sel.cls.toUpperCase(),
+        name: sel.label,
+        badge: sel.cls === 'person' ? (sel.status === 'transitioned' ? 'DEAD \u2190 MISSING' : sel.status.toUpperCase()) : sel.cls.toUpperCase(),
+        color: colorOf(sel),
+        sub: sel.cls === 'person' ? sel.sub : (sel.sub || 'Entity'),
+        meta: sel.cls === 'person' ? sel.loc + ' \u00b7 ' + sel.date : sel.deg + ' connections',
+        fields,
+        conns,
+        connCount: conns.length,
+        sourceList: srcs
+          ? srcs.map((s, i) => React.createElement('a', { key: i, href: s.url, target: '_blank', style: { display: 'block' } }, s.name))
+          : React.createElement('span', { style: { color: '#5c6672' } }, 'No attributed source on file for this entity.'),
+      };
+    }
+
+    const turns = this.state.turns.map(t => ({
+      role: t.role,
+      roleColor: t.role === 'YOU' ? '#8d97a4' : '#5ed4e6',
+      color: t.role === 'YOU' ? '#b9c2cd' : '#dfe4ea',
+      text: t.text,
+      hasActions: !!(t.actions && t.actions.length),
+      actions: t.actions || [],
+      hasCites: !!(t.cites && t.cites.length),
+      citeList: (t.cites || []).map(([id, name], i) => React.createElement('span', {
+        key: i,
+        onClick: () => this.go(id),
+        style: { fontSize: '9px', padding: '2px 7px', border: '1px solid #333c47', borderRadius: '2px', color: '#8d97a4', cursor: 'pointer' },
+      }, name)),
+    }));
+
+    const suggestions = [
+      'Show me all the propulsion researchers',
+      'What is the weakest link in the New Mexico cluster?',
+      'Are there temporal patterns I am missing?',
+      'Is the JPL overlap meaningful or just base rate?',
+    ].map(label => ({ label, run: () => this.ask(label) }));
+
+    return {
+      canvasRef: this.canvasRef, tipRef: this.tipRef, inputRef: this.inputRef, scrollRef: this.scrollRef,
+      views, chips, hops, legend: this.state.legend,
+      hasSelection: !!selVals, noSelection: !selVals, sel: selVals,
+      turns, suggestions,
+      transcriptOpen: this.state.open,
+      toggleLabel: this.state.open ? 'Collapse' : 'Expand',
+      toggleTranscript: () => this.setState(s => ({ open: !s.open })),
+      analystStatus: 'ready \u00b7 key stored locally \u00b7 claude-sonnet-4.6',
+      insightText: this.state.insight
+        ? 'Five individuals left a phone or wallet behind. Four of the five are in different states, which weakens the single-actor reading and strengthens a shared-behaviour reading.'
+        : 'Insight dismissed.',
+      dismissInsight: () => this.setState({ insight: false }),
+      showInsight: () => { this.dispatch('selectNode', 'garcia'); this.setHops(1); },
+      onKey: this.onKey, send: this.send,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

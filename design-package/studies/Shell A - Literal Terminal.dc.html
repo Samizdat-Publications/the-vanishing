@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0a0d10; }
+  * { box-sizing: border-box; }
+  a { color: #6fe0c8; text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { color: #b6f2e4; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-thumb { background: #24382f; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  @keyframes blk { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+</style>
+</helmet>
+<div style="width: 100%; height: 100%; min-height: 860px; background: #0a0d10; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; color: #9fb3ab; display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; position: relative; text-shadow: 0 0 6px rgba(111,224,200,0.16);">
+
+  <div style="position: absolute; inset: 0; pointer-events: none; z-index: 9; background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.16) 3px, rgba(0,0,0,0) 4px); opacity: 0.55;"></div>
+  <div style="position: absolute; inset: 0; pointer-events: none; z-index: 9; box-shadow: inset 0 0 140px rgba(0,0,0,0.75);"></div>
+
+  <div style="padding: 8px 12px 6px; border-bottom: 1px solid #1e2b26; line-height: 1.55;">
+    <div style="white-space: pre; color: #6fe0c8;">{{ bannerTop }}</div>
+    <div style="white-space: pre; color: #607a72;">{{ bannerSub }}</div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 224px 1fr 320px; min-height: 0;">
+
+    <div style="border-right: 1px solid #1e2b26; padding: 9px 12px; display: grid; grid-template-rows: auto auto 1fr; gap: 12px; min-height: 0; overflow: hidden;">
+      <div>
+        <div style="color: #405249; white-space: pre; margin-bottom: 5px;">{{ ruleViews }}</div>
+        <div style="line-height: 1.75;">
+          <sc-for list="{{ views }}" as="v" hint-placeholder-count="7">
+            <div onClick="{{ v.go }}" style="cursor: pointer; white-space: pre; color: {{ v.fg }};" style-hover="color: #b6f2e4;">{{ v.row }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="color: #405249; white-space: pre; margin-bottom: 5px;">{{ ruleFilters }}</div>
+        <div style="line-height: 1.75;">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
+            <div onClick="{{ c.toggle }}" style="cursor: pointer; white-space: pre; color: {{ c.fg }};" style-hover="color: #b6f2e4;">{{ c.row }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="align-self: end;">
+        <div style="color: #405249; white-space: pre; margin-bottom: 5px;">{{ ruleEdges }}</div>
+        <div style="line-height: 1.7; font-size: 11px;">
+          <sc-for list="{{ legend }}" as="row" hint-placeholder-count="8">
+            <div style="white-space: pre; color: {{ row.color }};">{{ row.row }}</div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="position: relative; min-height: 0; overflow: hidden; border-right: 1px solid #1e2b26;">
+      <canvas ref="{{ canvasRef }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair;"></canvas>
+
+      <div style="position: absolute; left: 0; right: 0; top: 0; padding: 5px 10px; white-space: pre; color: #607a72; background: rgba(10,13,16,0.82); border-bottom: 1px solid #1e2b26; font-size: 11px;">{{ mapHeader }}</div>
+
+      <div style="position: absolute; left: 10px; bottom: 8px; right: 10px; line-height: 1.6; color: #9fb3ab; background: rgba(10,13,16,0.9); border: 1px solid #24382f; padding: 7px 9px; font-size: 11px;">
+        <div style="color: #6fe0c8;">{{ insightHead }}</div>
+        <div style="text-wrap: pretty;">{{ insightText }}</div>
+        <div onClick="{{ showInsight }}" style="color: #6fe0c8; cursor: pointer; margin-top: 3px;">{{ insightCta }}</div>
+      </div>
+
+      <div ref="{{ tipRef }}" style="position: absolute; opacity: 0; pointer-events: none; transition: opacity 80ms linear; background: #0a0d10; border: 1px solid #6fe0c8; padding: 5px 8px; white-space: pre; font-size: 11px; z-index: 5;"></div>
+    </div>
+
+    <div style="padding: 9px 12px; overflow-y: auto; min-height: 0; line-height: 1.7;">
+      <sc-if value="{{ hasSelection }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="color: #405249; white-space: pre;">{{ ruleRecord }}</div>
+          <div style="color: {{ sel.color }}; font-weight: 600; margin: 5px 0 2px;">{{ sel.title }}</div>
+          <div style="color: #607a72; margin-bottom: 8px;">{{ sel.subline }}</div>
+          <div style="line-height: 1.75;">
+            <sc-for list="{{ sel.rows }}" as="r" hint-placeholder-count="6">
+              <div style="white-space: pre; color: {{ r.color }};">{{ r.row }}</div>
+            </sc-for>
+          </div>
+          <div style="color: #405249; white-space: pre; margin: 11px 0 4px;">{{ ruleConn }}</div>
+          <div style="line-height: 1.75;">
+            <sc-for list="{{ sel.conns }}" as="c" hint-placeholder-count="7">
+              <div onClick="{{ c.go }}" style="cursor: pointer; white-space: pre; color: {{ c.color }};" style-hover="color: #b6f2e4;">{{ c.row }}</div>
+            </sc-for>
+          </div>
+          <div style="color: #405249; white-space: pre; margin: 11px 0 4px;">{{ ruleSrc }}</div>
+          <div>{{ sel.sourceList }}</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noSelection }}" hint-placeholder-val="{{ false }}">
+        <div style="color: #607a72; white-space: pre-wrap;">{{ emptyText }}</div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="border-top: 1px solid #1e2b26; padding: 8px 12px 10px;">
+    <div style="color: #405249; white-space: pre; margin-bottom: 6px;">{{ ruleAnalyst }}</div>
+    <div ref="{{ scrollRef }}" style="max-height: 190px; overflow-y: auto; line-height: 1.65;">
+      <sc-for list="{{ turns }}" as="turn" hint-placeholder-count="4">
+        <div style="margin-bottom: 9px;">
+          <div style="color: {{ turn.color }}; white-space: pre-wrap;"><span style="color: {{ turn.roleColor }};">{{ turn.prompt }}</span>{{ turn.text }}</div>
+          <sc-if value="{{ turn.hasActions }}" hint-placeholder-val="{{ false }}">
+            <div>
+              <sc-for list="{{ turn.actions }}" as="a" hint-placeholder-count="2">
+                <div style="white-space: pre; color: #6fe0c8;">{{ a }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ turn.hasCites }}" hint-placeholder-val="{{ false }}">
+            <div style="color: #607a72;">{{ turn.citeList }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <div style="color: #405249; white-space: pre; margin: 6px 0;">{{ ruleSuggest }}</div>
+    <div style="line-height: 1.7;">
+      <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="4">
+        <div onClick="{{ s.run }}" style="cursor: pointer; white-space: pre; color: #607a72;" style-hover="color: #b6f2e4;">{{ s.row }}</div>
+      </sc-for>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0; margin-top: 9px; border-top: 1px solid #1e2b26; padding-top: 9px;">
+      <span style="color: #6fe0c8; white-space: pre;">{{ promptLabel }}</span>
+      <input ref="{{ inputRef }}" onKeyDown="{{ onKey }}" placeholder="type a question or a command, then RETURN" style="flex: 1; background: transparent; border: none; outline: none; color: #d8e6e0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; padding: 0 4px;">
+      <span style="color: #6fe0c8; animation: blk 1.05s steps(1) infinite;">&#9608;</span>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.canvasRef = React.createRef();
+    this.tipRef = React.createRef();
+    this.inputRef = React.createRef();
+    this.scrollRef = React.createRef();
+    this.state = {
+      view: 'NETWORK', hops: 1, legend: [], sel: null,
+      filters: { dead: false, missing: false, california: false, 'new-mexico': false, huntsville: false, propulsion: false },
+      turns: [
+        { role: 'you', text: 'What connects Sullivan to the Congressional investigation?' },
+        {
+          role: 'analyst',
+          text: 'A four-step witness chain. Matthew Sullivan was a source for David Grusch; Grusch\u2019s whistleblower proceedings triggered the House Oversight letters of April 20 2026; those letters put the FBI probe on the record. Sullivan died of an overdose weeks before scheduled Congressional testimony. The chain is documented at every step. Note what it does not establish: nothing in the record links his death to the investigation causally.',
+          actions: ['selectNode("sullivan")', 'highlightPath("sullivan","oversight",hops=3)', 'setEdgeFilter(witness-chain,programmatic)'],
+          cites: [['sullivan', 'NewsNation'], ['oversight', 'House Oversight']],
+        },
+      ],
+    };
+  }
+
+  async componentDidMount() {
+    const G = await import('./vanishing-graph.js');
+    this.G = G;
+    const counts = {};
+    for (const e of G.EDGES) counts[e.type] = (counts[e.type] || 0) + 1;
+    this.setState({ legend: Object.entries(G.EDGE_TYPES).map(([k, v]) => ({ key: k, label: v.label, color: v.color, count: counts[k] || 0 })) });
+    const cv = this.canvasRef.current;
+    if (!cv) return;
+    this.map = G.mountMap(cv, {
+      variant: 'bundled',
+      inset: { l: 86, r: 86, t: 56, b: 108 },
+      onHover: (n, mx, my) => this.tip(n, mx, my),
+      onSelect: (n) => this.setState({ sel: n }),
+    });
+    this.map.select('sullivan', 1);
+  }
+
+  componentWillUnmount() { if (this.map) this.map.destroy(); }
+
+  tip(n, mx, my) {
+    const el = this.tipRef.current;
+    if (!el) return;
+    if (!n) { el.style.opacity = '0'; return; }
+    const l2 = n.cls === 'person' ? n.sub + ' / ' + n.loc : (n.sub || n.cls) + ' / deg ' + n.deg;
+    el.textContent = '[' + n.cls.toUpperCase() + '] ' + n.label + '\n' + l2;
+    el.style.opacity = '1';
+    el.style.left = (mx + 14) + 'px';
+    el.style.top = (my + 14) + 'px';
+  }
+
+  lead(k, v, width) {
+    const w = width || 30;
+    const dots = Math.max(1, w - k.length - String(v).length);
+    return k + '.'.repeat(dots) + v;
+  }
+
+  rule(label, width) {
+    const w = width || 26;
+    const body = '\u2500'.repeat(Math.max(1, w - label.length - 4));
+    return '\u2500\u2500 ' + label + ' ' + body;
+  }
+
+  go = (id, hops) => { if (this.map) this.map.select(id, hops || this.state.hops); };
+
+  toggleFilter = (key) => this.setState(s => ({ filters: { ...s.filters, [key]: !s.filters[key] } }));
+
+  push(turn) {
+    this.setState(s => ({ turns: [...s.turns, turn] }), () => {
+      const el = this.scrollRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    });
+  }
+
+  dispatch(action, arg) {
+    const map = {
+      selectNode: (id) => this.go(id),
+      clearSelection: () => this.go(null),
+      focusCluster: (c) => {
+        const first = this.G.PEOPLE.find(p => p.cluster === c);
+        if (first) this.go(first.id, 2);
+      },
+      toggleFilter: (k) => this.toggleFilter(k),
+    };
+    if (map[action]) map[action](arg);
+  }
+
+  ask = (text) => {
+    const q = text.trim();
+    if (!q) return;
+    this.push({ role: 'you', text: q });
+    const l = q.toLowerCase();
+    let reply;
+    if (l.includes('propulsion')) {
+      reply = {
+        role: 'analyst',
+        text: 'Six entities touch propulsion research: Ning Li, Amy Eskridge, Joshua LeBlanc, Monica Reza, Neil McCasland, and the Propulsion domain node. Three sit inside the Huntsville triangle. That is the tightest domain-plus-geography overlap in the data, and also the cluster with the least documentary follow-up.',
+        actions: ['selectNode("d-prop")', 'toggleFilter("propulsion")'],
+        cites: [['li', 'Newsweek'], ['eskridge', 'NewsNation']],
+      };
+      this.dispatch('selectNode', 'd-prop');
+    } else if (l.includes('new mexico') || l.includes('weakest')) {
+      reply = {
+        role: 'analyst',
+        text: 'Weakest link in the New Mexico cluster is Steven Garcia. KCNSC employment and clearance level are documented, but nothing published ties him to LANL, to AFRL, or to the other three New Mexico cases beyond geography and the left-behind pattern. Treating him as part of one cluster is an inference, not a sourced finding.',
+        actions: ['focusCluster("new-mexico")', 'selectNode("garcia")'],
+        cites: [['garcia', 'Cybernews']],
+      };
+      this.dispatch('selectNode', 'garcia');
+    } else if (l.includes('temporal') || l.includes('accelerat')) {
+      reply = {
+        role: 'analyst',
+        text: 'Cases cluster hard in 2025: seven of fourteen fall between May and December, against three across the preceding four years. That reads as acceleration. It is also what you would expect once national coverage began and reporters started retroactively classifying deaths into the pattern. I cannot separate a real rate change from a reporting-attention change with this data.',
+        actions: ['setView("TIMELINE")', 'setTimelineZoom("month")'],
+        cites: [['fbi', 'CNN']],
+      };
+    } else if (l.includes('coincidence') || l.includes('meaningful') || l.includes('base rate')) {
+      reply = {
+        role: 'analyst',
+        text: 'NASA JPL appears in three cases, more than any other institution. JPL employs roughly 6,000 people, so three deaths across five years is not obviously above base rate. Scientific American ran that arithmetic and concluded the pattern does not survive it. The data here does not support calling JPL a signal.',
+        cites: [['fbi', 'CNN']],
+      };
+    } else {
+      reply = {
+        role: 'analyst',
+        text: 'I can answer against the case records or drive this window for you. Try propulsion researchers, the New Mexico cluster, temporal patterns, or whether an institutional overlap is meaningful. If a question needs data the records do not hold, I will say so rather than infer.',
+      };
+    }
+    setTimeout(() => this.push(reply), 240);
+  };
+
+  onKey = (e) => {
+    if (e.key !== 'Enter') return;
+    this.ask(e.currentTarget.value);
+    e.currentTarget.value = '';
+  };
+
+  renderVals() {
+    const G = this.G;
+    const sel = this.state.sel;
+
+    const views = [
+      ['NETWORK', 52], ['TIMELINE', 14], ['GEOGRAPHY', 3], ['CASES', 14],
+      ['ANALYSIS', 13], ['COUNTERARGS', 5], ['SEARCH', '-'],
+    ].map(([label, count], i) => {
+      const on = this.state.view === label;
+      return {
+        row: (on ? '\u25b8 ' : '  ') + '[' + (i + 1) + '] ' + this.lead(label, String(count), 22),
+        fg: on ? '#b6f2e4' : '#607a72',
+        go: () => this.setState({ view: label }),
+      };
+    });
+
+    const chips = [['dead', 'DEAD'], ['missing', 'MISSING'], ['california', 'CALIFORNIA'], ['new-mexico', 'NEW MEXICO'], ['huntsville', 'HUNTSVILLE'], ['propulsion', 'PROPULSION']]
+      .map(([k, label]) => {
+        const on = this.state.filters[k];
+        return {
+          row: '  [' + (on ? 'x' : ' ') + '] ' + label,
+          fg: on ? '#6fe0c8' : '#607a72',
+          toggle: () => this.toggleFilter(k),
+        };
+      });
+
+    const legend = this.state.legend.map(r => ({
+      color: r.color,
+      row: '  ' + this.lead(r.label.toUpperCase(), String(r.count), 26),
+    }));
+
+    let selVals = null;
+    if (sel && G) {
+      const conns = this.map ? this.map.links
+        .filter(l => l.s.id === sel.id || l.t.id === sel.id)
+        .map(l => {
+          const o = l.s.id === sel.id ? l.t : l.s;
+          const t = G.EDGE_TYPES[l.type];
+          const nm = o.label.length > 20 ? o.label.slice(0, 19) + '\u2026' : o.label;
+          return { row: '  \u2500\u2500 ' + this.lead(nm, l.type, 34), color: t.color, go: () => this.go(o.id) };
+        }) : [];
+      const rows = (sel.cls === 'person'
+        ? [
+            ['STATUS', sel.status === 'transitioned' ? 'DEAD (WAS MISSING)' : sel.status.toUpperCase()],
+            ['DATE', sel.date],
+            ['AGE', sel.age == null ? 'NOT REPORTED' : String(sel.age)],
+            ['LOCATION', sel.loc],
+            ['AFFILIATION', sel.sub],
+            ['CLUSTER', G.CLUSTERS[sel.cluster].label],
+          ]
+        : [
+            ['CLASS', sel.cls.toUpperCase()],
+            ['SUB-TYPE', (sel.sub || 'NOT CLASSIFIED').toUpperCase()],
+            ['DEGREE', sel.deg + ' EDGES'],
+            ['CLUSTER', G.CLUSTERS[sel.cluster].label],
+          ]).map(([k, v]) => ({
+        row: '  ' + this.lead(k, v, 36),
+        color: k === 'STATUS' ? G.nodeColor(sel) : (v === 'NOT REPORTED' || v === 'NOT CLASSIFIED' ? '#405249' : '#9fb3ab'),
+      }));
+      const srcs = G.SOURCES[sel.id];
+      selVals = {
+        title: '  ' + sel.label.toUpperCase(),
+        color: G.nodeColor(sel),
+        subline: '  ' + (sel.cls === 'person' ? sel.sub + ' / ' + sel.loc : (sel.sub || sel.cls)),
+        rows, conns,
+        sourceList: srcs
+          ? srcs.map((s, i) => React.createElement('div', { key: i, style: { paddingLeft: '2px' } },
+              '  \u2192 ', React.createElement('a', { href: s.url, target: '_blank' }, s.name)))
+          : React.createElement('div', { style: { color: '#405249' } }, '  no attributed source on file'),
+      };
+    }
+
+    const turns = this.state.turns.map(t => ({
+      prompt: t.role === 'you' ? 'you> ' : 'analyst> ',
+      roleColor: t.role === 'you' ? '#607a72' : '#6fe0c8',
+      color: t.role === 'you' ? '#9fb3ab' : '#d8e6e0',
+      text: t.text,
+      hasActions: !!(t.actions && t.actions.length),
+      actions: (t.actions || []).map(a => '         :: ' + a),
+      hasCites: !!(t.cites && t.cites.length),
+      citeList: (t.cites || []).map(([id, name], i) => React.createElement('span', {
+        key: i, onClick: () => this.go(id), style: { cursor: 'pointer', textDecoration: 'underline', marginRight: '10px' },
+      }, '[' + name + ']')),
+    }));
+
+    const suggestions = [
+      ['Show me all the propulsion researchers', 'Show me all the propulsion researchers'],
+      ['What is the weakest link in the New Mexico cluster?', 'What is the weakest link in the New Mexico cluster?'],
+      ['Are there temporal patterns I am missing?', 'Are there temporal patterns I am missing?'],
+      ['Is the JPL overlap meaningful or just base rate?', 'Is the JPL overlap meaningful or just base rate?'],
+    ].map(([row, q]) => ({ row: '  ? ' + row, run: () => this.ask(q) }));
+
+    const selLabel = sel ? sel.label.toUpperCase() : 'NONE';
+    return {
+      canvasRef: this.canvasRef, tipRef: this.tipRef, inputRef: this.inputRef, scrollRef: this.scrollRef,
+      bannerTop: 'THE VANISHING  v2.0  \u2502  SHELL A \u00b7 LITERAL TERMINAL  \u2502  ANALYST LINK: READY',
+      bannerSub: 'sweep 2026.06.20   14 cases   10 dead   4 missing   52 entities   94 edges   fed. probe: ACTIVE',
+      ruleViews: this.rule('VIEWS', 26),
+      ruleFilters: this.rule('FILTERS', 26),
+      ruleEdges: this.rule('EDGE TYPE', 26),
+      ruleRecord: this.rule('RECORD', 38),
+      ruleConn: this.rule('CONNECTIONS', 38),
+      ruleSrc: this.rule('SOURCES', 38),
+      ruleAnalyst: this.rule('ANALYST SCROLLBACK', 60),
+      ruleSuggest: this.rule('SUGGESTED', 60),
+      mapHeader: 'NETWORK  \u2502  layout: force/bundled  \u2502  sel: ' + selLabel + '  \u2502  hops: 1  \u2502  click node to isolate',
+      views, chips, legend,
+      hasSelection: !!selVals, noSelection: !selVals, sel: selVals,
+      emptyText: '  no entity selected.\n\n  click any node, or ask the analyst.\n  every class opens here: person,\n  institution, program, location,\n  research domain.',
+      turns, suggestions,
+      insightHead: 'PATTERN :: computed',
+      insightText: 'Five individuals left a phone or wallet behind. Four of the five are in different states, which weakens the single-actor reading and strengthens a shared-behaviour reading.',
+      insightCta: '\u2192 show me on the map',
+      showInsight: () => this.dispatch('selectNode', 'garcia'),
+      promptLabel: 'command> ',
+      onKey: this.onKey,
+    };
+  }
+}
+
+</script>
+</body>
+</html>

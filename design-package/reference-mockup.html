@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0f1216; }
+  * { box-sizing: border-box; }
+  a { color: #5ed4e6; text-decoration: none; border-bottom: 1px solid rgba(94,212,230,0.28); }
+  a:hover { color: #9ae6f2; border-bottom-color: #9ae6f2; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #2e3a44; border-radius: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  input::placeholder { color: #4f5964; }
+  @keyframes blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0.12; } }
+  @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+  @keyframes sweep { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+</style>
+</helmet>
+<div style="width: 100%; height: 100%; min-height: 900px; background: #0f1216; font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #e6e9ee; display: grid; grid-template-rows: 46px 46px 1fr auto; overflow: hidden; position: relative; text-shadow: 0 0 7px rgba(94,212,230,0.07);">
+
+  <div style="position: absolute; inset: 0; z-index: 40; pointer-events: none; background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.13) 3px, rgba(0,0,0,0) 4px); opacity: 0.5;"></div>
+  <div style="position: absolute; inset: 0; z-index: 40; pointer-events: none; box-shadow: inset 0 0 160px rgba(0,0,0,0.6);"></div>
+
+  <sc-if value="{{ settingsOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; top: 46px; right: 15px; z-index: 50; width: 470px; max-width: calc(100% - 30px); max-height: calc(100% - 120px); overflow-y: auto; background: #141920; border: 1px solid #3b444f; box-shadow: 0 18px 60px rgba(0,0,0,0.72);">
+      <div>
+        <div style="display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid #262e36;">
+          <span style="font-size: 8.5px; letter-spacing: 0.13em; color: #5ed4e6;">ANALYST SETTINGS</span>
+          <span style="flex: 1;"></span>
+          <span onClick="{{ closeSettings }}" style="font-size: 14px; line-height: 1; color: #5c6672; cursor: pointer;" style-hover="color: #e6e9ee;">&#215;</span>
+        </div>
+
+        <div style="padding: 15px 16px; border-bottom: 1px solid #1d242b;">
+          <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 7px;">ANTHROPIC API KEY</div>
+          <input ref="{{ keyRef }}" type="password" placeholder="sk-ant-..." style="width: 100%; background: #0d1014; border: 1px solid #333c47; padding: 10px 12px; color: #e6e9ee; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; outline: none;" style-focus="border-color: #5ed4e6;">
+          <div style="font-size: 10px; line-height: 1.6; color: #8d97a4; margin-top: 8px; text-wrap: pretty;">Stored in this browser only, under localStorage, and sent directly to api.anthropic.com. It never reaches any other server. Requires a Console API key with credits; a Pro or Max subscription does not carry API access.</div>
+          <div style="display: flex; gap: 8px; margin-top: 11px;">
+            <span onClick="{{ saveKey }}" style="font-size: 10px; padding: 8px 15px; cursor: pointer; border: 1px solid #5ed4e6; color: #5ed4e6; letter-spacing: 0.06em;" style-hover="background: rgba(94,212,230,0.09);">SAVE KEY</span>
+            <span onClick="{{ removeKey }}" style="font-size: 10px; padding: 8px 15px; cursor: pointer; border: 1px solid #333c47; color: #8d97a4; letter-spacing: 0.06em;" style-hover="border-color: #e8705f; color: #e8705f;">REMOVE</span>
+            <span style="flex: 1;"></span>
+            <span style="font-size: 10px; align-self: center; color: {{ keyStateColor }};">{{ keyState }}</span>
+          </div>
+        </div>
+
+        <div style="padding: 15px 16px; border-bottom: 1px solid #1d242b;">
+          <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 9px;">MODEL</div>
+          <div style="display: grid; gap: 2px;">
+            <sc-for list="{{ models }}" as="m" hint-placeholder-count="2">
+              <div onClick="{{ m.pick }}" style="cursor: pointer; padding: 8px 10px; border-left: 2px solid {{ m.mark }}; background: {{ m.bg }};" style-hover="background: #1a2027;">
+                <div style="display: flex; align-items: baseline; gap: 8px;">
+                  <span style="font-size: 11px; color: {{ m.fg }};">{{ m.label }}</span>
+                  <span style="flex: 1;"></span>
+                  <span style="font-size: 9px; color: #4f5964;">{{ m.id }}</span>
+                </div>
+                <div style="font-size: 10px; color: #8d97a4; margin-top: 3px; line-height: 1.5; text-wrap: pretty;">{{ m.note }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding: 15px 16px;">
+          <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 9px;">REASONING EFFORT</div>
+          <div style="display: flex; gap: 6px; margin-bottom: 9px;">
+            <sc-for list="{{ efforts }}" as="e" hint-placeholder-count="3">
+              <span onClick="{{ e.pick }}" style="flex: 1; text-align: center; font-size: 10px; padding: 7px 4px; cursor: pointer; white-space: nowrap; border: 1px solid {{ e.border }}; background: {{ e.bg }}; color: {{ e.fg }};">{{ e.label }}</span>
+            </sc-for>
+          </div>
+          <div style="font-size: 10px; line-height: 1.6; color: #8d97a4; text-wrap: pretty;">{{ effortNote }}</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="display: flex; align-items: center; gap: 14px; padding: 0 15px; border-bottom: 1px solid #262e36; background: #141920; position: relative; z-index: 2;">
+    <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.01em;">The Vanishing</span>
+    <span style="font-size: 9px; letter-spacing: 0.14em; white-space: nowrap; color: #5ed4e6; border: 1px solid rgba(94,212,230,0.35); padding: 2px 6px;">V2 REFERENCE</span>
+    <span style="flex: 1;"></span>
+    <span style="display: flex; align-items: center; gap: 7px; font-size: 10px; color: #8d97a4;"><span style="width: 5px; height: 5px; border-radius: 50%; background: #66d69f; animation: pulse 2.6s ease-in-out infinite;"></span>Federal probe active</span>
+    <span style="color: #262e36;">|</span>
+    <span style="font-size: 10px; color: #8d97a4;">Last sweep 2026.06.20</span>
+    <span style="color: #262e36;">|</span>
+    <span onClick="{{ openKey }}" style="font-size: 10px; padding: 4px 9px; white-space: nowrap; border: 1px solid #333c47; color: #b9c2cd; cursor: pointer;" style-hover="border-color: #5ed4e6; color: #5ed4e6;">{{ keyLabel }}</span>
+  </div>
+
+  <div style="display: flex; align-items: stretch; border-bottom: 1px solid #262e36; background: #12171d; position: relative; z-index: 2;">
+    <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="6">
+      <div style="padding: 6px 15px; border-right: 1px solid #1d242b; display: grid; align-content: center; gap: 2px; min-width: 106px;">
+        <div style="font-size: 8.5px; letter-spacing: 0.12em; color: #5c6672;">{{ k.label }}</div>
+        <div style="display: flex; align-items: baseline; gap: 5px;">
+          <span style="font-size: 16px; font-weight: 600; color: {{ k.color }};">{{ k.value }}</span>
+          <span style="font-size: 9px; color: #5c6672;">{{ k.unit }}</span>
+        </div>
+      </div>
+    </sc-for>
+    <div style="flex: 1;"></div>
+    <div style="padding: 0 15px; display: grid; align-content: center; gap: 3px; border-left: 1px solid #1d242b;">
+      <div style="font-size: 8.5px; letter-spacing: 0.12em; color: #5c6672;">CONFIDENCE KEY</div>
+      <div style="display: flex; gap: 12px; font-size: 9.5px;">
+        <span style="color: #b9c2cd; border-left: 2px solid #5ed4e6; padding-left: 6px;">Confirmed</span>
+        <span style="color: #b9c2cd; border-left: 2px dashed #efb555; padding-left: 6px;">Claim</span>
+        <span style="color: #b9c2cd; border-left: 2px dotted #8d97a4; padding-left: 6px;">Open question</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 202px 1fr 306px; min-height: 0; position: relative; z-index: 2;">
+
+    <div style="border-right: 1px solid #262e36; background: #12171d; display: grid; grid-template-rows: auto auto 1fr; min-height: 0; overflow: hidden;">
+      <div style="padding: 11px 12px 4px;">
+        <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 7px;">VIEWS</div>
+        <div style="display: grid; gap: 1px;">
+          <sc-for list="{{ views }}" as="v" hint-placeholder-count="7">
+            <div onClick="{{ v.go }}" style="cursor: pointer; padding: 5px 7px; font-size: 11px; white-space: pre; border-left: 2px solid {{ v.mark }}; background: {{ v.bg }}; color: {{ v.fg }};" style-hover="background: #1a2027;">{{ v.row }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding: 10px 12px; border-top: 1px solid #1d242b; margin-top: 8px;">
+        <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 7px;">FILTERS</div>
+        <div style="display: grid; gap: 1px;">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="8">
+            <div onClick="{{ c.toggle }}" style="cursor: pointer; font-size: 10.5px; padding: 3px 7px; white-space: pre; color: {{ c.fg }};" style-hover="color: #e6e9ee;">{{ c.row }}</div>
+          </sc-for>
+        </div>
+        <div onClick="{{ clearFilters }}" style="margin-top: 7px; font-size: 9.5px; color: #5c6672; cursor: pointer; padding-left: 7px;" style-hover="color: #5ed4e6;">clear all</div>
+      </div>
+      <div style="padding: 10px 12px; border-top: 1px solid #1d242b; align-self: end;">
+        <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 7px;">CONNECTION STRENGTH</div>
+        <div style="display: grid; gap: 4px; margin-bottom: 11px;">
+          <sc-for list="{{ ramp }}" as="r" hint-placeholder-count="5">
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 9.5px; color: #8d97a4;">
+              <span style="width: 22px; height: {{ r.h }}; background: {{ r.color }}; flex: 0 0 auto;"></span>
+              <span>{{ r.label }}</span>
+              <span style="flex: 1;"></span>
+              <span style="color: #4f5964;">{{ r.count }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 6px;">CONNECTION TYPE</div>
+        <div style="display: grid; gap: 3px;">
+          <sc-for list="{{ legend }}" as="row" hint-placeholder-count="8">
+            <div onClick="{{ row.solo }}" style="cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 9.5px; color: #8d97a4;" style-hover="color: #e6e9ee;">
+              <span style="width: 14px; height: 2px; background: {{ row.color }};"></span>
+              <span>{{ row.label }}</span>
+              <span style="flex: 1;"></span>
+              <span style="color: #4f5964;">{{ row.count }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div data-surface="1" style="position: relative; min-height: 0; overflow: hidden; background: #0f1216;">
+
+      <sc-if value="{{ isNetwork }}" hint-placeholder-val="{{ true }}">
+        <div style="position: absolute; inset: 0;">
+          <canvas ref="{{ canvasRef }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair;"></canvas>
+          <div style="position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(94,212,230,0.6), transparent); animation: sweep 7s linear infinite;"></div>
+
+          <div style="position: absolute; left: 11px; top: 11px; display: flex; gap: 6px;">
+            <sc-for list="{{ hops }}" as="h" hint-placeholder-count="3">
+              <span onClick="{{ h.set }}" style="font-size: 9.5px; padding: 4px 10px; cursor: pointer; white-space: nowrap; background: {{ h.bg }}; border: 1px solid {{ h.border }}; color: {{ h.fg }};">{{ h.label }}</span>
+            </sc-for>
+            <span onClick="{{ clearSel }}" style="font-size: 9.5px; padding: 4px 10px; cursor: pointer; background: rgba(18,23,29,0.9); border: 1px solid #333c47; color: #8d97a4;" style-hover="color: #e6e9ee;">clear</span>
+          </div>
+
+          <div ref="{{ tipRef }}" style="position: absolute; opacity: 0; pointer-events: none; transition: opacity 85ms linear; background: #1a2027; border: 1px solid #3b444f; padding: 7px 9px; font-size: 10px; white-space: pre; z-index: 6; box-shadow: 0 10px 30px rgba(0,0,0,0.65);"></div>
+
+          <sc-if value="{{ insightOpen }}" hint-placeholder-val="{{ true }}">
+            <div style="position: absolute; left: 11px; bottom: 11px; width: 372px; background: rgba(20,25,32,0.96); border: 1px solid #3b444f; border-left: 2px solid #5ed4e6; padding: 10px 12px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <span style="font-size: 8.5px; letter-spacing: 0.13em; color: #5ed4e6;">STRONGEST PAIR &#183; COMPUTED</span>
+                <span style="flex: 1;"></span>
+                <span onClick="{{ dismissInsight }}" style="font-size: 12px; color: #5c6672; cursor: pointer; line-height: 1;" style-hover="color: #e6e9ee;">&#215;</span>
+              </div>
+              <div style="font-size: 11.5px; line-height: 1.6; color: #dfe4ea; text-wrap: pretty;">{{ insightText }}</div>
+              <div style="display: flex; gap: 12px; margin-top: 8px;">
+                <span onClick="{{ showInsight }}" style="font-size: 9.5px; color: #5ed4e6; cursor: pointer; border-bottom: 1px solid rgba(94,212,230,0.35);">Show me on the map</span>
+                <span onClick="{{ nextInsight }}" style="font-size: 9.5px; color: #8d97a4; cursor: pointer;" style-hover="color: #e6e9ee;">Next pattern</span>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTimeline }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden;">
+
+          <div style="padding: 18px 22px 14px; border-bottom: 1px solid #1d242b;">
+            <div style="font-size: 15px; font-weight: 600; margin-bottom: 7px;">Three strands, one axis</div>
+            <div style="font-size: 11.5px; line-height: 1.65; color: #b9c2cd; max-width: 660px; text-wrap: pretty;">The case record, the oversight record and the skeptical record run down the same time axis. The relationship between them is itself the argument: the cases cluster in 2025, the state arrives in April 2026, and the published analysis reverses it inside eleven days. Reading any strand alone loses that. Date precision is rendered rather than smoothed.</div>
+          </div>
+
+          <div style="position: sticky; top: 0; z-index: 3; display: grid; grid-template-columns: {{ timelineCols }}; gap: 14px; padding: 10px 22px; background: #121820; border-bottom: 1px solid #262e36;">
+            <span></span>
+            <sc-for list="{{ strandHeads }}" as="s" hint-placeholder-count="3">
+              <div>
+                <div style="font-size: 8.5px; letter-spacing: 0.13em; color: {{ s.color }};">{{ s.label }}</div>
+                <div style="font-size: 9.5px; color: #5c6672; margin-top: 2px; text-wrap: pretty;">{{ s.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="padding: 4px 22px 22px;">
+            <sc-for list="{{ rows }}" as="r" hint-placeholder-count="24">
+              <div style="display: grid; grid-template-columns: {{ r.cols }}; gap: 14px; align-items: start;">
+                <div style="font-size: 10px; color: {{ r.yearColor }}; text-align: right; padding-top: 14px; position: sticky; top: 62px;">{{ r.year }}</div>
+                <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="3">
+                  <div style="min-width: 0; border-left: 1px solid {{ c.rail }}; padding: 0 0 0 12px;">
+                    <sc-if value="{{ c.has }}" hint-placeholder-val="{{ false }}">
+                      <div onClick="{{ c.go }}" style="cursor: {{ c.cursor }}; background: {{ c.bg }}; border-left: 2px {{ c.markStyle }} {{ c.mark }}; padding: 9px 12px; margin: 8px 0;" style-hover="background: #1a2027;">
+                        <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;">
+                          <span style="font-size: 11.5px; font-weight: 600; color: #e6e9ee; text-wrap: pretty;">{{ c.label }}</span>
+                          <span style="flex: 1;"></span>
+                          <sc-if value="{{ c.hasTier }}" hint-placeholder-val="{{ false }}">
+                            <span style="font-size: 8px; letter-spacing: 0.09em; padding: 1px 5px; white-space: nowrap; color: {{ c.tierColor }}; border: 1px solid {{ c.tierColor }};">{{ c.tierLabel }}</span>
+                          </sc-if>
+                        </div>
+                        <div style="font-size: 10.5px; line-height: 1.6; color: #8d97a4; text-wrap: pretty;">{{ c.text }}</div>
+                        <div style="font-size: 9px; color: #4f5964; margin-top: 6px;">{{ c.stamp }}</div>
+                      </div>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="margin: 0 22px 22px; border-left: 2px dotted #8d97a4; padding: 10px 14px; background: #141920;">
+            <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #8d97a4; margin-bottom: 5px;">OPEN QUESTION</div>
+            <div style="font-size: 11.5px; line-height: 1.65; color: #b9c2cd; text-wrap: pretty;">Seven of the fifteen cases fall between May and December 2025. National coverage also began in that window, so the density may reflect reporting attention rather than a change in rate. Nothing in this chronology separates the two, and the middle column shows why: the state arrives after the cluster, not during it.</div>
+          </div>
+
+          <div style="margin: 0 22px 26px;">
+            <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 8px;">PRECEDENT &#183; DOCUMENTED, DECLASSIFIED, OUTSIDE THE WINDOW</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 10px;">
+              <sc-for list="{{ precedent }}" as="p" hint-placeholder-count="4">
+                <div style="border: 1px solid #262e36; background: #141920; padding: 10px 12px;">
+                  <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;">
+                    <span style="font-size: 10px; color: #5c6672;">{{ p.date }}</span>
+                    <span style="font-size: 11px; font-weight: 600; color: #dfe4ea;">{{ p.label }}</span>
+                  </div>
+                  <div style="font-size: 10.5px; line-height: 1.6; color: #8d97a4; text-wrap: pretty;">{{ p.text }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isGeography }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; overflow-y: auto; padding: 18px 20px; display: grid; gap: 14px; align-content: start;">
+          <sc-for list="{{ geo }}" as="g" hint-placeholder-count="3">
+            <div style="border: 1px solid #262e36; background: #141920;">
+              <div style="display: flex; align-items: center; gap: 10px; padding: 9px 13px; border-bottom: 1px solid #1d242b;">
+                <span style="width: 8px; height: 8px; background: {{ g.tint }};"></span>
+                <span style="font-size: 12px; font-weight: 600;">{{ g.label }}</span>
+                <span style="flex: 1;"></span>
+                <span style="font-size: 9.5px; color: #8d97a4;">{{ g.count }}</span>
+              </div>
+              <div style="padding: 10px 13px; display: grid; gap: 5px;">
+                <sc-for list="{{ g.members }}" as="m" hint-placeholder-count="4">
+                  <div onClick="{{ m.go }}" style="cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 12px; font-size: 10.5px; white-space: pre; color: {{ m.color }};" style-hover="color: #e6e9ee;">{{ m.row }}</div>
+                </sc-for>
+              </div>
+              <div style="padding: 8px 13px 11px; border-top: 1px solid #1d242b; font-size: 10.5px; line-height: 1.6; color: #b9c2cd; border-left: 2px solid {{ g.claimColor }}; margin: 0 13px 11px; padding-left: 10px; text-wrap: pretty;">{{ g.claim }}</div>
+            </div>
+          </sc-for>
+          <div style="border-left: 2px dotted #8d97a4; padding: 9px 12px; background: #141920; font-size: 10.5px; line-height: 1.6; color: #b9c2cd; text-wrap: pretty;">Distances above are the figures stated in the reporting, not measured from coordinates. A production build should either compute them from real geodata or keep labelling them as claims.</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCases }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; overflow-y: auto; padding: 16px 18px; display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 11px; align-content: start;">
+          <sc-for list="{{ cases }}" as="c" hint-placeholder-count="14">
+            <div onClick="{{ c.toggle }}" style="border: 1px solid {{ c.border }}; background: #141920; cursor: pointer; display: grid; align-content: start;">
+              <div style="display: flex; gap: 10px; padding: 11px 12px; border-bottom: 1px solid #1d242b;">
+                <div style="width: 3px; background: {{ c.color }}; flex: 0 0 auto;"></div>
+                <sc-if value="{{ c.hasPhoto }}" hint-placeholder-val="{{ false }}">
+                  <div style="width: 42px; height: 52px; flex: 0 0 auto; background: #0d1014 {{ c.photoBg }}; background-size: cover; background-position: center top; border: 1px solid #333c47;"></div>
+                </sc-if>
+                <div style="min-width: 0; flex: 1;">
+                  <div style="font-size: 12px; font-weight: 600; line-height: 1.25;">{{ c.name }}</div>
+                  <div style="font-size: 9.5px; color: #8d97a4; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ c.sub }}</div>
+                  <div style="display: flex; align-items: center; gap: 6px; margin-top: 5px; flex-wrap: wrap;">
+                    <span style="font-size: 8px; letter-spacing: 0.09em; padding: 1.5px 5px; white-space: nowrap; color: {{ c.color }}; border: 1px solid {{ c.color }};">{{ c.badge }}</span>
+                    <span style="font-size: 8px; letter-spacing: 0.09em; padding: 1.5px 5px; white-space: nowrap; color: {{ c.tierColor }}; border: 1px solid {{ c.tierColor }};">{{ c.tierLabel }}</span>
+                    <span style="font-size: 9px; color: #5c6672;">{{ c.date }}</span>
+                  </div>
+                  <div style="display: flex; gap: 10px; margin-top: 7px;">
+                    <sc-for list="{{ c.axes }}" as="a" hint-placeholder-count="3">
+                      <span style="display: flex; align-items: center; gap: 4px;">
+                        <span style="font-size: 8.5px; color: #5c6672;">{{ a.key }}</span>
+                        <span style="display: flex; gap: 2px;">
+                          <sc-for list="{{ a.pips }}" as="p" hint-placeholder-count="3">
+                            <span style="width: 7px; height: 5px; background: {{ p.bg }};"></span>
+                          </sc-for>
+                        </span>
+                      </span>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="font-size: 13px; color: #5c6672; align-self: start;">{{ c.chev }}</div>
+              </div>
+              <sc-if value="{{ c.open }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 11px 12px; display: grid; gap: 11px;">
+                  <div style="font-size: 11px; line-height: 1.7; color: #dfe4ea; text-wrap: pretty;">{{ c.narrative }}</div>
+                  <sc-if value="{{ c.hasResidual }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="font-size: 8px; letter-spacing: 0.12em; color: #5ed4e6; margin-bottom: 4px;">UNEXPLAINED RESIDUAL</div>
+                      <div style="font-size: 10.5px; line-height: 1.6; color: #dfe4ea; border-left: 2px solid #5ed4e6; padding-left: 9px; text-wrap: pretty;">{{ c.residual }}</div>
+                    </div>
+                  </sc-if>
+                  <div style="display: grid; gap: 3px;">
+                    <sc-for list="{{ c.rows }}" as="r" hint-placeholder-count="5">
+                      <div style="font-size: 10px; white-space: pre; color: {{ r.color }};">{{ r.row }}</div>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ c.hasChain }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="font-size: 8px; letter-spacing: 0.12em; color: #5c6672; margin-bottom: 7px;">SEQUENCE CHAIN &#183; {{ c.chainCount }} STEPS &#183; {{ c.anomalousCount }} UNEXPLAINED</div>
+                      <div style="display: grid;">
+                        <sc-for list="{{ c.chain }}" as="s" hint-placeholder-count="5">
+                          <div style="display: grid; grid-template-columns: 11px 1fr; gap: 9px;">
+                            <div style="display: grid; grid-template-rows: 11px 1fr; justify-items: center;">
+                              <span style="width: 7px; height: 7px; margin-top: 4px; background: {{ s.dotBg }}; border: 1px solid {{ s.dot }};"></span>
+                              <span style="width: 1px; background: {{ s.rail }};"></span>
+                            </div>
+                            <div style="padding-bottom: 10px; min-width: 0;">
+                              <span style="font-size: 9px; color: {{ s.dot }};">{{ s.date }}</span>
+                              <div style="font-size: 10.5px; line-height: 1.55; color: #b9c2cd; text-wrap: pretty;">{{ s.event }}</div>
+                            </div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ c.hasConflicts }}" hint-placeholder-val="{{ false }}">
+                    <div>
+                      <div style="font-size: 8px; letter-spacing: 0.12em; color: #efb555; margin-bottom: 5px;">SOURCES DISAGREE</div>
+                      <div style="display: grid; gap: 6px;">
+                        <sc-for list="{{ c.conflicts }}" as="x" hint-placeholder-count="1">
+                          <div style="font-size: 10.5px; line-height: 1.6; color: #b9c2cd; border-left: 2px dashed #efb555; padding-left: 9px; text-wrap: pretty;">{{ x }}</div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <div style="display: flex; align-items: baseline; gap: 12px; border-top: 1px solid #1d242b; padding-top: 9px;">
+                    <span style="font-size: 10px; color: #8d97a4;">{{ c.sourceList }}</span>
+                    <span style="flex: 1;"></span>
+                    <span onClick="{{ c.openFull }}" style="font-size: 9.5px; color: #5ed4e6; cursor: pointer; white-space: nowrap; border-bottom: 1px solid rgba(94,212,230,0.35);">Open on map</span>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAnalysis }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; overflow-y: auto; padding: 16px 18px; display: grid; gap: 12px; align-content: start;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 11px;">
+            <sc-for list="{{ patterns }}" as="p" hint-placeholder-count="4">
+              <div style="border: 1px solid #262e36; background: #141920; border-left: 2px {{ p.style }} {{ p.accent }}; padding: 11px 13px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                  <span style="font-size: 8.5px; letter-spacing: 0.13em; color: {{ p.accent }};">{{ p.tag }}</span>
+                  <span style="flex: 1;"></span>
+                  <span onClick="{{ p.go }}" style="font-size: 9px; color: #5c6672; cursor: pointer;" style-hover="color: #5ed4e6;">show &#8594;</span>
+                </div>
+                <div style="font-size: 11.5px; line-height: 1.6; color: #dfe4ea; text-wrap: pretty;">{{ p.text }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="border: 1px solid #262e36; background: #141920;">
+            <div style="padding: 9px 13px; border-bottom: 1px solid #1d242b; font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672;">INSTITUTIONAL OVERLAP &#183; CASES PER INSTITUTION</div>
+            <div style="padding: 11px 13px; display: grid; gap: 5px;">
+              <sc-for list="{{ instBars }}" as="b" hint-placeholder-count="8">
+                <div onClick="{{ b.go }}" style="cursor: pointer; display: grid; grid-template-columns: 150px 1fr 26px; align-items: center; gap: 10px;">
+                  <span style="font-size: 10px; color: #b9c2cd; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ b.label }}</span>
+                  <span style="height: 9px; background: #1d242b; display: block;"><span style="display: block; height: 9px; width: {{ b.pct }}; background: {{ b.color }};"></span></span>
+                  <span style="font-size: 10px; color: #8d97a4; text-align: right;">{{ b.count }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="border: 1px solid #262e36; background: #141920;">
+            <div style="padding: 9px 13px; border-bottom: 1px solid #1d242b; font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672;">LEFT EVERYTHING BEHIND &#183; ITEMS RECORDED AS LEFT</div>
+            <div style="padding: 11px 13px; display: grid; gap: 5px;">
+              <sc-for list="{{ leftBehind }}" as="l" hint-placeholder-count="4">
+                <div onClick="{{ l.go }}" style="cursor: pointer; font-size: 10.5px; white-space: pre; color: {{ l.color }};" style-hover="color: #e6e9ee;">{{ l.row }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCounter }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; overflow-y: auto; padding: 16px 18px; display: grid; gap: 11px; align-content: start;">
+          <div style="font-size: 11px; line-height: 1.6; color: #b9c2cd; max-width: 620px; text-wrap: pretty;">These are real deaths and real missing people, and credible skeptics have published rebuttals of the pattern claim. This view carries the same visual weight as the analysis view by design.</div>
+          <sc-for list="{{ counters }}" as="c" hint-placeholder-count="5">
+            <div style="border: 1px solid #262e36; background: #141920; border-left: 2px dashed #efb555; padding: 11px 13px;">
+              <div style="display: flex; align-items: baseline; gap: 9px; margin-bottom: 5px;">
+                <span style="font-size: 11.5px; font-weight: 600; color: #efb555;">{{ c.source }}</span>
+                <span style="font-size: 9px; color: #5c6672;">{{ c.kind }}</span>
+              </div>
+              <div style="font-size: 11.5px; line-height: 1.6; color: #dfe4ea; text-wrap: pretty;">{{ c.text }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSearch }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; overflow-y: auto; padding: 18px 20px; display: grid; gap: 13px; align-content: start;">
+          <input onInput="{{ onSearch }}" placeholder="Search people, institutions, programs, locations, domains" style="width: 100%; max-width: 560px; background: #0d1014; border: 1px solid #333c47; padding: 11px 13px; color: #e6e9ee; font-family: 'IBM Plex Mono', monospace; font-size: 12px; outline: none;" style-focus="border-color: #5ed4e6;">
+          <div style="font-size: 9.5px; color: #5c6672;">{{ searchStatus }}</div>
+          <div style="display: grid; gap: 2px; max-width: 620px;">
+            <sc-for list="{{ results }}" as="r" hint-placeholder-count="6">
+              <div onClick="{{ r.go }}" style="cursor: pointer; display: grid; grid-template-columns: 86px 1fr auto; gap: 12px; align-items: center; padding: 7px 9px; border: 1px solid #1d242b; background: #141920; font-size: 10.5px;" style-hover="border-color: #3b444f;">
+                <span style="font-size: 8.5px; letter-spacing: 0.1em; color: {{ r.color }};">{{ r.cls }}</span>
+                <span style="color: #dfe4ea;">{{ r.label }}</span>
+                <span style="color: #5c6672; font-size: 9.5px;">{{ r.meta }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="border-left: 1px solid #262e36; background: #12171d; overflow-y: auto; min-height: 0;">
+      <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="padding: 12px 14px 12px; border-bottom: 1px solid #1d242b;">
+            <div style="display: flex; align-items: center; gap: 7px; margin-bottom: 10px; flex-wrap: wrap;">
+              <span style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672;">{{ sel.cls }}</span>
+              <span style="flex: 1;"></span>
+              <sc-if value="{{ sel.hasFlag }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size: 8px; letter-spacing: 0.09em; padding: 2px 6px; white-space: nowrap; color: #8d97a4; border: 1px dashed #4f5964;">{{ sel.flag }}</span>
+              </sc-if>
+              <span style="font-size: 8.5px; letter-spacing: 0.1em; padding: 2px 6px; white-space: nowrap; color: {{ sel.color }}; border: 1px solid {{ sel.color }};">{{ sel.badge }}</span>
+            </div>
+            <div style="display: flex; gap: 11px; align-items: flex-start;">
+              <sc-if value="{{ sel.hasPhoto }}" hint-placeholder-val="{{ false }}">
+                <div style="width: 56px; height: 68px; flex: 0 0 auto; background: #0d1014 {{ sel.photoBg }}; background-size: cover; background-position: center top; border: 1px solid #333c47;"></div>
+              </sc-if>
+              <div style="min-width: 0;">
+                <div style="font-size: 15px; font-weight: 600; line-height: 1.25;">{{ sel.name }}</div>
+                <div style="font-size: 10px; color: #8d97a4; margin-top: 5px; line-height: 1.5;">{{ sel.sub }}</div>
+                <div style="font-size: 10px; color: #5c6672; margin-top: 3px;">{{ sel.meta }}</div>
+              </div>
+            </div>
+          </div>
+
+          <sc-if value="{{ sel.hasScores }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 11px 14px; border-bottom: 1px solid #1d242b;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 9px;">
+                <span style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672;">ASSESSMENT</span>
+                <span style="flex: 1;"></span>
+                <span style="font-size: 9px; letter-spacing: 0.09em; padding: 2px 7px; white-space: nowrap; color: {{ sel.tierColor }}; border: 1px solid {{ sel.tierColor }};">{{ sel.tierLabel }}</span>
+              </div>
+              <div style="display: grid; gap: 6px;">
+                <sc-for list="{{ sel.axes }}" as="a" hint-placeholder-count="3">
+                  <div style="display: grid; grid-template-columns: 15px 1fr 96px; gap: 9px; align-items: center;">
+                    <span style="font-size: 10px; color: #8d97a4;">{{ a.key }}</span>
+                    <span style="display: flex; gap: 3px;">
+                      <sc-for list="{{ a.pips }}" as="p" hint-placeholder-count="3">
+                        <span style="flex: 1; height: 5px; background: {{ p.bg }};"></span>
+                      </sc-for>
+                    </span>
+                    <span style="font-size: 9.5px; color: #5c6672; text-align: right;">{{ a.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font-size: 10px; line-height: 1.6; color: #8d97a4; margin-top: 9px; text-wrap: pretty;">{{ sel.tierRationale }}</div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ sel.hasResidual }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 11px 14px; border-bottom: 1px solid #1d242b;">
+              <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5ed4e6; margin-bottom: 6px;">UNEXPLAINED RESIDUAL</div>
+              <div style="font-size: 11px; line-height: 1.6; color: #dfe4ea; border-left: 2px solid #5ed4e6; padding-left: 10px; text-wrap: pretty;">{{ sel.residual }}</div>
+            </div>
+          </sc-if>
+
+          <div style="display: flex; border-bottom: 1px solid #262e36; background: #10161c;">
+            <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.go }}" style="flex: 1; text-align: center; padding: 8px 4px; font-size: 9px; letter-spacing: 0.1em; cursor: pointer; color: {{ t.fg }}; border-bottom: 2px solid {{ t.mark }};" style-hover="color: #e6e9ee;">{{ t.label }}</div>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ tabDossier }}" hint-placeholder-val="{{ true }}">
+            <div>
+              <sc-if value="{{ sel.hasNarrative }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 12px 14px; border-bottom: 1px solid #1d242b; font-size: 11.5px; line-height: 1.7; color: #dfe4ea; text-wrap: pretty;">{{ sel.narrative }}</div>
+              </sc-if>
+              <sc-if value="{{ sel.hasAffiliations }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 11px 14px; border-bottom: 1px solid #1d242b;">
+                  <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 7px;">AFFILIATIONS</div>
+                  <div style="display: grid; gap: 4px; border-left: 1px solid #262e36; padding-left: 10px;">
+                    <sc-for list="{{ sel.affiliations }}" as="a" hint-placeholder-count="3">
+                      <div style="font-size: 10px; color: #b9c2cd; line-height: 1.5;">{{ a }}</div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+              <div style="padding: 11px 14px; border-bottom: 1px solid #1d242b;">
+                <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 8px;">RECORD</div>
+                <div style="display: grid; gap: 4px;">
+                  <sc-for list="{{ sel.rows }}" as="r" hint-placeholder-count="6">
+                    <div style="font-size: 10px; white-space: pre; color: {{ r.color }};">{{ r.row }}</div>
+                  </sc-for>
+                </div>
+              </div>
+              <sc-if value="{{ sel.hasConflicts }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 11px 14px; border-bottom: 1px solid #1d242b;">
+                  <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #efb555; margin-bottom: 7px;">SOURCES DISAGREE</div>
+                  <div style="display: grid; gap: 7px;">
+                    <sc-for list="{{ sel.conflicts }}" as="c" hint-placeholder-count="2">
+                      <div style="font-size: 10.5px; line-height: 1.6; color: #b9c2cd; border-left: 2px dashed #efb555; padding-left: 10px; text-wrap: pretty;">{{ c }}</div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ sel.hasUnverified }}" hint-placeholder-val="{{ false }}">
+                <div style="padding: 11px 14px;">
+                  <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #8d97a4; margin-bottom: 7px;">UNVERIFIED, NOT PROPAGATED</div>
+                  <div style="display: grid; gap: 7px;">
+                    <sc-for list="{{ sel.unverified }}" as="u" hint-placeholder-count="1">
+                      <div style="font-size: 10.5px; line-height: 1.6; color: #8d97a4; border-left: 2px dotted #8d97a4; padding-left: 10px; text-wrap: pretty;">{{ u }}</div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ tabChain }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 12px 14px;">
+              <sc-if value="{{ sel.hasChain }}" hint-placeholder-val="{{ false }}">
+                <div>
+                  <div style="font-size: 10.5px; line-height: 1.6; color: #8d97a4; margin-bottom: 12px; text-wrap: pretty;">{{ sel.chainIntro }}</div>
+                  <div style="display: grid;">
+                    <sc-for list="{{ sel.chain }}" as="s" hint-placeholder-count="5">
+                      <div style="display: grid; grid-template-columns: 13px 1fr; gap: 10px;">
+                        <div style="display: grid; grid-template-rows: 13px 1fr; justify-items: center;">
+                          <span style="width: 9px; height: 9px; margin-top: 4px; background: {{ s.dotBg }}; border: 1px solid {{ s.dot }};"></span>
+                          <span style="width: 1px; background: {{ s.rail }};"></span>
+                        </div>
+                        <div style="padding-bottom: 13px; min-width: 0;">
+                          <div style="display: flex; align-items: baseline; gap: 8px;">
+                            <span style="font-size: 9.5px; color: {{ s.dot }};">{{ s.date }}</span>
+                            <sc-if value="{{ s.flag }}" hint-placeholder-val="{{ false }}">
+                              <span style="font-size: 8px; letter-spacing: 0.09em; color: #5ed4e6;">UNEXPLAINED</span>
+                            </sc-if>
+                          </div>
+                          <div style="font-size: 11px; line-height: 1.6; color: #dfe4ea; margin-top: 3px; text-wrap: pretty;">{{ s.event }}</div>
+                          <div style="font-size: 9px; color: #4f5964; margin-top: 3px;">{{ s.source }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ sel.noChain }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size: 10.5px; line-height: 1.65; color: #5c6672; text-wrap: pretty;">{{ sel.noChainText }}</div>
+              </sc-if>
+              <sc-if value="{{ sel.hasChronology }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top: 14px; border-top: 1px solid #1d242b; padding-top: 12px;">
+                  <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 9px;">FULL CHRONOLOGY</div>
+                  <div style="display: grid; gap: 7px;">
+                    <sc-for list="{{ sel.chronology }}" as="c" hint-placeholder-count="4">
+                      <div style="display: grid; grid-template-columns: 74px 1fr; gap: 10px; align-items: baseline;">
+                        <span style="font-size: 9.5px; color: #5c6672;">{{ c.date }}</span>
+                        <span style="font-size: 10.5px; line-height: 1.55; color: #b9c2cd; text-wrap: pretty;">{{ c.event }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ tabLinks }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 12px 14px;">
+              <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 9px;">CONNECTIONS &#183; {{ sel.connCount }} &#183; STRONGEST FIRST</div>
+              <div style="display: grid; gap: 1px;">
+                <sc-for list="{{ sel.conns }}" as="c" hint-placeholder-count="8">
+                  <div onClick="{{ c.go }}" style="cursor: pointer; padding: 7px 8px; border-left: 2px solid {{ c.color }}; background: {{ c.bg }};" style-hover="background: #1a2027;">
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                      <span style="font-size: 11px; color: #dfe4ea; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ c.label }}</span>
+                      <span style="flex: 1;"></span>
+                      <span style="font-size: 9px; color: {{ c.color }}; white-space: nowrap;">{{ c.weight }}</span>
+                    </div>
+                    <div style="font-size: 10px; line-height: 1.5; color: #8d97a4; margin-top: 3px; text-wrap: pretty;">{{ c.why }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ tabSources }}" hint-placeholder-val="{{ false }}">
+            <div style="padding: 12px 14px;">
+              <sc-if value="{{ sel.hasClaims }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-bottom: 14px;">
+                  <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 9px;">CLAIMS BY EVIDENCE LEVEL</div>
+                  <div style="display: grid; gap: 8px;">
+                    <sc-for list="{{ sel.claims }}" as="c" hint-placeholder-count="3">
+                      <div style="border-left: 2px {{ c.style }} {{ c.color }}; padding-left: 10px;">
+                        <div style="font-size: 8px; letter-spacing: 0.1em; color: {{ c.color }}; margin-bottom: 3px;">{{ c.tag }}</div>
+                        <div style="font-size: 10.5px; line-height: 1.6; color: #dfe4ea; text-wrap: pretty;">{{ c.text }}</div>
+                        <div style="font-size: 9px; color: #4f5964; margin-top: 3px;">{{ c.source }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+              <div style="font-size: 8.5px; letter-spacing: 0.13em; color: #5c6672; margin-bottom: 7px;">SOURCES</div>
+              <div style="font-size: 10.5px; display: grid; gap: 6px;">{{ sel.sourceList }}</div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noSel }}" hint-placeholder-val="{{ false }}">
+        <div style="padding: 16px 14px; font-size: 10.5px; color: #5c6672; line-height: 1.65; text-wrap: pretty;">No entity selected. Click any node, or ask the analyst. Every class opens here: person, institution, programme, location, research domain.</div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="border-top: 1px solid #262e36; background: #141920; position: relative; z-index: 2;">
+    <div style="display: flex; align-items: center; gap: 11px; padding: 7px 14px; border-bottom: 1px solid #1d242b;">
+      <span style="font-size: 8.5px; letter-spacing: 0.13em; color: #5ed4e6;">ANALYST</span>
+      <span style="font-size: 9.5px; color: {{ analystColor }};">{{ analystStatus }}</span>
+      <span style="flex: 1;"></span>
+      <span onClick="{{ toggleOpen }}" style="font-size: 9.5px; color: #8d97a4; cursor: pointer;" style-hover="color: #e6e9ee;">{{ toggleLabel }}</span>
+    </div>
+    <sc-if value="{{ open }}" hint-placeholder-val="{{ true }}">
+      <div ref="{{ scrollRef }}" style="max-height: 208px; overflow-y: auto; padding: 12px 14px; display: grid; gap: 12px;">
+        <sc-for list="{{ turns }}" as="turn" hint-placeholder-count="3">
+          <div style="display: grid; grid-template-columns: 66px 1fr; gap: 11px; font-size: 11.5px;">
+            <span style="font-size: 8.5px; letter-spacing: 0.1em; color: {{ turn.roleColor }}; padding-top: 3px;">{{ turn.role }}</span>
+            <div style="min-width: 0;">
+              <div style="line-height: 1.65; color: {{ turn.color }}; text-wrap: pretty;">{{ turn.text }}</div>
+              <sc-if value="{{ turn.hasActions }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top: 7px; display: grid; gap: 2px;">
+                  <sc-for list="{{ turn.actions }}" as="a" hint-placeholder-count="2">
+                    <div style="font-size: 9.5px; color: #66d69f; background: rgba(102,214,159,0.05); border-left: 2px solid rgba(102,214,159,0.45); padding: 3px 9px; white-space: pre;">{{ a }}</div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ turn.hasCites }}" hint-placeholder-val="{{ false }}">
+                <div style="margin-top: 7px; display: flex; flex-wrap: wrap; gap: 6px;">{{ turn.citeList }}</div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <div style="display: flex; gap: 6px; padding: 8px 14px 6px; flex-wrap: wrap; border-top: 1px solid #1d242b;">
+      <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="4">
+        <span onClick="{{ s.run }}" style="font-size: 9.5px; padding: 4px 10px; border: 1px solid #333c47; color: #8d97a4; cursor: pointer; white-space: nowrap;" style-hover="border-color: #5ed4e6; color: #5ed4e6;">{{ s.label }}</span>
+      </sc-for>
+    </div>
+    <div style="display: flex; align-items: center; gap: 11px; padding: 4px 14px 12px;">
+      <span style="color: #5ed4e6; font-size: 12px; animation: blink 1.1s steps(1) infinite;">&#9646;</span>
+      <input ref="{{ inputRef }}" onKeyDown="{{ onKey }}" placeholder="Ask the analyst. It can drive every control in this window." style="flex: 1; background: #0d1014; border: 1px solid #333c47; padding: 10px 12px; color: #e6e9ee; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; outline: none;" style-focus="border-color: #5ed4e6;">
+      <span onClick="{{ send }}" style="font-size: 10px; padding: 9px 16px; border: 1px solid #5ed4e6; color: #5ed4e6; cursor: pointer; letter-spacing: 0.07em;" style-hover="background: rgba(94,212,230,0.09);">SEND</span>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1512,&quot;height&quot;:950}}">
+class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    this.canvasRef = React.createRef();
+    this.tipRef = React.createRef();
+    this.inputRef = React.createRef();
+    this.scrollRef = React.createRef();
+    this.surfaceRef = React.createRef();
+    this.state = {
+      view: 'NETWORK', hops: 1, sel: null, open: true, insight: 0, insightOpen: true,
+      hasKey: false, query: '', expanded: {}, tab: 'DOSSIER',
+      settingsOpen: false, keyState: '', model: 'claude-sonnet-5', effort: 'balanced',
+      filters: { dead: false, missing: false, california: false, 'new-mexico': false, huntsville: false, propulsion: false, nuclear: false, 'top-secret': false },
+      turns: [
+        { role: 'YOU', text: 'What connects Sullivan to the Congressional investigation?' },
+        {
+          role: 'ANALYST',
+          text: 'A four-step witness chain. Matthew Sullivan was a source for David Grusch; Grusch\u2019s whistleblower proceedings triggered the House Oversight letters of April 20 2026; those letters put the FBI probe on the record. Sullivan died of an overdose weeks before scheduled Congressional testimony. Every step of the chain is documented. Note what it does not establish: nothing in the record links his death to the investigation causally.',
+          actions: ['selectNode("sullivan")', 'highlightPath("sullivan","oversight",hops=3)', 'setEdgeFilter(["witness-chain","programmatic"])'],
+          cites: [['sullivan', 'NewsNation'], ['oversight', 'House Oversight']],
+        },
+      ],
+    };
+  }
+
+  async componentDidMount() {
+    const G = await import('./vanishing-graph.js');
+    this.G = G;
+    this.T = await import('./vanishing-timeline.js');
+    this.restoreSettings();
+    this.forceUpdate();
+    this.mountCanvas();
+    this.watchWidth();
+  }
+
+  componentDidUpdate() { this.mountCanvas(); this.watchWidth(); }
+
+  // The three-strand timeline needs real column width to be readable. Below
+  // about 1100px the strands stack instead of crushing to one word per line.
+  // ---- analyst credentials -------------------------------------------
+  // Key lives in this browser only. We read and write exactly our own three
+  // localStorage entries and touch nothing else.
+  restoreSettings() {
+    try {
+      const key = window.localStorage.getItem('vanishing.apiKey');
+      const model = window.localStorage.getItem('vanishing.model');
+      const effort = window.localStorage.getItem('vanishing.effort');
+      this.setState({
+        hasKey: !!key,
+        model: model || 'claude-sonnet-5',
+        effort: effort || 'balanced',
+      });
+    } catch (e) { /* storage blocked; the dashboard still works by hand */ }
+  }
+
+  get keyInput() {
+    if (!this._keyRef) this._keyRef = React.createRef();
+    return this._keyRef;
+  }
+
+  saveKey = () => {
+    const el = this.keyInput.current;
+    const val = el ? el.value.trim() : '';
+    if (!val) { this.setState({ keyState: 'nothing entered' }); return; }
+    if (val.indexOf('sk-ant-') !== 0) { this.setState({ keyState: 'that does not look like a Console key' }); return; }
+    try {
+      window.localStorage.setItem('vanishing.apiKey', val);
+      if (el) el.value = '';
+      this.setState({ hasKey: true, keyState: 'saved to this browser' });
+    } catch (e) { this.setState({ keyState: 'storage unavailable in this browser' }); }
+  };
+
+  removeKey = () => {
+    try { window.localStorage.removeItem('vanishing.apiKey'); } catch (e) { /* nothing to remove */ }
+    const el = this.keyInput.current;
+    if (el) el.value = '';
+    this.setState({ hasKey: false, keyState: 'removed' });
+  };
+
+  setModel = (id) => {
+    try { window.localStorage.setItem('vanishing.model', id); } catch (e) { /* not fatal */ }
+    this.setState({ model: id });
+  };
+
+  setEffort = (id) => {
+    try { window.localStorage.setItem('vanishing.effort', id); } catch (e) { /* not fatal */ }
+    this.setState({ effort: id });
+  };
+
+  watchWidth() {
+    const el = document.querySelector('[data-surface]');
+    if (!el) return;
+    const apply = () => {
+      // Three strand columns need roughly 240px each to read. Below that the
+      // strands stack and each entry carries its strand as a chip instead.
+      const narrow = el.getBoundingClientRect().width < 820;
+      if (narrow !== this.state.narrow) this.setState({ narrow });
+    };
+    apply();
+    if (this.widthRO || typeof ResizeObserver === 'undefined') return;
+    this.widthRO = new ResizeObserver(apply);
+    this.widthRO.observe(el);
+  }
+
+  mountCanvas() {
+    const cv = this.canvasRef.current;
+    if (!this.G || !cv) return;
+    // Leaving NETWORK unmounts the canvas; coming back mounts a NEW element.
+    // Bind to the element, not to "have I ever mounted", or the controller keeps
+    // drawing into the old detached node and the live canvas stays blank.
+    if (this.map && this.mapCanvas === cv) return;
+    if (this.map) this.map.destroy();
+    this.mapCanvas = cv;
+    this.map = this.G.mountMap(cv, {
+      variant: 'circuit',
+      inset: { l: 96, r: 96, t: 52, b: 104 },
+      onHover: (n, mx, my) => this.tip(n, mx, my),
+      onSelect: (n) => this.setState({ sel: n }),
+    });
+    this.map.select(this.state.sel ? this.state.sel.id : 'chavez', this.state.hops);
+  }
+
+  componentWillUnmount() {
+    if (this.map) this.map.destroy();
+    if (this.widthRO) this.widthRO.disconnect();
+  }
+
+  tip(n, mx, my) {
+    const el = this.tipRef.current;
+    if (!el) return;
+    if (!n) { el.style.opacity = '0'; return; }
+    const strongest = this.map ? this.map.strongestFor(n.id)[0] : null;
+    const l3 = strongest
+      ? 'strongest: ' + (strongest.s.id === n.id ? strongest.t.label : strongest.s.label) + ' (' + strongest.weight + ' link types)'
+      : 'no connections';
+    el.textContent = '[' + n.cls.toUpperCase() + '] ' + n.label
+      + '\n' + (n.cls === 'person' ? n.sub + ' / ' + n.loc : (n.sub || n.cls))
+      + '\n' + l3;
+    el.style.opacity = '1';
+    el.style.left = (mx + 15) + 'px';
+    el.style.top = (my + 15) + 'px';
+  }
+
+  lead(k, v, width) {
+    const w = width || 30;
+    const dots = Math.max(1, w - k.length - String(v).length);
+    return k + '.'.repeat(dots) + v;
+  }
+
+  go = (id, hops) => {
+    if (!this.map || !id) { if (this.map) this.map.select(null); return; }
+    if (this.state.view !== 'NETWORK') this.setState({ view: 'NETWORK' });
+    this.setState({ tab: 'DOSSIER' });
+    this.map.select(id, hops || this.state.hops);
+  };
+
+  setHops = (h) => {
+    this.setState({ hops: h });
+    if (this.map && this.state.sel) this.map.select(this.state.sel.id, h);
+  };
+
+  toggleFilter = (k) => this.setState(s => ({ filters: { ...s.filters, [k]: !s.filters[k] } }));
+
+  push(turn) {
+    this.setState(s => ({ turns: [...s.turns, turn], open: true }), () => {
+      const el = this.scrollRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    });
+  }
+
+  // ---- command surface -------------------------------------------------
+  // Both the UI controls and the analyst call these. Nothing in the interface
+  // reaches into state directly, which is what makes the analyst able to do
+  // everything a clicking user can.
+  dispatch(action, arg) {
+    const surface = {
+      selectNode: (id) => this.go(id),
+      clearSelection: () => { if (this.map) this.map.select(null); },
+      setHops: (h) => this.setHops(h),
+      setView: (v) => this.setState({ view: v }),
+      toggleFilter: (k) => this.toggleFilter(k),
+      clearFilters: () => this.setState(s => ({ filters: Object.fromEntries(Object.keys(s.filters).map(k => [k, false])) })),
+      focusCluster: (c) => {
+        const first = this.G.PEOPLE.find(p => p.cluster === c);
+        if (first) this.go(first.id, 2);
+      },
+      expandCase: (id) => this.setState(s => ({ expanded: { ...s.expanded, [id]: true }, view: 'CASES' })),
+      search: (q) => this.setState({ query: q, view: 'SEARCH' }),
+      showInsight: (i) => this.setState({ insight: i, insightOpen: true }),
+    };
+    if (surface[action]) surface[action](arg);
+  }
+
+  ask = (text) => {
+    const q = text.trim();
+    if (!q) return;
+    this.push({ role: 'YOU', text: q });
+    const l = q.toLowerCase();
+    let reply;
+    if (l.includes('propulsion')) {
+      reply = {
+        role: 'ANALYST',
+        text: 'Five people touch propulsion research: Ning Li, Amy Eskridge, Joshua LeBlanc, Monica Reza and Neil McCasland. Three of them are in the Huntsville triangle, which makes it the tightest domain-and-geography overlap in the data. It is also the cluster with the least documentary follow-up, so treat the tightness as a gap in reporting as much as a finding.',
+        actions: ['setView("NETWORK")', 'selectNode("d-prop")', 'toggleFilter("propulsion")'],
+        cites: [['li', 'Newsweek'], ['eskridge', 'NewsNation']],
+      };
+      this.dispatch('selectNode', 'd-prop');
+      this.dispatch('toggleFilter', 'propulsion');
+    } else if (l.includes('weakest') || l.includes('new mexico')) {
+      reply = {
+        role: 'ANALYST',
+        text: 'Steven Garcia. His KCNSC employment and top-secret clearance are documented, but nothing published ties him to LANL, to AFRL, or to the other three New Mexico cases beyond shared geography and the left-behind pattern. Counting him inside a single cluster is an inference, not a sourced finding.',
+        actions: ['focusCluster("new-mexico")', 'selectNode("garcia")', 'setHops(1)'],
+        cites: [['garcia', 'Cybernews']],
+      };
+      this.dispatch('selectNode', 'garcia');
+    } else if (l.includes('strongest') || l.includes('strong')) {
+      const ranked = this.map ? [...this.map.pairs].sort((a, b) => b.weight - a.weight) : [];
+      const top = ranked[0];
+      reply = top ? {
+        role: 'ANALYST',
+        text: top.s.label + ' and ' + top.t.label + ', at ' + top.weight + ' independent connection types: ' + top.types.join(', ') + '. No other pair in the data reaches ' + top.weight + ', which makes it the pair a reader should look at first. It still does not establish a common cause, and both records carry their own unexplained facts that have nothing to do with each other.',
+        actions: ['selectNode("' + top.s.id + '")', 'setHops(1)'],
+        cites: [['casias', 'LA Magazine']],
+      } : { role: 'ANALYST', text: 'The graph has not finished settling. Ask again in a moment.' };
+      if (top) this.dispatch('selectNode', top.s.id);
+    } else if (l.includes('temporal') || l.includes('accelerat') || l.includes('timeline')) {
+      reply = {
+        role: 'ANALYST',
+        text: 'Seven of fourteen cases fall between May and December 2025, against three across the preceding four years. That reads as acceleration. It is also what you would expect once national coverage began and reporters started classifying earlier deaths into the pattern retroactively. I cannot separate a real rate change from a reporting-attention change with this data.',
+        actions: ['setView("TIMELINE")'],
+        cites: [['fbi', 'CNN']],
+      };
+      this.dispatch('setView', 'TIMELINE');
+    } else if (l.includes('base rate') || l.includes('meaningful') || l.includes('coincidence') || l.includes('jpl')) {
+      reply = {
+        role: 'ANALYST',
+        text: 'NASA JPL appears in three cases, more than any other institution. JPL employs roughly 6,000 people, so three deaths across five years is not obviously above base rate. Scientific American published that arithmetic and concluded the pattern does not survive it. The data here does not support calling JPL a signal.',
+        actions: ['setView("COUNTERARGS")'],
+        cites: [['fbi', 'CNN']],
+      };
+      this.dispatch('setView', 'COUNTERARGS');
+    } else if (l.includes('disputed') || l.includes('family')) {
+      reply = {
+        role: 'ANALYST',
+        text: 'One case in the records carries an explicit family dispute of the official finding: Amy Eskridge, ruled a self-inflicted gunshot, who had texted that she did not plan to kill herself and had claimed a directed-energy attack. The other thirteen records do not contain a documented family dispute, which is not the same as there being none.',
+        actions: ['selectNode("eskridge")', 'expandCase("eskridge")'],
+        cites: [['eskridge', 'NewsNation']],
+      };
+      this.dispatch('selectNode', 'eskridge');
+    } else {
+      reply = {
+        role: 'ANALYST',
+        text: 'I can answer against the case records or drive this window for you. Ask about the strongest connection, the propulsion researchers, the weakest link in New Mexico, temporal patterns, whether an institutional overlap is meaningful, or which official findings the family disputed. If a question needs data the records do not hold, I will say so instead of inferring.',
+      };
+    }
+    setTimeout(() => this.push(reply), 250);
+  };
+
+  onKey = (e) => { if (e.key === 'Enter') { this.ask(e.currentTarget.value); e.currentTarget.value = ''; } };
+  send = () => { const el = this.inputRef.current; if (el) { this.ask(el.value); el.value = ''; } };
+
+  renderVals() {
+    const G = this.G;
+    const st = this.state;
+    const sel = st.sel;
+    const P = G ? G.PEOPLE : [];
+    const all = G ? G.NODES : [];
+    const T = this.T;
+    const pairs = this.map ? this.map.pairs : [];
+
+    const count = (fn) => P.filter(fn).length;
+    const kpis = [
+      { label: 'CASES', value: P.length || 15, unit: 'tracked', color: '#e6e9ee' },
+      { label: 'TIER A', value: count(p => p.tier === 'A') || 7, unit: 'unexplained', color: '#5ed4e6' },
+      { label: 'DEAD', value: count(p => p.status === 'dead') || 9, unit: 'confirmed', color: '#e8705f' },
+      { label: 'MISSING', value: count(p => p.status === 'missing') || 4, unit: 'open', color: '#efb555' },
+      { label: 'RESOLVED', value: count(p => p.status === 'resolved') || 1, unit: 'closed', color: '#6f7f8c' },
+      { label: 'TIME SPAN', value: 57, unit: 'months', color: '#e6e9ee' },
+    ];
+
+
+
+    const chips = [
+      ['dead', 'DEAD'], ['missing', 'MISSING'], ['california', 'CALIFORNIA'], ['new-mexico', 'NEW MEXICO'],
+      ['huntsville', 'HUNTSVILLE'], ['propulsion', 'PROPULSION'], ['nuclear', 'NUCLEAR'], ['top-secret', 'TOP SECRET'],
+    ].map(([k, label]) => ({
+      row: '[' + (st.filters[k] ? 'x' : ' ') + '] ' + label,
+      fg: st.filters[k] ? '#5ed4e6' : '#8d97a4',
+      toggle: () => this.dispatch('toggleFilter', k),
+    }));
+
+    const rampCounts = {};
+    for (const p of pairs) rampCounts[p.weight] = (rampCounts[p.weight] || 0) + 1;
+    const ramp = (G ? G.STRENGTH_RAMP : []).map(r => ({
+      label: r.label, color: r.color, h: Math.max(2, r.width) + 'px', count: rampCounts[r.weight] || 0,
+    }));
+
+    const typeCounts = {};
+    if (G) for (const e of G.EDGES) typeCounts[e.type] = (typeCounts[e.type] || 0) + 1;
+    const legend = G ? Object.entries(G.EDGE_TYPES).map(([k, v]) => ({
+      label: v.label, color: v.color, count: typeCounts[k] || 0, solo: () => this.dispatch('setView', 'NETWORK'),
+    })) : [];
+
+    const hops = [1, 2, 3].map(h => {
+      const on = st.hops === h;
+      return {
+        label: h + ' hop' + (h > 1 ? 's' : ''),
+        set: () => this.setHops(h),
+        bg: on ? 'rgba(94,212,230,0.12)' : 'rgba(18,23,29,0.9)',
+        border: on ? '#5ed4e6' : '#333c47',
+        fg: on ? '#5ed4e6' : '#8d97a4',
+      };
+    });
+
+    // ---- selection panel
+    let selVals = null;
+    if (sel && G) {
+      const isPerson = sel.cls === 'person';
+      const mine = pairs.filter(p => p.s.id === sel.id || p.t.id === sel.id)
+        .sort((a, b) => b.weight - a.weight)
+        .map(p => {
+          const o = p.s.id === sel.id ? p.t : p.s;
+          const ramp = G.strengthStyle(p.weight);
+          const why = p.types.map(t => G.explainEdge(t, sel, o)).filter((v, i, arr) => arr.indexOf(v) === i).join(' ');
+          return {
+            label: o.label,
+            weight: p.weight + '\u00d7 ' + p.dominant,
+            why,
+            color: ramp.color,
+            bg: p.weight >= 3 ? '#161c23' : 'transparent',
+            go: () => this.go(o.id),
+          };
+        });
+
+      const rows = (isPerson
+        ? [
+            ['STATUS', G.STATUS_LABEL[sel.status] || sel.status.toUpperCase()],
+            ['DATE', sel.date],
+            ['AGE', sel.age == null ? 'NOT REPORTED' : String(sel.age)],
+            ['LOCATION', sel.loc],
+            ['DOMAINS', sel.domains.length ? sel.domains.map(d => d.replace('d-', '')).join(', ') : 'NONE RECORDED'],
+            ['LEFT BEHIND', sel.leftBehind.length ? sel.leftBehind.join(', ') : 'NOTHING RECORDED'],
+            ['TOOK WITH', sel.tookWith.length ? sel.tookWith.join(', ') : 'NOTHING RECORDED'],
+            ['CLUSTER', G.CLUSTERS[sel.cluster].label],
+          ]
+        : [
+            ['CLASS', sel.cls.toUpperCase()],
+            ['SUB-TYPE', (sel.sub || 'NOT CLASSIFIED').toUpperCase()],
+            ['DEGREE', sel.deg + ' EDGES'],
+            ['CLUSTER', G.CLUSTERS[sel.cluster].label],
+          ]).map(([k, v]) => ({
+        row: this.lead(k, v, 38),
+        color: /NOT REPORTED|NOTHING RECORDED|NONE RECORDED|NOT CLASSIFIED|UNKNOWN/.test(v) ? '#5c6672' : (k === 'STATUS' ? G.nodeColor(sel) : '#b9c2cd'),
+      }));
+
+      const tierMeta = isPerson && sel.tier ? G.TIERS[sel.tier] : null;
+      const axes = isPerson && sel.tier ? G.AXES.map(a => {
+        const val = sel[a.key] || 0;
+        return {
+          key: a.key,
+          label: a.label,
+          pips: [0, 1, 2].map(i => ({ bg: i < val ? tierMeta.color : '#232b34' })),
+        };
+      }) : [];
+
+      const srcs = sel.sources && sel.sources.length
+        ? sel.sources.map(s => ({ name: s.outlet, url: s.url, date: s.date }))
+        : (G.SOURCES[sel.id] || null);
+
+      const claimTier = { 1: { tag: 'TIER 1 \u00b7 DOCUMENTED', color: '#5ed4e6', style: 'solid' }, 2: { tag: 'TIER 2 \u00b7 SOURCED CLAIM', color: '#efb555', style: 'dashed' }, 3: { tag: 'TIER 3 \u00b7 INFERENCE', color: '#8d97a4', style: 'dotted' } };
+
+      selVals = {
+        cls: sel.cls.toUpperCase(),
+        name: sel.label,
+        hasPhoto: !!sel.photo,
+        // background-image, not <img>: an unresolved src hole fires a real
+        // network request for the literal placeholder string before it resolves.
+        photoBg: sel.photo ? 'url("' + sel.photo + '")' : 'none',
+        badge: isPerson ? (G.STATUS_LABEL[sel.status] || sel.status.toUpperCase()) : sel.cls.toUpperCase(),
+        color: G.nodeColor(sel),
+        hasFlag: !!(sel.isNonDefense || sel.mediaLinkedOnly),
+        flag: sel.isNonDefense ? 'NON-DEFENSE' : (sel.mediaLinkedOnly ? 'MEDIA-LINKED ONLY' : ''),
+        sub: isPerson ? sel.sub : (sel.sub || 'Entity'),
+        meta: isPerson ? sel.loc + ' \u00b7 ' + sel.date : sel.deg + ' connections',
+
+        hasScores: !!tierMeta,
+        tierLabel: tierMeta ? tierMeta.label : '',
+        tierColor: tierMeta ? tierMeta.color : '#8d97a4',
+        tierRationale: sel.tierRationale || '',
+        axes,
+
+        hasResidual: !!sel.unexplainedResidual,
+        residual: sel.unexplainedResidual || '',
+
+        hasNarrative: !!sel.narrative,
+        narrative: sel.narrative || '',
+        hasAffiliations: !!(sel.affiliations && sel.affiliations.length),
+        affiliations: sel.affiliations || [],
+        rows,
+        hasConflicts: !!(sel.conflicts && sel.conflicts.length),
+        conflicts: sel.conflicts || [],
+        hasUnverified: !!(sel.unverified && sel.unverified.length),
+        unverified: sel.unverified || [],
+
+        hasChain: !!(sel.sequenceChain && sel.sequenceChain.length),
+        noChain: isPerson && !(sel.sequenceChain && sel.sequenceChain.length),
+        noChainText: 'No sequence chain on file. A chain is recorded only where a case scores 2 or higher on sequence anomaly, meaning several independently documented and individually unexplained steps. This case does not meet that bar, which is a finding rather than a gap.',
+        chainIntro: 'Each step is separately sourced. Steps marked unexplained are the ones no published account resolves. The claim this file makes is about the order, not about any single step.',
+        chain: (sel.sequenceChain || []).map((s, i, arr) => ({
+          date: s.date,
+          event: s.event,
+          source: s.source,
+          flag: s.isAnomalous,
+          dot: s.isAnomalous ? '#5ed4e6' : '#4f5964',
+          dotBg: s.isAnomalous ? '#5ed4e6' : '#0f1216',
+          rail: i === arr.length - 1 ? 'transparent' : '#262e36',
+        })),
+        hasChronology: !!(sel.chronology && sel.chronology.length),
+        chronology: sel.chronology || [],
+
+        conns: mine,
+        connCount: mine.length,
+
+        hasClaims: !!(sel.claims && sel.claims.length),
+        claims: (sel.claims || []).map(c => Object.assign({ text: c.text, source: c.source }, claimTier[c.tier] || claimTier[3])),
+        sourceList: srcs && srcs.length
+          ? srcs.map((s, i) => React.createElement('a', { key: i, href: s.url, target: '_blank', style: { display: 'block' } }, s.name + (s.date ? '  ' + s.date : '')))
+          : React.createElement('span', { style: { color: '#5c6672' } }, 'No attributed source on file for this entity.'),
+      };
+    }
+
+    const tabDefs = [['DOSSIER', 'DOSSIER'], ['CHAIN', 'CHAIN'], ['LINKS', 'LINKS'], ['SOURCES', 'SOURCES']];
+    const tabs = tabDefs.map(([key, label]) => {
+      const on = st.tab === key;
+      return { label, go: () => this.setState({ tab: key }), fg: on ? '#e6e9ee' : '#5c6672', mark: on ? '#5ed4e6' : 'transparent' };
+    });
+
+    // ---- timeline: one row per dated entry, three strand columns, year gutter.
+    // Vertical because 40 labelled entries cannot be read on a horizontal axis
+    // without rotation, collision, or scrolling sideways.
+    const strands = T ? T.STRANDS : [];
+    const precedent = T ? T.PRECEDENT.map(p => ({ date: p.date, label: p.label, text: p.text })) : [];
+    const fmtDate = (d, precision) => {
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const parts = d.split('-');
+      if (precision === 'day' && parts.length === 3) return months[+parts[1] - 1] + ' ' + (+parts[2]) + ', ' + parts[0];
+      if (parts.length >= 2) return months[+parts[1] - 1] + ' ' + parts[0];
+      return parts[0];
+    };
+    const narrow = !!st.narrow;
+    const timelineCols = narrow ? '54px 1fr' : '62px repeat(3, 1fr)';
+    let lastYear = null;
+    const rows = T ? [...T.TIMELINE].sort((a, b) => a.date.localeCompare(b.date)).map(e => {
+      const year = e.date.slice(0, 4);
+      const showYear = year !== lastYear;
+      lastYear = year;
+      const tierMeta = e.tier && G ? G.TIERS[e.tier] : null;
+      const s = T.STRANDS.find(x => x.key === e.strand);
+      const filled = {
+        has: true,
+        rail: '#1d242b',
+        label: e.label,
+        text: e.text,
+        stamp: fmtDate(e.date, e.precision) + '  \u00b7  ' + T.PRECISION_LABEL[e.precision],
+        bg: e.strand === 'cases' ? '#151a21' : 'transparent',
+        mark: tierMeta ? tierMeta.color : s.color,
+        markStyle: e.strand === 'skeptical' ? 'dashed' : 'solid',
+        hasTier: !!tierMeta || narrow,
+        tierLabel: narrow ? s.label : (e.tier ? 'TIER ' + e.tier : ''),
+        tierColor: narrow ? s.color : (tierMeta ? tierMeta.color : '#8d97a4'),
+        cursor: e.node ? 'pointer' : 'default',
+        go: e.node ? () => this.go(e.node) : () => {},
+      };
+      const empty = { has: false, rail: '#1d242b', bg: 'transparent', mark: 'transparent', markStyle: 'solid', hasTier: false, cursor: 'default', go: () => {}, label: '', text: '', stamp: '', tierLabel: '', tierColor: '#8d97a4' };
+      return {
+        year: showYear ? year : '',
+        yearColor: showYear ? '#8d97a4' : 'transparent',
+        cols: timelineCols,
+        cells: narrow ? [filled] : ['cases', 'oversight', 'skeptical'].map(k => (k === e.strand ? filled : empty)),
+      };
+    }) : [];
+
+    // ---- geography
+    const geoDefs = [
+      ['california', '#5ed4e6', 'Four cases in the Pasadena to Angeles Forest corridor. Novella\u2019s institution-level base rate cuts directly against this cluster: JPL employs roughly 4,500 people, where about 164 deaths would be expected over four years.', '#efb555'],
+      ['new-mexico', '#efb555', 'Four cases within roughly 150 miles, two sharing an employer. LANL employs about 18,000 people, where roughly 657 deaths would be expected over the same period.', '#efb555'],
+      ['huntsville', '#a795e8', 'Three propulsion-connected cases across five years. Newsweek examined the Eskridge and LeBlanc pairing directly and found no direct connection, and LeBlanc died in Walker County, not Huntsville.', '#efb555'],
+      ['northeast', '#7fb4e8', 'Two cases eight weeks apart in eastern Massachusetts, and the weakest cluster in the file. One is formally resolved and the other is non-defense, so the grouping is geographic coincidence rather than a thread.', '#8d97a4'],
+    ];
+    const geo = geoDefs.map(([key, tint, claim, claimColor]) => {
+      const members = P.filter(p => p.cluster === key);
+      return {
+        label: G ? G.CLUSTERS[key].label : key,
+        tint, claim, claimColor,
+        count: members.length + ' cases',
+        members: members.map(m => ({
+          row: this.lead(m.label, m.loc, 46),
+          color: G ? G.nodeColor(m) : '#b9c2cd',
+          go: () => this.go(m.id),
+        })),
+      };
+    });
+
+    // ---- cases
+    const cases = P.map(p => {
+      const open = !!st.expanded[p.id];
+      const tierMeta = G && p.tier ? G.TIERS[p.tier] : null;
+      return {
+        name: p.label, sub: p.sub, date: p.date, open,
+        hasPhoto: !!p.photo, photoBg: p.photo ? 'url("' + p.photo + '")' : 'none',
+        chev: open ? '\u2212' : '+',
+        color: G ? G.nodeColor(p) : '#c9d2dd',
+        border: open ? '#3b444f' : '#262e36',
+        badge: G ? (G.STATUS_LABEL[p.status] || p.status.toUpperCase()) : p.status.toUpperCase(),
+        hasFlag: !!(p.isNonDefense || p.mediaLinkedOnly),
+        flag: p.isNonDefense ? 'NON-DEFENSE' : (p.mediaLinkedOnly ? 'MEDIA-LINKED' : ''),
+        tierLabel: p.tier ? 'TIER ' + p.tier : '',
+        tierColor: tierMeta ? tierMeta.color : '#8d97a4',
+        // Three axes on the card face, unsummed. The most-used piece of
+        // information in the interface, and it must never read as a rating.
+        axes: G ? G.AXES.map(a => ({
+          key: a.key,
+          pips: [0, 1, 2].map(i => ({ bg: i < (p[a.key] || 0) ? tierMeta.color : '#232b34' })),
+        })) : [],
+        narrative: p.narrative,
+        hasResidual: !!p.unexplainedResidual,
+        residual: p.unexplainedResidual || '',
+        rows: [
+          ['AGE', p.age == null ? 'NOT REPORTED' : String(p.age)],
+          ['LOCATION', p.loc],
+          ['LEFT BEHIND', p.leftBehind.length ? p.leftBehind.join(', ') : 'NOTHING RECORDED'],
+          ['TOOK WITH', p.tookWith.length ? p.tookWith.join(', ') : 'NOTHING RECORDED'],
+          ['CLUSTER', G ? G.CLUSTERS[p.cluster].label : ''],
+        ].map(([k, v]) => ({ row: this.lead(k, v, 40), color: /NOT REPORTED|NOTHING RECORDED|UNKNOWN/.test(v) ? '#5c6672' : '#b9c2cd' })),
+        hasChain: !!(p.sequenceChain && p.sequenceChain.length),
+        chainCount: (p.sequenceChain || []).length,
+        anomalousCount: (p.sequenceChain || []).filter(s => s.isAnomalous).length,
+        chain: (p.sequenceChain || []).map((s, i, arr) => ({
+          date: s.date, event: s.event, flag: s.isAnomalous,
+          dot: s.isAnomalous ? '#5ed4e6' : '#4f5964',
+          dotBg: s.isAnomalous ? '#5ed4e6' : '#0f1216',
+          rail: i === arr.length - 1 ? 'transparent' : '#262e36',
+        })),
+        hasConflicts: !!(p.conflicts && p.conflicts.length),
+        conflicts: p.conflicts || [],
+        sourceList: p.sources && p.sources.length
+          ? p.sources.map((s, i) => React.createElement('a', { key: i, href: s.url, target: '_blank', style: { marginRight: '10px' } }, s.outlet))
+          : React.createElement('span', { style: { color: '#5c6672' } }, 'No attributed source on file.'),
+        openFull: (ev) => { if (ev && ev.stopPropagation) ev.stopPropagation(); this.go(p.id); },
+        toggle: () => this.setState(s => ({ expanded: { ...s.expanded, [p.id]: !s.expanded[p.id] } })),
+      };
+    });
+
+    // ---- analysis
+    // One membership rule for the left-behind thread, defined in the data layer
+    // and used by every surface that talks about it.
+    const leftMembers = G ? G.leftEverythingBehind() : [];
+    const leftStateCount = new Set(leftMembers.map(p => p.loc.split(', ').pop())).size;
+    const strongest = [...pairs].sort((a, b) => b.weight - a.weight).slice(0, 1)[0];
+    const leftCount = P.filter(p => p.leftBehind.length).length;
+    const patterns = [
+      {
+        tag: 'CONFIRMED \u00b7 COMPUTED', accent: '#5ed4e6', style: 'solid',
+        text: strongest
+          ? strongest.s.label + ' and ' + strongest.t.label + ' are linked by ' + strongest.weight + ' independent connection types: ' + strongest.types.join(', ') + '. No other pair in the data reaches ' + strongest.weight + '.'
+          : 'Computing strongest pair\u2026',
+        go: () => strongest && this.go(strongest.s.id),
+      },
+      {
+        tag: 'CONFIRMED \u00b7 COMPUTED', accent: '#5ed4e6', style: 'solid',
+        text: leftMembers.length + ' of ' + P.length + ' left both phone and wallet behind and carried no departure kit, across ' + leftStateCount + ' states. Garcia is the strongest single case: he abandoned car, phone, wallet and keys while taking a handgun and leaving on foot, which neither the abduction reading nor the suicidal-intent reading fully explains.',
+        go: () => this.go('garcia'),
+      },
+      {
+        tag: 'CLAIM \u00b7 REPORTED', accent: '#efb555', style: 'dashed',
+        text: 'Three propulsion researchers worked within 30 miles of each other in the Huntsville area. The distance figure comes from the reporting, not from measured coordinates.',
+        go: () => this.go('d-prop'),
+      },
+      {
+        tag: 'OPEN QUESTION', accent: '#8d97a4', style: 'dotted',
+        text: 'Sullivan was a source for Grusch, whose proceedings triggered the investigation now examining these cases. Whether that ordering is causal or coincidental is not answerable from anything in the record.',
+        go: () => this.go('sullivan'),
+      },
+    ];
+
+    const instCount = {};
+    for (const p of P) instCount[p.instId] = (instCount[p.instId] || 0) + 1;
+    const instBars = G ? G.INSTITUTIONS.map(i => ({
+      label: i.label, count: instCount[i.id] || 0,
+      pct: ((instCount[i.id] || 0) / 3 * 100) + '%',
+      color: (instCount[i.id] || 0) >= 2 ? '#a795e8' : '#4d5a66',
+      go: () => this.go(i.id),
+    })).sort((a, b) => b.count - a.count) : [];
+
+    const leftBehind = leftMembers.map(p => ({
+      row: this.lead(p.label, p.leftBehind.join(', '), 52),
+      color: G ? G.nodeColor(p) : '#b9c2cd',
+      go: () => this.go(p.id),
+    }));
+
+    const counters = [
+      { source: 'Scientific American', kind: 'statistical analysis', text: 'Applies base-rate arithmetic to the institutional overlaps and concludes the clustering is within what population size and time span would produce anyway.' },
+      { source: 'Skeptic Magazine', kind: '"The Mystery Explained"', text: 'Works through the cases individually and finds documented, mundane explanations for most of them, including ones the pattern framing omits.' },
+      { source: 'Robert Bartholomew', kind: 'apophenia argument', text: 'Argues the pattern is a perceptual artefact: once a frame exists, unrelated events get recruited into it, and the frame then looks confirmed.' },
+      { source: 'PolitiFact', kind: 'fact check', text: 'Rates the strongest circulating versions of the claim as unsupported, noting that several individuals named in viral posts had no defence connection.' },
+      { source: 'NeuroLogica Blog', kind: 'methodology critique', text: 'Focuses on selection: the list has no defined inclusion rule, so it can absorb any death and never be falsified.' },
+      { source: 'Jennifer Coffindaffer', kind: 'retired FBI Special Agent', text: 'The direct rebuttal to the left-everything-behind thread. Leaving wallet, phone and keys is a recognised signature of suicidal intent, and investigators read it in the opposite direction from the pattern narrative. Her line: it is not just what they leave behind, it is what they choose to take.' },
+    ];
+
+    // ---- search
+    const q = st.query.trim().toLowerCase();
+    const results = (q ? all.filter(n => n.label.toLowerCase().includes(q) || (n.sub || '').toLowerCase().includes(q)) : all.slice(0, 9))
+      .slice(0, 40)
+      .map(n => ({
+        cls: n.cls.toUpperCase(), label: n.label,
+        color: G ? G.nodeColor(n) : '#b9c2cd',
+        meta: n.cls === 'person' ? n.date : (n.sub || ''),
+        go: () => this.go(n.id),
+      }));
+
+    // Built last so every count is the length of the array the view actually
+    // renders, rather than a literal that drifts when the data changes.
+    const views = [
+      ['NETWORK', all.length || 56], ['TIMELINE', T ? T.TIMELINE.length : 40], ['GEOGRAPHY', geoDefs.length],
+      ['CASES', P.length || 15], ['ANALYSIS', patterns.length], ['COUNTERARGS', counters.length], ['SEARCH', ''],
+    ].map(([label, count], i) => {
+      const on = st.view === label;
+      return {
+        row: '[' + (i + 1) + '] ' + this.lead(label, String(count), 22),
+        bg: on ? '#1a2027' : 'transparent',
+        fg: on ? '#e6e9ee' : '#8d97a4',
+        mark: on ? '#5ed4e6' : 'transparent',
+        go: () => this.dispatch('setView', label),
+      };
+    });
+
+    const models = [
+      { id: 'claude-sonnet-5', label: 'Claude Sonnet 5', note: 'Fast enough for conversational use and strong enough to reason across the whole case file. The right default here.' },
+      { id: 'claude-haiku-4.5', label: 'Claude Haiku 4.5', note: 'Fastest and cheapest. Fine for lookups and filtering, weaker on multi-case comparison.' },
+      { id: 'claude-opus-4.6', label: 'Claude Opus 4.6', note: 'Deepest reasoning at the highest latency and cost. Worth it for a genuinely hard analytical question, not for driving the map.' },
+    ].map(m => {
+      const on = st.model === m.id;
+      return Object.assign({}, m, {
+        pick: () => this.setModel(m.id),
+        mark: on ? '#5ed4e6' : 'transparent',
+        bg: on ? '#161c23' : 'transparent',
+        fg: on ? '#e6e9ee' : '#b9c2cd',
+      });
+    });
+
+    const effortDefs = [
+      { id: 'none', label: 'Instant', note: 'No extended thinking. Best for map commands and single-record lookups, where the answer is a retrieval rather than a judgement.' },
+      { id: 'balanced', label: 'Balanced', note: 'A short thinking budget on questions that need it, none on simple commands. Keeps map-driving instant while still reasoning properly across cases. Recommended.' },
+      { id: 'deep', label: 'Deep', note: 'A large thinking budget on every question. Noticeably slower, and worth it only for comparative analysis across the whole file.' },
+    ];
+    const effortMeta = effortDefs.find(e => e.id === st.effort) || effortDefs[1];
+    const efforts = effortDefs.map(e => {
+      const on = st.effort === e.id;
+      return {
+        label: e.label,
+        pick: () => this.setEffort(e.id),
+        border: on ? '#5ed4e6' : '#333c47',
+        bg: on ? 'rgba(94,212,230,0.1)' : 'transparent',
+        fg: on ? '#5ed4e6' : '#8d97a4',
+      };
+    });
+
+    const turns = st.turns.map(t => ({
+      role: t.role,
+      roleColor: t.role === 'YOU' ? '#8d97a4' : '#5ed4e6',
+      color: t.role === 'YOU' ? '#b9c2cd' : '#dfe4ea',
+      text: t.text,
+      hasActions: !!(t.actions && t.actions.length),
+      actions: (t.actions || []).map(a => ':: ' + a),
+      hasCites: !!(t.cites && t.cites.length),
+      citeList: (t.cites || []).map(([id, name], i) => React.createElement('span', {
+        key: i, onClick: () => this.go(id),
+        style: { fontSize: '9px', padding: '2px 7px', border: '1px solid #333c47', color: '#8d97a4', cursor: 'pointer' },
+      }, name)),
+    }));
+
+    // Derived from the aggregated pairs, never written by hand. The earlier
+    // hardcoded copy drifted out of step with the data the moment records changed.
+    const topPairs = [...pairs].sort((a, b) => b.weight - a.weight);
+    const tp = topPairs[0];
+    const runnerUp = topPairs.find(p => tp && p.weight < tp.weight);
+    const insights = [
+      tp
+        ? tp.s.label + ' and ' + tp.t.label + ' are linked by ' + tp.weight + ' independent connection types: ' + tp.types.join(', ') + '. No other pair in the data reaches ' + tp.weight + ', and it still does not establish a common cause.'
+        : 'Computing the strongest pair\u2026',
+      runnerUp
+        ? runnerUp.s.label + ' and ' + runnerUp.t.label + ' are the next strongest at ' + runnerUp.weight + ': ' + runnerUp.types.join(', ') + '.'
+        : 'Computing the next strongest pair\u2026',
+      leftMembers.length + ' of ' + P.length + ' left both phone and wallet behind and carried no departure kit, across ' + leftStateCount + ' states. Retired FBI agent Jennifer Coffindaffer reads the same fact in the opposite direction, as a recognised signature of suicidal intent.',
+    ];
+
+    return {
+      canvasRef: this.canvasRef, tipRef: this.tipRef, inputRef: this.inputRef, scrollRef: this.scrollRef,
+
+      kpis, views, chips, ramp, legend, hops,
+      isNetwork: st.view === 'NETWORK', isTimeline: st.view === 'TIMELINE', isGeography: st.view === 'GEOGRAPHY',
+      isCases: st.view === 'CASES', isAnalysis: st.view === 'ANALYSIS', isCounter: st.view === 'COUNTERARGS', isSearch: st.view === 'SEARCH',
+      hasSel: !!selVals, noSel: !selVals, sel: selVals,
+      rows, precedent, tabs, timelineCols,
+      strandHeads: narrow
+        ? [{ label: 'CHRONOLOGY', sub: 'cases, oversight and the skeptical record, tagged by strand', color: '#8d97a4' }]
+        : strands,
+      tabDossier: st.tab === 'DOSSIER', tabChain: st.tab === 'CHAIN',
+      tabLinks: st.tab === 'LINKS', tabSources: st.tab === 'SOURCES',
+      geo, cases, patterns, instBars, leftBehind, counters, results,
+      searchStatus: q ? results.length + ' entities match "' + st.query + '"' : 'Showing the first 9 of 52 entities. Type to filter.',
+      onSearch: (e) => this.setState({ query: e.currentTarget.value }),
+      turns,
+      suggestions: [
+        'What is the strongest connection in the data?',
+        'Show me all the propulsion researchers',
+        'Which official findings did the family dispute?',
+        'Is the JPL overlap meaningful or just base rate?',
+      ].map(label => ({ label, run: () => this.ask(label) })),
+      open: st.open,
+      toggleLabel: st.open ? 'Collapse' : 'Expand',
+      toggleOpen: () => this.setState(s => ({ open: !s.open })),
+      analystStatus: st.hasKey
+        ? 'ready \u00b7 key stored in this browser \u00b7 ' + st.model + ' \u00b7 ' + effortMeta.label.toLowerCase()
+        : 'no API key configured. Running scripted replies, and the dashboard stays fully usable by hand.',
+      analystColor: st.hasKey ? '#66d69f' : '#efb555',
+      keyLabel: st.hasKey ? 'API key set' : 'Set API key',
+      openKey: () => this.setState({ settingsOpen: true, keyState: '' }),
+      settingsOpen: st.settingsOpen,
+      closeSettings: () => this.setState({ settingsOpen: false }),
+      stopClose: (e) => { if (e && e.stopPropagation) e.stopPropagation(); },
+      keyRef: this.keyInput,
+      saveKey: this.saveKey,
+      removeKey: this.removeKey,
+      keyState: st.keyState || (st.hasKey ? 'key on file' : 'no key on file'),
+      keyStateColor: st.keyState === 'saved to this browser' || st.hasKey ? '#66d69f' : '#8d97a4',
+      models, efforts, effortNote: effortMeta.note,
+      insightOpen: st.insightOpen,
+      insightText: insights[st.insight % insights.length],
+      dismissInsight: () => this.setState({ insightOpen: false }),
+      nextInsight: () => this.setState(s => ({ insight: s.insight + 1 })),
+      showInsight: () => this.go(['chavez', 'hicks', 'garcia'][st.insight % 3]),
+      clearSel: () => this.dispatch('clearSelection'),
+      clearFilters: () => this.dispatch('clearFilters'),
+      onKey: this.onKey, send: this.send,
+    };
+  }
+}
+
+</script>
+</body>
+</html>
