@@ -107,7 +107,11 @@ What the individual is **documented** to have held.
 | **P1** | Scientific or technical role with no sensitive access documented |
 | **P0** | No defense, aerospace, nuclear, or intelligence nexus of any kind |
 
-**P is the axis most often inflated by aggregator coverage.** Two corrections already made on this axis: Steven Garcia's "top clearance, nuclear weapons access" was unsourced and became P2 with the role recorded as property custodian; Neil McCasland's retiree clearance was confirmed by BCSO as standard, not active operational access, so P2 not P3.
+**When P is in doubt, score it down and let I carry the institution.** This is the rule that settled seven of the eight axis disagreements adjudicated on August 10 2026, and the error will recur. The temptation is to score the person by where they worked, which is what the I axis is for. If P absorbs institutional weight the two axes stop being independent, the scores silently double-count the employer, and the reason for not summing them disappears. A retiree at a national laboratory is P1 and I3, and stating both is more informative than splitting the difference at P2.
+
+**The Tier A gate is a disjunction, not a conjunction.** An unexplained residual **plus** (S2+ **or** P3 **or** I3). A low P does not block promotion when S or I already clears the bar. Reading it as requiring all three would quietly delete the Grillmair-shaped case, which is the exact case the three-axis model was built to hold.
+
+**P is the axis most often inflated by aggregator coverage.** Two corrections already made on this axis: Steven Garcia's "top clearance, nuclear weapons access" was unsourced and became P1 with the role recorded as property custodian; Neil McCasland's retiree clearance was confirmed by BCSO as standard, not active operational access, so P2 not P3.
 
 **Rule: a clearance characterization requires a primary or named-official source.** Aggregator assertion is not sufficient. When in doubt, score down and log it.
 

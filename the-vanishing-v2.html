@@ -592,7 +592,7 @@ const PEOPLE = [
   P_({
     id: 'li', label: 'Ning Li', status: 'dead', date: '2021-07-27', age: 78,
     loc: 'Huntsville, AL', locId: 'l-hsv', instId: 'uah', sub: 'UAH / AC Gravity LLC',
-    cluster: 'huntsville', tier: 'C', S: 1, P: 2, I: 2, domains: ['d-prop', 'd-exotic'],
+    cluster: 'huntsville', tier: 'C', S: 0, P: 2, I: 2, domains: ['d-prop', 'd-exotic'],
     narrative: 'Chinese-American physicist who emigrated in 1983 and spent two decades at the UAH Center for Space Plasma and Aeronomic Research working on gravitomagnetism, extending the Meissner effect from electromagnetism to gravity. She founded AC Gravity LLC in 1999, won a 448,970 dollar DoD grant in 2001, and moved into classified work at Redstone Arsenal after 2003. She was struck by a car on the UAH campus in 2014 and suffered permanent brain damage; reporting indicates the injury led to an Alzheimer\u2019s diagnosis shortly afterward. She died of natural causes in 2021. The seven-year gap between the collision and her death substantially weakens any suspicious-death framing, and the case is retained for the research continuity to Eskridge rather than for its own anomaly.',
     affiliations: ['UAH Center for Space Plasma and Aeronomic Research (1983-1999)', 'AC Gravity LLC (founder, 1999)', 'Redstone Arsenal / US Army AMCOM (classified, post-2003)'],
     tierRationale: 'A conventional explanation is documented and holds: a 2014 campus vehicle collision, resulting brain damage, and death of natural causes seven years later.',
@@ -848,7 +848,7 @@ const PEOPLE = [
   P_({
     id: 'loureiro', label: 'Nuno Loureiro', status: 'resolved', date: '2025-12-15', age: 47,
     loc: 'Cambridge, MA', locId: 'l-cam', instId: 'mit', sub: 'MIT Plasma Science and Fusion Center',
-    cluster: 'northeast', tier: 'C', S: 0, P: 1, I: 1, domains: ['d-plasma'],
+    cluster: 'northeast', tier: 'C', S: 0, P: 1, I: 3, domains: ['d-plasma'],
     narrative: 'Fatally shot at his Boston-area home on December 15 2025. On April 29 2026 the FBI and the US Attorney for the District of Massachusetts conclusively determined that Claudio Manuel Neves Valente, a Portuguese national and former classmate, acted alone, with no nexus to terrorism, motivated by personal dissatisfaction and a fixation on Loureiro\u2019s success. Valente is also the Brown University shooting suspect. Investigators released a transcript of videos Valente made. This case is closed in every sense and is no longer an open question.',
     affiliations: ['MIT Plasma Science and Fusion Center'],
     tierRationale: 'Formally resolved by federal investigators. Perpetrator identified, motive established, no terrorism nexus.',
@@ -899,7 +899,7 @@ const PEOPLE = [
   P_({
     id: 'mccasland', label: 'Neil McCasland', status: 'missing', date: '2026-02-27', age: null,
     loc: 'Albuquerque, NM', locId: 'l-abq', instId: 'afrl', sub: 'Maj Gen (ret.), former AFRL commander',
-    cluster: 'new-mexico', tier: 'A', S: 2, P: 3, I: 3, domains: ['d-prop', 'd-intel'],
+    cluster: 'new-mexico', tier: 'A', S: 2, P: 2, I: 3, domains: ['d-prop', 'd-intel'],
     leftBehind: ['Garmin watch', 'GPS devices', 'medication', 'iPhone', 'glasses'],
     tookWith: ['wallet', 'hiking boots', '.38 revolver', 'red backpack'],
     narrative: 'Retired Major General and former AFRL commander, missing from Albuquerque since February 27 2026. The Bernalillo County Sheriff\u2019s Office issued a formal correction set in June 2026 that dismantles most of what circulated about him: there is no Pentagon connection, likely a conflation with Riverside Research, a DoD contractor; he held a standard retiree clearance rather than active operational access; law enforcement emphasized his wife never said he made a desperate attempt to resign; and BCSO states there is no known connection between this case and the other missing-scientist cases. His wife wrote publicly that he had only very commonly held clearances since retiring more than thirteen years earlier, and that it seems quite unlikely he was taken to extract very dated secrets. Investigators confirmed he stepped down from consulting roles citing brain fog, though LA Magazine could not independently verify that in the FOIA documents it obtained. The search has stalled with no confirmed sighting since a store surveillance image on February 26 2026.',
@@ -2241,6 +2241,20 @@ const CMD = {
     paint({ full:true });
     return true;
   },
+  /* A table the user can take away. CSV rather than a real xlsx: this is one
+     HTML file with no dependencies, and writing a zip container by hand to gain
+     nothing Excel cannot already open would be the wrong trade. The BOM is what
+     makes Excel read UTF-8 correctly. */
+  exportData(spec){
+    if (!spec || !Array.isArray(spec.columns) || !Array.isArray(spec.rows))
+      return warn('exportData needs { filename, columns:[...], rows:[[...]] }');
+    if (!spec.rows.length) return warn('exportData was given no rows');
+    const art = { kind:'data', id:'a'+(++artifactSeq), at:new Date(), spec:Object.assign({ title:spec.filename||'Export' }, spec) };
+    S.artifacts.unshift(art);
+    downloadCsv(art);
+    paint({ full:true });
+    return true;
+  },
   clearArtifacts(){ S.artifacts = []; paint({ full:true }); },
 
   setTimelineZoom(z){
@@ -3455,15 +3469,28 @@ function viewReport(v){
     const sp = a.spec;
     h += '<div class="artifact" id="art-'+a.id+'">'
       + '<div class="art-h"><span class="eyebrow" style="color:var(--signal)">'
-      + (a.kind==='chart' ? esc(String(sp.type).toUpperCase())+' CHART' : 'REPORT') + '</span>'
+      + (a.kind==='chart' ? esc(String(sp.type).toUpperCase())+' CHART' : a.kind==='data' ? 'DATA EXPORT' : 'REPORT') + '</span>'
       + '<span class="art-t">'+esc(sp.title||'Untitled')+'</span>'
       + '<span class="spacer"></span>'
       + '<span style="font-size:9px;color:var(--text-faint)">'+a.at.toLocaleTimeString()+'</span>'
-      + '<button class="mini" data-artsvg="'+a.id+'">Save SVG</button>'
+      + (a.kind==='chart' ? '<button class="mini" data-artsvg="'+a.id+'">Save SVG</button>' : '')
+      + (a.kind==='data' ? '<button class="mini" data-artcsv="'+a.id+'">Download CSV</button>' : '')
+      + (a.kind==='report' ? '<button class="mini" data-artmd="'+a.id+'">Download MD</button>'
+          + (sp.table && sp.table.columns ? '<button class="mini" data-arttsv="'+a.id+'">Table CSV</button>' : '') : '')
       + '<button class="mini" data-artdrop="'+a.id+'">&times;</button></div>';
     if (sp.subtitle) h += '<p class="art-s">'+esc(sp.subtitle)+'</p>';
     if (a.kind === 'chart'){
       h += '<div class="art-body">'+renderChartSvg(sp)+'</div>';
+    } else if (a.kind === 'data'){
+      const rows = sp.rows.slice(0, 40);
+      h += '<div class="art-body"><div class="art-table"><table><thead><tr>'
+        + sp.columns.map(c=>'<th>'+esc(c)+'</th>').join('') + '</tr></thead><tbody>'
+        + rows.map(r=>'<tr>'+r.map(c=>'<td>'+esc(c)+'</td>').join('')+'</tr>').join('')
+        + '</tbody></table></div>'
+        + '<div style="font-size:9.5px;color:var(--text-faint);margin-top:7px">'
+        + sp.rows.length + ' row' + (sp.rows.length===1?'':'s') + ', ' + sp.columns.length + ' columns'
+        + (sp.rows.length > 40 ? '. Showing the first 40 here; the download contains all of them.' : '. The download contains the same rows.')
+        + ' Saved as UTF-8 CSV with a byte order mark, which is what Excel needs to read it correctly.</div></div>';
     } else {
       h += '<div class="art-body art-report">';
       for (const sec of (sp.sections||[]))
@@ -3934,6 +3961,7 @@ const SUGGESTIONS = [
   'Which case would a hostile reader attack first?',
   'Plot every case on a timeline and mark the Tier A ones',
   'Chart the cases by institution and show me the biggest',
+  'Export every Tier A case to a spreadsheet with its scores and sources',
 ];
 
 const store = {
@@ -4037,7 +4065,7 @@ GEOGRAPHY is three cluster summary cards, not a map. REPORT is where charts and 
 toggleFilter(key) setEdgeFilter([types]) clearFilters() focusCluster("california"|"new-mexico"|"huntsville")
 frameNodes([ids]) expandCase(id) search(q) showInsight(n) dismissInsight()
 setTimelineZoom("year"|"quarter"|"month") toggleTimelineOverlay("congress"|"fbi"|"pursue"|"media")
-renderChart(spec) renderReport(spec) clearArtifacts()
+renderChart(spec) renderReport(spec) exportData(spec) clearArtifacts()
 Use them when they help the user see the answer. Do not narrate them in prose; the interface prints them.
 
 ANSWERING WITH MORE THAN TEXT.
@@ -4052,6 +4080,8 @@ Every point may also carry: id (the entity id, which makes the mark clickable an
 Optional top level: title, subtitle, xLabel, yLabel, unit, and note, which renders as a caveat attached to the chart.
 
 renderReport takes { title, subtitle, sections:[{heading, body}], table:{columns:[], rows:[[]]}, note }.
+
+exportData takes { filename, columns:[...], rows:[[...]] } and downloads a CSV immediately, then keeps it in the report view so the user can download it again. Use it whenever someone asks for a spreadsheet, a list they can work with, a data dump, or anything they want to take out of this dashboard. Put every column they asked for and no column you invented. Values must come from the case records. If a field is not reported, write NOT REPORTED rather than leaving it blank or guessing, because a blank cell in a spreadsheet reads as zero or as an oversight.
 
 Rules for artifacts:
 1. Compute the values yourself from the case file above. Never estimate, never round a date, never add a case that is not in the file.
@@ -4176,6 +4206,19 @@ function scriptedReply(q){
     S.turns.push(turn); renderTranscript();
     turn.actions.forEach((a,i)=>setTimeout(()=>runCommandLine(a), i*140)); return;
   }
+  if (/export|spreadsheet|csv|download|excel/.test(t)){
+    const cols = ['id','name','status','date','age','location','affiliation','tier','S','P','I','left behind','unexplained residual'];
+    const rows = PEOPLE.map(p=>[p.id,p.label,p.status,p.date,(p.age==null?'NOT REPORTED':p.age),p.loc||'NOT REPORTED',
+      p.sub||'NOT REPORTED',p.tier,p.S,p.P,p.I,(p.leftBehind.join('; ')||'NOTHING RECORDED'),(p.unexplainedResidual||'NONE')]);
+    turn.actions = ['exportData({filename:"the-vanishing-all-cases", columns:[...], rows:[...]})'];
+    turn.text = 'Exported all '+PEOPLE.length+' cases as CSV and kept a copy in the report view. '
+      + 'This is the scripted fallback, so it exports everything rather than the subset you asked for. '
+      + 'Set an API key and the analyst will filter, sort and caveat it properly.';
+    S.turns.push(turn); renderTranscript();
+    CMD.exportData({ filename:'the-vanishing-all-cases', columns:cols, rows:rows });
+    CMD.setView('REPORT');
+    return;
+  }
   if (/chart|plot|graph|timeline|visuali[sz]e|report/.test(t)){
     const pts = PEOPLE.map(p=>({ id:p.id, label:p.label, date:p.date, tier:p.tier }));
     turn.actions = ['renderChart({type:"timeline", title:"All 15 cases", points:[...]})','setView("REPORT")'];
@@ -4201,7 +4244,7 @@ document.addEventListener('click', (ev) => {
   const t = ev.target.closest('[data-view],[data-filter],[data-edge],[data-hops],[data-clear],'
     + '[data-dismiss],[data-reopen],[data-show],[data-next],[data-prev],[data-zoom],[data-goto],[data-expand],[data-tab],[data-cmd],'
     + '[data-sugg],[data-model],[data-effort],[data-frame],[data-tlzoom],[data-tltrack],'
-    + '[data-artsvg],[data-artdrop],[data-artclear],#resetf');
+    + '[data-artsvg],[data-artcsv],[data-artmd],[data-arttsv],[data-artdrop],[data-artclear],#resetf');
   if (!t) return;
   const d = t.dataset;
   if (t.id === 'resetf')     return CMD.clearFilters();
@@ -4239,6 +4282,9 @@ document.addEventListener('click', (ev) => {
   if (d.artclear)            return CMD.clearArtifacts();
   if (d.artdrop){ S.artifacts = S.artifacts.filter(a=>a.id!==d.artdrop); return paint({ full:true }); }
   if (d.artsvg)              return saveArtifactSvg(d.artsvg);
+  if (d.artcsv){ const a = S.artifacts.find(x=>x.id===d.artcsv); return a && downloadCsv(a); }
+  if (d.artmd){  const a = S.artifacts.find(x=>x.id===d.artmd);  return a && downloadReportMd(a); }
+  if (d.arttsv){ const a = S.artifacts.find(x=>x.id===d.arttsv); return a && downloadTableCsv(a); }
 });
 
 function applyChrome(){
@@ -4278,6 +4324,49 @@ function saveArtifactSvg(id){
   document.body.appendChild(a);
   a.click();
   setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+
+function csvCell(v){
+  const t = String(v == null ? '' : v);
+  return /[",\n\r]/.test(t) ? '"' + t.replace(/"/g,'""') + '"' : t;
+}
+function saveBlob(text, name, mime){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], { type:mime }));
+  a.download = name;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+}
+function slug(t){ return String(t||'export').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60) || 'export'; }
+
+function downloadCsv(art){
+  const sp = art.spec;
+  const cols = sp.columns, rows = sp.rows;
+  const lines = [cols.map(csvCell).join(',')].concat(rows.map(r=>r.map(csvCell).join(',')));
+  // Excel needs the byte order mark to read UTF-8, otherwise accented names break.
+  saveBlob('\ufeff' + lines.join('\r\n'), slug(sp.filename || sp.title) + '.csv', 'text/csv;charset=utf-8');
+}
+function downloadReportMd(art){
+  const sp = art.spec;
+  const L = ['# ' + (sp.title || 'Report'), ''];
+  if (sp.subtitle) L.push(sp.subtitle, '');
+  for (const sec of (sp.sections||[])){ L.push('## ' + (sec.heading||''), '', sec.body||'', ''); }
+  if (sp.table && sp.table.columns){
+    L.push('| ' + sp.table.columns.join(' | ') + ' |');
+    L.push('|' + sp.table.columns.map(()=>'---').join('|') + '|');
+    for (const r of (sp.table.rows||[])) L.push('| ' + r.map(c=>String(c==null?'':c).replace(/\|/g,'\\|')).join(' | ') + ' |');
+    L.push('');
+  }
+  if (sp.note) L.push('> Caveat: ' + sp.note, '');
+  L.push('', 'Generated by The Vanishing v2 on ' + art.at.toLocaleString() + '. Every value is drawn from the case records in that file.');
+  saveBlob(L.join('\n'), slug(sp.title) + '.md', 'text/markdown;charset=utf-8');
+}
+function downloadTableCsv(art){
+  const t = art.spec.table;
+  if (!t || !t.columns) return;
+  downloadCsv({ spec:{ filename:art.spec.title, columns:t.columns, rows:t.rows||[] } });
 }
 
 $('#railbtn').addEventListener('click', () => {
