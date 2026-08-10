@@ -144,6 +144,8 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   background:linear-gradient(180deg,transparent,rgba(94,212,230,.5),transparent);
   animation:sweep 7s linear infinite;z-index:3}
 .hops{position:absolute;top:11px;left:11px;display:flex;gap:5px;z-index:5}
+.zoomc{position:absolute;top:44px;left:11px;display:flex;gap:5px;z-index:5}
+.zoomc .hopb{min-width:30px;text-align:center}
 .hopb{font-size:10px;padding:5px 10px;cursor:pointer;border:1px solid var(--line-3);
   background:rgba(18,23,29,.86);color:var(--text-dim);transition:all var(--t-quick) var(--e-quick)}
 .hopb:hover{border-color:var(--line-4);color:var(--text-3)}
@@ -181,7 +183,19 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 
 /* --- 6.2 Detail dock ------------------------------------------------------ */
 .dock{border-left:1px solid var(--line-2);background:var(--panel);display:flex;
-  flex-direction:column;min-height:0;overflow:hidden}
+  flex-direction:column;min-height:0;overflow:hidden;position:relative}
+/* Drag handle on the dock's leading edge. 7px of grab area, a 1px visual line,
+   because a hairline is impossible to hit and a wide bar is ugly. */
+.dock-grip{position:absolute;left:-4px;top:0;bottom:0;width:8px;cursor:col-resize;z-index:20}
+.dock-grip::after{content:'';position:absolute;left:3px;top:0;bottom:0;width:2px;background:transparent;
+  transition:background var(--t-quick) var(--e-quick)}
+.dock-grip:hover::after,.dock-grip.on::after{background:var(--signal)}
+body.resizing{cursor:col-resize;user-select:none}
+body.resizing #net{pointer-events:none}
+.rail{transition:none}
+#app.rail-off .rail{display:none}
+#app.rail-off .body{grid-template-columns:minmax(0,1fr) var(--dock-w)}
+@media (max-width:1179px){ #app.rail-off .body{grid-template-columns:minmax(0,1fr)} }
 .dock>.dock-h,.dock>.assess,.dock>.residual,.dock>.tabs{flex:none}
 .dock>.dock-body{flex:1 1 auto;min-height:0}
 .dock-empty{padding:16px;font-size:11.5px;line-height:1.7;color:var(--text-dim);text-wrap:pretty}
@@ -388,7 +402,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 @media (max-width:1439px){:root{--rail-w:176px;--dock-w:272px}}
 @media (max-width:1179px){
   .body{grid-template-columns:var(--rail-w) minmax(0,1fr)}
-  .dock{position:absolute;top:0;right:0;bottom:0;width:306px;z-index:30;
+  .dock{position:absolute;top:0;right:0;bottom:0;width:var(--dock-w);z-index:30;
     transform:translateX(100%);transition:transform var(--t-panel) var(--e-panel)}
   .dock.open{transform:none}
 }
@@ -410,7 +424,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
   .rail-scroll>.eyebrow{display:inline-block;margin:0 7px 0 9px;flex:none}
   .rail-scroll .chip{margin:0 4px 0 0;flex:none}
   .rail-reset{margin:0 0 0 8px;flex:none}
-  .dock{width:min(340px,88vw)}
+  .dock{width:min(var(--dock-w),88vw)}
   .an-scroll{max-height:132px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -435,6 +449,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
     <span class="tb-sep">|</span>
     <span class="tb-meta">Last sweep 2026.08.07</span>
     <span class="tb-sep">|</span>
+    <button class="tb-btn" id="railbtn" title="Collapse the left rail">&#9664; Rail</button>
     <button class="tb-btn" id="keybtn">Set API key</button>
   </div>
 
@@ -915,30 +930,35 @@ const PEOPLE = [
   }),
 ];
 
-const other = (id, cls, label, cluster, sub) => ({ id, cls, label, cluster, sub });
+/* Every node class carries a description, not just people. A card that shows a
+   label and nothing else tells a reader less than the absence of the card would.
+   desc is null where nothing has been written yet, and the dock prints that as a
+   stated gap rather than as empty space. */
+const other = (id, cls, label, cluster, sub, desc, srcs) =>
+  ({ id, cls, label, cluster, sub, desc: desc || null, sources: srcs || [] });
 
 const INSTITUTIONS = [
-  other('jpl', 'institution', 'NASA JPL', 'california', 'FFRDC'),
-  other('ipac', 'institution', 'Caltech IPAC', 'california', 'Academic, manages JPL'),
-  other('lanl', 'institution', 'LANL', 'new-mexico', 'National laboratory'),
-  other('afrl', 'institution', 'AFRL', 'new-mexico', 'Military research'),
-  other('uah', 'institution', 'UAH', 'huntsville', 'Academic'),
-  other('ies', 'institution', 'Inst. for Exotic Science', 'huntsville', 'Private'),
-  other('nsa', 'institution', 'NSA / NASIC', 'other', 'Intelligence'),
-  other('mit', 'institution', 'MIT PSFC', 'northeast', 'Academic'),
-  other('kcnsc', 'institution', 'KCNSC', 'new-mexico', 'NNSA campus'),
-  other('novartis', 'institution', 'Novartis', 'northeast', 'Pharmaceutical, non-defense'),
-  other('boeing', 'institution', 'Boeing / Rocketdyne', 'california', 'Private aerospace'),
-  other('nasa', 'institution', 'NASA Marshall', 'huntsville', 'Government'),
+  other('jpl', 'institution', 'NASA JPL', 'california', 'FFRDC', 'Federally Funded Research and Development Center operated for NASA by the California Institute of Technology. Its FFRDC status is the basis for the I3 channel score on every case attached to it: an FFRDC is designed to sit between government and academia, which is exactly the condition that makes a personal clearance record a poor test of what work someone was doing. Employs roughly 4,500 people, and that headcount is also the denominator the base-rate argument uses against the geographic cluster thesis.'),
+  other('ipac', 'institution', 'Caltech IPAC', 'california', 'Academic, manages JPL', 'The Infrared Processing and Analysis Center at Caltech. Caltech manages JPL, and Caltech is a documented JASON-recruiting institution, which is why an astronomer with no clearance on record still scores I3 here. An astronomer\'s core competencies, faint-signal detection, adaptive optics, image processing and sensor characterisation, transfer directly to overhead reconnaissance.'),
+  other('lanl', 'institution', 'LANL', 'new-mexico', 'National laboratory', 'Los Alamos National Laboratory, an NNSA national laboratory operated by Triad National Security LLC. Nuclear weapons design and stewardship. Roughly 18,000 employees, which Novella\'s base-rate analysis uses to argue that two to three cases from this population is far below the expected all-cause figure.'),
+  other('afrl', 'institution', 'AFRL', 'new-mexico', 'Military research', 'Air Force Research Laboratory. Neil McCasland commanded it at Wright-Patterson before retiring. The I3 basis recorded for this case is not AFRL alone but his later consulting: Sandia, a national laboratory, and Riverside Research, a DoD contractor. Bernalillo County confirmed his clearance was standard retiree status, not active operational access.'),
+  other('uah', 'institution', 'UAH', 'huntsville', 'Academic', 'University of Alabama in Huntsville. Major research university with substantial DoD funding, and the institution that hosted Ning Li\'s gravitomagnetism work, which drew a 448,970 dollar DoD grant in 2001 before moving to Redstone Arsenal and going classified. I2 rather than I3: a real defence-funded channel, but no FFRDC status.'),
+  other('ies', 'institution', 'Inst. for Exotic Science', 'huntsville', 'Private', 'The Institute for Exotic Science, the small private Huntsville institute where Amy Eskridge worked on advanced propulsion. I1: no documented classified channel of any kind. It is in the file because of her own stated belief that she was the target of a psychological war, not because the institute has a demonstrated conduit.'),
+  other('nsa', 'institution', 'NSA / NASIC', 'other', 'Intelligence', 'The National Security Agency and the National Air and Space Intelligence Center, the two intelligence-community postings on Matthew Sullivan\'s record along with the Air Force Intelligence Agency. NASIC is the Air Force\'s primary source for foreign air and space threat analysis. This is the clearest institutional channel in the file and it is why Sullivan holds the highest personal proximity score.'),
+  other('mit', 'institution', 'MIT PSFC', 'northeast', 'Academic', 'The MIT Plasma Science and Fusion Center, where Nuno Loureiro worked on plasma physics and magnetic reconnection. MIT operates Lincoln Laboratory, an FFRDC, and has documented JASON lineage. Note the live disagreement: this product scores the institution I1 while PROJECT.md scores it I3 on that FFRDC basis. See SCORING-DISCREPANCIES.md.'),
+  other('kcnsc', 'institution', 'KCNSC', 'new-mexico', 'NNSA campus', 'The Kansas City National Security Campus, an NNSA facility operated by Honeywell that manufactures the non-nuclear components of the US nuclear stockpile. Steven Garcia was a contractor there. His role is recorded as property custodian; the widely repeated claim that he held top clearance with nuclear weapons access was not supported by any primary source and has been removed from this file.'),
+  other('novartis', 'institution', 'Novartis', 'northeast', 'Pharmaceutical, non-defense', 'Swiss pharmaceutical company. I0, the only institution in the file with no government research nexus of any kind. Jason Thomas is retained here deliberately: a list that quietly drops its own counterexample is not a tracker, it is an argument.'),
+  other('boeing', 'institution', 'Boeing / Rocketdyne', 'california', 'Private aerospace', 'Aerojet Rocketdyne, later a Boeing associate operation. Defence contractor, no FFRDC status, so I2. Monica Reza co-invented Mondaloy here, a nickel superalloy developed for rocket engines, which is genuine propulsion intellectual property and the basis for her program proximity score.'),
+  other('nasa', 'institution', 'NASA Marshall', 'huntsville', 'Government', 'NASA Marshall Space Flight Center in Huntsville, where Joshua LeBlanc was an electrical engineer on DRACO. I3 on the DRACO channel rather than on Marshall alone. Marshall employs more than 6,000 people in Huntsville, which Newsweek used directly against the Huntsville cluster thesis when it examined the Eskridge and LeBlanc pairing and found no connection between them.'),
 ];
 
 const PROGRAMS = [
-  other('oversight', 'program', 'House Oversight', 'other', 'Investigation'),
-  other('fbi', 'program', 'FBI Review', 'other', 'Investigation'),
-  other('pursue', 'program', 'PURSUE Files', 'other', 'Disclosure'),
-  other('grusch', 'program', 'Grusch Proceedings', 'other', 'Testimony'),
-  other('draco', 'program', 'DRACO', 'other', 'DARPA and NASA nuclear propulsion'),
-  other('mondaloy', 'program', 'Mondaloy', 'other', 'Rocketdyne superalloy'),
+  other('oversight', 'program', 'House Oversight', 'other', 'Investigation', 'The House Committee on Oversight and Government Reform. Chairman Comer and Representative Burlison wrote to the FBI on April 20 2026 requesting a staff-level briefing by April 27. No readout of that briefing has ever been published, which is one of the open questions in this file. The committee separately held an MKULTRA hearing on June 30 2026, not on these cases.'),
+  other('fbi', 'program', 'FBI Review', 'other', 'Investigation', 'The federal review of the deaths and disappearances, confirmed by CNN on April 21 2026. Its only published output to date is the Loureiro determination of April 29 2026, which closed that case as a lone actor with no nexus to terrorism. No report, no findings and no public statement on any other case in this file.'),
+  other('pursue', 'program', 'PURSUE Files', 'other', 'Disclosure', 'The PURSUE declassification releases, the tranches of UAP files released from May 2026 onward. The fifth release on August 7 2026 covered 41 files spanning 1950 to 2026. Relevant to this tracker as context for the disclosure environment, not as evidence about any individual case.'),
+  other('grusch', 'program', 'Grusch Proceedings', 'other', 'Testimony', 'The whistleblower proceedings arising from David Grusch\'s July 26 2023 testimony to Congress. Grusch referred a set of witnesses to the Intelligence Community Inspector General. Matthew Sullivan is described as one of those sources and as a personal friend; the two had served together in the Air Force. This is the witness chain that connects Sullivan to the oversight track.'),
+  other('draco', 'program', 'DRACO', 'other', 'DARPA and NASA nuclear propulsion', 'The Demonstration Rocket for Agile Cislunar Operations, a joint DARPA and NASA nuclear thermal propulsion programme. Active, sensitive, and the reason Joshua LeBlanc carries the highest program proximity score in the file alongside Sullivan. Anyone working the engineering on DRACO holds exactly the kind of access the P axis is trying to measure.'),
+  other('mondaloy', 'program', 'Mondaloy', 'other', 'Rocketdyne superalloy', 'A nickel-based superalloy developed at Rocketdyne for rocket engine components, co-invented by Monica Reza. Real, patented propulsion intellectual property rather than a general research interest, which is what separates her record from a case where the domain is merely adjacent.'),
 ];
 
 const LOCATIONS = [
@@ -1876,6 +1896,7 @@ const PHOTOS = {
   loureiro:  ['assets/photos/loureiro.jpg',  'Wikimedia Commons, CC BY-SA 4.0'],
   reza:      ['assets/photos/reza.jpg',      'Missing person circulation'],
   thomas:    ['assets/photos/thomas.webp',   'Wakefield Police Department'],
+  eskridge:  ['assets/photos/eskridge.png', 'Supplied by the project owner'],
 };
 for (const p of PEOPLE) {
   const hit = PHOTOS[p.id];
@@ -1920,7 +1941,7 @@ const S = {
   query:'', expanded:new Set(),
   insight:0, insightOpen:true,
   tlZoom:'year', tlOverlays:new Set(['congress','fbi','pursue','media']),
-  settingsOpen:false, anOpen:true, anBusy:false,
+  settingsOpen:false, anOpen:true, anBusy:false, railOpen:true, dockW:306,
   hasKey:false, model:'claude-sonnet-5', effort:'balanced', keyState:'',
   turns:[], narrow:false,
 };
@@ -2723,9 +2744,41 @@ function mountNetwork(host){
 
   function loop(){ if (dead) return; try{ draw(); }catch(e){ /* keep the loop alive */ } raf = requestAnimationFrame(loop); }
 
+  /* --- pan and zoom ------------------------------------------------------
+     Drag empty canvas to pan, wheel to zoom about the cursor. The wheel handler
+     is non-passive and calls preventDefault so the page never scrolls under the
+     map. A drag suppresses the click that follows it, otherwise every pan that
+     ended on empty space would also clear the selection. */
   const tip = document.getElementById('tip');
+  let drag = null, dragged = false;
+
+  const onDown = (e) => {
+    if (e.button !== 0) return;
+    const r = c2d.getBoundingClientRect();
+    if (hitTest(e.clientX-r.left, e.clientY-r.top)) return;   // node clicks are not drags
+    drag = { x:e.clientX, y:e.clientY, camX:camTo.x, camY:camTo.y };
+    dragged = false;
+    c2d.style.cursor = 'grabbing';
+    tip.classList.remove('on');
+  };
+  const onUp = () => {
+    if (!drag) return;
+    drag = null;
+    c2d.style.cursor = 'default';
+    // release the suppression on the next tick so the click event sees it
+    setTimeout(()=>{ dragged = false; }, 0);
+  };
+
   const onMove = (e) => {
     const r = c2d.getBoundingClientRect();
+    if (drag){
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragged = true;
+      // move both cam and camTo so panning is direct rather than eased
+      camTo.x = drag.camX + dx; camTo.y = drag.camY + dy;
+      cam.x = camTo.x; cam.y = camTo.y;
+      return;
+    }
     const mx = e.clientX-r.left, my = e.clientY-r.top;
     const h = hitTest(mx,my);
     if (h !== hover){ hover = h; }
@@ -2738,17 +2791,40 @@ function mountNetwork(host){
       tip.textContent = '['+h.cls.toUpperCase()+'] '+h.label+'\n'+(h.sub || h.loc || CLUSTERS[h.cluster]?.label || 'no affiliation recorded')+'\n'+l3;
       tip.style.left = (e.clientX+15)+'px'; tip.style.top = (e.clientY+15)+'px';
       tip.classList.add('on');
-    } else { c2d.style.cursor = 'default'; tip.classList.remove('on'); }
+    } else { c2d.style.cursor = 'grab'; tip.classList.remove('on'); }
   };
-  const onLeave = () => { hover = null; tip.classList.remove('on'); };
+
+  const onWheel = (e) => {
+    e.preventDefault();                 // the map zooms; the page does not move
+    const r = c2d.getBoundingClientRect();
+    const px = e.clientX - r.left, py = e.clientY - r.top;
+    const before = toWorld(px, py);
+    const factor = Math.exp(-e.deltaY * 0.0016);
+    const k = Math.max(0.25, Math.min(4, camTo.k * factor));
+    // keep the world point under the cursor pinned while the scale changes
+    camTo.k = k;
+    camTo.x = px - before[0] * k;
+    camTo.y = py - before[1] * k;
+    cam.k = camTo.k; cam.x = camTo.x; cam.y = camTo.y;
+    tip.classList.remove('on');
+  };
+
+  const onLeave = () => { hover = null; tip.classList.remove('on'); if (drag) onUp(); };
   const onClick = (e) => {
+    if (dragged) return;                // that was a pan, not a click
     const r = c2d.getBoundingClientRect();
     const n = hitTest(e.clientX-r.left, e.clientY-r.top);
     n ? CMD.selectNode(n.id) : CMD.clearSelection();
   };
+  const onDbl = () => { resetCam(); };  // double click anywhere resets the view
+
   c2d.addEventListener('mousemove', onMove);
   c2d.addEventListener('mouseleave', onLeave);
   c2d.addEventListener('click', onClick);
+  c2d.addEventListener('mousedown', onDown);
+  c2d.addEventListener('dblclick', onDbl);
+  window.addEventListener('mouseup', onUp);
+  c2d.addEventListener('wheel', onWheel, { passive:false });
 
   let ro = null;
   if (typeof ResizeObserver !== 'undefined'){
@@ -2780,6 +2856,14 @@ function mountNetwork(host){
        memory the reader has built, so the camera moves instead. */
     frame(ids){ frameTo(ids); },
     resetCamera(){ resetCam(); },
+    zoom(dir){
+      if (dir === 'reset') return resetCam();
+      const k = Math.max(0.25, Math.min(4, camTo.k * (dir === 'in' ? 1.35 : 1/1.35)));
+      // zoom about the centre of the canvas, not the origin
+      const cx = W/2, cy = H/2;
+      const wx = (cx - camTo.x)/camTo.k, wy = (cy - camTo.y)/camTo.k;
+      camTo.k = k; camTo.x = cx - wx*k; camTo.y = cy - wy*k;
+    },
     destroy(){
       dead = true; cancelAnimationFrame(raf);
       if (ro) ro.disconnect();
@@ -2787,6 +2871,10 @@ function mountNetwork(host){
       c2d.removeEventListener('mousemove', onMove);
       c2d.removeEventListener('mouseleave', onLeave);
       c2d.removeEventListener('click', onClick);
+      c2d.removeEventListener('mousedown', onDown);
+      c2d.removeEventListener('dblclick', onDbl);
+      c2d.removeEventListener('wheel', onWheel);
+      window.removeEventListener('mouseup', onUp);
       if (edgeLayer && edgeLayer.destroy) edgeLayer.destroy();
       tip.classList.remove('on');
     },
@@ -2993,6 +3081,11 @@ function renderNetworkChrome(){
     // Without this the dismiss X is a one-way door and the computed patterns
     // become unreachable except by typing a command.
     + (S.insightOpen ? '' : '<button class="hopb" data-reopen="1">patterns</button>')
+    + '</div>'
+    + '<div class="zoomc">'
+    +   '<button class="hopb" data-zoom="in" title="Zoom in">+</button>'
+    +   '<button class="hopb" data-zoom="out" title="Zoom out">&minus;</button>'
+    +   '<button class="hopb" data-zoom="reset" title="Reset view. Double click the map does the same">reset</button>'
     + '</div>';
   if (cur && S.insightOpen){
     h += '<div class="callout"><div class="callout-h"><span class="eyebrow">'+esc(cur.eyebrow)+'</span>'
@@ -3282,8 +3375,9 @@ function viewSearch(v){
 function renderDock(){
   const d = $('#dock');
   d.classList.toggle('open', !!S.sel);
+  const grip = '<div class="dock-grip" title="Drag to resize. Double click to reset"></div>';
   if (!S.sel){
-    d.innerHTML = '<div class="dock-empty"><span class="eyebrow">Detail</span>'
+    d.innerHTML = grip + '<div class="dock-empty"><span class="eyebrow">Detail</span>'
       + 'Click any node on the map, any case card, or any search result to open its dossier here. '
       + 'Five entity classes are clickable: people, institutions, programmes, locations and research domains. '
       + 'The dossier carries the narrative, the three axis scores with the reasoning behind them, the sequence chain, every connection with a plain-language explanation of why it exists, and the sources.'
@@ -3292,7 +3386,7 @@ function renderDock(){
   }
   const n = NODES.find(x=>x.id===S.sel);
   if (!n){ d.innerHTML = '<div class="dock-empty">Entity not found.</div>'; return; }
-  d.innerHTML = (n.cls === 'person') ? personDock(n) : otherDock(n);
+  d.innerHTML = grip + ((n.cls === 'person') ? personDock(n) : otherDock(n));
   // Below 1180px the dock slides in over the view surface. Escape closes it, but
   // a pointer-only user needs a visible way out.
   if (window.matchMedia('(max-width:1179px)').matches){
@@ -3399,25 +3493,65 @@ function tabSources(p){
 
 function otherDock(n){
   const members = PEOPLE.filter(p => p.instId===n.id || p.locId===n.id || (p.domains||[]).includes(n.id));
-  const prog = EDGES.filter(e => (e.a===n.id||e.b===n.id));
-  const linked = new Set(prog.map(e => e.a===n.id ? e.b : e.a));
+  const linked = new Set(EDGES.filter(e => e.a===n.id||e.b===n.id).map(e => e.a===n.id ? e.b : e.a));
   const people = members.length ? members : PEOPLE.filter(p=>linked.has(p.id));
+  const CLASS_NOTE = {
+    institution:'Scored on the I axis. The unit being graded is the employer, not the person.',
+    program:'Programmes and investigations. Edges to these are editorial and hand-sourced, never derived by rule.',
+    location:'Locations are derived from the case records. A shared cluster produces a geographic connection automatically.',
+    domain:'Research domains are derived from the case records. A shared domain produces a research connection automatically.',
+  };
   let h = '<div class="dock-h"><div class="dock-flag"><span class="eyebrow">'+n.cls+'</span>'
     + '<span class="spacer"></span>'
     + '<span class="badge" style="border-color:'+nodeColor(n)+';color:'+nodeColor(n)+'">'+String(n.cls).toUpperCase()+'</span></div>'
     + '<div class="dock-id"><div style="min-width:0"><div class="dock-name">'+esc(n.label)+'</div>'
-    + '<div class="dock-sub">'+esc(n.sub || CLUSTERS[n.cluster]?.label || 'NOT REPORTED')+'</div></div></div></div>';
+    + '<div class="dock-sub">'+esc(n.sub || CLASS_NOTE[n.cls] || 'NOT REPORTED')+'</div></div></div></div>';
+
   h += '<div class="dock-body">';
+
+  /* Description. Absence is printed as absence, per the credibility rules: a
+     blank card reads as an oversight, a stated gap reads as a known one. */
+  if (n.desc){
+    h += '<p class="narr">'+esc(n.desc)+'</p>';
+  } else {
+    h += '<div class="block b-open"><span class="eyebrow">No description on file</span>'
+      + 'Nothing has been written for this entity yet. It is listed here because the case records point at it, not '
+      + 'because anything has been established about it independently. Treat the connections below as the only claim '
+      + 'this card is making.</div>';
+  }
+
+  /* Derived facts, computed rather than typed, so they cannot go stale. */
+  const rows = [];
+  rows.push(['CLASS', n.cls]);
+  if (n.cluster && CLUSTERS[n.cluster]) rows.push(['CLUSTER', CLUSTERS[n.cluster].label]);
+  rows.push(['CASES ATTACHED', String(people.length)]);
+  if (people.length){
+    const tiers = { A:0, B:0, C:0 };
+    for (const p of people) tiers[p.tier]++;
+    rows.push(['TIER SPREAD', 'A '+tiers.A+'  B '+tiers.B+'  C '+tiers.C]);
+    const ds = people.map(p=>p.date).sort();
+    rows.push(['DATE RANGE', ds.length>1 ? fmtDate(ds[0])+' to '+fmtDate(ds[ds.length-1]) : fmtDate(ds[0])]);
+  }
+  if (n.cls === 'institution' && people.length){
+    const is = [...new Set(people.map(p=>p.I))].sort().reverse();
+    rows.push(['CHANNEL SCORE', is.map(i=>'I'+i).join(', ')]);
+  }
+  h += '<div class="sec"><span class="eyebrow">Record</span></div><div class="leader">'
+    + rows.map(([k,v])=>leader(k, v, 37)).join('<br>') + '</div>';
+
   h += '<div class="sec"><span class="eyebrow">Cases attached</span></div>';
   h += people.length
     ? people.map(p=>'<div class="leader" style="cursor:pointer" data-goto="'+p.id+'">'
         + leaderRaw(p.label, '<span style="color:'+tierColor(p.tier)+'">'+p.tier+'</span>', 37, 1)+'</div>').join('')
     : '<span class="na">NONE RECORDED</span>';
-  const src = SOURCES[n.id];
+
+  const src = (n.sources && n.sources.length) ? n.sources : SOURCES[n.id];
   h += '<div class="sec"><span class="eyebrow">Sources</span></div>';
   h += src && src.length
-    ? '<div class="leader">'+src.map(s=>'<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.name)+'</a>').join('<br>')+'</div>'
+    ? '<div class="leader">'+src.map(x=>'<a href="'+esc(x.url)+'" target="_blank" rel="noopener">'+esc(x.name||x.outlet)+'</a>'
+        + (x.date ? ' <span class="k">'+esc(x.date)+'</span>' : '')).join('<br>')+'</div>'
     : '<div class="block b-open">No attributed source on file for this entity.</div>';
+
   return h + '</div>';
 }
 
@@ -3685,7 +3819,7 @@ function scriptedReply(q){
    ========================================================================= */
 document.addEventListener('click', (ev) => {
   const t = ev.target.closest('[data-view],[data-filter],[data-edge],[data-hops],[data-clear],'
-    + '[data-dismiss],[data-reopen],[data-show],[data-next],[data-goto],[data-expand],[data-tab],[data-cmd],'
+    + '[data-dismiss],[data-reopen],[data-show],[data-next],[data-zoom],[data-goto],[data-expand],[data-tab],[data-cmd],'
     + '[data-sugg],[data-model],[data-effort],[data-frame],[data-tlzoom],[data-tltrack],#resetf');
   if (!t) return;
   const d = t.dataset;
@@ -3701,6 +3835,7 @@ document.addEventListener('click', (ev) => {
   if (d.clear)               return CMD.clearSelection();
   if (d.dismiss)             return CMD.dismissInsight();
   if (d.reopen)              return CMD.showInsight(S.insight);
+  if (d.zoom)                return MAP && MAP.zoom(d.zoom);
   if (d.next)                return CMD.showInsight(S.insight + 1);
   if (d.show){
     const ins = INSIGHTS()[S.insight % Math.max(1, INSIGHTS().length)];
@@ -3720,6 +3855,53 @@ document.addEventListener('click', (ev) => {
   if (d.tlzoom)              return CMD.setTimelineZoom(d.tlzoom);
   if (d.tltrack)             return CMD.toggleTimelineOverlay(d.tltrack);
 });
+
+function applyChrome(){
+  document.documentElement.style.setProperty('--dock-w', S.dockW + 'px');
+  $('#app').classList.toggle('rail-off', !S.railOpen);
+  const rb = $('#railbtn');
+  rb.innerHTML = (S.railOpen ? '&#9664;' : '&#9654;') + ' Rail';
+  rb.title = (S.railOpen ? 'Collapse' : 'Expand') + ' the left rail';
+}
+$('#railbtn').addEventListener('click', () => {
+  S.railOpen = !S.railOpen;
+  store.set('vanishing.rail', S.railOpen ? '1' : '0');
+  applyChrome();
+});
+
+/* Dock resize. The grip lives inside the dock and is re-created with it, so the
+   listener is delegated from the document rather than bound per render. */
+(function dockResize(){
+  let start = null;
+  document.addEventListener('mousedown', (e) => {
+    const grip = e.target.closest('.dock-grip');
+    if (!grip) return;
+    e.preventDefault();
+    start = { x:e.clientX, w:S.dockW };
+    grip.classList.add('on');
+    document.body.classList.add('resizing');
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!start) return;
+    // the dock is on the right, so dragging left widens it
+    const w = Math.max(240, Math.min(window.innerWidth - 360, start.w + (start.x - e.clientX)));
+    S.dockW = Math.round(w);
+    document.documentElement.style.setProperty('--dock-w', S.dockW + 'px');
+  });
+  document.addEventListener('mouseup', () => {
+    if (!start) return;
+    start = null;
+    document.body.classList.remove('resizing');
+    document.querySelectorAll('.dock-grip.on').forEach(g=>g.classList.remove('on'));
+    store.set('vanishing.dockW', String(S.dockW));
+  });
+  document.addEventListener('dblclick', (e) => {
+    if (!e.target.closest('.dock-grip')) return;
+    S.dockW = 306;                                  // double click the grip to reset
+    document.documentElement.style.setProperty('--dock-w', '306px');
+    store.set('vanishing.dockW', '306');
+  });
+})();
 
 $('#keybtn').addEventListener('click', () => { S.settingsOpen = !S.settingsOpen; renderSettings(); });
 $('#setclose').addEventListener('click', () => { S.settingsOpen = false; renderSettings(); });
@@ -3777,6 +3959,9 @@ if (typeof ResizeObserver !== 'undefined'){
 S.hasKey = !!store.get('vanishing.apiKey');
 S.model  = store.get('vanishing.model')  || 'claude-sonnet-5';
 S.effort = store.get('vanishing.effort') || 'balanced';
+S.railOpen = store.get('vanishing.rail') !== '0';
+S.dockW = Math.max(240, Math.min(900, parseInt(store.get('vanishing.dockW')||'306',10) || 306));
+applyChrome();
 readUrl();
 
 S.turns.push({
