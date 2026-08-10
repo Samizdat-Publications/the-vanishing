@@ -168,7 +168,7 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 #tip.on{opacity:1}
 
 /* 3.5 Insight callout */
-.callout{position:absolute;left:11px;bottom:11px;z-index:5;width:372px;max-width:calc(100% - 22px);
+.callout{position:absolute;left:11px;bottom:11px;z-index:5;width:430px;max-width:calc(100% - 22px);
   background:rgba(20,25,32,.96);border:1px solid var(--line-2);border-left:2px solid var(--signal);
   padding:11px 13px;animation:risein var(--t-panel) var(--e-panel)}
 .callout-h{display:flex;align-items:center;gap:8px;margin-bottom:6px}
@@ -176,7 +176,9 @@ button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:p
 .callout-x{font-size:14px;line-height:1;color:var(--text-faint);cursor:pointer}
 .callout-x:hover{color:var(--text)}
 .callout p{font-size:11.5px;line-height:1.6;color:var(--text-2);margin:0 0 9px;text-wrap:pretty}
-.callout-a{display:flex;gap:7px}
+.callout-a{display:flex;gap:7px;align-items:center;flex-wrap:nowrap}
+.callout-a .mini{white-space:nowrap}
+.callout-count{font-size:9px;color:var(--text-faint);white-space:nowrap;margin-left:auto;padding-left:6px}
 .mini{font-size:10px;padding:5px 10px;cursor:pointer;border:1px solid var(--line-3);color:var(--text-dim);
   transition:all var(--t-quick) var(--e-quick)}
 .mini:hover{border-color:var(--signal);color:var(--signal)}
@@ -357,16 +359,19 @@ body.resizing #net{pointer-events:none}
 .an-status.err{color:var(--dead)}
 .an-toggle{font-size:10px;color:var(--text-faint);cursor:pointer;white-space:nowrap}
 .an-toggle:hover{color:var(--text-3)}
-.an-scroll{max-height:208px;overflow-y:auto;padding:4px 14px}
-.turn{display:grid;grid-template-columns:66px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.an-scroll{max-height:208px;overflow-y:auto;overflow-x:hidden;padding:4px 14px}
+.turn{display:grid;grid-template-columns:66px minmax(0,1fr);gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.turn>div{min-width:0}
 .turn:last-child{border-bottom:none}
 .turn-r{font-size:8.5px;letter-spacing:.12em;padding-top:2px}
 .turn-r.you{color:var(--text-faint)}
 .turn-r.an{color:var(--signal)}
-.turn-t{font-size:11.5px;line-height:1.7;color:var(--text-2);text-wrap:pretty;white-space:pre-wrap;min-height:14px}
+.turn-t{font-size:11.5px;line-height:1.7;color:var(--text-2);text-wrap:pretty;white-space:pre-wrap;
+  min-height:14px;overflow-wrap:anywhere;max-width:110ch}
 .act{font-size:9.5px;color:var(--program);background:rgba(102,214,159,.05);
-  border-left:2px solid rgba(102,214,159,.45);padding:3px 8px;margin:3px 0;white-space:pre;
-  cursor:pointer;overflow-x:auto}
+  border-left:2px solid rgba(102,214,159,.45);padding:4px 8px;margin:3px 0;
+  white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;
+  cursor:pointer;max-height:112px;overflow-y:auto}
 .act:hover{background:rgba(102,214,159,.1)}
 .cites{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
 .cite{font-size:9px;border:1px solid var(--line-3);color:var(--text-dim);padding:2px 7px;cursor:pointer}
@@ -2272,7 +2277,7 @@ function warn(msg){ pushTurn({ role:'ANALYST', text:msg, err:true }); return nul
 
 /* Parse a literal command line, so a user can retype anything the analyst printed. */
 function runCommandLine(line){
-  const m = String(line).trim().match(/^(\w+)\s*\((.*)\)\s*;?$/s);
+  const m = String(line).trim().match(/^(\w+)\s*\(([\s\S]*)\)\s*;?$/);
   if (!m) return false;
   const [, name, argstr] = m;
   if (!Object.prototype.hasOwnProperty.call(CMD, name)) return false;
@@ -3225,8 +3230,7 @@ function renderNetworkChrome(){
       + '<div class="callout-a"><button class="mini" data-show="1">Show me on the map</button>'
       + '<button class="mini" data-prev="1">Last pattern</button>'
       + '<button class="mini" data-next="1">Next pattern</button>'
-      + '<span class="spacer"></span>'
-      + '<span style="font-size:9px;color:var(--text-faint);align-self:center">'
+      + '<span class="callout-count">'
       + ((S.insight % Math.max(1,ins.length))+1) + ' of ' + ins.length + '</span></div></div>';
   }
   const hasActive = !!(S.sel || S.path || (S.frame && S.frame.length));
@@ -3402,33 +3406,44 @@ function chartScatter(sp){
   const pts = sp.points;
   const xs = pts.map(p=>+p.x||0), ys = pts.map(p=>+p.y||0);
   const x0 = Math.min(0,...xs), x1 = Math.max(1,...xs), y0 = Math.min(0,...ys), y1 = Math.max(1,...ys);
-  const X = v => CH.ml + ((v-x0)/((x1-x0)||1))*(CH.w-CH.ml-CH.mr);
-  const Y = v => (CH.h-CH.mb) - ((v-y0)/((y1-y0)||1))*(CH.h-CH.mt-CH.mb);
+  // Axes here are usually small integer scales, so many cases land on the exact
+  // same coordinate. Give the chart room to separate them vertically rather than
+  // stacking labels on top of each other, which is what the first version did.
+  const worst = (() => { const c = {}; let m = 1;
+    for (const p of pts){ const k = (p.x||0)+','+(p.y||0); c[k] = (c[k]||0)+1; m = Math.max(m, c[k]); } return m; })();
+  const H = Math.max(CH.h, CH.mt + CH.mb + (y1-y0+1) * Math.max(70, worst*30));
+  const W = CH.w;
+  const X = v => CH.ml + ((v-x0)/((x1-x0)||1))*(W-CH.ml-CH.mr);
+  const Y = v => (H-CH.mb) - ((v-y0)/((y1-y0)||1))*(H-CH.mt-CH.mb);
   let g = '';
   for (let v=Math.ceil(x0); v<=x1; v++)
-    g += '<line x1="'+X(v)+'" y1="'+CH.mt+'" x2="'+X(v)+'" y2="'+(CH.h-CH.mb)+'" '+GRID+'/>'
-      +  '<text x="'+X(v)+'" y="'+(CH.h-CH.mb+18)+'" '+TXT+' text-anchor="middle">'+v+'</text>';
+    g += '<line x1="'+X(v)+'" y1="'+CH.mt+'" x2="'+X(v)+'" y2="'+(H-CH.mb)+'" '+GRID+'/>'
+      +  '<text x="'+X(v)+'" y="'+(H-CH.mb+18)+'" '+TXT+' text-anchor="middle">'+v+'</text>';
   for (let v=Math.ceil(y0); v<=y1; v++)
-    g += '<line x1="'+CH.ml+'" y1="'+Y(v)+'" x2="'+(CH.w-CH.mr)+'" y2="'+Y(v)+'" '+GRID+'/>'
+    g += '<line x1="'+CH.ml+'" y1="'+Y(v)+'" x2="'+(W-CH.mr)+'" y2="'+Y(v)+'" '+GRID+'/>'
       +  '<text x="'+(CH.ml-8)+'" y="'+(Y(v)+3)+'" '+TXT+' text-anchor="end">'+v+'</text>';
-  g += '<line x1="'+CH.ml+'" y1="'+(CH.h-CH.mb)+'" x2="'+(CH.w-CH.mr)+'" y2="'+(CH.h-CH.mb)+'" '+AX+'/>';
-  g += '<line x1="'+CH.ml+'" y1="'+CH.mt+'" x2="'+CH.ml+'" y2="'+(CH.h-CH.mb)+'" '+AX+'/>';
-  // jitter identical coordinates so overlapping cases stay countable
+  g += '<line x1="'+CH.ml+'" y1="'+(H-CH.mb)+'" x2="'+(W-CH.mr)+'" y2="'+(H-CH.mb)+'" '+AX+'/>';
+  g += '<line x1="'+CH.ml+'" y1="'+CH.mt+'" x2="'+CH.ml+'" y2="'+(H-CH.mb)+'" '+AX+'/>';
   const seen = {};
-  pts.forEach(p=>{
+  for (const p of pts){
     const k = (p.x||0)+','+(p.y||0);
     const n = seen[k] = (seen[k]||0)+1;
-    const off = (n-1)*13;
-    const cx = X(+p.x||0) + off, cy = Y(+p.y||0) - off*0.4, c = chartColor(p);
-    g += '<circle cx="'+cx+'" cy="'+cy+'" r="'+(p.size||6)+'" fill="'+c+'" opacity="0.9" stroke="#0f1216" stroke-width="1.5"'
+    const bx = X(+p.x||0), by = Y(+p.y||0);
+    // fan collided points down the cell so both the mark and its label are legible
+    const cx = bx, cy = by + (n-1)*17;
+    const c = chartColor(p), r = Math.max(4, Math.min(11, 4 + (+p.size||0)*1.7));
+    g += '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+c+'" opacity="0.9" stroke="#0f1216" stroke-width="1.5"'
       + (p.id?' style="cursor:pointer" data-goto="'+esc(p.id)+'"':'') + '><title>'+esc(p.label||'')+'</title></circle>';
-    g += '<text x="'+(cx+10)+'" y="'+(cy+3)+'" '+LBL+'>'+esc(p.label||'')+'</text>';
-  });
-  if (sp.xLabel) g += '<text x="'+((CH.ml+CH.w-CH.mr)/2)+'" y="'+(CH.h-8)+'" '+TXT+' text-anchor="middle">'+esc(sp.xLabel)+'</text>';
-  if (sp.yLabel) g += '<text transform="translate(16,'+((CH.mt+CH.h-CH.mb)/2)+') rotate(-90)" '+TXT+' text-anchor="middle">'+esc(sp.yLabel)+'</text>';
-  return svgWrap(g);
+    // flip the label to the left when the point is close to the right edge
+    const est = String(p.label||'').length * 5.75;
+    const flip = cx + r + 8 + est > W - CH.mr;
+    g += '<text x="'+(flip ? cx-r-7 : cx+r+7)+'" y="'+(cy+3.5)+'" '+LBL
+      + ' text-anchor="'+(flip?'end':'start')+'">'+esc(p.label||'')+'</text>';
+  }
+  if (sp.xLabel) g += '<text x="'+((CH.ml+W-CH.mr)/2)+'" y="'+(H-8)+'" '+TXT+' text-anchor="middle">'+esc(sp.xLabel)+'</text>';
+  if (sp.yLabel) g += '<text transform="translate(16,'+((CH.mt+H-CH.mb)/2)+') rotate(-90)" '+TXT+' text-anchor="middle">'+esc(sp.yLabel)+'</text>';
+  return svgWrap(g, H, W);
 }
-
 function chartLine(sp){
   const pts = sp.points.slice();
   const max = Math.max(...pts.map(p=>+p.value||0), 1);
@@ -4057,6 +4072,7 @@ DRIVING THE DASHBOARD.
 You can operate the interface. To do so, emit one action per line at the very START of your reply, before any prose, each on its own line in this exact form:
 :: selectNode("leblanc")
 :: setView("CASES")
+Put each action on ONE line, however long. Do not pretty-print or wrap the JSON payload across lines. The interface can now recover a multi-line payload, but a single line is what it is built for.
 Available actions and signatures:
 selectNode(id) clearSelection() setHops(1|2|3) highlightPath(from,to,hops)
 setView("NETWORK"|"TIMELINE"|"GEOGRAPHY"|"CASES"|"ANALYSIS"|"COUNTERARGS"|"SEARCH"|"REPORT")
@@ -4155,15 +4171,7 @@ async function askAnalyst(text){
 /* Actions stream in BEFORE the prose, each firing its change as it prints, so
    the user sees the map move and the reason for it in the same beat. */
 function applyAnalystReply(turn, out){
-  const lines = String(out).split('\n');
-  const actions = [];
-  let i = 0;
-  while (i < lines.length && (!lines[i].trim() || lines[i].trim().startsWith('::'))){
-    const t = lines[i].trim();
-    if (t.startsWith('::')) actions.push(t.replace(/^::\s*/,''));
-    i++;
-  }
-  const prose = lines.slice(i).join('\n').trim();
+  const { actions, prose } = splitActions(String(out));
   turn.thinking = false;
   // Escaped rather than literal so a grep for em dashes across this file returns zero.
   turn.text = prose.replace(/\u2014/g, ' -- ').replace(/\u2013/g, ' -- ');
@@ -4171,9 +4179,49 @@ function applyAnalystReply(turn, out){
   turn.cites = mentionedEntities(prose);
   renderTranscript();
   actions.forEach((a, idx) => setTimeout(() => {
-    turn.actions.push(a); renderTranscript(); runCommandLine(a);
+    turn.actions.push(a); renderTranscript();
+    if (!runCommandLine(a)) warn('could not run that action: ' + a.slice(0, 120));
   }, idx * 140));
 }
+
+/* Actions carry JSON payloads, and a chart or an export payload will not fit on
+   one line. The first version of this scanned line by line, so a multi-line
+   payload was truncated at the first newline: the command failed to parse and
+   the remainder of the JSON leaked into the prose as raw text. That is the bug
+   behind both the chart and the spreadsheet failures.
+
+   This scans for a line that opens an action, then consumes characters until the
+   parentheses balance, tracking string state so a bracket inside a caption does
+   not end the payload early. Actions are recognised anywhere in the reply, not
+   only at the top, because a model that explains first and acts second should
+   still drive the dashboard. */
+function splitActions(text){
+  const actions = [];
+  const kept = [];
+  const lines = text.split('\n');
+  for (let i = 0; i < lines.length; i++){
+    if (!/^\s*::\s*\w+\s*\(/.test(lines[i])){ kept.push(lines[i]); continue; }
+    let buf = lines[i].replace(/^\s*::\s*/, '');
+    let j = i;
+    while (!balanced(buf) && j + 1 < lines.length){ j++; buf += '\n' + lines[j]; }
+    actions.push(buf.trim().replace(/;$/, ''));
+    i = j;
+  }
+  return { actions, prose: kept.join('\n').trim() };
+}
+function balanced(str){
+  let depth = 0, inStr = false, quote = '', esc = false;
+  for (const ch of str){
+    if (esc){ esc = false; continue; }
+    if (ch === '\\'){ esc = true; continue; }
+    if (inStr){ if (ch === quote) inStr = false; continue; }
+    if (ch === '"' || ch === "'"){ inStr = true; quote = ch; continue; }
+    if (ch === '(' || ch === '[' || ch === '{') depth++;
+    else if (ch === ')' || ch === ']' || ch === '}') depth--;
+  }
+  return depth <= 0 && /[)\]}]/.test(str);
+}
+
 function mentionedEntities(text){
   const t = text.toLowerCase();
   return NODES.filter(n => t.includes(n.label.toLowerCase()) && n.label.length > 4)
