@@ -2126,8 +2126,15 @@ function visiblePeople(){ return PEOPLE.filter(personPasses); }
 
 /* --- URL state, so a view is shareable ------------------------------------ */
 let urlLock = false;
+/* history.replaceState throws in a sandboxed about:srcdoc frame, which is how
+   this file gets previewed inside other tools. writeUrl runs from paint() on
+   every state change, so an unguarded throw there kills the render chain and
+   the whole dashboard stops updating after the first interaction. Try once,
+   and if the document cannot take it, drop URL syncing for the session and
+   carry on. Shareable URLs are a convenience; rendering is not. */
+let urlSyncable = true;
 function writeUrl(){
-  if (urlLock) return;
+  if (urlLock || !urlSyncable) return;
   const q = new URLSearchParams();
   if (S.view !== 'NETWORK') q.set('v', S.view);
   if (S.sel) q.set('sel', S.sel);
@@ -2138,10 +2145,16 @@ function writeUrl(){
   if (S.tab !== 'DOSSIER') q.set('tab', S.tab);
   if (S.path) q.set('p', S.path.from + '>' + S.path.to);
   const s = q.toString();
-  history.replaceState(null, '', s ? '?' + s : location.pathname);
+  try {
+    history.replaceState(null, '', s ? '?' + s : location.pathname);
+  } catch (e) {
+    urlSyncable = false;
+  }
 }
 function readUrl(){
-  const q = new URLSearchParams(location.search);
+  let q;
+  try { q = new URLSearchParams(location.search); }
+  catch (e) { urlSyncable = false; return; }
   urlLock = true;
   const v = q.get('v'); if (v && VIEWS.includes(v)) S.view = v;
   const hops = parseInt(q.get('hops')||'1',10); if (hops>=1&&hops<=3) S.hops = hops;
@@ -3128,13 +3141,22 @@ function meters(p){
 /* --- paint orchestrator ---------------------------------------------------- */
 function paint(opts){
   opts = opts || {};
-  renderStats(); renderRail(); renderSurface(opts); renderDock(); renderAnalystChrome();
-  if (S.view === 'NETWORK' && MAP){
-    if (opts.map === 'frame' && S.frame && S.frame.length) MAP.frame(S.frame);
-    else if (opts.map === 'frame' || opts.map === 'reset') MAP.resetCamera();
-    else if (opts.map === 'select' && S.path && S.path.ids) MAP.frame([...S.path.ids]);
-  }
-  writeUrl();
+  // Each surface is independent. One of them throwing should degrade that
+  // surface, not silently stop the entire dashboard from ever updating again.
+  const step = (name, fn) => { try { fn(); } catch (e) { console.error('[paint] ' + name + ' failed', e); } };
+  step('stats', renderStats);
+  step('rail', renderRail);
+  step('surface', () => renderSurface(opts));
+  step('dock', renderDock);
+  step('analyst', renderAnalystChrome);
+  step('camera', () => {
+    if (S.view === 'NETWORK' && MAP){
+      if (opts.map === 'frame' && S.frame && S.frame.length) MAP.frame(S.frame);
+      else if (opts.map === 'frame' || opts.map === 'reset') MAP.resetCamera();
+      else if (opts.map === 'select' && S.path && S.path.ids) MAP.frame([...S.path.ids]);
+    }
+  });
+  step('url', writeUrl);
 }
 
 /* --- 6.1 stats strip ------------------------------------------------------- */
