@@ -370,11 +370,19 @@ body.resizing #net{pointer-events:none}
 .turn-r.an{color:var(--signal)}
 .turn-t{font-size:11.5px;line-height:1.7;color:var(--text-2);text-wrap:pretty;white-space:pre-wrap;
   min-height:14px;overflow-wrap:anywhere;max-width:110ch}
-.act{font-size:9.5px;color:var(--program);background:rgba(102,214,159,.05);
-  border-left:2px solid rgba(102,214,159,.45);padding:4px 8px;margin:3px 0;
-  white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;
-  cursor:pointer;max-height:112px;overflow-y:auto}
+.actrow{display:flex;align-items:stretch;gap:0;margin:3px 0;background:rgba(102,214,159,.05);
+  border-left:2px solid rgba(102,214,159,.45)}
+.act{font-size:9.5px;color:var(--program);padding:4px 8px;cursor:pointer;flex:1;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .act:hover{background:rgba(102,214,159,.1)}
+.act-x{font-size:9px;color:var(--program);opacity:.6;padding:4px 8px;cursor:pointer;flex:none;
+  border-left:1px solid rgba(102,214,159,.2)}
+.act-x:hover{opacity:1;background:rgba(102,214,159,.1)}
+.act-full{display:none;font-size:9.5px;color:var(--text-dim);padding:6px 9px;
+  white-space:pre-wrap;overflow-wrap:anywhere;max-height:160px;overflow-y:auto;
+  border-top:1px solid rgba(102,214,159,.2);flex-basis:100%;user-select:text}
+.actrow.open{flex-wrap:wrap}
+.actrow.open .act-full{display:block}
 .turn-art{display:flex;align-items:center;gap:9px;margin:7px 0 0;padding:6px 9px;cursor:pointer;
   border:1px solid var(--line-3);border-left:2px solid var(--signal);background:rgba(94,212,230,.05);
   transition:background var(--t-quick) var(--e-quick)}
@@ -2250,13 +2258,13 @@ const CMD = {
     if (!['timeline','bar','scatter','line'].includes(type)) return warn('chart type must be timeline, bar, scatter or line');
     const pts = Array.isArray(spec.points) ? spec.points : [];
     if (!pts.length) return warn('renderChart needs at least one point');
-    S.artifacts.unshift({ kind:'chart', id:'a'+(++artifactSeq), at:new Date(), spec:Object.assign({}, spec, { type, points:pts }) });
+    S.artifacts.unshift({ kind:'chart', id:'a'+(++artifactSeq), at:new Date(), inReport:true, spec:Object.assign({}, spec, { type, points:pts }) });
     paint({ full:true });
     return true;
   },
   renderReport(spec){
     if (!spec || typeof spec !== 'object') return warn('renderReport needs a spec object');
-    S.artifacts.unshift({ kind:'report', id:'a'+(++artifactSeq), at:new Date(), spec });
+    S.artifacts.unshift({ kind:'report', id:'a'+(++artifactSeq), at:new Date(), inReport:true, spec });
     paint({ full:true });
     return true;
   },
@@ -2268,13 +2276,30 @@ const CMD = {
     if (!spec || !Array.isArray(spec.columns) || !Array.isArray(spec.rows))
       return warn('exportData needs { filename, columns:[...], rows:[[...]] }');
     if (!spec.rows.length) return warn('exportData was given no rows');
-    const art = { kind:'data', id:'a'+(++artifactSeq), at:new Date(), spec:Object.assign({ title:spec.filename||'Export' }, spec) };
+    const art = { kind:'data', id:'a'+(++artifactSeq), at:new Date(), inReport:true, spec:Object.assign({ title:spec.filename||'Export' }, spec) };
     S.artifacts.unshift(art);
     downloadCsv(art);
     paint({ full:true });
     return true;
   },
-  clearArtifacts(){ S.artifacts = []; paint({ full:true }); },
+  /* Unpin from the report workspace. The artifact itself is never destroyed:
+     the transcript is a record of what the analyst produced and when, and
+     deleting a chart from history because it was closed in another view would
+     make that record lie. */
+  clearArtifacts(){
+    S.artifacts.forEach(a => { a.inReport = false; });
+    S.view = 'NETWORK';
+    paint({ full:true });
+  },
+  dropArtifact(id){
+    const a = S.artifacts.find(x => x.id === id);
+    if (!a) return;
+    a.inReport = false;
+    // Nothing left to look at here, so go back to the map rather than stranding
+    // the reader on an empty view they have to navigate out of by hand.
+    if (!S.artifacts.some(x => x.inReport)) S.view = 'NETWORK';
+    paint({ full:true });
+  },
 
   setTimelineZoom(z){
     if (!['year','quarter','month'].includes(z)) return warn('zoom must be year, quarter or month');
@@ -3484,7 +3509,8 @@ function viewReport(v){
     + 'Charts and written reports the analyst produced. Everything here is drawn from the case records in this file. '
     + 'Every mark carries its own data label, and any caveat the analyst attached travels with the artifact rather than '
     + 'being dropped when the chart is shared.</p></div>';
-  if (!S.artifacts.length){
+  const pinned = S.artifacts.filter(a => a.inReport);
+  if (!pinned.length){
     h += '<div class="block b-open" style="background:var(--panel-2);padding:13px 15px;max-width:80ch">'
       + '<span class="eyebrow">Nothing generated yet</span>'
       + 'Ask the analyst a question that wants a picture and it will build one here. For example: '
@@ -3493,8 +3519,9 @@ function viewReport(v){
     v.innerHTML = h; return;
   }
   h += '<div style="display:flex;gap:7px;margin-bottom:12px">'
-    + '<button class="mini" data-artclear="1">Clear all</button></div>';
-  for (const a of S.artifacts){
+    + '<button class="mini" data-artclear="1">Close all</button>'
+    + '<span style="font-size:9.5px;color:var(--text-faint);align-self:center;margin-left:4px">Closing an artifact here leaves it in the analyst history.</span></div>';
+  for (const a of pinned){
     const sp = a.spec;
     h += '<div class="artifact" id="art-'+a.id+'">'
       + '<div class="art-h"><span class="eyebrow" style="color:var(--signal)">'
@@ -4025,7 +4052,21 @@ function renderTranscript(){
   box.innerHTML = S.turns.map(t=>{
     let h = '<div class="turn"><div class="turn-r '+(t.role==='YOU'?'you':'an')+'">'+t.role+'</div><div>';
     if (t.actions && t.actions.length)
-      h += t.actions.map(a=>'<div class="act" data-cmd="'+esc(a)+'">:: '+esc(a)+'</div>').join('');
+      h += t.actions.map(a=>{
+        // One line each. The payloads are JSON and can run to thousands of
+        // characters; printing them in full turned the transcript into a wall
+        // and buried the answer, which is the thing the reader came for.
+        const m = String(a).match(/^(\w+)\s*\(([\s\S]*)\)\s*$/);
+        const name = m ? m[1] : String(a).slice(0,40);
+        const args = m ? m[2] : '';
+        const short = args.length > 46 ? args.slice(0,44).replace(/\s+/g,' ')+'\u2026' : args;
+        return '<div class="actrow">'
+          + '<span class="act" data-cmd="'+esc(a)+'" title="Click to run this again">'
+          +   ':: '+esc(name)+'('+esc(short)+')</span>'
+          + (args.length > 46 ? '<span class="act-x" data-actfull="1" title="Show the full call">&#9662;</span>' : '')
+          + '<span class="act-full">'+esc(a)+'</span>'
+          + '</div>';
+      }).join('');
     if (t.thinking) h += '<div class="turn-t thinking"><span>.</span><span>.</span><span>.</span></div>';
     else h += '<div class="turn-t"'+(t.err?' style="color:var(--dead)"':'')+'>'+esc(t.text||'')+'</div>';
     for (const aid of (t.artifacts || [])){
@@ -4329,7 +4370,7 @@ function scriptedReply(q){
 document.addEventListener('click', (ev) => {
   const t = ev.target.closest('[data-view],[data-filter],[data-edge],[data-hops],[data-clear],'
     + '[data-dismiss],[data-reopen],[data-show],[data-next],[data-prev],[data-zoom],[data-goto],[data-expand],[data-tab],[data-cmd],'
-    + '[data-sugg],[data-model],[data-effort],[data-frame],[data-tlzoom],[data-tltrack],'
+    + '[data-sugg],[data-model],[data-effort],[data-frame],[data-tlzoom],[data-tltrack],[data-actfull],'
     + '[data-artsvg],[data-artcsv],[data-artmd],[data-arttsv],[data-artdrop],[data-artclear],[data-openart],#resetf');
   if (!t) return;
   const d = t.dataset;
@@ -4359,6 +4400,7 @@ document.addEventListener('click', (ev) => {
     return paint({ full:true });
   }
   if (d.tab){ S.tab = d.tab; return paint({}); }
+  if (d.actfull){ t.closest('.actrow').classList.toggle('open'); return; }
   if (d.cmd)                 return runCommandLine(d.cmd);
   if (d.sugg){ $('#anin').value = d.sugg; return askAnalyst(d.sugg); }
   if (d.model){ S.model = d.model; store.set('vanishing.model', d.model); return renderAnalystChrome(); }
@@ -4366,8 +4408,10 @@ document.addEventListener('click', (ev) => {
   if (d.tlzoom)              return CMD.setTimelineZoom(d.tlzoom);
   if (d.tltrack)             return CMD.toggleTimelineOverlay(d.tltrack);
   if (d.artclear)            return CMD.clearArtifacts();
-  if (d.artdrop){ S.artifacts = S.artifacts.filter(a=>a.id!==d.artdrop); return paint({ full:true }); }
+  if (d.artdrop)             return CMD.dropArtifact(d.artdrop);
   if (d.openart){
+    const a = S.artifacts.find(x => x.id === d.openart);
+    if (a) a.inReport = true;                 // reopening a closed artifact restores it
     CMD.setView('REPORT');
     requestAnimationFrame(()=>{ const e = document.getElementById('art-'+d.openart);
       if (e) e.scrollIntoView({ block:'start', behavior:'smooth' }); });
