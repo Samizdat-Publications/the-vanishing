@@ -359,7 +359,9 @@ body.resizing #net{pointer-events:none}
 .an-status.err{color:var(--dead)}
 .an-toggle{font-size:10px;color:var(--text-faint);cursor:pointer;white-space:nowrap}
 .an-toggle:hover{color:var(--text-3)}
-.an-scroll{max-height:208px;overflow-y:auto;overflow-x:hidden;padding:4px 14px}
+.an-scroll{max-height:208px;overflow-y:auto;overflow-x:hidden;padding:4px 14px;
+  transition:max-height var(--t-panel) var(--e-panel)}
+.an-scroll.has-art{max-height:min(46vh,430px)}
 .turn{display:grid;grid-template-columns:66px minmax(0,1fr);gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
 .turn>div{min-width:0}
 .turn:last-child{border-bottom:none}
@@ -373,6 +375,18 @@ body.resizing #net{pointer-events:none}
   white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;
   cursor:pointer;max-height:112px;overflow-y:auto}
 .act:hover{background:rgba(102,214,159,.1)}
+.turn-art{display:flex;align-items:center;gap:9px;margin:7px 0 0;padding:6px 9px;cursor:pointer;
+  border:1px solid var(--line-3);border-left:2px solid var(--signal);background:rgba(94,212,230,.05);
+  transition:background var(--t-quick) var(--e-quick)}
+.turn-art:hover{background:rgba(94,212,230,.11)}
+.turn-art-t{font-size:11px;color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.turn-art-go{font-size:9.5px;color:var(--signal);white-space:nowrap}
+/* Inline at native scale. Stretching the chart to the full transcript width
+   made it 550px tall and crushed the map above it; capping the width at the
+   chart's own viewBox keeps every label at its designed size and leaves the
+   rest of the dashboard usable. */
+.turn-art-prev{border:1px solid var(--line);border-top:none;background:var(--panel-2);padding:10px 12px}
+.turn-art-prev svg{width:100%;max-width:900px;height:auto;display:block}
 .cites{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
 .cite{font-size:9px;border:1px solid var(--line-3);color:var(--text-dim);padding:2px 7px;cursor:pointer}
 .cite:hover{border-color:var(--signal);color:var(--signal)}
@@ -4014,10 +4028,25 @@ function renderTranscript(){
       h += t.actions.map(a=>'<div class="act" data-cmd="'+esc(a)+'">:: '+esc(a)+'</div>').join('');
     if (t.thinking) h += '<div class="turn-t thinking"><span>.</span><span>.</span><span>.</span></div>';
     else h += '<div class="turn-t"'+(t.err?' style="color:var(--dead)"':'')+'>'+esc(t.text||'')+'</div>';
+    for (const aid of (t.artifacts || [])){
+      const art = S.artifacts.find(x=>x.id===aid);
+      if (!art) continue;
+      const sp = art.spec;
+      const kind = art.kind === 'chart' ? String(sp.type).toUpperCase()+' CHART'
+                 : art.kind === 'data' ? 'DATA EXPORT' : 'REPORT';
+      h += '<div class="turn-art" data-openart="'+art.id+'">'
+        + '<span class="eyebrow" style="color:var(--signal)">'+esc(kind)+'</span>'
+        + '<span class="turn-art-t">'+esc(sp.title || 'Untitled')+'</span>'
+        + '<span class="spacer"></span>'
+        + '<span class="turn-art-go">Open in report &rarr;</span></div>';
+      if (art.kind === 'chart') h += '<div class="turn-art-prev">'+renderChartSvg(sp)+'</div>';
+    }
     if (t.cites && t.cites.length)
       h += '<div class="cites">'+t.cites.map(c=>'<span class="cite" data-goto="'+esc(c[0])+'">'+esc(c[1])+'</span>').join('')+'</div>';
     return h + '</div></div>';
   }).join('');
+  box.classList.toggle('has-art', S.turns.some(t => (t.artifacts||[]).length));
+  fitChartLabels(box);
   box.scrollTop = box.scrollHeight;
 }
 
@@ -4179,8 +4208,17 @@ function applyAnalystReply(turn, out){
   turn.cites = mentionedEntities(prose);
   renderTranscript();
   actions.forEach((a, idx) => setTimeout(() => {
-    turn.actions.push(a); renderTranscript();
+    turn.actions.push(a);
+    const before = S.artifacts.length;
     if (!runCommandLine(a)) warn('could not run that action: ' + a.slice(0, 120));
+    // An artifact the analyst just built must be visible from the transcript.
+    // Otherwise a reply that ends with setView("NETWORK"), which is the correct
+    // thing to do when the user asked to see people on the map, leaves the chart
+    // sitting in a view they never open and reads as a silent failure.
+    if (S.artifacts.length > before){
+      turn.artifacts = (turn.artifacts || []).concat([S.artifacts[0].id]);
+    }
+    renderTranscript();
   }, idx * 140));
 }
 
@@ -4292,7 +4330,7 @@ document.addEventListener('click', (ev) => {
   const t = ev.target.closest('[data-view],[data-filter],[data-edge],[data-hops],[data-clear],'
     + '[data-dismiss],[data-reopen],[data-show],[data-next],[data-prev],[data-zoom],[data-goto],[data-expand],[data-tab],[data-cmd],'
     + '[data-sugg],[data-model],[data-effort],[data-frame],[data-tlzoom],[data-tltrack],'
-    + '[data-artsvg],[data-artcsv],[data-artmd],[data-arttsv],[data-artdrop],[data-artclear],#resetf');
+    + '[data-artsvg],[data-artcsv],[data-artmd],[data-arttsv],[data-artdrop],[data-artclear],[data-openart],#resetf');
   if (!t) return;
   const d = t.dataset;
   if (t.id === 'resetf')     return CMD.clearFilters();
@@ -4329,6 +4367,12 @@ document.addEventListener('click', (ev) => {
   if (d.tltrack)             return CMD.toggleTimelineOverlay(d.tltrack);
   if (d.artclear)            return CMD.clearArtifacts();
   if (d.artdrop){ S.artifacts = S.artifacts.filter(a=>a.id!==d.artdrop); return paint({ full:true }); }
+  if (d.openart){
+    CMD.setView('REPORT');
+    requestAnimationFrame(()=>{ const e = document.getElementById('art-'+d.openart);
+      if (e) e.scrollIntoView({ block:'start', behavior:'smooth' }); });
+    return;
+  }
   if (d.artsvg)              return saveArtifactSvg(d.artsvg);
   if (d.artcsv){ const a = S.artifacts.find(x=>x.id===d.artcsv); return a && downloadCsv(a); }
   if (d.artmd){  const a = S.artifacts.find(x=>x.id===d.artmd);  return a && downloadReportMd(a); }
