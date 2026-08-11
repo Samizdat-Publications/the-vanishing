@@ -361,7 +361,7 @@ body.resizing #net{pointer-events:none}
 .an-toggle:hover{color:var(--text-3)}
 .an-scroll{max-height:208px;overflow-y:auto;overflow-x:hidden;padding:4px 14px;
   transition:max-height var(--t-panel) var(--e-panel)}
-.an-scroll.has-art{max-height:min(46vh,430px)}
+.an-scroll.has-art{max-height:min(34vh,320px)}
 .turn{display:grid;grid-template-columns:66px minmax(0,1fr);gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
 .turn>div{min-width:0}
 .turn:last-child{border-bottom:none}
@@ -389,12 +389,31 @@ body.resizing #net{pointer-events:none}
 .turn-art:hover{background:rgba(94,212,230,.11)}
 .turn-art-t{font-size:11px;color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .turn-art-go{font-size:9.5px;color:var(--signal);white-space:nowrap}
-/* Inline at native scale. Stretching the chart to the full transcript width
-   made it 550px tall and crushed the map above it; capping the width at the
-   chart's own viewBox keeps every label at its designed size and leaves the
-   rest of the dashboard usable. */
-.turn-art-prev{border:1px solid var(--line);border-top:none;background:var(--panel-2);padding:10px 12px}
-.turn-art-prev svg{width:100%;max-width:900px;height:auto;display:block}
+/* Inline preview scales to fit a fixed box. The SVG already carries
+   preserveAspectRatio, so giving it a height rather than letting it grow from
+   its width means the whole chart is always visible without scrolling, however
+   many rows it has. It is a preview: click it for the readable version. */
+svg.chart{width:100%;height:auto;display:block;overflow:visible}
+.turn-art-prev{border:1px solid var(--line);border-top:none;background:var(--panel-2);
+  padding:8px 10px;height:172px;cursor:zoom-in}
+.turn-art-prev svg.chart{width:100%;height:100%}
+.turn-art-prev:hover{background:var(--panel-3)}
+/* Artifact modal. The design system sets radius 0 everywhere because square
+   corners carry the instrument feel; 6px here is the smallest radius that still
+   reads as a floating panel rather than another docked surface. */
+.modal-back{position:fixed;inset:0;z-index:80;background:rgba(8,10,13,.72);
+  backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;
+  padding:32px;animation:fadein var(--t-panel) var(--e-panel)}
+.modal{background:var(--panel-2);border:1px solid var(--line-4);border-radius:6px;
+  box-shadow:0 24px 70px rgba(0,0,0,.75);max-width:1180px;width:100%;max-height:88vh;
+  display:flex;flex-direction:column;overflow:hidden;animation:risein var(--t-panel) var(--e-panel)}
+.modal-h{display:flex;align-items:center;gap:11px;padding:12px 16px;border-bottom:1px solid var(--line-2);flex:none}
+.modal-t{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.modal-body{padding:16px;overflow:auto;min-height:0}
+.modal-body svg{width:100%;height:auto;display:block}
+.modal-x{font-size:17px;line-height:1;color:var(--text-faint);cursor:pointer;padding:0 2px}
+.modal-x:hover{color:var(--text)}
+.modal-note{margin:0 16px 16px}
 .cites{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
 .cite{font-size:9px;border:1px solid var(--line-3);color:var(--text-dim);padding:2px 7px;cursor:pointer}
 .cite:hover{border-color:var(--signal);color:var(--signal)}
@@ -568,6 +587,7 @@ body.resizing #net{pointer-events:none}
 </div>
 
 <div id="tip"></div>
+<div id="modal"></div>
 <script>
 "use strict";
 (function(){
@@ -3379,9 +3399,11 @@ function chartColor(p){
   return 'var(--signal)';
 }
 function svgWrap(inner, h, w){
-  return '<svg viewBox="0 0 '+(w||CH.w)+' '+(h||CH.h)+'" preserveAspectRatio="xMidYMid meet" '
-    + 'style="width:100%;height:auto;display:block;overflow:visible" font-family="IBM Plex Mono, monospace">'
-    + inner + '</svg>';
+  // No inline width or height: an inline style beats every stylesheet rule, and
+  // the same chart has to render full size in the modal and scaled down in the
+  // transcript preview. preserveAspectRatio does the scaling either way.
+  return '<svg class="chart" viewBox="0 0 '+(w||CH.w)+' '+(h||CH.h)+'" preserveAspectRatio="xMidYMid meet" '
+    + 'font-family="IBM Plex Mono, monospace">' + inner + '</svg>';
 }
 const AX = 'stroke="#333c47" stroke-width="1"';
 const GRID = 'stroke="#1d242b" stroke-width="1"';
@@ -3536,7 +3558,7 @@ function viewReport(v){
       + '<button class="mini" data-artdrop="'+a.id+'">&times;</button></div>';
     if (sp.subtitle) h += '<p class="art-s">'+esc(sp.subtitle)+'</p>';
     if (a.kind === 'chart'){
-      h += '<div class="art-body">'+renderChartSvg(sp)+'</div>';
+      h += '<div class="art-body" style="cursor:zoom-in" data-openart="'+a.id+'">'+renderChartSvg(sp)+'</div>';
     } else if (a.kind === 'data'){
       const rows = sp.rows.slice(0, 40);
       h += '<div class="art-body"><div class="art-table"><table><thead><tr>'
@@ -4079,8 +4101,8 @@ function renderTranscript(){
         + '<span class="eyebrow" style="color:var(--signal)">'+esc(kind)+'</span>'
         + '<span class="turn-art-t">'+esc(sp.title || 'Untitled')+'</span>'
         + '<span class="spacer"></span>'
-        + '<span class="turn-art-go">Open in report &rarr;</span></div>';
-      if (art.kind === 'chart') h += '<div class="turn-art-prev">'+renderChartSvg(sp)+'</div>';
+        + '<span class="turn-art-go">Expand &#8599;</span></div>';
+      if (art.kind === 'chart') h += '<div class="turn-art-prev" data-openart="'+art.id+'" title="Click to expand">'+renderChartSvg(sp)+'</div>';
     }
     if (t.cites && t.cites.length)
       h += '<div class="cites">'+t.cites.map(c=>'<span class="cite" data-goto="'+esc(c[0])+'">'+esc(c[1])+'</span>').join('')+'</div>';
@@ -4193,8 +4215,14 @@ async function askAnalyst(text){
   // A literal command runs locally whether or not a key is set. The product
   // promises that any line the analyst prints can be retyped here, and routing
   // it to the model instead would break that and bill for it.
+  const artsBefore = S.artifacts.length;
   if (runCommandLine(text)){
-    pushTurn({ role:'ANALYST', text:'Ran that directly. Commands execute locally, so retyping any line the analyst prints does exactly what it did.' });
+    const turn = { role:'ANALYST', text:'Ran that directly. Commands execute locally, so retyping any line the analyst prints does exactly what it did.' };
+    // A command typed by hand that builds an artifact gets the same inline
+    // preview an analyst-emitted one does. Anything else makes the feature look
+    // like it only works when the model does it.
+    if (S.artifacts.length > artsBefore) turn.artifacts = [S.artifacts[0].id];
+    pushTurn(turn);
     return;
   }
   const key = store.get('vanishing.apiKey');
@@ -4368,10 +4396,14 @@ function scriptedReply(q){
    without rebinding anything.
    ========================================================================= */
 document.addEventListener('click', (ev) => {
+  // Backdrop click closes the artifact modal. The panel stops propagation by
+  // being a child, so only a hit on the backdrop itself counts.
+  if (ev.target.classList && ev.target.classList.contains('modal-back')) return closeArtifactModal();
   const t = ev.target.closest('[data-view],[data-filter],[data-edge],[data-hops],[data-clear],'
     + '[data-dismiss],[data-reopen],[data-show],[data-next],[data-prev],[data-zoom],[data-goto],[data-expand],[data-tab],[data-cmd],'
     + '[data-sugg],[data-model],[data-effort],[data-frame],[data-tlzoom],[data-tltrack],[data-actfull],'
-    + '[data-artsvg],[data-artcsv],[data-artmd],[data-arttsv],[data-artdrop],[data-artclear],[data-openart],#resetf');
+    + '[data-artsvg],[data-artcsv],[data-artmd],[data-arttsv],[data-artdrop],[data-artclear],[data-openart],'
+    + '[data-modalclose],[data-openreport],#resetf');
   if (!t) return;
   const d = t.dataset;
   if (t.id === 'resetf')     return CMD.clearFilters();
@@ -4409,11 +4441,14 @@ document.addEventListener('click', (ev) => {
   if (d.tltrack)             return CMD.toggleTimelineOverlay(d.tltrack);
   if (d.artclear)            return CMD.clearArtifacts();
   if (d.artdrop)             return CMD.dropArtifact(d.artdrop);
-  if (d.openart){
-    const a = S.artifacts.find(x => x.id === d.openart);
+  if (d.openart)             return openArtifactModal(d.openart);
+  if (d.modalclose)          return closeArtifactModal();
+  if (d.openreport){
+    const a = S.artifacts.find(x => x.id === d.openreport);
     if (a) a.inReport = true;                 // reopening a closed artifact restores it
+    closeArtifactModal();
     CMD.setView('REPORT');
-    requestAnimationFrame(()=>{ const e = document.getElementById('art-'+d.openart);
+    requestAnimationFrame(()=>{ const e = document.getElementById('art-'+d.openreport);
       if (e) e.scrollIntoView({ block:'start', behavior:'smooth' }); });
     return;
   }
@@ -4433,8 +4468,53 @@ function applyChrome(){
 /* Export the chart as a standalone SVG. Colours are CSS variables on screen, so
    they are resolved to literals first; otherwise the saved file renders black on
    black outside this page. */
+/* Artifact modal. Opened from the transcript preview or from a chart in the
+   report view. Backdrop click and Escape both close it, and focus returns to
+   nothing in particular because the dashboard behind it never lost state. */
+function openArtifactModal(id){
+  const art = S.artifacts.find(a => a.id === id);
+  const host = $('#modal');
+  if (!art){ host.innerHTML = ''; return; }
+  const sp = art.spec;
+  const kind = art.kind === 'chart' ? String(sp.type).toUpperCase()+' CHART'
+             : art.kind === 'data' ? 'DATA EXPORT' : 'REPORT';
+  let body = '';
+  if (art.kind === 'chart') body = renderChartSvg(sp);
+  else if (art.kind === 'data'){
+    body = '<div class="art-table"><table><thead><tr>'
+      + sp.columns.map(c=>'<th>'+esc(c)+'</th>').join('') + '</tr></thead><tbody>'
+      + sp.rows.map(r=>'<tr>'+r.map(c=>'<td>'+esc(c)+'</td>').join('')+'</tr>').join('')
+      + '</tbody></table></div>';
+  } else {
+    for (const sec of (sp.sections||[]))
+      body += '<div class="sec"><span class="eyebrow">'+esc(sec.heading||'')+'</span></div><p class="narr">'+esc(sec.body||'')+'</p>';
+    if (sp.table && sp.table.columns){
+      body += '<div class="art-table"><table><thead><tr>'
+        + sp.table.columns.map(c=>'<th>'+esc(c)+'</th>').join('') + '</tr></thead><tbody>'
+        + (sp.table.rows||[]).map(r=>'<tr>'+r.map(c=>'<td>'+esc(c)+'</td>').join('')+'</tr>').join('')
+        + '</tbody></table></div>';
+    }
+  }
+  const dl = art.kind === 'chart' ? '<button class="mini" data-artsvg="'+art.id+'">Download SVG</button>'
+           : art.kind === 'data'  ? '<button class="mini" data-artcsv="'+art.id+'">Download CSV</button>'
+           : '<button class="mini" data-artmd="'+art.id+'">Download MD</button>'
+             + (sp.table && sp.table.columns ? '<button class="mini" data-arttsv="'+art.id+'">Table CSV</button>' : '');
+  host.innerHTML =
+    '<div class="modal-back" data-modalback="1"><div class="modal" id="modal-'+art.id+'">'
+    + '<div class="modal-h"><span class="eyebrow" style="color:var(--signal)">'+esc(kind)+'</span>'
+    + '<span class="modal-t">'+esc(sp.title || 'Untitled')+'</span><span class="spacer"></span>'
+    + dl
+    + '<button class="mini" data-openreport="'+art.id+'">Open in report</button>'
+    + '<span class="modal-x" data-modalclose="1">&times;</span></div>'
+    + '<div class="modal-body">'+body+'</div>'
+    + (sp.note ? '<div class="block b-claim modal-note"><span class="eyebrow">Caveat</span>'+esc(sp.note)+'</div>' : '')
+    + '</div></div>';
+  fitChartLabels(host);
+}
+function closeArtifactModal(){ $('#modal').innerHTML = ''; }
+
 function saveArtifactSvg(id){
-  const host = document.getElementById('art-'+id);
+  const host = document.getElementById('modal-'+id) || document.getElementById('art-'+id);
   const svg = host && host.querySelector('svg');
   if (!svg) return;
   const clone = svg.cloneNode(true);
@@ -4573,6 +4653,7 @@ $('#anin').addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape'){
+    if ($('#modal').innerHTML){ return closeArtifactModal(); }
     if (S.settingsOpen){ S.settingsOpen = false; return renderSettings(); }
     if (S.sel) return CMD.clearSelection();
   }
