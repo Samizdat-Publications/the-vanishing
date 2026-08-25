@@ -219,6 +219,7 @@ def build_emitters(data):
     cases, defaults = data["cases"], data["case_defaults"]
     ent, tl, g, ph, tax = (data["entities"], data["timeline"], data["graph"],
                            data["photos"], data["taxonomy"])
+    ca = data.get("counterarguments", {})
     EX = EXCEPTIONS.get("linebreaks", {})
 
     # PEOPLE and PRECEDENT escape U+2019 and never use \'. The four `other()` blocks and
@@ -254,5 +255,9 @@ def build_emitters(data):
         "STRANDS": lambda: emit_object_array(tax["STRANDS"], s_b),
         "STATUS_LABEL": lambda: emit_inline_map(tax["STATUS_LABEL"], s_b),
         "PRECISION_LABEL": lambda: emit_inline_map(tax["PRECISION_LABEL"], s_b),
+        # COUNTERS uses the no-space inner convention, like ENTITY_INFO.
+        "COUNTERS": lambda: emit_object_array(ca["COUNTERS"], s_bt),
+        "SKEPTIC_OVERREACH": lambda: emit_object_array(ca["SKEPTIC_OVERREACH"], s_bt),
+        "FAMILY_POSITIONS": lambda: J.emit_string(ca["FAMILY_POSITIONS"], s_bt),
     }
 

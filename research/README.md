@@ -37,6 +37,7 @@ yet the live source.** The dashboard still ships from `the-vanishing-v2.html`. S
 | `photos.json` | `PHOTOS` | 15 image paths with per-image credit |
 | `taxonomy.json` | `CLUSTERS`, `TIERS`, `AXES`, `STRANDS`, `STATUS_LABEL`, `PRECISION_LABEL` | Scoring and display taxonomy |
 | `case_defaults.json` | the `P_` factory | Mirror of the defaults. `verify.py` asserts it still matches the shell |
+| `counterarguments.json` | `COUNTERS`, `SKEPTIC_OVERREACH`, `FAMILY_POSITIONS` | The skeptical case, the four places skeptics overreach, and the family-position statement |
 
 **Derived, never extracted:** `NODES`, `EDGES` and `deriveEdges()`. They are computed from
 the above. The source comment at line 596 is a design constraint worth repeating: the first
@@ -51,13 +52,24 @@ convenience.
 | Block | Reason |
 |---|---|
 | `PALETTE`, `EDGE_TYPES` | Design system. Changes when the design changes, not when a case does |
-| `COUNTERS` | Analytical content, and by the case-facing test it belongs here. But the "Where the skeptics overreach" table and the "Family positions" paragraph sit inline in `viewCounterargs` (3806-3815) and exist nowhere else in the repo. Extracting one without the other splits a single argument across two files. Both move together in step 3 |
 | `MODELS`, `EFFORTS`, `MODEL_CAPS`, `SUGGESTIONS`, `SYSTEM_PROMPT` | Analyst config, coupled to the Anthropic API. Belongs with the code that calls it |
 | `VIEW_LABEL`, `FILTER_GROUPS`, `TYPE_PRIORITY`, `STRENGTH_RAMP`, shaders | Renderer internals |
 
-Also not in any data block, and therefore not yet under the gate: the hand-written
-analytical prose in `scriptedReply` (4373-4425), which holds the base-rate answer and the
-hostile-reader answer. Logged for step 3.
+**`COUNTERS` and the prose stranded in `viewCounterargs` are now extracted**, which closes the
+last case-facing gap in the boundary. Two payloads had been hardcoded inside that render
+function and existed nowhere else: the four-item "Where the skeptics overreach" list, and the
+**family-position statement naming Louise Grillmair, Amy Eskridge's father and Michael Hicks's
+brother.**
+
+That last one mattered most. `CLAUDE.md` requires that families who have asked not to have
+their losses treated as conspiracy material are recorded accurately and not argued with. That
+statement was uneditable as data and covered by no gate. **It is now both, and
+`semantic_diff.py` fails if any of the three names stops appearing in it.**
+
+Still not in any data block, and therefore still not under the gate: the hand-written
+analytical prose in `scriptedReply`, which holds the base-rate answer and the hostile-reader
+answer. It is analyst fallback copy rather than case-facing content, so it stays with the
+code that uses it.
 
 ## Provenance
 

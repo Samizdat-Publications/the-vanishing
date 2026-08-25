@@ -3242,18 +3242,9 @@ function viewAnalysis(v){
 }
 
 /* --- 6.7 COUNTERARGUMENTS --------------------------------------------------- */
-const COUNTERS = [
-  { who:'Scientific American', when:'2026-05-07', title:'Random events clump if the numbers are big enough',
-    text:'David Hand’s argument is that with roughly 200,000 adults reported missing annually in the United States, apparent clusters are the expected output of a large sample rather than a signal in it. The piece also concedes its own gap explicitly: it states that it is impossible to find statistics on the expected number of scientists and science-related people who were shot or disappeared within a given period. The argument is heuristic, not a calculation.' },
-  { who:'NeuroLogica (Novella)', when:'2026-04-21', title:'The matched denominator',
-    text:'The strongest entry in the skeptical record, because it supplies what Scientific American concedes it lacks. JPL at roughly 4,500 employees would expect about 164 all-cause deaths over four years; this list has five. Los Alamos at roughly 18,000 would expect about 657; this list has two to three. This is the argument that produced most of the Tier C assignments in the file, and it is used here as a grading instrument rather than answered.' },
-  { who:'Skeptic Magazine (Shermer)', when:'2026-04-25', title:'The excluded cells',
-    text:'The narrative examines only defense-linked scientists who died, and leaves three cells of the table unexamined: defense-linked scientists who lived, non-defense scientists who died, and non-defense scientists who lived. Logged against it: Shermer compresses the Ning Li facts, presenting the 2014 collision and the Alzheimer’s death as unrelated when the reporting says the collision caused the brain damage that led to the diagnosis. And his figure of more than 500,000 missing yearly is the all-ages NCIC number, heavily juvenile and mostly resolved within days, deployed in an argument about adult professionals.' },
-  { who:'Bartholomew', when:'2026-04-22', title:'Apophenia and confirmation bias',
-    text:'The tendency to perceive meaningful connections between unrelated events, compounded by a search process that stops when it finds a match. This is the strongest available account of how a list like this one gets built, and it is the reason the tracker scores sequence separately from proximity rather than merging them into a single impression.' },
-  { who:'PolitiFact and Snopes', when:'2026-04-28', title:'Not all of them were scientists',
-    text:'PolitiFact tracked fourteen people and found the claim that nearly all worked together unsupported: employers spanned NASA, LANL, USAF, MIT, Caltech and private firms, and no public confirmation exists that any accessed classified UAP or nuclear-weapons programmes. Specific corrections adopted into this file: Casias was an administrative assistant, Chavez was retired, Hicks studied comets and asteroids, Grillmair studied dark matter and exoplanets. Snopes called the conspiracy framing purely conjecture.' },
-];
+const COUNTERS =  HOLE ;
+const SKEPTIC_OVERREACH =  HOLE ;
+const FAMILY_POSITIONS =  HOLE ;
 function viewCounterargs(v){
   let h = '<div class="view-head"><h2>Counterarguments</h2><p>This view exists because the statistical arguments are what separate cases that survive hostile scrutiny from cases that do not. They are the instrument that produced the tier assignments, not a disclaimer appended to them. A hostile reader will attack the weakest entry to discredit the whole set, so the weakest entries are labelled as such by the tracker itself.</p></div>';
   h += '<div class="pcards">' + COUNTERS.map(c =>
@@ -3263,20 +3254,17 @@ function viewCounterargs(v){
 
   h += '<div class="sec"><span class="eyebrow">Where the skeptics overreach</span></div>'
     + '<div class="pcards">'
-    + [['Scientific American concedes its own gap','The piece states plainly that the relevant statistic cannot be found, which makes its argument heuristic rather than arithmetic. Novella’s institution-level analysis is stronger precisely because it supplies a matched denominator.'],
-       ['Shermer compresses the Ning Li facts','Presented as unrelated events. The Huntsville Business Journal reporting says the 2014 collision caused the brain damage which led to the Alzheimer’s diagnosis. This does not help the pattern case and is logged for accuracy.'],
-       ['The 500,000 figure is the wrong denominator','All-ages NCIC, heavily juvenile, mostly resolved within days, used in an argument about adult professionals. Hand’s 200,000-adults figure is the correct one. A reader comparing the two would think the skeptics contradict each other.'],
-       ['The Pentagon’s early response was thin','Its statement that there are no active national security investigations of missing persons with clearances was weak enough that Comer and Burlison said it left many unanswered questions. Reflexive agency dismissal is not a finding.']]
-      .map(([t,x])=>'<div class="pcard" style="border-left-color:var(--text-dim);border-left-style:dotted"><h3>'+esc(t)+'</h3><p>'+esc(x)+'</p></div>').join('')
+    + SKEPTIC_OVERREACH.map(o =>
+        '<div class="pcard" style="border-left-color:var(--text-dim);border-left-style:dotted">'
+        + '<h3>'+esc(o.title)+'</h3><p>'+esc(o.text)+'</p></div>').join('')
     + '</div>';
 
   h += '<div class="sec"><span class="eyebrow">Family positions, recorded not editorialised</span></div>'
     + '<div class="block b-claim" style="background:var(--panel-2);padding:11px 13px;max-width:82ch">'
-    + 'Several families have publicly asked not to have their losses treated as conspiracy material. Louise Grillmair calls the framing absolute nonsense and says her husband would laugh at those promoting it. Amy Eskridge’s father, a retired NASA employee, told Newsweek that scientists die also, just like other people. Michael Hicks’s brother said his family fears he will be remembered for a Loch Ness Monster conspiracy theory rather than for his work. These statements are recorded accurately and are not argued with anywhere in this product.</div>';
+    + esc(FAMILY_POSITIONS) + '</div>';
   v.innerHTML = h;
 }
 
-/* --- 6.8 SEARCH -------------------------------------------------------------- */
 function viewSearch(v){
   const q = S.query.trim().toLowerCase();
   const pool = NODES;

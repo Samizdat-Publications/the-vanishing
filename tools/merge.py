@@ -19,7 +19,8 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-GROUPS = ["cases", "entities", "timeline", "graph", "photos", "taxonomy", "case_defaults"]
+GROUPS = ["cases", "entities", "timeline", "graph", "photos", "taxonomy",
+          "counterarguments", "case_defaults"]
 
 # Variable precision is authored, not derived. '1953', '2026-04' and '2026-08-04' all occur
 # and must survive as strings. Coercing to a date type would silently promote month

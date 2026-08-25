@@ -89,6 +89,16 @@ EXPECTED_CHANGES = {
     # Key rename only. The values are untouched, which the source-count invariant checks.
     "cases.*.sources.*.outlet": "case-level source key renamed outlet -> name, to match every other block",
     "cases.*.sources.*.name": "case-level source key renamed outlet -> name, to match every other block",
+    # COUNTERS and the two payloads that were stranded inside viewCounterargs are now
+    # extracted, so they appear in the dataset for the first time. Values are unchanged;
+    # the counterarguments invariant below checks that.
+    "counterarguments.COUNTERS.*.who": "COUNTERS extracted from the shell",
+    "counterarguments.COUNTERS.*.when": "COUNTERS extracted from the shell",
+    "counterarguments.COUNTERS.*.title": "COUNTERS extracted from the shell",
+    "counterarguments.COUNTERS.*.text": "COUNTERS extracted from the shell",
+    "counterarguments.SKEPTIC_OVERREACH.*.title": "was hardcoded inside viewCounterargs",
+    "counterarguments.SKEPTIC_OVERREACH.*.text": "was hardcoded inside viewCounterargs",
+    "counterarguments.FAMILY_POSITIONS": "was hardcoded inside viewCounterargs",
 }
 
 # Every claim text present in the baseline must still be present. Any claim text that is NEW
@@ -114,6 +124,8 @@ INVARIANTS = {
     "timeline entries": 42,
     "precedents": 4,
     "photos": 15,
+    "counterarguments": 5,
+    "skeptic overreach": 4,
     "programme edges": 10,
 }
 
@@ -247,12 +259,20 @@ def main():
         for t in undeclared_new[:10]:
             print("    %r" % t[:63])
 
+    fam = live.get("counterarguments", {}).get("FAMILY_POSITIONS", "")
+    for who in ("Louise Grillmair", "Amy Eskridge", "Michael Hicks"):
+        if who not in fam:
+            ok = False
+            print("\n  FAMILY POSITION REMOVED: %s no longer named" % who)
+
     print("\n  invariants:")
     actual = {
         "case count": len(live["cases"]),
         "timeline entries": len(live["timeline"]["TIMELINE"]),
         "precedents": len(live["timeline"]["PRECEDENT"]),
         "photos": len(live["photos"]),
+        "counterarguments": len(live.get("counterarguments", {}).get("COUNTERS", [])),
+        "skeptic overreach": len(live.get("counterarguments", {}).get("SKEPTIC_OVERREACH", [])),
         "programme edges": len(live["graph"]["PROGRAM_EDGES"]),
     }
     for name, want in INVARIANTS.items():

@@ -86,5 +86,17 @@
   {
     "block": "PHOTOS",
     "group": "photos"
+  },
+  {
+    "block": "COUNTERS",
+    "group": "counterarguments"
+  },
+  {
+    "block": "SKEPTIC_OVERREACH",
+    "group": "counterarguments"
+  },
+  {
+    "block": "FAMILY_POSITIONS",
+    "group": "counterarguments"
   }
 ]

@@ -52,11 +52,25 @@ INSTRUMENT_PATTERNS = [
 ]
 
 # Fields every case ought to be able to answer. Absence is the negative-space report.
+#
+# The first version of this check produced false positives that made it useless. It missed
+# "shot", "killed", "murder" and "fatally", so Grillmair and Loureiro, both of whom were
+# shot, reported as having no cause on file. It also asked missing persons for a cause of
+# death, which they cannot have by definition. A check that fires on non-gaps trains you to
+# skim past it, which is worse than not having it.
 EXPECTED_COVERAGE = {
-    "investigating agency": r"police|sheriff|FBI|state police|deputies|investigat|detective|NTSB|OMI|medical examiner|medical investigator",
-    "cause or manner": r"cause|manner|autopsy|ruled|undetermined|overdose|gunshot|natural causes|no cause",
+    "investigating agency": (r"police|sheriff|FBI|state police|deputies|investigat|detective|"
+                             r"NTSB|OMI|medical examiner|medical investigator|coroner|"
+                             r"district attorney|prosecut|LASD|BCSO|DPS|task force"),
+    "cause or manner": (r"cause|manner|autopsy|ruled|undetermined|overdose|gunshot|shot|"
+                        r"killed|murder|fatally|homicide|suicide|natural causes|no cause|"
+                        r"crash|collision|drown|struck by"),
     "employer": r"",  # structural, checked via instId rather than prose
 }
+
+# A cause of death is only expected where there is a death. Asking a missing-person record
+# for one is not a gap, it is the point of the record.
+CAUSE_APPLIES_TO = {"dead", "resolved"}
 
 # Single spaces only. \s would span newlines and glue the end of one field to the start
 # of the next, manufacturing names like "Alabama Standalone" that nobody wrote.
@@ -131,6 +145,8 @@ def check_negative_space(data):
             if field == "employer":
                 if not case.get("instId"):
                     missing.append(field)
+                continue
+            if field == "cause or manner" and case.get("status") not in CAUSE_APPLIES_TO:
                 continue
             if not re.search(pattern, text, re.I):
                 missing.append(field)
@@ -243,6 +259,19 @@ def self_test():
         open(tmp, "w", encoding="utf-8").write(original)
     results.append(("doc-drift check catches a wrong score in prose", fired))
     results.append(("doc-drift check is clean on the real files", not check_doc_scores(real)))
+
+    # The two false-positive classes that made the negative-space check useless.
+    shot = {"cases": [{"id": "shot", "label": "S T", "status": "dead", "instId": "jpl",
+                       "narrative": "He was shot on his porch. Deputies investigated.",
+                       "sources": [{"name": "x"}]}],
+            "entities": {"INSTITUTIONS": [], "PROGRAMS": [], "LOCATIONS": [], "DOMAINS": []}}
+    results.append(("a shooting counts as a cause on file",
+                    "cause or manner" not in check_negative_space(shot).get("shot", [])))
+    gone = {"cases": [{"id": "gone", "label": "G T", "status": "missing", "instId": "jpl",
+                       "narrative": "Vanished. Police searched.", "sources": [{"name": "x"}]}],
+            "entities": {"INSTITUTIONS": [], "PROGRAMS": [], "LOCATIONS": [], "DOMAINS": []}}
+    results.append(("a missing person is not asked for a cause of death",
+                    "cause or manner" not in check_negative_space(gone).get("gone", [])))
     passed = 0
     for name, fired in results:
         print("  %-46s %s" % (name, "PASS" if fired else "FAIL, CHECK IS BLIND"))

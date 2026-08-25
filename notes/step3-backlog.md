@@ -124,7 +124,7 @@ All in `notes/research/`, none merged. See each brief for its full sourcing and 
 | Ning Li: claim, not axis move | **Done.** Three claims for `DIA-08-1003-013`, rationale rewritten, **I stayed at 2** |
 | McCasland: reconcile before importing | **Done.** AFRL posting made explicit as Wright-Patterson HQ. Burlison contact imported, **S stayed at 2**, chain entry deliberately not marked anomalous |
 | `dist/` cannot find the photographs | **Done.** The build copies `assets/` into `dist/` |
-| Extract `COUNTERS` with the stranded prose | **STILL OPEN.** Both remain in the shell |
+| ~~Extract `COUNTERS` with the stranded prose~~ | **DONE 25 Aug 2026.** All three blocks extracted to `research/counterarguments.json`. The family-position statement is now data and guarded: `semantic_diff.py` fails if Louise Grillmair, Amy Eskridge or Michael Hicks stops being named in it |
 
 ## New, found during the step 5 work
 
@@ -161,3 +161,42 @@ Fixed three ways, because one was not enough:
 **The general lesson, worth keeping:** the two spellings were not a style inconsistency, they
 were a latent defect. A cleanup that only renamed the key would have fixed the symptom in the
 data and left the renderer able to reintroduce it.
+
+
+## A structural gap the discovery check surfaced, 25 August 2026
+
+**A case can carry only one `instId`, so multi-institution affiliations are invisible to the
+graph.**
+
+The candidate-actor check flagged several capitalised names that are not people. Most were
+sentence fragments, but four are real institutions **named in case narratives or affiliations
+that do not exist as entity nodes at all:**
+
+| Institution | Named in | Why it matters |
+|---|---|---|
+| **Sandia National Laboratories** | McCasland affiliations | **An NNSA national laboratory. That is I3-grade by the tracker's own rubric**, and it has no node |
+| **Riverside Research** | McCasland affiliations | A DoD contractor. Also cited in `PROJECT.md` as part of the basis for his I3 |
+| Redstone Arsenal | Ning Li narrative | Army installation, the anchor of the Huntsville cluster |
+| Johnson Space Center | Moffatt narrative | His prior NASA work |
+
+**The consequence is concrete.** `deriveEdges` builds institutional edges from a single
+`instId` per case. McCasland's `instId` is `afrl`, so **his Sandia and Riverside Research
+connections produce no edges and appear nowhere on the map**, even though `PROJECT.md` cites
+both as part of the basis for his I3 score. The prose says one thing and the graph shows
+another.
+
+**Not fixed here, deliberately.** Adding four institution nodes would take `NODES` from 54 to
+58 and add edges, which is a visible change to the rendered map and to the edge count the
+gates assert. That is an editorial decision about what the tracker depicts, not a mechanical
+cleanup, so it is Stewart's call.
+
+**Two ways to fix it, and they are not equivalent:**
+
+1. **Add the nodes and a second affiliation edge type.** Most faithful. Requires deciding
+   whether a consulting relationship is the same kind of edge as employment, which it is not.
+2. **Add the nodes without edges**, so they exist and are searchable but do not imply a
+   connection the record does not support. Conservative, and probably the right first step.
+
+**What must not happen** is adding an institutional edge from McCasland to Sandia that looks
+identical to the edge from a person to their actual employer. The I axis is scored on the
+employer, and a consulting engagement after retirement is not that.
