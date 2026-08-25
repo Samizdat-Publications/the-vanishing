@@ -205,3 +205,80 @@ Not "summarise the cases." Surface structure that is invisible per case:
 premise.** If the only way to see the pattern is to already believe it, it is not a finding.
 Build the analyst so its outputs can be checked, and let the ones that survive checking carry
 the argument. That is the same logic that made Tier C cases worth keeping.
+
+---
+
+## The control group, found 25 August 2026
+
+**This is the most useful thing the survey of The Legacy Program Dashboard produced, and it
+does not help the pattern. That is why it matters.**
+
+The previous section demands that an aggregate claim be reproducible by someone who does not
+share the premise. Doing that requires a denominator, and the tracker has never had one. It
+now has a candidate.
+
+### The AAWSAP DIRD author cohort
+
+The 38 Defense Intelligence Reference Documents were produced 2008-2010 under the DIA
+Advanced Aerospace Weapon System Applications programme. **Roughly twenty-three of their
+authors are individually named, and the membership list is public** at
+`https://irp.fas.org/dia/aatip-list.pdf`.
+
+Named: Puthoff, Eric W. Davis (five DIRDs), Kit Green, Friedwardt Winterberg (two), Wil
+McCarthy, Claudio Maccone, Vincent Teofilo, William Culbreth (two), George Miley, Ulf
+Leonhardt, Bruce Towe (two), Robert M. L. Baker Jr., Marc Millis, Richard Genik (three),
+George Hathaway (two), Sergey Macheret, Gerald A. Smith, James Wells, Paul Czysz, John
+Cramer, Richard Obousy, J. Albertine, J. Golightly.
+
+**This is a named, closed, documented cohort of scientists formally engaged by a DIA
+advanced-aerospace programme.** Their P-axis and I-axis exposure is comparable to, and in
+several instances greater than, that of cases already in the tracker. George Hathaway is
+already cited in the Ning Li record as the author of `DIA-08-1003-013`.
+
+### Their mortality is unremarkable
+
+Three deaths located, none anomalous: **Vincent Teofilo**, 10 January 2026, aged 81, ordinary
+published obituary; **Claudio Maccone**, 2025, aged 77, non-US; **Paul Czysz**, 2013,
+pre-window. Nobody has asserted an anomaly about any of them.
+
+### What this obliges the tracker to say
+
+**A group with equal or greater programme proximity, formally contracted to the exact DIA
+programme the tracker treats as the institutional channel, shows no elevated rate of death or
+disappearance.** That is a real result and it belongs in the argument, stated in the
+tracker's own voice rather than waited for from a hostile reader.
+
+It does not refute the thesis. The fifteen are not claimed to be a random sample of
+programme-adjacent scientists, and the sequence anomalies in cases like Grillmair and Casias
+are facts about those cases regardless of any base rate. But it does remove one move from the
+table: **the tracker cannot argue that proximity to this programme is itself predictive**,
+because here is a cohort defined by exactly that proximity, and nothing happened to them.
+
+**Recommended use.** Build the cohort out as a comparison population and report it beside the
+fifteen. It is worth more to the argument as a denominator than any additional case would be
+as a numerator, because it is the thing that makes the numerator legible. It is also the
+single best answer to Novella's base-rate objection, which the tracker currently logs as
+unanswered.
+
+**Recommended against.** Do not add these people as cases. Do not describe the cohort as
+"also at risk". Do not go looking for an anomaly among them, which is how a control group
+stops being one.
+
+## Two suspected mechanisms, searched for and not found
+
+`LEADS.md` section C records two of Stewart's suspicions: **vehicle collision as an
+assassination method**, and **induced rare fast-progressing cancer** by analogy to the heart
+attack gun disclosed to the Church Committee in 1975.
+
+The 25 August 2026 survey looked for both across The Program's entire corpus: 279 people, 689
+entities, 858 timeline events, 88 dossiers. **Neither is supported at any tier.**
+
+Literal string searches returned: **"Church Committee" zero occurrences. "heart attack gun"
+zero. "MKULTRA" nineteen, every one attached to a single House Oversight Task Force hearing
+of 30 June 2026, none with any operational detail.** There is nothing anywhere in that corpus
+on staged accidents, poisoning, induced illness, or vehicle collision as method.
+
+**Recorded as a documented absence, which is a finding.** The corpus most likely to contain
+such material does not contain it. Both suspicions stay in `LEADS.md` as suspicions, now with
+a stated search behind the absence rather than an untested assumption. Neither may be
+asserted about any tracked case.
