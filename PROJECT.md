@@ -187,6 +187,18 @@ Assigned separately from the case table because the unit being scored is the emp
 | Eskridge | Institute for Exotic Science | I1 | Small private institute, no documented channel |
 | Thomas | Novartis | **I0** | Pharmaceutical company, no government research nexus |
 
+**The regulatory basis for I3, added 25 August 2026.** The I axis previously rested on the
+assertion that FFRDCs and national laboratories are conduits for classified work. It now has a
+primary citation. **FAR 35.017**, read directly at `acquisition.gov/far/35.017`, states that an
+FFRDC "has access, **beyond that which is common to the normal contractual relationship**, to
+Government and supplier data, including sensitive and proprietary data, and to employees and
+installations equipment and real property." That is the government's own acquisition regulation
+establishing that an FFRDC sits inside a data relationship no ordinary contractor has.
+
+**This matters because it requires no premise.** A reader who rejects everything else about this
+tracker still has to accept FAR 35.017. It applies directly to JPL, Caltech IPAC and MIT Lincoln
+Laboratory among the cases scored I3.
+
 **Ten of fifteen cases sit at I3.** That figure should be read carefully in both directions. It supports the argument that these individuals worked inside institutions with real classified channels. It also reflects that FFRDCs and national labs employ tens of thousands of people, which is exactly the denominator problem Novella's base-rate analysis raises. **The I axis establishes plausibility of channel, not evidence of use.**
 
 ### Corrections Applied August 7, 2026
