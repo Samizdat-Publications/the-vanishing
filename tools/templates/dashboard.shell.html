@@ -3168,6 +3168,7 @@ function caseCard(p){
 function recordLeaders(p, w){
   const rows = [
     ['STATUS', STATUS_LABEL[p.status]||p.status],
+    ...(p.outcome && p.outcome !== p.status ? [['OUTCOME', String(p.outcome).toUpperCase()]] : []),
     ['DATE', fmtDate(p.date)],
     ['AGE', p.age==null ? 'NOT REPORTED' : String(p.age)],
     ['LOCATION', p.loc || 'NOT REPORTED'],
@@ -3404,6 +3405,16 @@ function tabLinks(p){
   }
   return h;
 }
+function claimSources(c){
+  // Claim sources are an array. The pre-step-3 records carried a single free-text string,
+  // so that shape is still accepted rather than silently rendering as no source at all.
+  const list = (c.sources && c.sources.length) ? c.sources : (c.source ? [{ name: c.source }] : []);
+  if (!list.length) return esc('No attributed source on file');
+  return list.map(function(s){
+    const label = esc(s.name || 'Unattributed') + (s.date ? ' ('+esc(s.date)+')' : '');
+    return s.url ? '<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+label+'</a>' : label;
+  }).join(' \u00b7 ');
+}
 function tabSources(p){
   let h = '';
   const byTier = { 1:[], 2:[], 3:[] };
@@ -3416,7 +3427,7 @@ function tabSources(p){
     h += '<div class="sec"><span class="eyebrow">'+LABEL[t][0]+'</span></div>';
     for (const c of byTier[t])
       h += '<div class="block '+LABEL[t][1]+'">'+esc(c.text)
-        + '<div style="font-size:9px;color:var(--text-faint);margin-top:5px">'+esc(c.source||'No attributed source on file')+'</div></div>';
+        + '<div style="font-size:9px;color:var(--text-faint);margin-top:5px">'+claimSources(c)+'</div></div>';
   }
   if (!any) h += '<div class="block b-open"><span class="eyebrow">Claims</span>No graded claims recorded for this entity.</div>';
   h += sourcesHtml(p);

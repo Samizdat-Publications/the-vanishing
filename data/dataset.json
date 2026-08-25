@@ -4,6 +4,7 @@
       "id": "li",
       "label": "Ning Li",
       "status": "dead",
+      "outcome": "dead",
       "date": "2021-07-27",
       "age": 78,
       "loc": "Huntsville, AL",
@@ -62,17 +63,29 @@
         {
           "tier": 2,
           "text": "A May 2003 private email to colleagues claimed an observed 11 kilowatts of output effect during an experiment.",
-          "source": "Reported secondhand"
+          "sources": [
+            {
+              "name": "Reported secondhand"
+            }
+          ]
         },
         {
           "tier": 2,
           "text": "Plasma physicist John Brandenburg wrote in April 2026 that he regarded her extension of the Meissner effect to the gravity potential as solid physics.",
-          "source": "X post, April 2026"
+          "sources": [
+            {
+              "name": "X post, April 2026"
+            }
+          ]
         },
         {
           "tier": 3,
           "text": "Skeptic magazine presents the 2014 collision and the Alzheimer’s death as unrelated events. The Huntsville Business Journal reporting says the collision caused the brain damage that led to the diagnosis.",
-          "source": "Logged as a skeptic error, not as support for the pattern"
+          "sources": [
+            {
+              "name": "Logged as a skeptic error, not as support for the pattern"
+            }
+          ]
         }
       ],
       "sources": [
@@ -87,6 +100,7 @@
       "id": "eskridge",
       "label": "Amy Eskridge",
       "status": "dead",
+      "outcome": "dead",
       "date": "2022-06-11",
       "age": 34,
       "loc": "Huntsville, AL",
@@ -132,17 +146,29 @@
         {
           "tier": 1,
           "text": "Stated on a podcast before her death that she was the target of a psychological war aimed at stopping her anti-gravity work.",
-          "source": "EFE, April 22 2026"
+          "sources": [
+            {
+              "name": "EFE, April 22 2026"
+            }
+          ]
         },
         {
           "tier": 2,
           "text": "A friend attributes to her a text reading that she most definitely did not kill herself.",
-          "source": "Attributed to a friend, not to family"
+          "sources": [
+            {
+              "name": "Attributed to a friend, not to family"
+            }
+          ]
         },
         {
           "tier": 1,
           "text": "Retired FBI Special Agent Jennifer Coffindaffer said there is no doubt she took her own life, based on her behavior beforehand.",
-          "source": "Newsweek"
+          "sources": [
+            {
+              "name": "Newsweek"
+            }
+          ]
         }
       ],
       "sources": [
@@ -162,6 +188,7 @@
       "id": "hicks",
       "label": "Michael David Hicks",
       "status": "dead",
+      "outcome": "dead",
       "date": "2023-07-30",
       "age": 59,
       "loc": "Sunland, CA",
@@ -197,7 +224,11 @@
         {
           "tier": 1,
           "text": "Studied comets and asteroids. The characterization of his work as defense-adjacent is a documented error.",
-          "source": "PolitiFact, April 28 2026"
+          "sources": [
+            {
+              "name": "PolitiFact, April 28 2026"
+            }
+          ]
         }
       ],
       "sources": [
@@ -212,6 +243,7 @@
       "id": "sullivan",
       "label": "Matthew James Sullivan",
       "status": "dead",
+      "outcome": "dead",
       "date": "2024-05-12",
       "age": 39,
       "loc": "Falls Church, VA",
@@ -272,27 +304,47 @@
         {
           "tier": 1,
           "text": "Major General David Abba, Director of Special Programs and head of the DoD Special Access Program Central Office 2021 to 2024, and his former supervisor at Langley Air Force Base, spoke at his funeral and described him as carrying the burden that a select few in this nation have of truly understanding what is going on. This is the strongest evidence of program proximity in the record, and it is independent of the timing claim.",
-          "source": "Funeral webcast, reported by Liberation Times, April 24 2026"
+          "sources": [
+            {
+              "name": "Funeral webcast, reported by Liberation Times, April 24 2026"
+            }
+          ]
         },
         {
           "tier": 1,
           "text": "The November 13 2024 House Oversight hearing was announced on November 8 2024, one hundred and eighty days after his death, with a four-name witness list that does not include him.",
-          "source": "Rep. Tim Burchett press release, November 8 2024"
+          "sources": [
+            {
+              "name": "Rep. Tim Burchett press release, November 8 2024"
+            }
+          ]
         },
         {
           "tier": 1,
           "text": "The Northern District Office of the Chief Medical Examiner ruled the death an accidental overdose.",
-          "source": "PolitiFact, April 28 2026"
+          "sources": [
+            {
+              "name": "PolitiFact, April 28 2026"
+            }
+          ]
         },
         {
           "tier": 2,
           "text": "Burlison: he was scheduled to come in for an interview, and within two weeks he had suspiciously committed suicide. An interview, not testimony. Undated and uncorroborated, and the suicide characterization contradicts the medical examiner.",
-          "source": "Rep. Eric Burlison, quoted by Liberation Times, April 24 2026"
+          "sources": [
+            {
+              "name": "Rep. Eric Burlison, quoted by Liberation Times, April 24 2026"
+            }
+          ]
         },
         {
           "tier": 2,
           "text": "Described as a source for whistleblower David Grusch, who was helping him come forward. Grusch and Sullivan had previously served together in the Air Force.",
-          "source": "Burlison to the Daily Mail; Liberation Times"
+          "sources": [
+            {
+              "name": "Burlison to the Daily Mail; Liberation Times"
+            }
+          ]
         }
       ],
       "sources": [
@@ -322,6 +374,7 @@
       "id": "maiwald",
       "label": "Frank Maiwald",
       "status": "dead",
+      "outcome": "dead",
       "date": "2024-07-04",
       "age": 61,
       "loc": "Los Angeles, CA",
@@ -353,7 +406,11 @@
         {
           "tier": 1,
           "text": "No public cause of death, more than two years on.",
-          "source": "Absence of record"
+          "sources": [
+            {
+              "name": "Absence of record"
+            }
+          ]
         }
       ],
       "sources": [
@@ -373,6 +430,7 @@
       "id": "chavez",
       "label": "Anthony Chavez",
       "status": "missing",
+      "outcome": "missing",
       "date": "2025-05-08",
       "age": 78,
       "loc": "Los Alamos, NM",
@@ -458,17 +516,29 @@
         {
           "tier": 2,
           "text": "A friend told police he had been researching matter existing in two places simultaneously with an unidentified scientist.",
-          "source": "Police report. An allegation on the record, not a finding"
+          "sources": [
+            {
+              "name": "Police report. An allegation on the record, not a finding"
+            }
+          ]
         },
         {
           "tier": 1,
           "text": "He had no cell phone at all. Landline only.",
-          "source": "Friend statement in police report"
+          "sources": [
+            {
+              "name": "Friend statement in police report"
+            }
+          ]
         },
         {
           "tier": 1,
           "text": "The friend obtained power of attorney, hired a private investigator, and told police he believed the case warranted a homicide investigation.",
-          "source": "LA Mag"
+          "sources": [
+            {
+              "name": "LA Mag"
+            }
+          ]
         }
       ],
       "sources": [
@@ -493,6 +563,7 @@
       "id": "reza",
       "label": "Monica Reza",
       "status": "missing",
+      "outcome": "missing",
       "date": "2025-06-22",
       "age": 60,
       "loc": "Angeles National Forest, CA",
@@ -558,7 +629,11 @@
         {
           "tier": 1,
           "text": "Co-inventor of Mondaloy, a nickel-based superalloy for rocket engines developed at Rocketdyne.",
-          "source": "Patent record"
+          "sources": [
+            {
+              "name": "Patent record"
+            }
+          ]
         }
       ],
       "sources": [
@@ -578,6 +653,7 @@
       "id": "casias",
       "label": "Melissa Casias",
       "status": "dead",
+      "outcome": "dead",
       "date": "2025-06-26",
       "age": null,
       "loc": "Carson National Forest, NM",
@@ -674,12 +750,20 @@
         {
           "tier": 1,
           "text": "Administrative assistant at LANL. Early coverage calling her a scientist is inaccurate.",
-          "source": "PolitiFact and Wikipedia"
+          "sources": [
+            {
+              "name": "PolitiFact and Wikipedia"
+            }
+          ]
         },
         {
           "tier": 1,
           "text": "Cause and manner of death undetermined more than thirteen months after the disappearance.",
-          "source": "NM OMI"
+          "sources": [
+            {
+              "name": "NM OMI"
+            }
+          ]
         }
       ],
       "sources": [
@@ -699,6 +783,7 @@
       "id": "leblanc",
       "label": "Joshua Kyle LeBlanc",
       "status": "dead",
+      "outcome": "dead",
       "date": "2025-07-22",
       "age": 29,
       "loc": "Walker County, AL",
@@ -781,12 +866,20 @@
         {
           "tier": 1,
           "text": "Worked on DRACO, a DARPA and NASA joint nuclear propulsion program.",
-          "source": "NASA"
+          "sources": [
+            {
+              "name": "NASA"
+            }
+          ]
         },
         {
           "tier": 1,
           "text": "Four unexplained hours with the vehicle at the airport that morning.",
-          "source": "Vehicle data, via Fox News"
+          "sources": [
+            {
+              "name": "Vehicle data, via Fox News"
+            }
+          ]
         }
       ],
       "sources": [
@@ -806,6 +899,7 @@
       "id": "garcia",
       "label": "Steven Abel Garcia",
       "status": "missing",
+      "outcome": "missing",
       "date": "2025-08-28",
       "age": 47,
       "loc": "Albuquerque, NM",
@@ -884,12 +978,20 @@
         {
           "tier": 1,
           "text": "Described as a property custodian by the Santa Fe New Mexican.",
-          "source": "Santa Fe New Mexican, April 21 2026"
+          "sources": [
+            {
+              "name": "Santa Fe New Mexican, April 21 2026"
+            }
+          ]
         },
         {
           "tier": 3,
           "text": "The nuclear weapons access claim originated in aggregator coverage and traces to no primary source.",
-          "source": "Removed from the record"
+          "sources": [
+            {
+              "name": "Removed from the record"
+            }
+          ]
         }
       ],
       "sources": [
@@ -909,6 +1011,7 @@
       "id": "thomas",
       "label": "Jason Thomas",
       "status": "dead",
+      "outcome": "dead",
       "date": "2025-12-13",
       "age": 45,
       "loc": "Wakefield, MA",
@@ -950,7 +1053,11 @@
         {
           "tier": 1,
           "text": "Middlesex County Medical Examiner found no foul play.",
-          "source": "Middlesex County ME"
+          "sources": [
+            {
+              "name": "Middlesex County ME"
+            }
+          ]
         }
       ],
       "sources": [
@@ -970,6 +1077,7 @@
       "id": "loureiro",
       "label": "Nuno Loureiro",
       "status": "resolved",
+      "outcome": "resolved",
       "date": "2025-12-15",
       "age": 47,
       "loc": "Cambridge, MA",
@@ -1005,7 +1113,11 @@
         {
           "tier": 1,
           "text": "Perpetrator identified, acted alone, no nexus to terrorism, personal motive.",
-          "source": "FBI and USAO-Massachusetts, April 29 2026"
+          "sources": [
+            {
+              "name": "FBI and USAO-Massachusetts, April 29 2026"
+            }
+          ]
         }
       ],
       "sources": [
@@ -1020,6 +1132,7 @@
       "id": "grillmair",
       "label": "Carl Grillmair",
       "status": "dead",
+      "outcome": "dead",
       "date": "2026-02-16",
       "age": null,
       "loc": "Llano, CA",
@@ -1124,27 +1237,47 @@
         {
           "tier": 1,
           "text": "Case 26AVCF00232. One felony count each of murder, carjacking and first-degree residential burglary, with an allegation of personal use of a rifle.",
-          "source": "LA County DA, May 28 2026"
+          "sources": [
+            {
+              "name": "LA County DA, May 28 2026"
+            }
+          ]
         },
         {
           "tier": 1,
           "text": "The burglary count is not part of the February 16 incident. City News Service and the Antelope Valley Press both state it was allegedly committed in late December, meaning prosecutors charged a late-December offence only after the killing. This sits directly against the dismissed December weapons charge.",
-          "source": "City News Service via Antelope Valley Press, February 2026"
+          "sources": [
+            {
+              "name": "City News Service via Antelope Valley Press, February 2026"
+            }
+          ]
         },
         {
           "tier": 2,
           "text": "The firearm enhancement may have softened. The February complaint alleged personal and intentional discharge causing great bodily injury; the May 28 DA release alleges only personal use of a rifle. Either the release is loose, or the enhancement was amended down. Only the charging documents settle it.",
-          "source": "Comparison of the February complaint reporting and the May 28 DA release"
+          "sources": [
+            {
+              "name": "Comparison of the February complaint reporting and the May 28 DA release"
+            }
+          ]
         },
         {
           "tier": 1,
           "text": "Widow Louise Grillmair calls the missing-scientists framing absolute nonsense and believes the motive was a misguided revenge plot.",
-          "source": "BBC News, April 23 2026"
+          "sources": [
+            {
+              "name": "BBC News, April 23 2026"
+            }
+          ]
         },
         {
           "tier": 3,
           "text": "Snyder claimed he had walked there to go to the post office. Property records indicate the post office was in the opposite direction from his home.",
-          "source": "LA County DA"
+          "sources": [
+            {
+              "name": "LA County DA"
+            }
+          ]
         }
       ],
       "sources": [
@@ -1159,6 +1292,7 @@
       "id": "mccasland",
       "label": "Neil McCasland",
       "status": "missing",
+      "outcome": "missing",
       "date": "2026-02-27",
       "age": null,
       "loc": "Albuquerque, NM",
@@ -1262,12 +1396,20 @@
         {
           "tier": 1,
           "text": "BCSO: no known connection between this case and human trafficking, gang activity, or other missing scientist cases.",
-          "source": "BCSO, June 26 2026"
+          "sources": [
+            {
+              "name": "BCSO, June 26 2026"
+            }
+          ]
         },
         {
           "tier": 1,
           "text": "BCSO April statement: no evidence developed establishing that the disappearance is connected to his classified work.",
-          "source": "BCSO"
+          "sources": [
+            {
+              "name": "BCSO"
+            }
+          ]
         }
       ],
       "sources": [
@@ -1287,6 +1429,7 @@
       "id": "moffatt",
       "label": "James Moffatt",
       "status": "dead",
+      "outcome": "dead",
       "date": "2026-04-17",
       "age": 60,
       "loc": "Union County, SC",
@@ -1329,7 +1472,11 @@
         {
           "tier": 3,
           "text": "Appears on no mainstream list. Not on Wikipedia, not on the House Oversight list.",
-          "source": "Verified absence"
+          "sources": [
+            {
+              "name": "Verified absence"
+            }
+          ]
         }
       ],
       "sources": [

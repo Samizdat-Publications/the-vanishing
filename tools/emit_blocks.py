@@ -29,7 +29,7 @@ with open(os.path.join(ROOT, "tools", "format_exceptions.json"), encoding="utf-8
 # whichever keys are present, not a fixed tuple: thomas inserts isNonDefense and moffatt
 # inserts mediaLinkedOnly between I and domains.
 PEOPLE_GROUPS = [
-    ["id", "label", "status", "date", "age"],
+    ["id", "label", "status", "outcome", "date", "age"],
     ["loc", "locId", "instId", "sub"],
     ["cluster", "tier", "S", "P", "I", "isNonDefense", "mediaLinkedOnly", "domains"],
 ]

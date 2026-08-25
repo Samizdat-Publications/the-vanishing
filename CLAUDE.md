@@ -41,11 +41,27 @@ the schema in the same step is how records get silently mangled, and regeneratin
 HTML byte-for-byte from extracted data is the checkpoint that proves nothing was lost.
 `the-vanishing-v2.html` stays in the repo as the reference output until that checkpoint passes.
 
-**FROZEN while the rebuild is in progress.** Do not edit `the-vanishing-v2.html` from either
-environment until `python3 tools/verify.py --idempotent` passes. It is the target the
-regenerator has to reproduce exactly, so an edit mid-rebuild silently moves the goalposts and
-the checkpoint stops meaning anything. Land case corrections in `notes/step3-backlog.md`
-instead. Pinned reference:
+**The step 2 checkpoint has PASSED, so the freeze is lifted.** `the-vanishing-v2.html`
+stays in the repo as the historical reference and must still not be edited: it is what
+`data/baseline.json` was extracted from, and `verify.py` asserts its hash so the semantic
+gate keeps its anchor. It is no longer the build target.
+
+**The dashboard is now built, not hand edited.** Case data lives in `research/*.json`.
+Edit those, never the HTML:
+
+```bash
+cd /home/user/the-vanishing
+python3 tools/merge.py && python3 tools/build_dashboard.py
+python3 tools/verify.py --idempotent
+```
+
+Output is `dist/the-vanishing.html`, with `assets/` copied alongside it.
+
+**`verify.py` passing is the definition of shippable**, and every check is itself tested
+against input it must reject: `python3 tools/verify.py --self-test`. Same for the discovery
+checks: `python3 tools/discovery_checks.py --self-test`.
+
+Pinned historical reference:
 
 ```
 sha256 2dfc55e324b7535fbeea223e6b8699bf788ef60d9220417a81bf14bbff3d910a

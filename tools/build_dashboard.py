@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -53,7 +54,17 @@ def main():
     path = os.path.join(ROOT, "dist", "the-vanishing.html")
     with open(path, "w", encoding="utf-8", newline="") as fh:
         fh.write(html)
-    print("built dist/the-vanishing.html  %d bytes" % len(html.encode("utf-8")))
+
+    # The page loads assets/photos/* by relative path, so a build that does not carry the
+    # photographs alongside it renders fifteen broken images. Ship the folder, not the file.
+    src = os.path.join(ROOT, "assets")
+    dst = os.path.join(ROOT, "dist", "assets")
+    if os.path.isdir(src):
+        if os.path.isdir(dst):
+            shutil.rmtree(dst)
+        shutil.copytree(src, dst)
+
+    print("built dist/the-vanishing.html  %d bytes (assets copied)" % len(html.encode("utf-8")))
 
 
 if __name__ == "__main__":
