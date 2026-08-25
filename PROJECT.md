@@ -138,7 +138,7 @@ An astronomer's core competencies -- faint-signal detection, adaptive optics, im
 - **Grillmair is S3/P1/I3.** The institutional-failure chain is the strongest documented sequence in the file. **It survives the August 7 conflict check.** Whoever placed the December call, Snyder was still found with a loaded unregistered rifle, still released after three days, still had the charge dismissed, and still killed Grillmair eleven days later. The sequence never depended on Grillmair being the caller, and the tracker should stop asserting that he was. His personal record shows dark matter and exoplanet research with no documented clearance -- but Caltech IPAC sits inside the institution that manages JPL, an FFRDC, and Caltech is a documented JASON-recruiting institution. **The honest statement is: extraordinary sequence, no documented personal access, high institutional channel.** All three, stated together, is a stronger and more defensible claim than either "he was a targeted insider" or "he was just an astronomer."
 - **Casias is S3/P1/I3.** Same shape. An extraordinary evidentiary sequence attached to an administrative assistant -- at Los Alamos.
 - **LeBlanc is S2/P3/I3.** Active DRACO nuclear propulsion engineer at NASA Marshall, four unexplained hours at an airport, phone and wallet left behind, dead the same day. **Top scores on all three axes. v1 buried him as a routine entry.**
-- **Reza is S2/P3/I2.** Co-inventor of Mondaloy, a rocket-engine superalloy. Vanished within seconds in a companion's line of sight.
+- **Reza is S2/P2/I2.** Co-inventor of Mondaloy, a rocket-engine superalloy. Vanished within seconds in a companion's line of sight. **Corrected 25 August 2026: this line read P3, contradicting both the adjudicated P2 in `SCORING-DISCREPANCIES.md` and this file's own case table above.** The same error had propagated to `SESSION-HANDOFF.md` and is fixed there too. Caught by the new documentation-drift check, not by eye.
 - **Maiwald and Hicks are both I3** (JPL) with undisclosed causes of death. Under the old model Hicks read as fully explained; under this one, "family cites known medical issues" is a family statement, not a medical examiner's finding, at an FFRDC.
 - **Sullivan is P3/I3** and would have been Tier A if the testimony-timing claim were properly sourced. **It is not, and as of August 7, 2026 it has been checked and fails.** The November 13, 2024 House Oversight hearing that outlets place him "weeks before" was **announced November 8, 2024, 180 days after he died**, with a four-name witness list that does not include him. What survives is Rep. Burlison's undated recollection that Sullivan "was scheduled to come in for an interview" two weeks prior -- an interview, not testimony, with no corroborating Oversight record, related roughly two years after the fact, and in the same breath characterizing the death as a suicide when the medical examiner ruled it accidental. **Sullivan stays Tier B. His P3 never rested on the timing claim and survives it intact.** See `FINDINGS-2026-08-07-followup.md`.
 - **Thomas is P0/I0.** Novartis. The only case with no channel of any kind, which is exactly why he stays in.
@@ -184,8 +184,20 @@ Assigned separately from the case table because the unit being scored is the emp
 | Ning Li | Univ. of Alabama Huntsville | I2 | Major research university, DoD-funded anti-gravity work |
 | Reza | Rocketdyne / Boeing | I2 | Defense contractor, no FFRDC status |
 | Moffatt | UAH Research Center | I2 | Major research university, prior NASA JSC work |
-| Eskridge | Institute for Exotic Science | I1 | Small private institute, no documented channel |
+| Eskridge | HoloChron LLC / Institute for Exotic Science | I1 | **I1 stands, and is better supported than before.** Checked 25 Aug 2026 against primary records. Her actual employer was **HoloChron LLC** (Alabama 000-524-283), a two-member father-daughter company formed 16 Jul 2018 and **dissolved 28 Dec 2022**, with no principal address, no disclosed members and a blank nature of business. **Zero federal contracts or grants** to the company, to the Institute for Exotic Science, or to her personally. The Institute for Exotic Science has **no Alabama registration at all**, so the previous rationale's "small private institute" was an assumption. Decisive against a raise: her own December 2018 slide states **"Independently funded research by private interests is required"** and asks **"Promising results always disappear into the classified realm, how do we fix this?"** A documented institutional channel is the thing she was on record saying she did not have and did not want |
 | Thomas | Novartis | **I0** | Pharmaceutical company, no government research nexus |
+
+**The regulatory basis for I3, added 25 August 2026.** The I axis previously rested on the
+assertion that FFRDCs and national laboratories are conduits for classified work. It now has a
+primary citation. **FAR 35.017**, read directly at `acquisition.gov/far/35.017`, states that an
+FFRDC "has access, **beyond that which is common to the normal contractual relationship**, to
+Government and supplier data, including sensitive and proprietary data, and to employees and
+installations equipment and real property." That is the government's own acquisition regulation
+establishing that an FFRDC sits inside a data relationship no ordinary contractor has.
+
+**This matters because it requires no premise.** A reader who rejects everything else about this
+tracker still has to accept FAR 35.017. It applies directly to JPL, Caltech IPAC and MIT Lincoln
+Laboratory among the cases scored I3.
 
 **Ten of fifteen cases sit at I3.** That figure should be read carefully in both directions. It supports the argument that these individuals worked inside institutions with real classified channels. It also reflects that FFRDCs and national labs employ tens of thousands of people, which is exactly the denominator problem Novella's base-rate analysis raises. **The I axis establishes plausibility of channel, not evidence of use.**
 
@@ -220,6 +232,36 @@ A second pass ran the two highest-value open research tasks. Full detail in `FIN
 **New fact, not a correction:** the first-degree residential burglary charged alongside the murder is for conduct in **late December 2025**, charged only after the killing (City News Service, Antelope Valley Press). If there was chargeable December conduct, the dismissal of the December weapons charge becomes a sharper question, not a softer one.
 
 **Also corrected:** the Wikipedia overview describes LeBlanc as "found in a lake" -- that detail belongs to Jason Thomas and is an error. Wikipedia additionally mis-dates its Taos News citation as July 9, 2026; the article is from **2025**.
+
+### Corrections and imports applied August 25, 2026
+
+The first import from The Legacy Program Dashboard, per `PORT-FROM-THE-PROGRAM.md`.
+**Governing rule applied throughout: copy the claim and its source, never the conclusion.**
+No axis score moved. Full briefs in `notes/research/`.
+
+| Case | Change | Basis |
+|---|---|---|
+| **Ning Li** | Three claims added for `DIA-08-1003-013`, "The Role of Superconductors in Gravity Research", DIA Acquisition Threat Support series, 23 March 2010, produced under the AAWSA programme and FOIA-released. Retention rationale rewritten. **I stays at 2.** | The DIRD reviews the rotating-superconductor claims associated with Podkletnov and her work. It is a document about her research line, not a fact about UAH as an employer, and `RESEARCH-PROCESS.md` scores I on the employer. Raising UAH to I3 on it would repeat the error the August 10 adjudication fixed. Tier C stands and the seven-year gap remains the governing counterargument |
+| **Ning Li** | Old rationale said the case was "retained for the research continuity to Eskridge rather than for its own anomaly." Now records both that continuity and the DIRD. | The old wording was too weak on documentary grounds |
+| **Ning Li** | Recorded that the paper was written by Dr George Hathaway, who had run a Podkletnov replication 1996-2003 and obtained null results | Imported as the claim. **The Program's inference from it is not imported** |
+| **McCasland** | Two claims added: Burlison stated his staff had been attempting to contact McCasland about a separate congressional investigation before he disappeared, and that his disappearance is what triggered the Oversight probe. One dated sequence entry, 21 April 2026. **S stays at 2.** | Fox News, 21 April 2026, URL verified to resolve. The chain entry is **not** marked anomalous: congressional staff trying to reach a retired general is not anomalous on its own, and marking it so would import the conclusion |
+| **McCasland** | Affiliation now reads "Air Force Research Laboratory, former commander (AFRL headquarters, Wright-Patterson AFB)" | The two projects described the posting differently and should not silently disagree. Both are true across a career: AFRL is headquartered at Wright-Patterson, and this tracker separately records the Kirtland Phillips Research Site connection |
+| **Sullivan** | Photograph credit changed from "US Air Force service portrait via family obituary" to "Service portrait, via family obituary (Dignity Memorial)" | The old string asserted USAF authorship, which is precisely what could not be established. See `PHOTOS.md` |
+| Open question 15 | Closed as a negative | Exact-phrase search of oversight.house.gov for "Matthew Sullivan" returns no posts |
+
+#### Rejected for import, and why it matters
+
+**The Program's claim that McCasland left behind "his phone, prescription glasses, hiking
+boots, wallet, and a .38-caliber revolver" (Fox News, 21 April 2026) is SUPERSEDED and was
+not imported.** BCSO formally corrected the record on 26 June 2026. This tracker already
+carries the corrected version: he **took** the wallet, hiking boots, .38 revolver and a
+distinctive red backpack, and **left** the iPhone, GPS devices, Garmin watch, medication and
+glasses. Importing the earlier version would have regressed a corrected record back to its
+pre-correction state on the strength of a source that is real but out of date.
+
+That is the concrete argument for the import rule. A sourced claim is not automatically a
+current one, and the sibling project may wish to know its own record is stale here. **The
+Program was not modified.**
 
 ### Geographic Clusters
 1. **California / JPL Corridor:** Maiwald, Hicks, Reza, Grillmair (Altadena / Sunland / Angeles NF / Llano)
@@ -291,17 +333,18 @@ These are the arguments every Tier assignment above was tested against. They are
 
 | Source | Argument | Effect on this tracker |
 |---|---|---|
-| **Steven Novella**, NeuroLogica, Apr 21 2026 | ~2M US researchers, ~25 deaths per million per day, ~73,000 expected scientist deaths over 4 years. JPL expects ~164, list has 5. LANL expects ~657, list has 2-3. | **Strongest argument against the geographic clusters.** Directly answered above. Does not touch the Tier A anomalies, which are about specific unexplained facts rather than counts. |
+| **Steven Novella**, NeuroLogica, Apr 21 2026 | ~2M US researchers, ~25 deaths per million per day, ~73,000 expected scientist deaths over 4 years. JPL expects ~164, list has 5. LANL expects ~657, list has 2-3. | **Strongest argument against the geographic clusters.** Directly answered above. Does not touch the Tier A anomalies, which are about specific unexplained facts rather than counts. **A real comparison population now exists**, the AAWSAP DIRD author cohort, and it shows no elevated rate. **That cuts against the tracker on the count question and is recorded as such** |
 | **David Hand** (Imperial College), via Scientific American, May 7 2026 | ~70,000 in nuclear-related fields; ~200,000 adults go missing annually; ~50/yr in nuclear work expected missing on base rates. Names the **near-enough effect** and the **look-elsewhere effect**. | Why the tier system exists. The list grew 8 to 10 to 11 to 13 to 14 as the theory weakened, which is the near-enough effect in action. |
 | **Jennifer Coffindaffer** (ret. FBI), Newsweek, Apr 27 2026 | "Left everything behind" is a known suicide signature, not an abduction signature. Cases lack the operational consistency of a coordinated program. | Directly qualifies Thread 12. |
 | **Daniel Engber**, The Atlantic, Apr 22 2026 | No mechanism, actor, or motive has been proposed. | **The unanswered structural objection.** The Historical Precedent section above is this tracker's attempt to address it. |
-| **Michael Shermer**, Skeptic, Apr 25 2026 | "Fallacy of excluded exceptions" -- the narrative examines only defense-linked scientists who died, never the other three quadrants. | Why Thomas and the Tier C cases stay in. |
+| **Michael Shermer**, Skeptic, Apr 25 2026 | "Fallacy of excluded exceptions" -- the narrative examines only defense-linked scientists who died, never the other three quadrants. | Why Thomas and the Tier C cases stay in. **Now partially answerable, 25 Aug 2026.** The ~23 named authors of the AAWSAP DIRD series are one of the missing quadrants: defense-linked scientists, formally contracted to the DIA programme this tracker treats as an institutional channel, **who did not die.** Three deaths, at 81, at 77, and one in 2013. **That is the excluded exception, and it is now in the file.** See `THESIS-NOTES.md` |
 | **Robert Bartholomew**, Psychology Today, Apr 22 2026 | Apophenia -- seeing meaningful links in unrelated events. | The general epistemic hazard the tier system is built against. |
-| **Rep. James Walkinshaw** | Thousands of US nuclear scientists exist; targeting 10 could not meaningfully affect an adversary's objectives. | The motive objection. Unanswered. |
+| **Rep. James Walkinshaw** | Thousands of US nuclear scientists exist; targeting 10 could not meaningfully affect an adversary's objectives. | **The motive objection. Still unanswered, and the DIRD cohort makes it harder rather than easier**, since a comparably exposed group was left alone. Recorded rather than argued around |
 | **PolitiFact / Snopes**, Apr 28 2026 | Not all 14 were scientists. Employers span unrelated institutions. No public confirmation any accessed classified UFO or nuclear-weapons programs. | Source of several corrections applied above. |
 
 ### Where the skeptics are weak (documented for balance)
 
+- **The tracker now supplies the denominator its critics said was missing.** Novella and Hand both argue from expected counts without a comparison group of comparably exposed scientists. The AAWSAP DIRD author cohort is one, it is named and public, and **it does not support the tracker on the count question.** Carrying it is the point: an aggregate claim must be reproducible by someone who does not share the premise.
 - **Scientific American concedes its own gap**: it states outright that it is "impossible to find statistics on the expected number of scientists and science-related people who were shot or disappeared within a given time period in the U.S." Its argument is heuristic, not a calculation.
 - **Shermer compresses Ning Li**: presents the 2014 collision and the 2021 Alzheimer's death as unrelated. The reporting establishes the collision caused the brain damage that led to the diagnosis.
 - **Shermer's ">500,000 missing yearly"** is the all-ages NCIC figure, heavily juvenile and mostly resolved within days, deployed in an argument about adult professionals. Hand's 200,000-adults figure is correct and the two skeptics appear to contradict each other.
@@ -333,7 +376,7 @@ Richard Eskridge: "Scientists die also, just like other people." Louise Grillmai
 12. Who actually contacted law enforcement about Snyder on December 20, 2025? Sources conflict and his widow says it was not Grillmair.
 13. Neck or torso? The DA and the LA County Medical Examiner do not agree on Grillmair's wound location.
 14. Was the firearm enhancement against Snyder amended down between the February complaint (intentional discharge causing GBI) and the May arraignment (personal use of a rifle)?
-15. On what date was Sullivan's Congressional interview scheduled, and does any Oversight record corroborate that it existed? **Lowest-value of the new questions** -- the surrounding claim has already been shown not to hold.
+15. ~~On what date was Sullivan's Congressional interview scheduled, and does any Oversight record corroborate that it existed?~~ **CLOSED 25 August 2026.** An exact-phrase search of oversight.house.gov for "Matthew Sullivan" returns **no posts**; the unquoted search returns only Jake Sullivan and unrelated namesakes. **No Oversight record corroborates that any interview was scheduled.** Burlison's undated "scheduled to come in for an interview, within two weeks" remains the sole basis and remains uncorroborated. Recorded as a closed negative rather than deleted, because closing questions is how this project stays credible.
 
 **Retired August 7, 2026:** "Verify Matthew Sullivan's scheduled Congressional testimony date." Answered. There was no scheduled testimony. See `FINDINGS-2026-08-07-followup.md`.
 

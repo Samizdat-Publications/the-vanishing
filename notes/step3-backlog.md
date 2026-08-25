@@ -1,5 +1,9 @@
 # Step 3 backlog
 
+**Status 25 August 2026: steps 3, 4 and the first step 5 imports are DONE.**
+What remains below is what is genuinely still open. Completed items are struck through with
+their outcome, rather than deleted, so nothing is silently dropped.
+
 **This file exists so that step 3 work gets written down instead of done.**
 
 `ARCHITECTURE.md:72` names the failure mode directly: extraction and schema change in the
@@ -108,3 +112,26 @@ All in `notes/research/`, none merged. See each brief for its full sourcing and 
 | **McDonald rejected as an analogue**, retained as a mechanism citation. The tracker's "Conte, little green men" anchor story is unverified and contradicted by Conte's own archive | `LEADS.md` sections B, C and E |
 | **Philip J. Klass** as the control case: what a real discrediting campaign by a lone private citizen looks like | The null hypothesis every future campaign claim must beat |
 | Sullivan photo credit asserts USAF authorship, which is the one thing not established | `PHOTOS.md` |
+
+
+---
+
+## Closed 25 August 2026
+
+| Item | Outcome |
+|---|---|
+| Does `outcome` replace `status` or sit beside it? | **Decided: beside.** `status` is a factual disposition, `outcome` is the analytic dimension. Every value seeded from status; the frame's novel values are populated only by sourced research |
+| Ning Li: claim, not axis move | **Done.** Three claims for `DIA-08-1003-013`, rationale rewritten, **I stayed at 2** |
+| McCasland: reconcile before importing | **Done.** AFRL posting made explicit as Wright-Patterson HQ. Burlison contact imported, **S stayed at 2**, chain entry deliberately not marked anomalous |
+| `dist/` cannot find the photographs | **Done.** The build copies `assets/` into `dist/` |
+| Extract `COUNTERS` with the stranded prose | **STILL OPEN.** Both remain in the shell |
+
+## New, found during the step 5 work
+
+| Item | Detail |
+|---|---|
+| **Verify or drop "Prior NASA-adjacent propulsion work" on Amy Eskridge** | Moved to her `unverified` array. Her own December 2018 deck calls her "Chemist, Entrepreneur" and names her father separately as "Retired NASA Engineer, Scientist". **This touches her P2** |
+| Retrieve the USPTO file wrapper for application 15/141,270 | Contains Examiner Bonzell's rejection in his own words |
+| Re-check two `esd.whs.mil` URLs from a browser | They underpin the SAP cover-mechanism citation and return 403 to automated requests |
+| Build the AAWSAP DIRD author cohort out as a comparison population | The control group. Worth more as a denominator than any case is as a numerator. See `THESIS-NOTES.md` |
+| Source Bennewitz's 1988 hospitalisation and 2003 death independently | The Program's own node does not source either, and he is this project's only documented neutralisation precedent |

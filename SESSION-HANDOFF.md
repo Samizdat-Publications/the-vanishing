@@ -1,6 +1,6 @@
 # Session Handoff: The Vanishing
 
-**Handoff date:** August 24, 2026
+**Handoff date:** August 25, 2026
 **Supersedes:** the August 7, 2026 handoff, which was stale and listed four already-closed items as open.
 
 **If you are a fresh Claude session, read this file first, then `PROJECT.md`, then the latest `scientist-tracker-state-*.md`.**
@@ -36,23 +36,36 @@ The one legitimate crossover: The Program uses `the-vanishing-v2.html` as a froz
 input at its own `ref/the-vanishing-v2.html`. That is a copy. It is never edited there, and
 changes here do not propagate there automatically.
 
-## 3. Current state, August 24 2026
+## 3. Current state, August 25 2026
 
-**v2 is built and shipped.** `the-vanishing-v2.html` is a working single-page dashboard,
-about 325 KB, 4,741 lines. It supersedes `scientist-network-tracker.html` (v1).
-
-**It is not literally self-contained.** It references `assets/photos/*` by relative path.
-Opening the HTML alone, away from the repo, gives you a working board with broken images.
-Ship the folder, not the file.
-
-**Local viewing note.** The Chrome tooling cannot open `file://` URLs. To inspect it, serve
-the folder and browse to it:
+**The rebuild is done through step 4, and the first import has landed.** The dashboard is
+**built from data**, not hand edited. Case records live in `research/*.json`.
 
 ```bash
 cd /home/user/the-vanishing
+python3 tools/merge.py && python3 tools/build_dashboard.py
+python3 tools/verify.py --idempotent
 python3 -m http.server 8971
 ```
-Then open `http://127.0.0.1:8971/the-vanishing-v2.html`.
+Then open `http://127.0.0.1:8971/dist/the-vanishing.html`. On Stewart's machine use `python`.
+`file://` will not work. The build copies `assets/` into `dist/` so the photographs resolve.
+
+**`verify.py` passing is the definition of shippable**, and every check is itself tested
+against input it must reject (`--self-test`). Same for `discovery_checks.py`.
+
+**`the-vanishing-v2.html` is now the frozen historical reference and must not be edited.**
+It is what `data/baseline.json` was extracted from, and `verify.py` asserts its hash so the
+semantic gate keeps its anchor. It is no longer the build target.
+
+**What the gates are.** Step 2 proved the extraction lossless by regenerating the original
+HTML byte for byte. That gate retired when step 3 changed the schema on purpose;
+`data/baseline.json` and `tools/semantic_diff.py` replace it. **Every content change must now
+be declared in `EXPECTED_CHANGES` with a reason**, which is the audit trail
+`RESEARCH-PROCESS.md` asks for. Claim texts have their own allowlist, so a
+collection-level declaration cannot become a blank cheque.
+
+**Step 5 is partially done.** Ning Li and McCasland imports landed with no axis moves. The
+rest of `PORT-FROM-THE-PROGRAM.md` is not started.
 
 ### Case counts
 
@@ -71,24 +84,21 @@ Then open `http://127.0.0.1:8971/the-vanishing-v2.html`.
 
 ### Git state
 
-| Item | Value |
-|---|---|
-| Last commit | `b42720b` "Add discovery protocol and leads file after a named recall failure" |
-| origin/master | in sync at `b42720b` |
-| Uncommitted | none, working tree clean |
+The dashboard is built from `research/*.json`, so **the authoritative counts are whatever
+`python3 tools/merge.py` reports**, not this table. It prints the case, node and timeline
+counts on every run.
 
-**Claude can push now.** That changed with the move to the GitHub repo on 25 August 2026.
-Work happens on a feature branch and lands through a pull request, rather than by writing
-files to disk for Stewart to commit from PowerShell. Always push with the explicit form:
+**Claude can push.** Work happens on a feature branch and lands through a pull request.
+Always push with the explicit form:
 
 ```bash
 git push -u origin <branch-name>
 ```
 
-The old PowerShell notes are retained only as history. The `index.lock` collisions and the
-bare `git push` gotcha were artefacts of the local OneDrive working copy and should not recur.
+The old PowerShell notes are history. The `index.lock` collisions and the bare `git push`
+gotcha were artefacts of the local OneDrive working copy and should not recur.
 
-## 4. What closed since the August 7 handoff
+## 4. What closed before the rebuild
 
 All four "immediate next steps" from the previous handoff are **done**. Do not re-open them.
 
@@ -118,21 +128,37 @@ Tier A = an unexplained fact no source accounts for, plus (S2+ or P3 or I3).
 ### The cases that carry the argument
 
 - **Joshua LeBlanc, S2/P3/I3.** Active DRACO nuclear propulsion engineer at NASA Marshall. Four unexplained hours with his Tesla at Huntsville International that morning. Phone and wallet left at home. Dead the same day. High on all three axes; v1 buried him.
-- **Monica Reza, S2/P3/I2.** Mondaloy co-inventor (rocket engine superalloy). Vanished within seconds in a companion's sightline.
+- **Monica Reza, S2/P2/I2.** Mondaloy co-inventor (rocket engine superalloy). Vanished within seconds in a companion's sightline. **Corrected 25 Aug 2026: this file previously read P3, contradicting both the adjudicated value in `SCORING-DISCREPANCIES.md` and its own counts table above.**
 - **Carl Grillmair, S3/P1/I3.** The model sequence case. Reported a trespasser; that man was arrested with a loaded unregistered rifle, released in three days, had charges dropped, and killed him eleven days later. **Caveat: his widow told the BBC he did not personally call 911. Do not assert he was the caller.**
 - **Melissa Casias, S3/P1/I3.** Cause undetermined after 13 months. Registered handgun near remains, owner undisclosed. Surveillance timestamp corrected by 13h58m with no explanation.
 - **Frank Maiwald, S1/P2/I3.** No cause of death disclosed and no skeptical source has offered any alternative, only the base rate. The cleanest pure open question.
 
 ## 6. Open items
 
+**Still the highest-leverage single action, and it is Stewart's to take.**
+
 | # | Item | Notes |
 |---|---|---|
-| 1 | **Snyder docket, LA County case 26AVCF00232** | Was he held to answer on June 5 2026, or continued to June 18? Unreported everywhere. **Resolvable by phone.** Michael D. Antonovich Antelope Valley Courthouse, 42011 4th St West, Lancaster CA 93534. **Criminal Clerk (661) 483-5798.** Ask for the minute orders for June 5 2026 and June 18 2026. Full script in `SNYDER-DOCKET-RETRIEVAL.md`. |
-| 2 | Late-December 2025 conduct behind Snyder's first-degree residential burglary count | Charged only after the killing. Sits directly against the "random disturbed neighbor" reading. |
-| 3 | Who actually contacted law enforcement about Snyder on December 20 2025 | Sources conflict. The widow says it was not Grillmair. |
-| 4 | Was the firearm enhancement amended down between the February complaint and the May arraignment? | Complaint said intentional discharge causing GBI; arraignment said personal use of a rifle. |
-| 5 | Frank Maiwald's cause of death | Still undisclosed. |
-| 6 | Locate an af.mil or DVIDS original of the Sullivan service portrait | Would move the one likely-federal image from assumed-copyrighted to cleanly public domain. |
+| 1 | **Snyder docket, LA County case 26AVCF00232** | Was he held to answer on June 5 2026, or continued to June 18? Unreported everywhere. **Resolvable by phone.** Antelope Valley Courthouse, **Criminal Clerk (661) 483-5798.** Ask for the minute orders for June 5 and June 18 2026. Full script in `SNYDER-DOCKET-RETRIEVAL.md`. **One call closes items 1 through 4.** |
+| 2 | Late-December 2025 conduct behind Snyder's burglary count | Charged only after the killing. Sits against the "random disturbed neighbour" reading |
+| 3 | Who contacted law enforcement about Snyder on December 20 2025 | Sources conflict. The widow says it was not Grillmair |
+| 4 | Was the firearm enhancement amended down between the February complaint and the May arraignment? | |
+| 5 | Frank Maiwald's cause of death | Still undisclosed |
+| 6 | **Verify or drop "Prior NASA-adjacent propulsion work" on Amy Eskridge** | **New, 25 Aug 2026, and it is a possible error in our own record.** Her own December 2018 deck calls her "Chemist, Entrepreneur" and names her father separately as "Retired NASA Engineer, Scientist". Every NASA thread traced runs to Richard, not Amy. Moved to her `unverified` array. **This touches her P2** |
+| 7 | Is the Institute for Exotic Science registered in any state? | No Alabama registration exists. Delaware not searched, its name search is CAPTCHA-gated. **An open question, not a finding of impropriety** |
+| 8 | Retrieve the USPTO file wrapper for application 15/141,270 | Contains Examiner Bonzell's rejection in his own words. The highest-value document outstanding on the Pais thread |
+| 9 | Re-check two `esd.whs.mil` URLs from a browser | They underpin the SAP cover-mechanism citation and return 403 to automated requests |
+
+### Closed since the last handoff
+
+| Item | Outcome |
+|---|---|
+| Locate an af.mil or DVIDS original of the Sullivan portrait | **Closed as a negative.** Exhaustive search, no federal original exists in any public repository. The credit string no longer asserts USAF authorship |
+| PROJECT.md open question 15, the Sullivan interview date | **Closed as a negative.** Exact-phrase search of oversight.house.gov returns no posts |
+| Identify the Comer-Burlison eleven | **Obtained, and it devalued itself.** 11 of 11 already tracked, zero theirs-only. But all four letters footnote their enumeration to Daily Mail and NY Post, so **it is not an independent check and must never be described as one** |
+| Verify James E. McDonald | **Rejected as an analogue.** The campaign was real but privately authored by Philip Klass. Retained as a mechanism citation only |
+| Were the 27 April 2026 briefings delivered? | **No public record from any of the four agencies**, and none on record refusing |
+| Holocron Engineering | **Resolved to HoloChron LLC.** She was CEO and co-founder, not a lecturer. Channel question closed as a negative |
 
 ## 7. Research cadence
 

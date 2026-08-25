@@ -50,17 +50,54 @@ def gate_p_defaults():
     return True, "%d defaults agree with the shell" % len(mirrored)
 
 
-def gate_b():
-    """Whole file. The build must equal the reference byte for byte."""
-    built = build_dashboard.build().encode("utf-8")
-    reference = open(ex.REFERENCE, "rb").read()
-    if built == reference:
-        return True, "build is byte identical, %d bytes" % len(built)
-    for i, (a, b) in enumerate(zip(built, reference)):
-        if a != b:
-            line = reference[:i].count(b"\n") + 1
-            return False, "first difference at byte %d, reference line %d" % (i, line)
-    return False, "length differs: built %d, reference %d" % (len(built), len(reference))
+def gate_semantic():
+    """Only declared schema changes are present, and no case content was lost.
+
+    This replaces step 2's byte-equality gate, which necessarily retired when step 3
+    changed the schema on purpose. The question is unchanged: did anything change that we
+    did not intend to change?
+    """
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "semantic_diff.py")],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        return False, "semantic diff failed:\n%s" % r.stdout
+    return True, "only declared changes against data/baseline.json"
+
+
+def gate_reference_frozen():
+    """The pre-rebuild reference is still on disk and unmodified.
+
+    It is no longer the build target, but it stays as the historical record of what the
+    extraction started from. If it changes, data/baseline.json no longer describes
+    anything real and the semantic gate loses its anchor.
+    """
+    import hashlib
+    digest = hashlib.sha256(open(ex.REFERENCE, "rb").read()).hexdigest()
+    if digest != ex.REFERENCE_SHA256:
+        return False, "the-vanishing-v2.html was modified; baseline.json is now unanchored"
+    return True, "v2 reference unmodified, %s" % ex.REFERENCE_SHA256[:12]
+
+
+def gate_js_syntax():
+    """The built page's JavaScript parses.
+
+    The shell is hand edited, so a syntax error here is a live possibility and would ship
+    a blank dashboard that every other gate would still call green.
+    """
+    import shutil as _sh
+    if not _sh.which("node"):
+        return True, "skipped, node not available"
+    html = build_dashboard.build()
+    i, j = html.index("<script>"), html.rindex("</script>")
+    tmp = os.path.join(ROOT, "dist", "_syntax_check.js")
+    os.makedirs(os.path.join(ROOT, "dist"), exist_ok=True)
+    with open(tmp, "w", encoding="utf-8") as fh:
+        fh.write(html[i + 8:j])
+    r = subprocess.run(["node", "--check", tmp], capture_output=True, text=True)
+    os.remove(tmp)
+    if r.returncode != 0:
+        return False, "built JavaScript does not parse:\n%s" % r.stderr[:400]
+    return True, "built JavaScript parses"
 
 
 def gate_b_prime():
@@ -105,7 +142,9 @@ def gate_edges():
 GATES = [
     ("D  provenance", gate_d),
     ("D  P_ defaults", gate_p_defaults),
-    ("B  whole file", gate_b),
+    ("   reference", gate_reference_frozen),
+    ("B  semantic", gate_semantic),
+    ("   js syntax", gate_js_syntax),
     ("B' determinism", gate_b_prime),
     ("   axis scores", gate_scores),
     ("   derived graph", gate_edges),
@@ -129,16 +168,16 @@ def self_test():
         data["cases"][0]["label"] = "Tampered Name"
         with open(path, "w", encoding="utf-8", newline="\n") as fh:
             json.dump(data, fh, ensure_ascii=False, indent=2)
-        ok, msg = gate_b()
-        results.append(("whole file rejects a changed value", not ok))
+        ok, msg = gate_semantic()
+        results.append(("semantic gate rejects a changed value", not ok))
 
         # And must reject a changed score, which is the mangling that matters most.
         data = json.loads(original)
         data["cases"][0]["S"] = 1
         with open(path, "w", encoding="utf-8", newline="\n") as fh:
             json.dump(data, fh, ensure_ascii=False, indent=2)
-        ok, _ = gate_b()
-        results.append(("whole file rejects a changed axis score", not ok))
+        ok, _ = gate_semantic()
+        results.append(("semantic gate rejects a changed axis score", not ok))
     finally:
         with open(path, "w", encoding="utf-8", newline="\n") as fh:
             fh.write(original)
@@ -200,8 +239,20 @@ def main():
     if failed:
         print("\n%d gate(s) failed. The checkpoint is RED." % failed)
         return 2
-    print("\nAll gates green. The dashboard regenerates byte for byte from extracted data.")
-    print("Step 2 checkpoint PASSED. Schema changes are now safe to begin.")
+
+    # Discovery checks are warnings, never gates. FIRST-TASKS.md:90 is explicit about this:
+    # a candidate list is a research prompt, and failing a build on one would turn it into
+    # something to silence rather than read.
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "discovery_checks.py")],
+                       capture_output=True, text=True)
+    counts = [ln for ln in r.stdout.splitlines() if ln and ln[0].isdigit() and "(" in ln]
+    if counts:
+        print("\nDiscovery warnings (not gates), full report: python3 tools/discovery_checks.py")
+        for ln in counts:
+            print("  %s" % ln)
+    print("\nAll gates green.")
+    print("Step 2 proved the extraction lossless by byte equality. That gate retired when")
+    print("step 3 changed the schema; data/baseline.json and the semantic diff replace it.")
     return 0
 
 

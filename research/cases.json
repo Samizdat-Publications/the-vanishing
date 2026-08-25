@@ -3,6 +3,7 @@
     "id": "li",
     "label": "Ning Li",
     "status": "dead",
+    "outcome": "dead",
     "date": "2021-07-27",
     "age": 78,
     "loc": "Huntsville, AL",
@@ -18,13 +19,13 @@
       "d-prop",
       "d-exotic"
     ],
-    "narrative": "Chinese-American physicist who emigrated in 1983 and spent two decades at the UAH Center for Space Plasma and Aeronomic Research working on gravitomagnetism, extending the Meissner effect from electromagnetism to gravity. She founded AC Gravity LLC in 1999, won a 448,970 dollar DoD grant in 2001, and moved into classified work at Redstone Arsenal after 2003. She was struck by a car on the UAH campus in 2014 and suffered permanent brain damage; reporting indicates the injury led to an Alzheimer’s diagnosis shortly afterward. She died of natural causes in 2021. The seven-year gap between the collision and her death substantially weakens any suspicious-death framing, and the case is retained for the research continuity to Eskridge rather than for its own anomaly.",
+    "narrative": "Chinese-American physicist who emigrated in 1983 and spent two decades at the UAH Center for Space Plasma and Aeronomic Research working on gravitomagnetism, extending the Meissner effect from electromagnetism to gravity. She founded AC Gravity LLC in 1999, won a 448,970 dollar DoD grant in 2001, and moved into classified work at Redstone Arsenal after 2003. She was struck by a car on the UAH campus in 2014 and suffered permanent brain damage; reporting indicates the injury led to an Alzheimer’s diagnosis shortly afterward. She died of natural causes in 2021. The seven-year gap between the collision and her death substantially weakens any suspicious-death framing, and the case is retained both for the research continuity to Eskridge and because her research line is the subject of a FOIA-released DIA reference document, DIA-08-1003-013.",
     "affiliations": [
       "UAH Center for Space Plasma and Aeronomic Research (1983-1999)",
       "AC Gravity LLC (founder, 1999)",
       "Redstone Arsenal / US Army AMCOM (classified, post-2003)"
     ],
-    "tierRationale": "A conventional explanation is documented and holds: a 2014 campus vehicle collision, resulting brain damage, and death of natural causes seven years later.",
+    "tierRationale": "A conventional explanation is documented and holds: a 2014 campus vehicle collision, resulting brain damage, and death of natural causes seven years later. The DIA reference document on her research line shows institutional interest in the subject matter, not in her, and does not disturb that. Tier C stands and the seven-year gap remains the governing counterargument.",
     "chronology": [
       {
         "date": "1983",
@@ -61,17 +62,62 @@
       {
         "tier": 2,
         "text": "A May 2003 private email to colleagues claimed an observed 11 kilowatts of output effect during an experiment.",
-        "source": "Reported secondhand"
+        "sources": [
+          {
+            "name": "Reported secondhand"
+          }
+        ]
       },
       {
         "tier": 2,
         "text": "Plasma physicist John Brandenburg wrote in April 2026 that he regarded her extension of the Meissner effect to the gravity potential as solid physics.",
-        "source": "X post, April 2026"
+        "sources": [
+          {
+            "name": "X post, April 2026"
+          }
+        ]
       },
       {
         "tier": 3,
         "text": "Skeptic magazine presents the 2014 collision and the Alzheimer’s death as unrelated events. The Huntsville Business Journal reporting says the collision caused the brain damage that led to the diagnosis.",
-        "source": "Logged as a skeptic error, not as support for the pattern"
+        "sources": [
+          {
+            "name": "Logged as a skeptic error, not as support for the pattern"
+          }
+        ]
+      },
+      {
+        "tier": 1,
+        "text": "A Defense Intelligence Reference Document titled 'The Role of Superconductors in Gravity Research', DIA document number DIA-08-1003-013, series 'Acquisition Threat Support', published 23 March 2010, was produced under the DIA Advanced Aerospace Weapon System Applications programme and released under FOIA.",
+        "sources": [
+          {
+            "name": "Defense Intelligence Reference Document, The Role of Superconductors in Gravity Research (The Black Vault FOIA release)",
+            "url": "https://documents2.theblackvault.com/documents/dia/AAWSAP-DIRDs/DIRD_14-DIRD_The_Role_of_Superconductors_in_Gravity_Research.pdf",
+            "date": "2010-03-23"
+          }
+        ]
+      },
+      {
+        "tier": 2,
+        "text": "The paper reviews the rotating-superconductor gravity-modification claims associated with Evgeny Podkletnov and the work of Ning Li. It was written by Dr George Hathaway, who had personally run a Podkletnov replication between 1996 and 2003 and obtained null results.",
+        "sources": [
+          {
+            "name": "Defense Intelligence Reference Document, The Role of Superconductors in Gravity Research (The Black Vault FOIA release)",
+            "url": "https://documents2.theblackvault.com/documents/dia/AAWSAP-DIRDs/DIRD_14-DIRD_The_Role_of_Superconductors_in_Gravity_Research.pdf",
+            "date": "2010-03-23"
+          }
+        ]
+      },
+      {
+        "tier": 1,
+        "text": "The DIA FOIA Electronic Reading Room copy is at FileId/170046. That URL returned HTTP 403 to automated requests from this environment, which is consistent with bot filtering rather than absence, so it is recorded as not independently verified here. The Black Vault mirror of the same FOIA release was verified to resolve.",
+        "sources": [
+          {
+            "name": "Defense Intelligence Reference Document, The Role of Superconductors in Gravity Research (The Black Vault FOIA release)",
+            "url": "https://documents2.theblackvault.com/documents/dia/AAWSAP-DIRDs/DIRD_14-DIRD_The_Role_of_Superconductors_in_Gravity_Research.pdf",
+            "date": "2010-03-23"
+          }
+        ]
       }
     ],
     "sources": [
@@ -79,6 +125,11 @@
         "outlet": "Newsweek",
         "url": "https://www.newsweek.com/huntsville-mystery-are-two-dead-scientists-same-town-connected-11869617",
         "date": "2026-04-24"
+      },
+      {
+        "outlet": "The Black Vault (DIA FOIA release)",
+        "url": "https://documents2.theblackvault.com/documents/dia/AAWSAP-DIRDs/DIRD_14-DIRD_The_Role_of_Superconductors_in_Gravity_Research.pdf",
+        "date": "2010-03-23"
       }
     ]
   },
@@ -86,6 +137,7 @@
     "id": "eskridge",
     "label": "Amy Eskridge",
     "status": "dead",
+    "outcome": "dead",
     "date": "2022-06-11",
     "age": 34,
     "loc": "Huntsville, AL",
@@ -103,12 +155,13 @@
     ],
     "narrative": "Anti-gravity and advanced propulsion researcher in Huntsville, ruled a self-inflicted gunshot in June 2022. Before her death she stated on a podcast that she was the target of a psychological war aimed at stopping her anti-gravity work. That is a documented fact about her own stated belief and state of mind; it is not evidence of targeting. The widely circulated text reading that she most definitely did not kill herself, and the directed-energy-weapon claim, are attributed to a friend and to a resurfaced video, not to her family. Her family points the other way: her father, a retired NASA employee, told Newsweek that scientists die also, just like other people, and the family declined to characterize the death as unusual, citing chronic pain.",
     "affiliations": [
-      "Institute for Exotic Science",
-      "Prior NASA-adjacent propulsion work"
+      "Institute for Exotic Science (President)",
+      "HoloChron LLC, CEO and co-founder, 2018 to 2022"
     ],
     "tierRationale": "Unresolved in the sense that her own stated fears are documented, but a prosaic explanation exists, is supported by the family, and is not ruled out.",
     "conflicts": [
-      "The pattern framing describes a family dispute of the official ruling. The located family statements support the official ruling. The disputing statements come from a friend and a resurfaced video."
+      "The pattern framing describes a family dispute of the official ruling. The located family statements support the official ruling. The disputing statements come from a friend and a resurfaced video.",
+      "Company name. The registered entity is HoloChron LLC (Alabama 000-524-283). Her own bio copy and Newsweek both use the trade name \"HoloChron Engineering\", which is not a registered name. Both are correct in their own register. \"Holocron\" is a mistranscription and matches no entity."
     ],
     "chronology": [
       {
@@ -131,17 +184,73 @@
       {
         "tier": 1,
         "text": "Stated on a podcast before her death that she was the target of a psychological war aimed at stopping her anti-gravity work.",
-        "source": "EFE, April 22 2026"
+        "sources": [
+          {
+            "name": "EFE, April 22 2026"
+          }
+        ]
       },
       {
         "tier": 2,
         "text": "A friend attributes to her a text reading that she most definitely did not kill herself.",
-        "source": "Attributed to a friend, not to family"
+        "sources": [
+          {
+            "name": "Attributed to a friend, not to family"
+          }
+        ]
       },
       {
         "tier": 1,
         "text": "Retired FBI Special Agent Jennifer Coffindaffer said there is no doubt she took her own life, based on her behavior beforehand.",
-        "source": "Newsweek"
+        "sources": [
+          {
+            "name": "Newsweek"
+          }
+        ]
+      },
+      {
+        "tier": 1,
+        "text": "Amy Eskridge was CEO and co-founder of HoloChron LLC, a Huntsville father-daughter gravity-modification R&D company, with her father Richard Eskridge, a retired NASA engineer, as CTO and co-founder. Her own slide reads \"CEO >> HoloChron LLC\".",
+        "sources": [
+          {
+            "name": "Amy Eskridge, \"A Historical Perspective on Anti-Gravity Technology\", talk to the Huntsville Alabama L5 Society (HAL5)",
+            "url": "https://www.hal5.org/PDF/HAL5-Dec2018-Talk-AntiGravity.pdf",
+            "date": "2018-12-06"
+          }
+        ]
+      },
+      {
+        "tier": 1,
+        "text": "HoloChron LLC was formed in Alabama on 16 July 2018 and dissolved on 28 December 2022. No principal address, members or nature of business are disclosed in the filing.",
+        "sources": [
+          {
+            "name": "Alabama Secretary of State, Business Entity Records, HoloChron LLC, entity 000-524-283",
+            "url": "https://arc-sos.state.al.us/cgi/corpdetail.mbr/detail?corp=000524283&page=name&file=D&type=ALL&status=ALL&place=ALL&city=",
+            "date": "2026-08-25"
+          }
+        ]
+      },
+      {
+        "tier": 1,
+        "text": "In December 2018 she stated that \"Independently funded research by private interests is required\" and asked \"Promising results always disappear into the classified realm, how do we fix this?\" Her stated position was that this work had to remain outside government funding, which cuts against reading her institutional proximity as a channel.",
+        "sources": [
+          {
+            "name": "Amy Eskridge, \"A Historical Perspective on Anti-Gravity Technology\", talk to the Huntsville Alabama L5 Society (HAL5)",
+            "url": "https://www.hal5.org/PDF/HAL5-Dec2018-Talk-AntiGravity.pdf",
+            "date": "2018-12-06"
+          }
+        ]
+      },
+      {
+        "tier": 1,
+        "text": "Neither HoloChron LLC, the Institute for Exotic Science, nor Amy Eskridge personally received any federal contract or grant. USAspending recipient and keyword searches across contracts and grants return zero for all three.",
+        "sources": [
+          {
+            "name": "USAspending.gov API, recipient and award searches",
+            "url": "https://api.usaspending.gov/",
+            "date": "2026-08-25"
+          }
+        ]
       }
     ],
     "sources": [
@@ -154,13 +263,27 @@
         "outlet": "Newsweek",
         "url": "https://www.newsweek.com/amy-eskridge-cause-of-death-investigated-as-new-video-of-scientist-surfaces-11868762",
         "date": "2026-04"
+      },
+      {
+        "outlet": "Amy Eskridge",
+        "url": "https://www.hal5.org/PDF/HAL5-Dec2018-Talk-AntiGravity.pdf",
+        "date": "2018-12-06"
+      },
+      {
+        "outlet": "Alabama Secretary of State",
+        "url": "https://arc-sos.state.al.us/cgi/corpdetail.mbr/detail?corp=000524283&page=name&file=D&type=ALL&status=ALL&place=ALL&city=",
+        "date": "2026-08-25"
       }
+    ],
+    "unverified": [
+      "Prior NASA-adjacent propulsion work, previously carried as an affiliation. No documentation of NASA work by Amy Eskridge herself was located. Her own December 2018 slide describes her as \"Chemist, Entrepreneur\" and names her father Richard Eskridge separately as \"Retired NASA Engineer, Scientist\". The tracker may have been inheriting his record onto hers. Verify or drop."
     ]
   },
   {
     "id": "hicks",
     "label": "Michael David Hicks",
     "status": "dead",
+    "outcome": "dead",
     "date": "2023-07-30",
     "age": 59,
     "loc": "Sunland, CA",
@@ -196,7 +319,11 @@
       {
         "tier": 1,
         "text": "Studied comets and asteroids. The characterization of his work as defense-adjacent is a documented error.",
-        "source": "PolitiFact, April 28 2026"
+        "sources": [
+          {
+            "name": "PolitiFact, April 28 2026"
+          }
+        ]
       }
     ],
     "sources": [
@@ -211,6 +338,7 @@
     "id": "sullivan",
     "label": "Matthew James Sullivan",
     "status": "dead",
+    "outcome": "dead",
     "date": "2024-05-12",
     "age": 39,
     "loc": "Falls Church, VA",
@@ -271,27 +399,47 @@
       {
         "tier": 1,
         "text": "Major General David Abba, Director of Special Programs and head of the DoD Special Access Program Central Office 2021 to 2024, and his former supervisor at Langley Air Force Base, spoke at his funeral and described him as carrying the burden that a select few in this nation have of truly understanding what is going on. This is the strongest evidence of program proximity in the record, and it is independent of the timing claim.",
-        "source": "Funeral webcast, reported by Liberation Times, April 24 2026"
+        "sources": [
+          {
+            "name": "Funeral webcast, reported by Liberation Times, April 24 2026"
+          }
+        ]
       },
       {
         "tier": 1,
         "text": "The November 13 2024 House Oversight hearing was announced on November 8 2024, one hundred and eighty days after his death, with a four-name witness list that does not include him.",
-        "source": "Rep. Tim Burchett press release, November 8 2024"
+        "sources": [
+          {
+            "name": "Rep. Tim Burchett press release, November 8 2024"
+          }
+        ]
       },
       {
         "tier": 1,
         "text": "The Northern District Office of the Chief Medical Examiner ruled the death an accidental overdose.",
-        "source": "PolitiFact, April 28 2026"
+        "sources": [
+          {
+            "name": "PolitiFact, April 28 2026"
+          }
+        ]
       },
       {
         "tier": 2,
         "text": "Burlison: he was scheduled to come in for an interview, and within two weeks he had suspiciously committed suicide. An interview, not testimony. Undated and uncorroborated, and the suicide characterization contradicts the medical examiner.",
-        "source": "Rep. Eric Burlison, quoted by Liberation Times, April 24 2026"
+        "sources": [
+          {
+            "name": "Rep. Eric Burlison, quoted by Liberation Times, April 24 2026"
+          }
+        ]
       },
       {
         "tier": 2,
         "text": "Described as a source for whistleblower David Grusch, who was helping him come forward. Grusch and Sullivan had previously served together in the Air Force.",
-        "source": "Burlison to the Daily Mail; Liberation Times"
+        "sources": [
+          {
+            "name": "Burlison to the Daily Mail; Liberation Times"
+          }
+        ]
       }
     ],
     "sources": [
@@ -321,6 +469,7 @@
     "id": "maiwald",
     "label": "Frank Maiwald",
     "status": "dead",
+    "outcome": "dead",
     "date": "2024-07-04",
     "age": 61,
     "loc": "Los Angeles, CA",
@@ -352,7 +501,11 @@
       {
         "tier": 1,
         "text": "No public cause of death, more than two years on.",
-        "source": "Absence of record"
+        "sources": [
+          {
+            "name": "Absence of record"
+          }
+        ]
       }
     ],
     "sources": [
@@ -372,6 +525,7 @@
     "id": "chavez",
     "label": "Anthony Chavez",
     "status": "missing",
+    "outcome": "missing",
     "date": "2025-05-08",
     "age": 78,
     "loc": "Los Alamos, NM",
@@ -457,17 +611,29 @@
       {
         "tier": 2,
         "text": "A friend told police he had been researching matter existing in two places simultaneously with an unidentified scientist.",
-        "source": "Police report. An allegation on the record, not a finding"
+        "sources": [
+          {
+            "name": "Police report. An allegation on the record, not a finding"
+          }
+        ]
       },
       {
         "tier": 1,
         "text": "He had no cell phone at all. Landline only.",
-        "source": "Friend statement in police report"
+        "sources": [
+          {
+            "name": "Friend statement in police report"
+          }
+        ]
       },
       {
         "tier": 1,
         "text": "The friend obtained power of attorney, hired a private investigator, and told police he believed the case warranted a homicide investigation.",
-        "source": "LA Mag"
+        "sources": [
+          {
+            "name": "LA Mag"
+          }
+        ]
       }
     ],
     "sources": [
@@ -492,6 +658,7 @@
     "id": "reza",
     "label": "Monica Reza",
     "status": "missing",
+    "outcome": "missing",
     "date": "2025-06-22",
     "age": 60,
     "loc": "Angeles National Forest, CA",
@@ -557,7 +724,11 @@
       {
         "tier": 1,
         "text": "Co-inventor of Mondaloy, a nickel-based superalloy for rocket engines developed at Rocketdyne.",
-        "source": "Patent record"
+        "sources": [
+          {
+            "name": "Patent record"
+          }
+        ]
       }
     ],
     "sources": [
@@ -577,6 +748,7 @@
     "id": "casias",
     "label": "Melissa Casias",
     "status": "dead",
+    "outcome": "dead",
     "date": "2025-06-26",
     "age": null,
     "loc": "Carson National Forest, NM",
@@ -673,12 +845,20 @@
       {
         "tier": 1,
         "text": "Administrative assistant at LANL. Early coverage calling her a scientist is inaccurate.",
-        "source": "PolitiFact and Wikipedia"
+        "sources": [
+          {
+            "name": "PolitiFact and Wikipedia"
+          }
+        ]
       },
       {
         "tier": 1,
         "text": "Cause and manner of death undetermined more than thirteen months after the disappearance.",
-        "source": "NM OMI"
+        "sources": [
+          {
+            "name": "NM OMI"
+          }
+        ]
       }
     ],
     "sources": [
@@ -698,6 +878,7 @@
     "id": "leblanc",
     "label": "Joshua Kyle LeBlanc",
     "status": "dead",
+    "outcome": "dead",
     "date": "2025-07-22",
     "age": 29,
     "loc": "Walker County, AL",
@@ -780,12 +961,20 @@
       {
         "tier": 1,
         "text": "Worked on DRACO, a DARPA and NASA joint nuclear propulsion program.",
-        "source": "NASA"
+        "sources": [
+          {
+            "name": "NASA"
+          }
+        ]
       },
       {
         "tier": 1,
         "text": "Four unexplained hours with the vehicle at the airport that morning.",
-        "source": "Vehicle data, via Fox News"
+        "sources": [
+          {
+            "name": "Vehicle data, via Fox News"
+          }
+        ]
       }
     ],
     "sources": [
@@ -805,6 +994,7 @@
     "id": "garcia",
     "label": "Steven Abel Garcia",
     "status": "missing",
+    "outcome": "missing",
     "date": "2025-08-28",
     "age": 47,
     "loc": "Albuquerque, NM",
@@ -883,12 +1073,20 @@
       {
         "tier": 1,
         "text": "Described as a property custodian by the Santa Fe New Mexican.",
-        "source": "Santa Fe New Mexican, April 21 2026"
+        "sources": [
+          {
+            "name": "Santa Fe New Mexican, April 21 2026"
+          }
+        ]
       },
       {
         "tier": 3,
         "text": "The nuclear weapons access claim originated in aggregator coverage and traces to no primary source.",
-        "source": "Removed from the record"
+        "sources": [
+          {
+            "name": "Removed from the record"
+          }
+        ]
       }
     ],
     "sources": [
@@ -908,6 +1106,7 @@
     "id": "thomas",
     "label": "Jason Thomas",
     "status": "dead",
+    "outcome": "dead",
     "date": "2025-12-13",
     "age": 45,
     "loc": "Wakefield, MA",
@@ -949,7 +1148,11 @@
       {
         "tier": 1,
         "text": "Middlesex County Medical Examiner found no foul play.",
-        "source": "Middlesex County ME"
+        "sources": [
+          {
+            "name": "Middlesex County ME"
+          }
+        ]
       }
     ],
     "sources": [
@@ -969,6 +1172,7 @@
     "id": "loureiro",
     "label": "Nuno Loureiro",
     "status": "resolved",
+    "outcome": "resolved",
     "date": "2025-12-15",
     "age": 47,
     "loc": "Cambridge, MA",
@@ -1004,7 +1208,11 @@
       {
         "tier": 1,
         "text": "Perpetrator identified, acted alone, no nexus to terrorism, personal motive.",
-        "source": "FBI and USAO-Massachusetts, April 29 2026"
+        "sources": [
+          {
+            "name": "FBI and USAO-Massachusetts, April 29 2026"
+          }
+        ]
       }
     ],
     "sources": [
@@ -1019,6 +1227,7 @@
     "id": "grillmair",
     "label": "Carl Grillmair",
     "status": "dead",
+    "outcome": "dead",
     "date": "2026-02-16",
     "age": null,
     "loc": "Llano, CA",
@@ -1123,27 +1332,47 @@
       {
         "tier": 1,
         "text": "Case 26AVCF00232. One felony count each of murder, carjacking and first-degree residential burglary, with an allegation of personal use of a rifle.",
-        "source": "LA County DA, May 28 2026"
+        "sources": [
+          {
+            "name": "LA County DA, May 28 2026"
+          }
+        ]
       },
       {
         "tier": 1,
         "text": "The burglary count is not part of the February 16 incident. City News Service and the Antelope Valley Press both state it was allegedly committed in late December, meaning prosecutors charged a late-December offence only after the killing. This sits directly against the dismissed December weapons charge.",
-        "source": "City News Service via Antelope Valley Press, February 2026"
+        "sources": [
+          {
+            "name": "City News Service via Antelope Valley Press, February 2026"
+          }
+        ]
       },
       {
         "tier": 2,
         "text": "The firearm enhancement may have softened. The February complaint alleged personal and intentional discharge causing great bodily injury; the May 28 DA release alleges only personal use of a rifle. Either the release is loose, or the enhancement was amended down. Only the charging documents settle it.",
-        "source": "Comparison of the February complaint reporting and the May 28 DA release"
+        "sources": [
+          {
+            "name": "Comparison of the February complaint reporting and the May 28 DA release"
+          }
+        ]
       },
       {
         "tier": 1,
         "text": "Widow Louise Grillmair calls the missing-scientists framing absolute nonsense and believes the motive was a misguided revenge plot.",
-        "source": "BBC News, April 23 2026"
+        "sources": [
+          {
+            "name": "BBC News, April 23 2026"
+          }
+        ]
       },
       {
         "tier": 3,
         "text": "Snyder claimed he had walked there to go to the post office. Property records indicate the post office was in the opposite direction from his home.",
-        "source": "LA County DA"
+        "sources": [
+          {
+            "name": "LA County DA"
+          }
+        ]
       }
     ],
     "sources": [
@@ -1158,6 +1387,7 @@
     "id": "mccasland",
     "label": "Neil McCasland",
     "status": "missing",
+    "outcome": "missing",
     "date": "2026-02-27",
     "age": null,
     "loc": "Albuquerque, NM",
@@ -1188,7 +1418,7 @@
     ],
     "narrative": "Retired Major General and former AFRL commander, missing from Albuquerque since February 27 2026. The Bernalillo County Sheriff’s Office issued a formal correction set in June 2026 that dismantles most of what circulated about him: there is no Pentagon connection, likely a conflation with Riverside Research, a DoD contractor; he held a standard retiree clearance rather than active operational access; law enforcement emphasized his wife never said he made a desperate attempt to resign; and BCSO states there is no known connection between this case and the other missing-scientist cases. His wife wrote publicly that he had only very commonly held clearances since retiring more than thirteen years earlier, and that it seems quite unlikely he was taken to extract very dated secrets. Investigators confirmed he stepped down from consulting roles citing brain fog, though LA Magazine could not independently verify that in the FOIA documents it obtained. The search has stalled with no confirmed sighting since a store surveillance image on February 26 2026.",
     "affiliations": [
-      "Air Force Research Laboratory, former commander",
+      "Air Force Research Laboratory, former commander (AFRL headquarters, Wright-Patterson AFB)",
       "Sandia National Laboratories (consulting)",
       "Riverside Research (consulting)",
       "Kirtland Partnership"
@@ -1228,6 +1458,12 @@
         "source": "Facebook public post"
       },
       {
+        "date": "2026-04-21",
+        "event": "Burlison publicly states his staff had been trying to contact McCasland about a separate congressional investigation before he disappeared",
+        "isAnomalous": false,
+        "source": "Fox News"
+      },
+      {
         "date": "2026-06-26",
         "event": "BCSO formally corrects the Pentagon, clearance and resignation claims",
         "isAnomalous": false,
@@ -1261,12 +1497,42 @@
       {
         "tier": 1,
         "text": "BCSO: no known connection between this case and human trafficking, gang activity, or other missing scientist cases.",
-        "source": "BCSO, June 26 2026"
+        "sources": [
+          {
+            "name": "BCSO, June 26 2026"
+          }
+        ]
       },
       {
         "tier": 1,
         "text": "BCSO April statement: no evidence developed establishing that the disappearance is connected to his classified work.",
-        "source": "BCSO"
+        "sources": [
+          {
+            "name": "BCSO"
+          }
+        ]
+      },
+      {
+        "tier": 2,
+        "text": "Rep. Eric Burlison stated that his staff had been attempting to contact McCasland regarding a separate congressional investigation before his disappearance.",
+        "sources": [
+          {
+            "name": "Fox News, Missing scientists probe was sparked after 'UFO General' disappeared, Republican lawmaker reveals",
+            "url": "https://www.foxnews.com/politics/missing-scientists-probe-sparked-after-ufo-general-disappeared-republican-lawmaker-reveals",
+            "date": "2026-04-21"
+          }
+        ]
+      },
+      {
+        "tier": 2,
+        "text": "Burlison stated that McCasland's disappearance is what triggered the House Oversight investigation into deaths and disappearances of scientists.",
+        "sources": [
+          {
+            "name": "Fox News, Missing scientists probe was sparked after 'UFO General' disappeared, Republican lawmaker reveals",
+            "url": "https://www.foxnews.com/politics/missing-scientists-probe-sparked-after-ufo-general-disappeared-republican-lawmaker-reveals",
+            "date": "2026-04-21"
+          }
+        ]
       }
     ],
     "sources": [
@@ -1279,6 +1545,11 @@
         "outlet": "Newsweek",
         "url": "https://www.newsweek.com/neil-mccasland-update-sheriff-addresses-speculation-missing-general-11827036",
         "date": "2026-04"
+      },
+      {
+        "outlet": "Fox News",
+        "url": "https://www.foxnews.com/politics/missing-scientists-probe-sparked-after-ufo-general-disappeared-republican-lawmaker-reveals",
+        "date": "2026-04-21"
       }
     ]
   },
@@ -1286,6 +1557,7 @@
     "id": "moffatt",
     "label": "James Moffatt",
     "status": "dead",
+    "outcome": "dead",
     "date": "2026-04-17",
     "age": 60,
     "loc": "Union County, SC",
@@ -1328,7 +1600,11 @@
       {
         "tier": 3,
         "text": "Appears on no mainstream list. Not on Wikipedia, not on the House Oversight list.",
-        "source": "Verified absence"
+        "sources": [
+          {
+            "name": "Verified absence"
+          }
+        ]
       }
     ],
     "sources": [

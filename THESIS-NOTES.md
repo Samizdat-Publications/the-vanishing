@@ -205,3 +205,125 @@ Not "summarise the cases." Surface structure that is invisible per case:
 premise.** If the only way to see the pattern is to already believe it, it is not a finding.
 Build the analyst so its outputs can be checked, and let the ones that survive checking carry
 the argument. That is the same logic that made Tier C cases worth keeping.
+
+---
+
+## The control group, found 25 August 2026
+
+**This is the most useful thing the survey of The Legacy Program Dashboard produced, and it
+does not help the pattern. That is why it matters.**
+
+The previous section demands that an aggregate claim be reproducible by someone who does not
+share the premise. Doing that requires a denominator, and the tracker has never had one. It
+now has a candidate.
+
+### The AAWSAP DIRD author cohort
+
+The 38 Defense Intelligence Reference Documents were produced 2008-2010 under the DIA
+Advanced Aerospace Weapon System Applications programme. **Roughly twenty-three of their
+authors are individually named, and the membership list is public** at
+`https://irp.fas.org/dia/aatip-list.pdf`.
+
+Named: Puthoff, Eric W. Davis (five DIRDs), Kit Green, Friedwardt Winterberg (two), Wil
+McCarthy, Claudio Maccone, Vincent Teofilo, William Culbreth (two), George Miley, Ulf
+Leonhardt, Bruce Towe (two), Robert M. L. Baker Jr., Marc Millis, Richard Genik (three),
+George Hathaway (two), Sergey Macheret, Gerald A. Smith, James Wells, Paul Czysz, John
+Cramer, Richard Obousy, J. Albertine, J. Golightly.
+
+**This is a named, closed, documented cohort of scientists formally engaged by a DIA
+advanced-aerospace programme.** Their P-axis and I-axis exposure is comparable to, and in
+several instances greater than, that of cases already in the tracker. George Hathaway is
+already cited in the Ning Li record as the author of `DIA-08-1003-013`.
+
+### Their mortality is unremarkable
+
+Three deaths located, none anomalous: **Vincent Teofilo**, 10 January 2026, aged 81, ordinary
+published obituary; **Claudio Maccone**, 2025, aged 77, non-US; **Paul Czysz**, 2013,
+pre-window. Nobody has asserted an anomaly about any of them.
+
+### What this obliges the tracker to say
+
+**A group with equal or greater programme proximity, formally contracted to the exact DIA
+programme the tracker treats as the institutional channel, shows no elevated rate of death or
+disappearance.** That is a real result and it belongs in the argument, stated in the
+tracker's own voice rather than waited for from a hostile reader.
+
+It does not refute the thesis. The fifteen are not claimed to be a random sample of
+programme-adjacent scientists, and the sequence anomalies in cases like Grillmair and Casias
+are facts about those cases regardless of any base rate. But it does remove one move from the
+table: **the tracker cannot argue that proximity to this programme is itself predictive**,
+because here is a cohort defined by exactly that proximity, and nothing happened to them.
+
+**Recommended use.** Build the cohort out as a comparison population and report it beside the
+fifteen. It is worth more to the argument as a denominator than any additional case would be
+as a numerator, because it is the thing that makes the numerator legible. It is also the
+single best answer to Novella's base-rate objection, which the tracker currently logs as
+unanswered.
+
+**Recommended against.** Do not add these people as cases. Do not describe the cohort as
+"also at risk". Do not go looking for an anomaly among them, which is how a control group
+stops being one.
+
+## Two suspected mechanisms, searched for and not found
+
+`LEADS.md` section C records two of Stewart's suspicions: **vehicle collision as an
+assassination method**, and **induced rare fast-progressing cancer** by analogy to the heart
+attack gun disclosed to the Church Committee in 1975.
+
+The 25 August 2026 survey looked for both across The Program's entire corpus: 279 people, 689
+entities, 858 timeline events, 88 dossiers. **Neither is supported at any tier.**
+
+Literal string searches returned: **"Church Committee" zero occurrences. "heart attack gun"
+zero. "MKULTRA" nineteen, every one attached to a single House Oversight Task Force hearing
+of 30 June 2026, none with any operational detail.** There is nothing anywhere in that corpus
+on staged accidents, poisoning, induced illness, or vehicle collision as method.
+
+**Recorded as a documented absence, which is a finding.** The corpus most likely to contain
+such material does not contain it. Both suspicions stay in `LEADS.md` as suspicions, now with
+a stated search behind the absence rather than an untested assumption. Neither may be
+asserted about any tracked case.
+
+## Documented institutional interest, and the line it does not cross
+
+Verified 25 August 2026 from primary sources. **This section exists to hold a real finding
+and its limit in the same place, because the limit is the part that gets dropped.**
+
+Three dated instances of the US government pursuing the rotating-superconductor and
+gravity-modification research line:
+
+| When | What | Status |
+|---|---|---|
+| 2001 | DoD grant to Ning Li's AC Gravity LLC | Already in the tracker |
+| 2008-2010 | DIA AAWSAP commissions `DIA-08-1003-013`, reviewing the rotating-superconductor claims associated with Podkletnov and Li's work | Imported 25 Aug 2026 |
+| 2015-2019 | Navy files six patent applications by a NAWCAD engineer covering inertial mass reduction, high-frequency gravitational waves, room-temperature superconductivity and plasma compression fusion, all assigned to the Secretary of the Navy | Verified from USPTO PDFs |
+
+**That is roughly two decades of documented, funded, agency-level interest in one research
+area.** It is the strongest available support for the proposition that this subject matter
+attracts real institutional attention, and none of it requires believing anything about the
+phenomenon itself.
+
+### The three things that must travel with it
+
+**1. Every one of those efforts ended in a negative or an abandonment.** NAWCAD spent
+$508,000 across three fiscal years and concluded the effect could not be proven. The
+superconductor and fusion applications were abandoned for failure to respond to an office
+action, the cheapest way to let a filing die. Both flagship granted patents were allowed to
+lapse for non-payment of maintenance fees in 2023. The DIRD itself was **commissioned from a
+researcher with a documented record of failing to replicate the effect.**
+
+**2. The documents do not connect to each other through Ning Li.** The complete reference
+lists of all three granted Pais patents were read in full. Neither Li, nor Podkletnov, nor
+Hathaway, nor `DIA-08-1003-013` appears in any of them. The link runs through **Puthoff**.
+**The overlap with her case is thematic, at the level of subject area, and must be written in
+exactly those words.**
+
+**3. There is no victim anywhere in this thread.** Salvatore Pais is alive. James Sheehy,
+Philip Bonzell and the rest are people who did their jobs, and one of them, Bonzell, is the
+documented internal objection: a federal examiner who said no in writing and was overridden
+by rank. **He is worth more to this tracker's credibility than the patents are**, because he
+shows the institution containing its own friction.
+
+**The move this forecloses.** It is tempting to run the sequence 2001 grant, 2010 DIRD, 2015
+patents, and land on a tracked person. Nothing in the documents supports that step, and
+taking it would be the specious connection the project's editorial stance exists to prevent.
+**Institutional interest in a subject is not evidence about a person who worked on it.**
