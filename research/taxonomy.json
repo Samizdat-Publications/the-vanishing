@@ -1,0 +1,84 @@
+{
+  "CLUSTERS": {
+    "california": {
+      "label": "California / JPL corridor"
+    },
+    "new-mexico": {
+      "label": "New Mexico"
+    },
+    "huntsville": {
+      "label": "Huntsville triangle"
+    },
+    "northeast": {
+      "label": "Northeast"
+    },
+    "other": {
+      "label": "Unclustered"
+    }
+  },
+  "TIERS": {
+    "A": {
+      "label": "Tier A",
+      "color": "#5ed4e6",
+      "note": "Contains a specific unexplained fact no source accounts for"
+    },
+    "B": {
+      "label": "Tier B",
+      "color": "#efb555",
+      "note": "Unresolved, but a prosaic explanation exists and is not ruled out"
+    },
+    "C": {
+      "label": "Tier C",
+      "color": "#8d97a4",
+      "note": "A conventional explanation is documented and holds"
+    }
+  },
+  "AXES": [
+    {
+      "key": "S",
+      "label": "Sequence anomaly",
+      "question": "How many independently documented, individually unexplained links form a chain around this event?"
+    },
+    {
+      "key": "P",
+      "label": "Program proximity",
+      "question": "What sensitive access did this individual personally hold?"
+    },
+    {
+      "key": "I",
+      "label": "Institutional channel",
+      "question": "Does the employer have a documented history as a conduit for classified work?"
+    }
+  ],
+  "STRANDS": [
+    {
+      "key": "cases",
+      "label": "CASES",
+      "sub": "deaths and disappearances",
+      "color": "#e8705f"
+    },
+    {
+      "key": "oversight",
+      "label": "OVERSIGHT & DISCLOSURE",
+      "sub": "what the state said, and when",
+      "color": "#66d69f"
+    },
+    {
+      "key": "skeptical",
+      "label": "THE SKEPTICAL RECORD",
+      "sub": "what the published analysis concluded",
+      "color": "#8d97a4"
+    }
+  ],
+  "STATUS_LABEL": {
+    "dead": "DEAD",
+    "missing": "MISSING",
+    "resolved": "RESOLVED"
+  },
+  "PRECISION_LABEL": {
+    "day": "day-precise",
+    "month": "month-precise",
+    "year": "year-precise",
+    "ranged": "ranged"
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "PROGRAM_EDGES": [
+    {
+      "a": "sullivan",
+      "b": "grusch",
+      "type": "witness-chain"
+    },
+    {
+      "a": "grusch",
+      "b": "oversight",
+      "type": "witness-chain"
+    },
+    {
+      "a": "oversight",
+      "b": "fbi",
+      "type": "witness-chain"
+    },
+    {
+      "a": "leblanc",
+      "b": "draco",
+      "type": "programmatic"
+    },
+    {
+      "a": "draco",
+      "b": "nasa",
+      "type": "programmatic"
+    },
+    {
+      "a": "reza",
+      "b": "mondaloy",
+      "type": "programmatic"
+    },
+    {
+      "a": "mondaloy",
+      "b": "boeing",
+      "type": "programmatic"
+    },
+    {
+      "a": "mccasland",
+      "b": "afrl",
+      "type": "institutional"
+    },
+    {
+      "a": "sullivan",
+      "b": "afrl",
+      "type": "programmatic"
+    },
+    {
+      "a": "pursue",
+      "b": "oversight",
+      "type": "programmatic"
+    }
+  ],
+  "IN_FBI": [
+    "chavez",
+    "reza",
+    "casias",
+    "garcia",
+    "mccasland",
+    "leblanc",
+    "li",
+    "eskridge",
+    "loureiro"
+  ],
+  "IN_OVERSIGHT": [
+    "li",
+    "eskridge",
+    "leblanc",
+    "garcia",
+    "mccasland",
+    "chavez",
+    "sullivan"
+  ],
+  "INSTITUTION_PLACES": [
+    [
+      "jpl",
+      "l-pas"
+    ],
+    [
+      "ipac",
+      "l-pas"
+    ],
+    [
+      "lanl",
+      "l-los"
+    ],
+    [
+      "uah",
+      "l-hsv"
+    ],
+    [
+      "ies",
+      "l-hsv"
+    ],
+    [
+      "boeing",
+      "l-anf"
+    ],
+    [
+      "kcnsc",
+      "l-abq"
+    ],
+    [
+      "mit",
+      "l-cam"
+    ],
+    [
+      "novartis",
+      "l-wak"
+    ],
+    [
+      "nasa",
+      "l-hsv"
+    ],
+    [
+      "afrl",
+      "l-abq"
+    ]
+  ],
+  "TEMPORAL_WINDOW_DAYS": 60
+}

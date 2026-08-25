@@ -41,6 +41,22 @@ the schema in the same step is how records get silently mangled, and regeneratin
 HTML byte-for-byte from extracted data is the checkpoint that proves nothing was lost.
 `the-vanishing-v2.html` stays in the repo as the reference output until that checkpoint passes.
 
+**FROZEN while the rebuild is in progress.** Do not edit `the-vanishing-v2.html` from either
+environment until `python3 tools/verify.py --idempotent` passes. It is the target the
+regenerator has to reproduce exactly, so an edit mid-rebuild silently moves the goalposts and
+the checkpoint stops meaning anything. Land case corrections in `notes/step3-backlog.md`
+instead. Pinned reference:
+
+```
+sha256 2dfc55e324b7535fbeea223e6b8699bf788ef60d9220417a81bf14bbff3d910a
+324923 bytes
+```
+
+**Never extract from `design-package/vanishing-graph.js` or `vanishing-timeline.js`.** They
+are pre-August-7 ancestors that differ by three adjudicated axis scores: `li` S0 not S1,
+`loureiro` I3 not I1, `mccasland` P2 not P3. The declaration differs by one word
+(`export const PEOPLE` versus `const PEOPLE`), so a mixup is easy and silent.
+
 ## Output rules
 
 - **No em dashes.** Anywhere. Generated text, UI copy, documentation, commit messages. Use double hyphens or restructure.

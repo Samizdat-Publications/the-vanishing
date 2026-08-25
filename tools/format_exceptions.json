@@ -1,0 +1,32 @@
+{
+  "_comment": "Authorial irregularities in the reference file that are not rule describable. Keep this table small. Two entries today. If it reaches five, stop and switch to a generated per-record layout sidecar, because at that point the emitter has become a bespoke formatter for one file.",
+  "people.pack": {
+    "garcia": [
+      [
+        "leftBehind",
+        "tookWith"
+      ]
+    ]
+  },
+  "_people.pack.reason": "garcia packs leftBehind and tookWith onto one line. Every other record that carries both gives each its own line, mccasland included.",
+  "photos.padTo": {
+    "eskridge": 44
+  },
+  "_photos.padTo.reason": "Fourteen of fifteen PHOTOS rows start the credit string at column 45. eskridge starts at 44 because eskridge.png is one character shorter than its neighbours and the author added one padding space instead of two.",
+  "_linebreaks.reason": "Author-chosen line wrapping in two packed arrays. Not derivable from any width rule, so the item-per-line counts are carried as data. Generated from the reference, not hand maintained.",
+  "linebreaks": {
+    "PROGRAM_EDGES": [
+      2,
+      1,
+      2,
+      2,
+      2,
+      1
+    ],
+    "INSTITUTION_PLACES": [
+      5,
+      4,
+      2
+    ]
+  }
+}
