@@ -135,3 +135,29 @@ All in `notes/research/`, none merged. See each brief for its full sourcing and 
 | Re-check two `esd.whs.mil` URLs from a browser | They underpin the SAP cover-mechanism citation and return 403 to automated requests |
 | Build the AAWSAP DIRD author cohort out as a comparison population | The control group. Worth more as a denominator than any case is as a numerator. See `THESIS-NOTES.md` |
 | Source Bennewitz's 1988 hospitalisation and 2003 death independently | The Program's own node does not source either, and he is this project's only documented neutralisation precedent |
+
+
+## The `outlet` versus `name` split was hiding a rendering bug
+
+Found 25 August 2026 while doing what looked like a cosmetic cleanup.
+
+`sourcesHtml` read `s.outlet`. Case records carried `outlet`, so they rendered correctly.
+**Every entity node carries `name` from `ENTITY_SOURCES`, so all of them rendered the string
+"undefined" as their source link text.** Verified present in the frozen v2 reference, so it
+has been shipping since v2.
+
+It survived review because the records a reader is most likely to open, the fifteen cases,
+were the ones that looked right.
+
+Fixed three ways, because one was not enough:
+
+1. **The data is unified.** Case-level sources now use `name`, matching every other block.
+2. **The renderer is tolerant.** `s.name || s.outlet || 'Unattributed'`, so a pre-migration
+   record never renders `undefined` again.
+3. **A gate now covers it.** `tools/test_source_render.js` exercises all 36 source-bearing
+   records, case and entity, and fails on any `undefined` or unnamed source. Wired into
+   `verify.py`.
+
+**The general lesson, worth keeping:** the two spellings were not a style inconsistency, they
+were a latent defect. A cleanup that only renamed the key would have fixed the symptom in the
+data and left the renderer able to reintroduce it.

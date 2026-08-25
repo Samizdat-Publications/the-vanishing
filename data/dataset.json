@@ -123,12 +123,12 @@
       ],
       "sources": [
         {
-          "outlet": "Newsweek",
+          "name": "Newsweek",
           "url": "https://www.newsweek.com/huntsville-mystery-are-two-dead-scientists-same-town-connected-11869617",
           "date": "2026-04-24"
         },
         {
-          "outlet": "The Black Vault (DIA FOIA release)",
+          "name": "The Black Vault (DIA FOIA release)",
           "url": "https://documents2.theblackvault.com/documents/dia/AAWSAP-DIRDs/DIRD_14-DIRD_The_Role_of_Superconductors_in_Gravity_Research.pdf",
           "date": "2010-03-23"
         }
@@ -256,22 +256,22 @@
       ],
       "sources": [
         {
-          "outlet": "NewsNation",
+          "name": "NewsNation",
           "url": "https://www.newsnationnow.com/missing/amy-eskridge-energy-weapon-attack/",
           "date": "2026-04"
         },
         {
-          "outlet": "Newsweek",
+          "name": "Newsweek",
           "url": "https://www.newsweek.com/amy-eskridge-cause-of-death-investigated-as-new-video-of-scientist-surfaces-11868762",
           "date": "2026-04"
         },
         {
-          "outlet": "Amy Eskridge",
+          "name": "Amy Eskridge",
           "url": "https://www.hal5.org/PDF/HAL5-Dec2018-Talk-AntiGravity.pdf",
           "date": "2018-12-06"
         },
         {
-          "outlet": "Alabama Secretary of State",
+          "name": "Alabama Secretary of State",
           "url": "https://arc-sos.state.al.us/cgi/corpdetail.mbr/detail?corp=000524283&page=name&file=D&type=ALL&status=ALL&place=ALL&city=",
           "date": "2026-08-25"
         }
@@ -329,7 +329,7 @@
       ],
       "sources": [
         {
-          "outlet": "CNN",
+          "name": "CNN",
           "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
           "date": "2026-04-21"
         }
@@ -445,22 +445,22 @@
       ],
       "sources": [
         {
-          "outlet": "Rep. Tim Burchett (hearing announcement)",
+          "name": "Rep. Tim Burchett (hearing announcement)",
           "url": "https://burchett.house.gov/media/press-releases/house-oversight-committee-announces-uap-hearing",
           "date": "2024-11-08"
         },
         {
-          "outlet": "House Committee Repository (witness list)",
+          "name": "House Committee Repository (witness list)",
           "url": "https://docs.house.gov/Committee/Calendar/ByEvent.aspx?EventId=117722",
           "date": "2024-11-13"
         },
         {
-          "outlet": "Liberation Times",
+          "name": "Liberation Times",
           "url": "https://www.liberationtimes.com/home/late-air-force-officer-linked-to-alleged-legacy-ufo-program",
           "date": "2026-04-24"
         },
         {
-          "outlet": "NewsNation",
+          "name": "NewsNation",
           "url": "https://www.newsnationnow.com/space/ufo/uap-witness-overdose-death-congress/",
           "date": "2026-04"
         }
@@ -511,12 +511,12 @@
       ],
       "sources": [
         {
-          "outlet": "Los Angeles Times",
+          "name": "Los Angeles Times",
           "url": "https://www.latimes.com/politics/story/2026-04-21/fbi-probes-missing-or-dead-scientists-including-four-from-la-area",
           "date": "2026-04-21"
         },
         {
-          "outlet": "Boston Globe",
+          "name": "Boston Globe",
           "url": "https://www.bostonglobe.com/2026/04/24/nation/missing-deceased-scientists-investigation/",
           "date": "2026-04-24"
         }
@@ -639,17 +639,17 @@
       ],
       "sources": [
         {
-          "outlet": "LA Magazine",
+          "name": "LA Magazine",
           "url": "https://lamag.com/crimeinla/strange-quantum-physics-lead-emerges-in-missing-los-alamos-anthony-chavezs-case/",
           "date": "2026-06-26"
         },
         {
-          "outlet": "Futurism",
+          "name": "Futurism",
           "url": "https://futurism.com/future-society/man-vanishes-experiments-quantum-physics",
           "date": "2026-07-03"
         },
         {
-          "outlet": "NM DPS",
+          "name": "NM DPS",
           "url": "https://missingpersons.dps.nm.gov/mpweb/mpdetailreport_serv?id=M99969",
           "date": "2026"
         }
@@ -734,12 +734,12 @@
       ],
       "sources": [
         {
-          "outlet": "Wikipedia",
+          "name": "Wikipedia",
           "url": "https://en.wikipedia.org/wiki/Monica_Reza",
           "date": "2026"
         },
         {
-          "outlet": "Solve the Case",
+          "name": "Solve the Case",
           "url": "https://www.solvethecase.org/case/2025-56/monica-reza",
           "date": "2026"
         }
@@ -864,12 +864,12 @@
       ],
       "sources": [
         {
-          "outlet": "LA Magazine",
+          "name": "LA Magazine",
           "url": "https://lamag.com/crimeinla/melissa-casias-death-still-shrouded-in-mystery-over-one-year-later/",
           "date": "2026-07-17"
         },
         {
-          "outlet": "NBC News",
+          "name": "NBC News",
           "url": "https://www.nbcnews.com/news/us-news/remains-new-mexico-melissa-casias-vanished-rcna347794",
           "date": "2026-05-31"
         }
@@ -980,12 +980,12 @@
       ],
       "sources": [
         {
-          "outlet": "Newsweek",
+          "name": "Newsweek",
           "url": "https://www.newsweek.com/huntsville-mystery-are-two-dead-scientists-same-town-connected-11869617",
           "date": "2026-04-24"
         },
         {
-          "outlet": "Fox News",
+          "name": "Fox News",
           "url": "https://www.foxnews.com/us/nasa-nuclear-engineer-found-dead-burned-tesla-vanishing-alabama-home-last-year",
           "date": "2026"
         }
@@ -1092,12 +1092,12 @@
       ],
       "sources": [
         {
-          "outlet": "Santa Fe New Mexican",
+          "name": "Santa Fe New Mexican",
           "url": "https://www.santafenewmexican.com/news/local_news/4-missing-new-mexicans-among-disappearances-deaths-prompting-federal-investigation/article_ed85c2ec-7bb6-433d-9548-dead3a124a78.html",
           "date": "2026-04-21"
         },
         {
-          "outlet": "Cybernews",
+          "name": "Cybernews",
           "url": "https://cybernews.com/news/steven-garcia-ufo-uap-mccasland/",
           "date": "2026"
         }
@@ -1158,12 +1158,12 @@
       ],
       "sources": [
         {
-          "outlet": "Boston Globe",
+          "name": "Boston Globe",
           "url": "https://www.bostonglobe.com/2026/04/24/nation/missing-deceased-scientists-investigation/",
           "date": "2026-04-24"
         },
         {
-          "outlet": "CNN",
+          "name": "CNN",
           "url": "https://www.cnn.com/2026/04/30/us/missing-scientists-media-conspiracy-theories-cec",
           "date": "2026-04-30"
         }
@@ -1218,7 +1218,7 @@
       ],
       "sources": [
         {
-          "outlet": "Wikipedia",
+          "name": "Wikipedia",
           "url": "https://en.wikipedia.org/wiki/Nuno_Loureiro",
           "date": "2026"
         }
@@ -1378,7 +1378,7 @@
       ],
       "sources": [
         {
-          "outlet": "LA County DA",
+          "name": "LA County DA",
           "url": "https://da.lacounty.gov/media/news/charged-murderer-pleads-not-guilty-shooting-death-caltech-scientist",
           "date": "2026-05-28"
         }
@@ -1538,17 +1538,17 @@
       ],
       "sources": [
         {
-          "outlet": "LA Magazine",
+          "name": "LA Magazine",
           "url": "https://lamag.com/crimeinla/exclusive-sheriff-pushes-back-on-reports-surrounding-retired-missing-air-force-general-william-neil-mccasland/",
           "date": "2026-06-26"
         },
         {
-          "outlet": "Newsweek",
+          "name": "Newsweek",
           "url": "https://www.newsweek.com/neil-mccasland-update-sheriff-addresses-speculation-missing-general-11827036",
           "date": "2026-04"
         },
         {
-          "outlet": "Fox News",
+          "name": "Fox News",
           "url": "https://www.foxnews.com/politics/missing-scientists-probe-sparked-after-ufo-general-disappeared-republican-lawmaker-reveals",
           "date": "2026-04-21"
         }
@@ -1610,7 +1610,7 @@
       ],
       "sources": [
         {
-          "outlet": "Fox News",
+          "name": "Fox News",
           "url": "https://www.foxnews.com/us/aerospace-defense-engineer-military-veteran-killed-plane-crash-family",
           "date": "2026-04-21"
         }

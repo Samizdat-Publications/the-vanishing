@@ -254,11 +254,27 @@ are facts about those cases regardless of any base rate. But it does remove one 
 table: **the tracker cannot argue that proximity to this programme is itself predictive**,
 because here is a cohort defined by exactly that proximity, and nothing happened to them.
 
-**Recommended use.** Build the cohort out as a comparison population and report it beside the
-fifteen. It is worth more to the argument as a denominator than any additional case would be
-as a numerator, because it is the thing that makes the numerator legible. It is also the
-single best answer to Novella's base-rate objection, which the tracker currently logs as
-unanswered.
+**CORRECTION, 25 August 2026. An earlier version of this section called the cohort the best
+available answer to Novella's base-rate objection. That was wrong, and the vital-status pass
+showed why.**
+
+**There is no denominator on the other side.** The tracked fifteen are selected **on the
+outcome**, which is what the tracker is, so their mortality rate cannot be computed: the
+population they were drawn from is unknown. The cohort yields a rate with nothing to compare
+it against. **That is a study-design problem, not a sample-size problem, and adding names does
+not fix it.** Age confounding compounds it: the cohort's median age is 74 and four members are
+over 90, so three deaths in five and a half years is unremarkable on its face.
+
+**Recommended use, corrected. The cohort is a qualitative negative control on the CHARACTER of
+events, not their frequency.** Across 23 programme-proximate scientists over roughly five and
+a half years: four deaths, **zero disappearances, zero contested causes, zero unexplained
+facts, nobody publicly calling any of them unusual.** Every determination came from an
+obituary or a memorial notice.
+
+That gives Tier A's "an unexplained fact no published source accounts for" something concrete
+to be measured against, which is a real result. **Do not compute a ratio from it, and do not
+describe it as showing no elevated rate.** Full results and limits in
+`notes/cohort-aawsap-dird.md`.
 
 **Recommended against.** Do not add these people as cases. Do not describe the cohort as
 "also at risk". Do not go looking for an anomaly among them, which is how a control group
