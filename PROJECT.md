@@ -333,7 +333,7 @@ Richard Eskridge: "Scientists die also, just like other people." Louise Grillmai
 12. Who actually contacted law enforcement about Snyder on December 20, 2025? Sources conflict and his widow says it was not Grillmair.
 13. Neck or torso? The DA and the LA County Medical Examiner do not agree on Grillmair's wound location.
 14. Was the firearm enhancement against Snyder amended down between the February complaint (intentional discharge causing GBI) and the May arraignment (personal use of a rifle)?
-15. On what date was Sullivan's Congressional interview scheduled, and does any Oversight record corroborate that it existed? **Lowest-value of the new questions** -- the surrounding claim has already been shown not to hold.
+15. ~~On what date was Sullivan's Congressional interview scheduled, and does any Oversight record corroborate that it existed?~~ **CLOSED 25 August 2026.** An exact-phrase search of oversight.house.gov for "Matthew Sullivan" returns **no posts**; the unquoted search returns only Jake Sullivan and unrelated namesakes. **No Oversight record corroborates that any interview was scheduled.** Burlison's undated "scheduled to come in for an interview, within two weeks" remains the sole basis and remains uncorroborated. Recorded as a closed negative rather than deleted, because closing questions is how this project stays credible.
 
 **Retired August 7, 2026:** "Verify Matthew Sullivan's scheduled Congressional testimony date." Answered. There was no scheduled testimony. See `FINDINGS-2026-08-07-followup.md`.
 

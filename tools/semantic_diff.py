@@ -27,6 +27,14 @@ EXPECTED_CHANGES = {
     "cases.*.claims.*.sources.*.url": "step 3 claim sources may carry a verified url",
     "cases.*.claims.*.sources.*.date": "step 3 claim sources may carry a publication date",
     "cases.*.claims.*.source": "step 3 converts claim source (string) to sources (array)",
+    # Step 5. Content changes are declared individually, never as a wildcard, because
+    # RESEARCH-PROCESS.md:151 is explicit that a tracker which silently fixes its own data
+    # is not auditable. Each entry names the change and why it was made.
+    "photos.sullivan.1": (
+        "credit no longer asserts USAF authorship. Eight DVIDS queries, the full 152-result "
+        "NASIC image corpus and the complete nasic.af.mil biography index found no federal "
+        "original, so 'US Air Force service portrait' asserted the one thing not established"
+    ),
 }
 
 # Invariants that must hold no matter what the schema does. These are the facts the
@@ -72,7 +80,10 @@ def main():
     changed = {k for k in set(fb) & set(fl) if fb[k] != fl[k]}
 
     def allowed(path):
-        return pattern(path) in EXPECTED_CHANGES
+        # Literal path first, so a single precise change such as photos.sullivan.1 can be
+        # declared on its own rather than being forced to wildcard every photo credit.
+        # Wildcards stay available for genuinely schema-wide changes.
+        return path in EXPECTED_CHANGES or pattern(path) in EXPECTED_CHANGES
 
     bad_removed = sorted(p for p in removed if not allowed(p))
     bad_added = sorted(p for p in added if not allowed(p))
