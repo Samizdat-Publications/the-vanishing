@@ -55,6 +55,22 @@ reached them.** Each needs verification before it goes anywhere near the tracker
 | **Congressional ridicule used to void expert testimony** | **verified, primary** | Congressional Record, House, 92nd Cong. 1st Sess., **17 March 1971, pp. 6829-6830**, retrieved and read directly. Reps. **Frank T. Bow** (R-OH) and **Donald D. Clancy** (R-OH) discounted James McDonald's SST ozone testimony by reciting his UFO views. Bow: "Now I cannot give much credence to the testimony of that expert on skin cancer and ozone." Rep. Sidney Yates corrected the record, noting administration witnesses called McDonald highly qualified, **and was ignored.** The House voted 215-204 the next day. A citable primary instance of discrediting as a working political method. **It is not evidence of a campaign.** **The widely repeated "Rep. Silvio Conte mocked little green men at the hearing" version is UNVERIFIED and probably false:** the phrase appears nowhere in the 17 March Record, the ridicule was in floor debate rather than the hearing, and Conte's own papers at UMass Amherst say he **voted against** the SST. |
 | Career termination and discrediting short of physical harm | **verified as a category** | Bennewitz, and arguably McDonald. This is the branch the tracker currently does not record at all, because it only counts deaths. See the `outcome` field proposal in `THESIS-NOTES.md`. |
 
+## C2. Corpora and primary-source archives named by Stewart, 25 August 2026
+
+**Captured on naming, per `DISCOVERY-PROTOCOL.md` step C, before any verification.** These
+are Stewart's assessment of who has documented this subject best. None is verified here yet.
+
+| Lead | Category | Status | Note |
+|---|---|---|---|
+| **Jesse Michels** (American Alchemy) | Corpus / actor | **unverified, named by Stewart as a primary source** | Long-form interviewer. Stewart's assessment: together with Gerb, has documented the legacy programme and the vanishing scientists better than any other source he knows. **The corpus is video, so the practical problem is transcripts.** The Program carries a node `michels-gerb-structural-episode`, so a bridge may already exist in the sibling project |
+| **Gerb** (`uap-gerb`) | Corpus / actor | **unverified, named by Stewart as a primary source** | Named alongside Michels. The Program carries three related nodes: `uap-gerb`, `gerb-mitre-investigation`, `michels-gerb-structural-episode`. **The MITRE investigation node is the interesting one for this tracker**, because Burlison's 22 May 2026 MITRE demand is on the same thread |
+| **The Black Vault** | Instrument archive | **verified as usable, already cited** | John Greenewald's FOIA archive. Already the verified source for the Ning Li DIRD, `DIA-08-1003-013`, after the dia.mil reading room returned 403 to automated requests. **Treat as a first-line instrument source rather than a last resort** |
+| **Salvatore Pais, US Navy patents** | Instrument / institutional interest | **unverified, high interest** | Naval Air Warfare Center Aircraft Division. Patents reportedly covering inertial mass reduction, a high-frequency gravitational wave generator, a piezoelectricity-induced room-temperature superconductor, and a plasma compression fusion device. **Direct relevance to this tracker is narrow but real: the room-temperature superconductor and gravitational work sit on the same research line as Ning Li**, whose case now carries `DIA-08-1003-013` reviewing rotating-superconductor gravity modification. If the patents are genuine and assigned to the Navy, they are a documented instance of the US government pursuing that line, which speaks to institutional interest in the subject matter. **It does not speak to anything happening to Ning Li, and must not be used as if it did.** Verify the patent numbers and assignee before asserting anything |
+
+**Handling note.** These are corpora and instruments, not cases. The tracker's scope is people
+who died or disappeared. Material from here enters as **claims with sources** attached to
+existing records, or as `LEADS.md` rows, and does not create cases on its own.
+
 ## D. Instruments -- documents and records to obtain
 
 | Lead | Status | Note |
