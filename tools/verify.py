@@ -225,6 +225,19 @@ def self_test():
             json.dump(cases, fh, ensure_ascii=False, indent=2)
         ok, _ = gate_scores()
         results.append(("axis gate rejects the design-package value li S1", not ok))
+
+        # PHOTOS is derived from the case records now, so a case with no photo has to be
+        # a merge failure rather than a silently shorter block. Before the fold this was
+        # unrepresentable: photos lived in their own file and a case could simply be
+        # missing from it with nothing complaining.
+        cases = json.loads(corig)
+        for c in cases:
+            c.pop("photo", None)
+        with open(cpath, "w", encoding="utf-8", newline="\n") as fh:
+            json.dump(cases, fh, ensure_ascii=False, indent=2)
+        rc = subprocess.call([sys.executable, os.path.join(ROOT, "tools", "merge.py")],
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        results.append(("merge rejects a case with no photo", rc != 0))
     finally:
         with open(cpath, "w", encoding="utf-8", newline="\n") as fh:
             fh.write(corig)

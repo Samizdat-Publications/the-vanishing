@@ -13,13 +13,14 @@ and catch a hand edit later.
 
 from __future__ import annotations
 
+import collections
 import json
 import os
 import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-GROUPS = ["cases", "entities", "timeline", "graph", "photos", "taxonomy",
+GROUPS = ["cases", "entities", "timeline", "graph", "taxonomy",
           "counterarguments", "case_defaults"]
 
 # Variable precision is authored, not derived. '1953', '2026-04' and '2026-08-04' all occur
@@ -75,9 +76,27 @@ def main():
             if not isinstance(v, int) or isinstance(v, bool) or not 0 <= v <= 3:
                 problems.append("%s.%s is %r, expected an int 0 to 3" % (case["id"], axis, v))
 
-    for key in data["photos"]:
-        if key not in ids:
-            problems.append("PHOTOS key %r is not a case id" % key)
+    # PHOTOS is derived from the case records rather than authored beside them. It used to
+    # be its own file keyed by case id, which meant adding a case was two edits in two
+    # places in two formats, and nothing checked that the second one happened. Deriving it
+    # makes the pairing structural: a case cannot have a photo that belongs to no case, and
+    # a missing photo is a missing key on the record rather than a silently absent row.
+    #
+    # The emitted block is keyed by id and the page only ever does PHOTOS[p.id], so the
+    # order this produces (case order) is not the order the hand-authored file used and
+    # that difference is not observable in the rendered page.
+    photos = collections.OrderedDict()
+    for case in cases:
+        shot = case.get("photo")
+        if shot is None:
+            problems.append("%s has no photo" % case["id"])
+            continue
+        if not (isinstance(shot, list) and len(shot) == 2
+                and all(isinstance(x, str) for x in shot)):
+            problems.append("%s.photo is %r, expected [path, credit]" % (case["id"], shot))
+            continue
+        photos[case["id"]] = shot
+    data["photos"] = photos
     for key in data["graph"]["IN_FBI"] + data["graph"]["IN_OVERSIGHT"]:
         if key not in ids:
             problems.append("membership list names unknown case %r" % key)
