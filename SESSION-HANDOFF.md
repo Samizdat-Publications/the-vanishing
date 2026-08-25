@@ -224,3 +224,45 @@ because that is the thing it is trying to demonstrate.
 | `PORT-FROM-THE-PROGRAM.md` | What ports from the sibling repo, ranked, with the honest limits on each |
 | `SNYDER-DOCKET-RETRIEVAL.md` | Manual retrieval script for the one open court record |
 | `README.md` | Repo entry point |
+
+## E. Discovery protocol, added after a named failure
+
+Stewart, 24 August 2026: *"if we're missing Doty then we're not doing something right. In
+fact this seems to be a pattern, some of the highest value ones I am aware of were not caught
+by our current process until I called them out by name."*
+
+**He is right. Read `DISCOVERY-PROTOCOL.md` and treat it as a required step, not a
+suggestion.**
+
+The diagnosis in one line: **the search was victim-centric and entity-name-driven**, so it
+structurally could not reach actors, mechanisms or precedents. Doty is not a victim and not
+an institution, so no query in the old process pointed anywhere near him. Bennewitz was found
+by luck, not method -- he surfaced only because one `entityInfo` entry was dumped as a
+formatting sample.
+
+The protocol adds five things: query six axes (victims, **actors**, **mechanisms**,
+**precedents**, **instruments**, institutions); read a corpus index in full rather than
+sampling it; check `LEADS.md`; run an explicit negative-space pass; and state how thoroughly
+the space was actually searched, not just what was found.
+
+**`LEADS.md` is the direct fix for the recall problem.** Anything Stewart names in
+conversation that is not in the tracker goes in that file immediately. Called out once
+should mean captured forever. Every research pass reads it and adds to it.
+
+### Running the corrected protocol once already paid for itself
+
+Reading The Program's full 279-person list, rather than searching it by the fifteen case
+names, surfaced candidates the old process could never have found:
+
+| Found | Axis | Why it matters |
+|---|---|---|
+| **James E. McDonald**, senior physicist, Institute of Atmospheric Physics, **University of Arizona**, died 1971 after his scientific credibility collapsed | Analogue case | Near-exact structural analogue of the neutralisation frame. Also a University of Arizona tie, which connects to Hicks. **Unverified. Verify the circumstances before asserting anything.** |
+| **John B. Alexander**, US Army Col (ret.), **Los Alamos non-lethal weapons programme** | Actor and mechanism | Sits at the intersection of the LANL cluster (Chavez, Casias) and the mechanism question |
+| **William L. Moore**, **Linda Moulton Howe** | Actor, witness | The rest of the Bennewitz disinformation cluster |
+| **Capt. Uyrangê Hollanda Lima**, **Betty Cash** | Analogue cases | Pattern instances outside the tracker's current scope |
+
+All of these are in `LEADS.md` as **unverified**. They are a queue, not findings.
+
+**Also noted, for the other project and not actioned here:** The Program lists Nick Pope with
+status `dead`. He appears to be alive. Looks like a data error in `the-program.json`. Raise it
+in that project's own thread. The Program was not modified by any of this work.
