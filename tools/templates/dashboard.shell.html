@@ -3283,7 +3283,7 @@ function viewSearch(v){
   const hits = q
     ? pool.filter(n => (n.label+' '+(n.sub||'')+' '+(n.loc||'')+' '+(n.narrative||'')).toLowerCase().includes(q))
     : pool.slice(0, 9);
-  let h = '<div class="view-head"><h2>Search</h2><p>Fifty-two entities across five classes. Query and filter state live in the URL, so any view is shareable.</p></div>'
+  let h = '<div class="view-head"><h2>Search</h2><p>Fifty-four entities across five classes. Query and filter state live in the URL, so any view is shareable.</p></div>'
     + '<input class="search-in" id="searchin" placeholder="Search people, institutions, programmes, locations, domains" value="'+esc(S.query)+'">'
     + '<div style="font-size:10px;color:var(--text-faint);margin:9px 0 4px">'
     + (q ? hits.length+' of '+pool.length+' entities' : 'showing the first 9 of '+pool.length+' entities')+'</div>';
