@@ -133,18 +133,41 @@ Tier A = an unexplained fact no source accounts for, plus (S2+ or P3 or I3).
 - **Melissa Casias, S3/P1/I3.** Cause undetermined after 13 months. Registered handgun near remains, owner undisclosed. Surveillance timestamp corrected by 13h58m with no explanation.
 - **Frank Maiwald, S1/P2/I3.** No cause of death disclosed and no skeptical source has offered any alternative, only the base rate. The cleanest pure open question.
 
+### Eskridge, and how to hold it
+
+**Stewart's position, 25 August 2026: he believes the case is ultimately real, and he
+accepted every specific correction made to it.** Those are not in tension, and a future
+session should not treat the corrections as grounds to downgrade the case.
+
+What the 25 August pass actually did was make the record **better documented, not weaker**:
+
+- **Added** a real affiliation the tracker never had. She was **CEO and co-founder of
+  HoloChron LLC**, a father-daughter gravity-modification company, per her own slide deck.
+- **Removed an unsupported claim.** "Prior NASA-adjacent propulsion work" appears to have
+  been her father's record attributed to her. Moved to `unverified`, not deleted.
+- **Held I at 1**, now argued from the corporate record and from her own stated preference
+  for independence from government funding, rather than assumed from "small private institute".
+
+**Untouched by any of it:** her documented statement that she believed she was the target of
+a "psychological war" to stop her anti-gravity work, which is a fact about what she said and
+is not affected by any of the above. Tier B stands. Her family's position stands as recorded,
+and the tracker does not argue with it.
+
 ## 6. Open items
 
-**Still the highest-leverage single action, and it is Stewart's to take.**
+**Note on item 1.** It would close four questions at once, but **Stewart decided on 25 August
+2026 that he will probably not make the call, and asked that it stay on file as a want.**
+It is recorded, not scheduled. **Do not keep raising it.** The correct standing position on
+the Grillmair tail is "confirmed unreported", which is honest.
 
 | # | Item | Notes |
 |---|---|---|
-| 1 | **Snyder docket, LA County case 26AVCF00232** | Was he held to answer on June 5 2026, or continued to June 18? Unreported everywhere. **Resolvable by phone.** Antelope Valley Courthouse, **Criminal Clerk (661) 483-5798.** Ask for the minute orders for June 5 and June 18 2026. Full script in `SNYDER-DOCKET-RETRIEVAL.md`. **One call closes items 1 through 4.** |
+| 1 | **Snyder docket, LA County case 26AVCF00232** | **On file as a want, not scheduled.** Was he held to answer on June 5 2026, or continued to June 18? Unreported everywhere and obtainable only by phone: Antelope Valley Courthouse, Criminal Clerk **(661) 483-5798**. Script in `SNYDER-DOCKET-RETRIEVAL.md`. Would close items 1 through 4. **Until then the tracker says confirmed unreported, and that is the correct answer rather than a placeholder.** |
 | 2 | Late-December 2025 conduct behind Snyder's burglary count | Charged only after the killing. Sits against the "random disturbed neighbour" reading |
 | 3 | Who contacted law enforcement about Snyder on December 20 2025 | Sources conflict. The widow says it was not Grillmair |
 | 4 | Was the firearm enhancement amended down between the February complaint and the May arraignment? | |
 | 5 | Frank Maiwald's cause of death | Still undisclosed |
-| 6 | **Verify or drop "Prior NASA-adjacent propulsion work" on Amy Eskridge** | **New, 25 Aug 2026, and it is a possible error in our own record.** Her own December 2018 deck calls her "Chemist, Entrepreneur" and names her father separately as "Retired NASA Engineer, Scientist". Every NASA thread traced runs to Richard, not Amy. Moved to her `unverified` array. **This touches her P2** |
+| 6 | Source "Prior NASA-adjacent propulsion work" on Amy Eskridge, or leave it unverified | **Stewart reviewed and agreed with the correction on 25 Aug 2026. It stays in her `unverified` array until something sources it.** Her own December 2018 deck calls her "Chemist, Entrepreneur" and names her father separately as "Retired NASA Engineer, Scientist". **Open only in the sense that a source could still turn up. Not a live doubt about the case.** See the Eskridge note in section 5 |
 | 7 | Is the Institute for Exotic Science registered in any state? | No Alabama registration exists. Delaware not searched, its name search is CAPTCHA-gated. **An open question, not a finding of impropriety** |
 | 8 | Retrieve the USPTO file wrapper for application 15/141,270 | Contains Examiner Bonzell's rejection in his own words. The highest-value document outstanding on the Pais thread |
 | 9 | Re-check two `esd.whs.mil` URLs from a browser | They underpin the SAP cover-mechanism citation and return 403 to automated requests |

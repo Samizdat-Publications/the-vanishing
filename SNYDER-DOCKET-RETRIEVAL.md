@@ -1,8 +1,17 @@
 # Retrieving the Snyder docket
 
-**For Stewart. This is a manual retrieval. Claude cannot do it, because the LA Superior Court
-case portal does not expose criminal minute orders to anonymous web requests and there is no
-public API.**
+**STATUS: a standing want, not a pending action. Stewart, 25 August 2026: "I'll probably not
+do this but keep it on file as a want."**
+
+**Do not present this as imminent, and do not keep raising it.** It stays on file because the
+information is genuinely unobtainable any other way and would close four open questions at
+once, so if the opportunity ever arises the script is ready. The tracker should carry the
+Grillmair tail as **confirmed unreported**, which is honest and is the correct standing
+position, rather than as pending retrieval.
+
+**For Stewart, if he ever wants it. This is a manual retrieval. Claude cannot do it, because
+the LA Superior Court case portal does not expose criminal minute orders to anonymous web
+requests and there is no public API.**
 
 ## What we are trying to learn
 
