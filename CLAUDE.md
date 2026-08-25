@@ -20,53 +20,61 @@ authoritative on case facts.
 Branch is **`master`**, not `main`. Probing `origin/main` returns exit 128; that is expected
 and is not an error worth investigating.
 
-## Serving the dashboard
+## Building and serving the dashboard
 
-`the-vanishing-v2.html` is one file but it is **not** self-contained: it loads
-`assets/photos/*` by relative path. Ship the folder, not the file. `file://` will not work,
-so serve it:
-
-```bash
-cd /home/user/the-vanishing
-python3 -m http.server 8971
-```
-Then open `http://127.0.0.1:8971/the-vanishing-v2.html`. On Stewart's machine, `cd` to the
-local path in "Two environments, one repo" below and use `python` instead of `python3`.
-
-## Rebuild in progress
-
-The single-file constraint is dropped. `ARCHITECTURE.md` has the target layout and the
-migration order. **Do not do step 3 before step 2.** Extracting the case records and changing
-the schema in the same step is how records get silently mangled, and regenerating the current
-HTML byte-for-byte from extracted data is the checkpoint that proves nothing was lost.
-`the-vanishing-v2.html` stays in the repo as the reference output until that checkpoint passes.
-
-**The step 2 checkpoint has PASSED, so the freeze is lifted.** `the-vanishing-v2.html`
-stays in the repo as the historical reference and must still not be edited: it is what
-`data/baseline.json` was extracted from, and `verify.py` asserts its hash so the semantic
-gate keeps its anchor. It is no longer the build target.
-
-**The dashboard is now built, not hand edited.** Case data lives in `research/*.json`.
-Edit those, never the HTML:
+**The dashboard is built, not hand edited.** Case data lives in `research/*.json`. Edit
+those, never the HTML.
 
 ```bash
 cd /home/user/the-vanishing
 python3 tools/merge.py && python3 tools/build_dashboard.py
 python3 tools/verify.py --idempotent
+python3 -m http.server 8971
 ```
+Then open `http://127.0.0.1:8971/dist/the-vanishing.html`. On Stewart's machine use
+`python` instead of `python3`. `file://` will not work.
 
-Output is `dist/the-vanishing.html`, with `assets/` copied alongside it.
+The page loads `assets/photos/*` by relative path, so `build_dashboard.py` copies `assets/`
+into `dist/`. Ship the folder, not the file.
 
 **`verify.py` passing is the definition of shippable**, and every check is itself tested
-against input it must reject: `python3 tools/verify.py --self-test`. Same for the discovery
-checks: `python3 tools/discovery_checks.py --self-test`.
+against input it must reject:
 
-Pinned historical reference:
+```bash
+cd /home/user/the-vanishing
+python3 tools/verify.py --self-test
+python3 tools/discovery_checks.py --self-test
+```
+
+## Rebuild status
+
+The single-file constraint is dropped. `ARCHITECTURE.md` has the target layout and the
+migration order.
+
+**Steps 1 through 4 are done.** The extraction was proven lossless by regenerating the
+original HTML byte for byte. That gate then retired when step 3 changed the schema on
+purpose, and `data/baseline.json` plus `tools/semantic_diff.py` replace it: only declared
+schema changes may appear, and no case content or axis score may move silently.
+
+**Step 5, importing from The Program per `PORT-FROM-THE-PROGRAM.md`, is not started.**
+Governing rule: copy the claim and its source, never the conclusion.
+
+`the-vanishing-v2.html` stays in the repo as the historical reference and **must not be
+edited**. It is what `data/baseline.json` was extracted from, and `verify.py` asserts its
+hash so the semantic gate keeps its anchor. It is no longer the build target. Pinned:
 
 ```
 sha256 2dfc55e324b7535fbeea223e6b8699bf788ef60d9220417a81bf14bbff3d910a
 324923 bytes
 ```
+
+## Scoring schema note
+
+`outcome` sits **beside** `status`, it does not replace it. `status` is the factual
+disposition; `outcome` is the analytic dimension from `THESIS-NOTES.md`. Its novel values
+(`incapacitated`, `discredited`, `career-terminated`) are populated only by sourced
+research, never by default. **Do not raise an axis score, or set one of those outcomes, on
+the strength of the frame alone.**
 
 **Never extract from `design-package/vanishing-graph.js` or `vanishing-timeline.js`.** They
 are pre-August-7 ancestors that differ by three adjudicated axis scores: `li` S0 not S1,
