@@ -86,6 +86,9 @@ EXPECTED_CHANGES = {
     "cases.1.unverified": "Eskridge: the NASA-adjacent claim moved here pending verification",
     "cases.1.conflicts": "Eskridge: registered name versus trade name recorded rather than resolved silently",
     "cases.1.sources": "Eskridge: HAL5 deck and Alabama SoS record added, both verified to resolve",
+    # Key rename only. The values are untouched, which the source-count invariant checks.
+    "cases.*.sources.*.outlet": "case-level source key renamed outlet -> name, to match every other block",
+    "cases.*.sources.*.name": "case-level source key renamed outlet -> name, to match every other block",
 }
 
 # Every claim text present in the baseline must still be present. Any claim text that is NEW

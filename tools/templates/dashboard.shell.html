@@ -3197,7 +3197,7 @@ function sourcesHtml(p){
   if (!p.sources || !p.sources.length)
     return '<div class="block b-open"><span class="eyebrow">Sources</span>No attributed source on file for this entity.</div>';
   return '<div class="sec"><span class="eyebrow">Sources</span></div><div class="leader">'
-    + p.sources.map(s=>'<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.outlet)+'</a>'
+    + p.sources.map(s=>'<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.name||s.outlet||'Unattributed')+'</a>'
       + ' <span class="k">'+esc(s.date||'')+'</span>').join('<br>') + '</div>';
 }
 

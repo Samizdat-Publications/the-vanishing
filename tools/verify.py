@@ -130,6 +130,23 @@ def gate_scores():
     return True, "%d adjudicated scores match SCORING-DISCREPANCIES.md" % len(expected)
 
 
+def gate_source_render():
+    """Every source-bearing record renders a real name.
+
+    v2 shipped with sourcesHtml reading s.outlet while entity nodes carried `name`, so all
+    18 entity source lists rendered "undefined" as their link text. Case records happened
+    to use `outlet` and looked fine, which is why it survived review.
+    """
+    import shutil as _sh
+    if not _sh.which("node"):
+        return True, "skipped, node not available"
+    r = subprocess.run(["node", os.path.join(ROOT, "tools", "test_source_render.js")],
+                       capture_output=True, text=True, cwd=ROOT)
+    if r.returncode != 0:
+        return False, "source rendering regression:\n%s" % r.stdout
+    return True, "36 source-bearing records render a real name"
+
+
 def gate_edges():
     """The derived graph is unchanged, 151 edges with the recorded type breakdown."""
     r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "check_edges.py")],
@@ -148,6 +165,7 @@ GATES = [
     ("B' determinism", gate_b_prime),
     ("   axis scores", gate_scores),
     ("   derived graph", gate_edges),
+    ("   source render", gate_source_render),
 ]
 
 
