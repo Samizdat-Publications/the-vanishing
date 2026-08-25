@@ -2013,11 +2013,19 @@ const PRECISION_LABEL = {
 
 /* ---------------------------------------------------------------------------
    PHOTOGRAPHS
-   Sourced per PHOTOS.md. Where no image exists the record stays null and the
-   design renders nothing: the plate narrows from 132px to 100px, the case card
-   and the dossier omit the slot entirely, and the graph tightens up. Absence is
-   already carried by the record, so a hatched placeholder repeated fourteen
-   times would read as decoration rather than as information.
+   Sourced per PHOTOS.md. As of 24 August 2026 all fifteen case subjects carry
+   an image, so no plate currently falls back. The null path is retained and
+   must stay working, because any case added later arrives without a photograph.
+   Where the record is null the design renders nothing: the plate narrows from
+   132px to 100px, the case card and the dossier omit the slot entirely, and the
+   graph tightens up. Absence is already carried by the record, so a hatched
+   placeholder would read as decoration rather than as information.
+
+   Rights posture, set by the project owner on 24 August 2026: publicly findable
+   images are used, with per-image credit, and rights questions are handled by
+   the owner rather than by exclusion. Most images here are owned by families,
+   funeral homes, universities or news outlets and are NOT public domain. See
+   PHOTOS.md for the per-image licence grading.
    ------------------------------------------------------------------------- */
 const PHOTOS = {
   casias:    ['assets/photos/casias.jpg',    'New Mexico State Police via NM DPS'],
@@ -2031,6 +2039,10 @@ const PHOTOS = {
   reza:      ['assets/photos/reza.jpg',      'Missing person circulation'],
   thomas:    ['assets/photos/thomas.webp',   'Wakefield Police Department'],
   eskridge:  ['assets/photos/eskridge.png', 'Supplied by the project owner'],
+  maiwald:   ['assets/photos/maiwald.jpg',   'Family obituary photograph via Legacy.com'],
+  leblanc:   ['assets/photos/leblanc.jpg',   'Family obituary photograph via Dignity Memorial'],
+  sullivan:  ['assets/photos/sullivan.jpg',  'US Air Force service portrait via family obituary'],
+  moffatt:   ['assets/photos/moffatt.jpg',   'UAH Research and Engineering Support Center'],
 };
 for (const p of PEOPLE) {
   const hit = PHOTOS[p.id];

@@ -1,89 +1,100 @@
 # Session Handoff: The Vanishing
 
-**Handoff date:** August 7, 2026
-**From:** Cowork cloud session
-**To:** Cowork local session (running on Stewart's computer)
+**Handoff date:** August 24, 2026
+**Supersedes:** the August 7, 2026 handoff, which was stale and listed four already-closed items as open.
 
-**If you are a fresh Claude session picking this up, read this file first, then `PROJECT.md`.**
+**If you are a fresh Claude session, read this file first, then `PROJECT.md`, then the latest `scientist-tracker-state-*.md`.**
+This file is written to be self-sufficient. You should not need any prior conversation or any Cowork memory to work on this project.
 
 ---
 
-## Where everything lives
+## 1. What this project is
+
+Stewart Gregerson's personal research project tracking deaths and disappearances of US
+scientists, military officials and defense-connected individuals since 2021. Working title
+**"The Vanishing."** Personal research, **not employer work.** No employer branding anywhere.
+
+## 2. Where it lives, and what it is NOT
 
 ```
 C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker\
 ```
 
-That directory is the canonical project. It is a git repository with remote `https://github.com/Samizdat-Publications/the-vanishing.git` (private, Samizdat-Publications). Branch is **`master`**, not `main`. Claude Design has read access to the repo.
+Git repository. Remote `https://github.com/Samizdat-Publications/the-vanishing.git`
+(private, Samizdat-Publications). Branch is **`master`**, not `main`.
 
-There is a second, nearly empty folder at `...\Claude\Projects\Missing individuals connected to defense contractors\` containing only a `README.md` pointer and a snapshot copy. That is deliberate, to avoid two sources of truth. **Do not move the project into it.**
+**Do not confuse this with The Legacy Program Dashboard.** That is a different project,
+a different git repo (`the-legacy-program-dashboard`), and lives at
+`...\Claude\Projects\Missing individuals connected to defense contractors\the-program\`.
+It is under active development in a separate thread. **Do not touch it.**
 
-### File inventory (verified Aug 7, 2026)
+The one legitimate crossover: The Program uses `the-vanishing-v2.html` as a frozen build
+input at its own `ref/the-vanishing-v2.html`. That is a copy. It is never edited there, and
+changes here do not propagate there automatically.
 
-| File | Bytes | Status |
-|---|---|---|
-| `PROJECT.md` | 42,321 | **Master doc. Rewritten Aug 7. Authoritative.** |
-| `scientist-tracker-state-2026-08-07.md` | 59,877 | **Latest research sweep. Authoritative on case facts.** |
-| `DESIGN-ADDENDUM-2026-08-07.md` | 10,707 | Schema and component changes for Claude Design |
-| `CLAUDE-DESIGN-PROMPT.md` | 20,069 | v2 design brief. Pushed as commit `313ec1a`. |
-| `RESEARCH-PROCESS.md` | 7,623 | Weekly sweep spec and case schema. **Needs updating for the 3-axis model.** |
-| `scientist-network-tracker.html` | 84,420 | v1 tracker being replaced |
-| `scientist-tracker-state-2026-06-20.md` | 16,505 | Prior sweep, superseded |
-| `DESIGN-BRIEF.md` | 9,764 | Earlier creative brief, superseded |
+## 3. Current state, August 24 2026
 
-**Housekeeping:** there is a `_to_delete\` folder in the repo containing two zero-byte stale git lock files. The cloud session could not delete files on the local disk, only move them. **A local session can and should just delete that folder.** Do not commit it.
+**v2 is built and shipped.** `the-vanishing-v2.html` is a working single-page dashboard,
+about 325 KB, 4,741 lines. It supersedes `scientist-network-tracker.html` (v1).
 
----
+**It is not literally self-contained.** It references `assets/photos/*` by relative path.
+Opening the HTML alone, away from the repo, gives you a working board with broken images.
+Ship the folder, not the file.
 
-## Git state
+**Local viewing note.** The Chrome tooling cannot open `file://` URLs. To inspect it, serve
+the folder and browse to it:
+
+```powershell
+cd "C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker"
+python -m http.server 8971
+```
+Then open `http://127.0.0.1:8971/the-vanishing-v2.html`.
+
+### Case counts
+
+| Metric | Value |
+|---|---|
+| Cases | 15 |
+| Tier A | 8 |
+| Tier B | 2 |
+| Tier C | 5 (retained deliberately, to prove the list is not curated) |
+| Dead | 10 |
+| Missing | 4 |
+| Resolved | 1 |
+| I3 institutional channel | 10 |
+| P3 personal program proximity | 2 (Sullivan, LeBlanc) |
+| Photographs | **15 of 15. Zero placeholders.** |
+
+### Git state
 
 | Item | Value |
 |---|---|
-| Local HEAD | `313ec1a` (Rewrite v2 brief) |
-| origin/master | `313ec1a` -- **in sync as of the last push** |
-| Uncommitted | `PROJECT.md`, `DESIGN-ADDENDUM-2026-08-07.md`, `scientist-tracker-state-2026-08-07.md` |
+| Last commit | `4817eed` "Guard URL syncing and harden paint against a single surface throwing" |
+| origin/master | in sync as of that commit |
+| Uncommitted as of this handoff | `the-vanishing-v2.html`, `PHOTOS.md`, and 5 files under `assets/photos/` |
 
-**Next commit needed:**
-```
-git add PROJECT.md DESIGN-ADDENDUM-2026-08-07.md scientist-tracker-state-2026-08-07.md
-git commit -m "Aug 7 sweep: three-axis scoring model, 15 cases, data corrections"
-git push origin master
-```
+Claude cannot push. Write files to disk, then Stewart runs git himself from PowerShell.
+If git reports `Unable to create ... index.lock: File exists`, delete `.git\index.lock` and retry.
+Historic gotcha: bare `git push` once silently failed where `git push origin master` worked.
 
-**Two git lessons from the cloud session, both now moot locally but worth knowing:**
+## 4. What closed since the August 7 handoff
 
-1. `git push` alone silently failed; `git push origin master` worked. If a push reports "Everything up-to-date" when you know it shouldn't, check `.git\refs\remotes\origin\master` against `.git\refs\heads\master` before believing it.
-2. The cloud session's `device_bash` could create `.git\index.lock` but not remove it, which blocked Stewart's own git commands twice. **A local session has real shell access and does not have this problem.** This was the main reason for moving local.
+All four "immediate next steps" from the previous handoff are **done**. Do not re-open them.
 
-OneDrive syncing the `.git` folder is a plausible contributor to lock issues. Consider excluding the repo from OneDrive sync.
+| Item | Outcome |
+|---|---|
+| Delete `_to_delete\`, commit the three pending files | Done, plus 11 further commits building v2 |
+| Update `RESEARCH-PROCESS.md` for the three-axis model | Done. Grew from 7.6 KB to 21.4 KB |
+| Verify Matthew Sullivan's testimony timing | **Checked and it failed.** The Nov 13 2024 hearing was announced after his May 12 2024 death. The "died before testifying" framing is not supportable on that hearing. He stays Tier B. This was the highest-value open item and it resolved against the hypothesis. Record it that way. |
+| LA County docket 26AVCF00232, June 5 prelim outcome | **Confirmed unreported in open sources.** Still genuinely unknown. See section 6. |
 
----
+Also landed since: `SCORING-DISCREPANCIES.md` (axis conflicts adjudicated),
+`PHOTOS.md` (licence research plus the Aug 24 addendum), photograph integration,
+data export, analyst charts and reports, map pan and zoom, and an adversarial review pass.
 
-## What this project is
+## 5. The three-axis scoring model
 
-Stewart Gregerson's personal research project tracking deaths and disappearances of US scientists, military officials, and defense-connected individuals since 2021. Working title **"The Vanishing."** Personal research, **not employer work** -- no employer branding anywhere.
-
-There is a **separate** project in this same Cowork workspace on targeted individuals and directed-energy-weapon claims. The two overlap (Amy Eskridge appears in both) but are distinct. Do not merge them.
-
----
-
-## Editorial stance (important -- read before writing anything)
-
-Stewart has been explicit about this. The tracker is built on the working hypothesis that **a pattern exists**, for an audience receptive to that framing. Its purpose is to document the pattern and surface connections invisible at the individual case level.
-
-His core analytical insight, which drove the whole redesign: **an event that looks prosaic in isolation may not be prosaic in sequence.** A scientist shot by a disturbed neighbor is a crime story. A scientist shot by a neighbor he had reported, who was arrested with a loaded unregistered rifle, released after three days, and had his charges dropped eleven days before the killing, is a different object. Nothing in that chain is invented; it only becomes visible when reconstructed.
-
-He also holds, correctly and with historical support, that **civilian academic scientists at major institutions belong in scope** even without documented clearances, because the government has recruited university scientists into classified advisory work for sixty years (JASON, formed 1960) and because absence of a public clearance record is weak evidence of absence of sensitive work.
-
-**What he explicitly does not want:** fake or specious connections. He said so directly. Padding the list with weak cases defeats his purpose. The rigor is in service of the argument, not opposed to it.
-
-**How the skeptical literature is used:** as a **grading instrument**, not a rebuttal section. The statistical arguments are what separate cases that survive hostile scrutiny from ones that do not. This is not hedging -- a hostile reader will attack the weakest entry to discredit the whole set, so the weakest entries must be labeled as such by the tracker itself.
-
----
-
-## The three-axis scoring model (the core of v2)
-
-Every case carries three independent scores plus a composite tier. **The axes are deliberately not summed.**
+Every case carries three independent scores plus a composite tier. **The axes are never summed.**
 
 | Axis | Range | Question |
 |---|---|---|
@@ -91,45 +102,125 @@ Every case carries three independent scores plus a composite tier. **The axes ar
 | **P** Personal Program Proximity | 0-3 | What sensitive access did this person personally hold? |
 | **I** Institutional Channel | 0-3 | Does the employer have documented history as a conduit for classified work? |
 
-Tier A = an unexplained fact no source accounts for, plus (S2+ or P3 or I3). **7 cases.**
-Tier B = unresolved, prosaic explanation available. **3 cases.**
-Tier C = conventional explanation documented and holds. **5 cases.** Retained to prove the list is not curated.
+Tier A = an unexplained fact no source accounts for, plus (S2+ or P3 or I3).
 
-### The cases that matter most
+### The cases that carry the argument
 
-- **Joshua LeBlanc, S2/P3/I3.** Active DRACO nuclear propulsion engineer at NASA Marshall. Four unexplained hours with his Tesla at Huntsville International that morning. Phone and wallet left at home. Dead the same day. **High on all three axes and v1 buried him.**
+- **Joshua LeBlanc, S2/P3/I3.** Active DRACO nuclear propulsion engineer at NASA Marshall. Four unexplained hours with his Tesla at Huntsville International that morning. Phone and wallet left at home. Dead the same day. High on all three axes; v1 buried him.
 - **Monica Reza, S2/P3/I2.** Mondaloy co-inventor (rocket engine superalloy). Vanished within seconds in a companion's sightline.
-- **Carl Grillmair, S3/P1/I3.** The model sequence case, described above. Dark matter and exoplanets, no documented clearance, Caltech IPAC.
-- **Melissa Casias, S3/P1/I3.** Cause undetermined after 13 months. Registered handgun near remains, owner undisclosed. Surveillance timestamp corrected by 13h58m with no explanation. Family recovered evidence police had not collected.
-- **Frank Maiwald, S1/P2/I3.** No cause of death disclosed and **no skeptical source has offered any alternative** -- only the base rate. Cleanest pure open question.
+- **Carl Grillmair, S3/P1/I3.** The model sequence case. Reported a trespasser; that man was arrested with a loaded unregistered rifle, released in three days, had charges dropped, and killed him eleven days later. **Caveat: his widow told the BBC he did not personally call 911. Do not assert he was the caller.**
+- **Melissa Casias, S3/P1/I3.** Cause undetermined after 13 months. Registered handgun near remains, owner undisclosed. Surveillance timestamp corrected by 13h58m with no explanation.
+- **Frank Maiwald, S1/P2/I3.** No cause of death disclosed and no skeptical source has offered any alternative, only the base rate. The cleanest pure open question.
 
----
+## 6. Open items
 
-## Immediate next steps
+| # | Item | Notes |
+|---|---|---|
+| 1 | **Snyder docket, LA County case 26AVCF00232** | Was he held to answer on June 5 2026, or continued to June 18? Unreported everywhere. **Resolvable by phone.** Michael D. Antonovich Antelope Valley Courthouse, 42011 4th St West, Lancaster CA 93534. **Criminal Clerk (661) 483-5798.** Ask for the minute orders for June 5 2026 and June 18 2026. Full script in `SNYDER-DOCKET-RETRIEVAL.md`. |
+| 2 | Late-December 2025 conduct behind Snyder's first-degree residential burglary count | Charged only after the killing. Sits directly against the "random disturbed neighbor" reading. |
+| 3 | Who actually contacted law enforcement about Snyder on December 20 2025 | Sources conflict. The widow says it was not Grillmair. |
+| 4 | Was the firearm enhancement amended down between the February complaint and the May arraignment? | Complaint said intentional discharge causing GBI; arraignment said personal use of a rifle. |
+| 5 | Frank Maiwald's cause of death | Still undisclosed. |
+| 6 | Locate an af.mil or DVIDS original of the Sullivan service portrait | Would move the one likely-federal image from assumed-copyrighted to cleanly public domain. |
 
-1. **Delete `_to_delete\`**, then commit and push the three uncommitted files.
-2. **Update `RESEARCH-PROCESS.md`** -- its case schema predates the three-axis model and no longer matches `PROJECT.md`. This is the most obvious loose end.
-3. **Verify Matthew Sullivan's scheduled Congressional testimony date.** He is P3/I3, the highest program proximity in the file, and the "died before testifying" claim is the most load-bearing unsourced item in the project. Outlets say days, weeks, and months; most coverage is low-reliability. If it resolves tight against his May 12 2024 death, he moves to Tier A. If it doesn't, better to know before a critic finds it. **Highest-value open research task.**
-4. **Pull the LA County Superior Court docket on case 26AVCF00232** for the June 5 2026 preliminary hearing outcome in People v. Snyder. Media went quiet after May 28.
-5. Claude Design is working from `CLAUDE-DESIGN-PROMPT.md` plus `DESIGN-ADDENDUM-2026-08-07.md`. Its output goes to Claude Code to build.
-6. **Adversarial review of the Aug 7 snapshot and PROJECT.md is offered but not yet run.** Stewart runs these on request only, because they consume context. See below.
+## 7. Research cadence
 
----
+**Weekly sweeps, retained.** Stewart's decision on Aug 24 2026: keep weekly through
+development, revisit and probably move to monthly once the build is final.
+Spec is in `RESEARCH-PROCESS.md`, Priority 1-4. The Aug 7 sweep ran as four parallel
+research agents, one per priority tier, which worked well. Story has been dormant in
+mainstream coverage since early May 2026.
 
-## Working rules
+## 8. Working rules
 
-- **No em dashes** in any generated text, UI copy, or documentation. Use double hyphens or restructure. This has been verified on every file delivered so far and must stay that way.
+- **No em dashes** anywhere: generated text, UI copy, documentation. Use double hyphens or restructure. Verified on every file delivered so far. Keep it that way.
 - Tables preferred over bullet lists for comparative content. Charts get data labels.
-- **Never fabricate connections.** Always carry counterarguments. Distinguish confirmed fact from allegation from open question. Flag anything unverifiable. Note where sources conflict, and there are several genuine conflicts logged in the Aug 7 snapshot.
+- Terminal commands include the `cd` so they are copy-pasteable.
+- **Never fabricate connections.** Always carry counterarguments. Distinguish confirmed fact from allegation from open question. Flag anything unverifiable. Note where sources conflict, and several genuine conflicts are logged.
+- **Never fabricate URLs, case numbers or document numbers.** If a URL cannot be verified to resolve, say so.
 - Do not cite: strangehappen.com, theheartysoul.com, hannahhowell.com, mysterylores.com, frontpagenewspaper.com, headlinereporter.com, factually.co, slaynews.com, vigilantfox.com, ConservativeBrief, Medium reposts. These recycle identical errors and manufacture timestamps on old material.
-- These are real deaths and real missing people. Several families have publicly asked not to have their losses treated as conspiracy material, and the tracker records those statements accurately without arguing with them.
+- These are real deaths and real missing people. Several families have publicly asked not to have their losses treated as conspiracy material. The tracker records those statements accurately and does not argue with them.
 
-### Adversarial review protocol (Stewart's standing instruction)
+### Editorial stance
 
-At the end of any deliverable that feels final, ask: **"Do you want to run adversarial review audit?"** Only run it when he says yes, because it consumes context. When running it, act as his managers -- the management he presents to. Pick apart anything that looks odd or doesn't parse at first glance, audit thoroughly, and actually inspect the rendered output (if it's a slide, verify nothing overlaps or misaligns). The audit must be robust and should be built into any skill or process produced.
+Built on the working hypothesis that **a pattern exists**, for an audience receptive to that
+framing. The core analytical insight: **an event prosaic in isolation may not be prosaic in
+sequence.** Civilian academics at major institutions are in scope even without documented
+clearances, on the JASON precedent. What Stewart explicitly does **not** want is fake or
+specious connections; the rigor serves the argument rather than opposing it. Skeptical
+literature is used as a **grading instrument**, not a rebuttal section.
+
+### Photograph rights posture (set Aug 24 2026)
+
+Publicly findable images are used, with per-image credit. Licence grading in `PHOTOS.md` is
+information, not a gate. Stewart has acknowledged and accepted the risk on the basis that
+this is personal research for a small private audience. **Do not re-litigate this.**
+
+### Adversarial review protocol
+
+At the end of any deliverable that feels final, ask: **"Do you want to run adversarial
+review audit?"** Only run it when he says yes, because it consumes context. When running it,
+act as his managers, the management he presents to. Pick apart anything that looks odd or
+does not parse at first glance, and actually inspect the rendered output.
 
 ---
 
-## Research cadence
+# ADDENDUM: 24 August 2026, later the same day
 
-Weekly sweeps per `RESEARCH-PROCESS.md`, Priority 1-4. The Aug 7 sweep found **no new cases** in the June 20 to August 7 window and the story has been dormant in mainstream coverage since early May. **Consider moving to monthly with breaking-news triggers.** Last sweep ran as four parallel research agents, one per priority tier, which worked well.
+Three decisions and one survey landed after the body of this handoff was written.
+**Where this addendum and the sections above disagree, the addendum wins.**
+
+## A. The single-file HTML constraint is dropped
+
+Stewart's call. `the-vanishing-v2.html` is 4,741 lines and already fails its own constraint,
+because it loads photos by relative path. The project moves to a normal multi-file structure
+with a data layer, a build pipeline and a verification gate, mirroring The Legacy Program
+Dashboard, which was itself built on this project's engine.
+
+**Read `ARCHITECTURE.md`.** It has the target layout, the migration order, and the one rule
+that must come with it: regenerating the current HTML byte-for-byte from extracted data is
+the checkpoint that proves nothing was lost. Do not change the schema and extract in the
+same step.
+
+`the-vanishing-v2.html` stays in the repo as the reference output until that checkpoint passes.
+
+## B. The neutralisation frame is recorded
+
+Stewart's analytic refinement: **death is one outcome of the pattern, not the definition of
+it.** The object tracked is people attached to sensitive programmes who fell out of good
+standing and were removed from play, by whatever means, because discrediting is cheaper and
+more durable than killing.
+
+**Read `THESIS-NOTES.md`.** It records the frame, the documented precedent that supports it
+(Bennewitz, hospitalised 1988, method admitted publicly 1989), and, importantly, **the
+falsifiability problem it creates and how to keep it honest.** The recommendation there is to
+implement the frame as an `outcome` field in the schema rather than as a thumb on the S/P/I
+scores. Do not raise axis scores on the strength of the frame alone.
+
+## C. Cross-repo survey against The Legacy Program Dashboard
+
+**Read `PORT-FROM-THE-PROGRAM.md`.** Read-only survey, nothing imported yet. Headlines:
+
+| Finding | Impact |
+|---|---|
+| **Ning Li is named in a released DIA document.** DIA-08-1003-013, "The Role of Superconductors in Gravity Research," 23 March 2010, Acquisition Threat Support series, produced under the DIA AAWSA programme, FOIA-released. It reviews her work by name. | Her retention rationale here ("retained for research continuity to Eskridge rather than for its own anomaly") is now **too weak and wrong on documentary grounds.** Raise her **I** score. Leave S and P alone -- the document shows institutional interest in her research line, not anything happening to her. |
+| **The Comer-Burlison probe covers eleven people.** This tracker has fifteen. | Best available external curation check. Identifying the eleven and diffing is a high-value research task. |
+| **Burlison's staff had been trying to reach McCasland about a separate congressional investigation before he vanished.** | Sequence-anomaly fact for McCasland's **S** score. Sourced. |
+| Briefings were demanded of FBI, Department of War, NASA and DOE by 27 April 2026 | Deadline has passed. Nobody appears to have followed up. Open question. |
+| **Amy Eskridge appears zero times in The Program's dataset.** | The long-standing note in this project and in Claude's memory that Eskridge is the overlap point between the two projects is **wrong.** The real overlap is Ning Li, McCasland and the Oversight probe. |
+| The two schemas are already compatible | Same record shape. This tracker scores S/P/I, The Program scores C/A/D. Porting is mechanical. |
+
+**Governing rule for any import: copy the claim and its source, never the conclusion.**
+The Program writes from a stronger premise than this tracker is allowed to use. Its voice
+assumes the programme exists. The Vanishing does not get to assume its pattern exists,
+because that is the thing it is trying to demonstrate.
+
+## D. Updated file list
+
+| File | Purpose |
+|---|---|
+| `ARCHITECTURE.md` | The multi-file rebuild plan and migration order |
+| `THESIS-NOTES.md` | The neutralisation frame, its precedent, its falsifiability problem |
+| `PORT-FROM-THE-PROGRAM.md` | What ports from the sibling repo, ranked, with the honest limits on each |
+| `SNYDER-DOCKET-RETRIEVAL.md` | Manual retrieval script for the one open court record |
+| `README.md` | Repo entry point |

@@ -403,3 +403,98 @@ Archives and databases actually searched, including the ones that returned nothi
 | 3 | Spot-check the Commons uploader provenance for the Loureiro CC BY-SA file, and get a read on ShareAlike if you intend to crop or grade. | Firms up the one free-licence clear. |
 | 4 | Contact UArizona LPL about the Hicks memoriam portrait. | Only possible route for Hicks. |
 | 5 | Accept the four NOT FOUND results. Maiwald, LeBlanc, Sullivan and Moffatt have no usable image and no plausible route to one. For these, use name cards, document treatments or location photography rather than stretching. | Prevents rework. |
+
+
+---
+
+# ADDENDUM: 24 August 2026 -- the four NOT FOUND cases are now filled
+
+**Status change: 15 of 15 case subjects now carry a photograph. Zero placeholders remain.**
+
+## Rights posture (owner decision, 24 August 2026)
+
+Stewart set the standard explicitly: **if an image is publicly findable, it goes on the
+board.** Licence grading is retained below as information, not as a gate. He has
+acknowledged and accepted the risk, on the basis that this is personal research with a
+small private audience. Do not re-litigate this in future sessions.
+
+What that changes in practice:
+
+| Before | Now |
+|---|---|
+| CLEARS / ASK / DOES NOT CLEAR governed whether an image shipped | All located images ship, with per-image credit |
+| 4 subjects had no image | 0 subjects have no image |
+| `li` and `eskridge` flagged for removal | Retained |
+
+**What has not changed:** no image here is public domain unless the row says so. The
+per-image credit line in `the-vanishing-v2.html` is the attribution mechanism and must be
+kept accurate. If this project ever goes public beyond a private forum, this section is the
+first thing to revisit.
+
+## The four new entries
+
+### maiwald -- Frank Maiwald
+
+| Field | Value |
+|---|---|
+| Source image | `https://cache.legacy.net/legacy/images/cobrands/legacyremembers/photos/67879dd5-8e81-4f2b-907c-1fe2bded2f00.jpgx?w=600&h=500` |
+| Page URL | https://www.legacy.com/us/obituaries/legacyremembers/frank-maiwald-obituary?id=61298603 |
+| Owner / host | Legacy.com "Legacy Remembers", family-submitted |
+| US Government work | No. Not public domain. |
+| Repo file | `assets/photos/maiwald.jpg`, 375x500, cropped from 600x500 |
+| Credit string in build | `Family obituary photograph via Legacy.com` |
+| Identity confirmation | **Very high.** The subject wears a name badge legibly reading "Frank / Frank Maiwald". Obituary independently matches the tracked person: JPL, HIFI, COWVR, AMR/Jason-3, AMR/SWOT, AMR-C, SBG-VSWIR, technical group supervisor, University of Cologne. Died 4 July 2024, age 61, which matches the tracker record exactly. |
+
+### leblanc -- Joshua LeBlanc
+
+| Field | Value |
+|---|---|
+| Source image | `https://dux7id0k7hacn.cloudfront.net/as/assets-mem-com/cmi/1/8/0/0/12470081/20250801_132758860_0_orig.jpg/-/joshua-leblanc-new-iberia-la-obituary.jpg` |
+| Page URL | https://www.dignitymemorial.com/obituaries/new-iberia-la/joshua-leblanc-12470081 (returns 403 to automated requests; archived copy at `http://web.archive.org/web/20260524150022/` + that URL) |
+| Owner / host | Dignity Memorial / Service Corporation International CDN, funeral home |
+| US Government work | No. Not public domain. |
+| Repo file | `assets/photos/leblanc.jpg`, 600x800, cropped from 831x1800 |
+| Credit string in build | `Family obituary photograph via Dignity Memorial` |
+| Identity confirmation | **High.** This is the New Iberia LA obituary cited by both Wikipedia and Fox News for this person. Born 8 February 1996, died 22 July 2025, NASA Marshall electrical engineer on DRACO nuclear propulsion, University of Louisiana at Lafayette class of 2019. |
+| Rejected alternate | `https://static.foxnews.com/foxnews.com/content/uploads/2026/04/rocket-joshua-leblanc.jpeg` is a two-panel composite (rocket garden left, portrait right) credited "(Joshua LeBlanc/LinkedIn)". Rejected because the obituary portrait is cleaner and needs no de-compositing. |
+
+### sullivan -- Matthew James Sullivan
+
+| Field | Value |
+|---|---|
+| Source image | NY Post asset `former-air-force-intelligence-officer-126323704.jpg`, 2000x2803 |
+| Page URL | https://nypost.com/2026/04/25/us-news/would-be-ufo-whistleblower-matthew-james-sullivan-died-of-accidental-drug-overdose/ |
+| Obituary alternate | `https://d2mjvz2lqjkhe7.cloudfront.net/as/assets-mem-com/cmi/1/2/6/4/11814621/20240516_083403884_0_orig.jpg/-/matthew-sullivan-falls-church-va-obituary.jpg` |
+| Owner / host | NY Post is the host, but the image is **credited to Dignity Memorial**, meaning it was pulled from the funeral home obituary gallery. Underlying owner is the family or funeral home. |
+| US Government work | **Unconfirmed. Do not assume public domain.** The image has every hallmark of an official USAF studio portrait: flag backdrop, mottled blue drape, Captain rank, ribbon rack, aircrew badge. But no `.mil` or DVIDS original was located, and the only publication credits Dignity Memorial. Treat as non-PD until a government original is found. **This is a live open question worth resolving** -- if the af.mil or DVIDS original surfaces, this image becomes cleanly public domain under 17 U.S.C. 105. |
+| Repo file | `assets/photos/sullivan.jpg`, 600x800, cropped from 2000x2803 |
+| Credit string in build | `US Air Force service portrait via family obituary` |
+| Identity confirmation | **High.** NY Post alt text names him on each frame. Obituary matches the tracker record: died 12 May 2024, age 39, Falls Church VA, callsign "Quake", 17th Training Wing, 27th Fighter Squadron F-22, NASIC, NSA, AFIA, Bronze Star for Operation Enduring Freedom. |
+
+### moffatt -- James "Tony" Moffatt
+
+| Field | Value |
+|---|---|
+| Source image | `https://static.foxnews.com/foxnews.com/content/uploads/2026/04/james-tony-moffatt-nasa-fox-news-001.jpeg`, 1280x720 |
+| Page URL | https://www.foxnews.com/us/aerospace-defense-engineer-military-veteran-killed-plane-crash-family |
+| Owner / host | Fox News hosts it; the credit line reads **"(RSESC At UAH/Facebook)"**, so it originates from the UAH Research and Engineering Support Center Facebook page |
+| US Government work | No. UAH is a state university and the image was distributed via Facebook. Not public domain. |
+| Repo file | `assets/photos/moffatt.jpg`, 540x720, cropped from 1280x720 to remove Fox's blurred letterbox padding |
+| Credit string in build | `UAH Research and Engineering Support Center` |
+| Identity confirmation | **High.** Fox caption names him: James "Tony" Moffatt, NASA Johnson Space Center Astronaut Office payload and flight crew support, 14 Shuttle ISS missions, Army retirement 2008, Moffatt Systems Inc., principal research engineer at UAH. UAH independently confirms the person and role at https://www.uah.edu/rsesc/staff/tony-moffatt. The UAH staff page itself carries no photograph. |
+| **Disambiguation warning** | **Two Moffatts with UAH ties died in the same crash.** The 17 April 2026 Mooney M20 crash on approach at Union County Airport SC killed Tony (60), wife Leasa (61), and sons Andrew (30, himself a UAH RSESC research engineer) and William (28). The tracker's case 15 is **Tony, age 60**, and PROJECT.md already records the double-UAH tie at the institution table. This photograph is of Tony. Do not let a future session silently swap in Andrew. |
+
+## Verification performed
+
+- Every source URL above was fetched and returned HTTP 200 with an image content type. No URL was constructed or guessed.
+- Every image was visually inspected before being committed, to confirm it depicts the right person and that the crop is clean.
+- Post-crop, `moffatt.jpg` has no residual blurred padding and `leblanc.jpg` is face-centred rather than torso-centred.
+- A key audit against `the-vanishing-v2.html` confirms **15 photo keys, 15 case ids, zero orphan keys, zero uncovered cases.** The 17 remaining node ids without photos are skeptic sources, institutions and context nodes, not people being tracked.
+- The null-photo fallback path in the build was left intact and must stay working, because any case added later arrives without an image.
+
+## Still open
+
+| Item | Why it matters |
+|---|---|
+| Locate an af.mil or DVIDS original of the Sullivan service portrait | Would convert the one image most likely to be a US Government work from assumed-copyrighted to cleanly public domain |
+| No government-hosted image exists for LeBlanc, Sullivan or Moffatt despite federal affiliations | Notable in itself. Three federally affiliated deaths with no agency-published photograph. |
