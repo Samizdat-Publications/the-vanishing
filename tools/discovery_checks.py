@@ -152,6 +152,7 @@ def run(verbose=True):
     instruments = check_instruments(data)
     gaps = check_negative_space(data)
     adjacency = check_adjacency(data, actors)
+    doc_drift = check_doc_scores(data)
 
     if verbose:
         print("DISCOVERY CHECKS  (warnings, not failures)\n")
@@ -179,10 +180,17 @@ def run(verbose=True):
         if not adjacency:
             print("   none.")
 
+        print("\n5. Documentation drift: S/P/I in prose disagreeing with the data (%d)"
+              % len(doc_drift))
+        for fname, n, cid, got, want in doc_drift:
+            print("   %s:%d  %-12s says %s, data says %s" % (fname, n, cid, got, want))
+        if not doc_drift:
+            print("   none. Every scored triple in the prose files matches the data.")
+
         print("\nThese are research prompts, not defects. Anything worth pursuing goes into")
         print("LEADS.md as unverified. The checks read the corpus the project already has")
         print("and cannot find what it does not contain.")
-    return actors, instruments, gaps, adjacency
+    return actors, instruments, gaps, adjacency, doc_drift
 
 
 def self_test():
@@ -219,12 +227,76 @@ def self_test():
         ("adjacency finds a name in two cases", "Richard Doty" in adjacency),
         ("clean case is not flagged", "t1" not in gaps),
     ]
+
+    # Documentation drift must fire on prose that contradicts the data.
+    import tempfile
+    real = load()
+    first = real["cases"][0]
+    bad = "The case of %s, S%d/P%d/I%d, is the model.\n" % (
+        first["label"], first["S"], (first["P"] + 1) % 4, first["I"])
+    tmp = os.path.join(ROOT, "README.md")
+    original = open(tmp, encoding="utf-8").read()
+    try:
+        open(tmp, "a", encoding="utf-8").write("\n" + bad)
+        fired = any(p[2] == first["id"] for p in check_doc_scores(real))
+    finally:
+        open(tmp, "w", encoding="utf-8").write(original)
+    results.append(("doc-drift check catches a wrong score in prose", fired))
+    results.append(("doc-drift check is clean on the real files", not check_doc_scores(real)))
     passed = 0
     for name, fired in results:
         print("  %-46s %s" % (name, "PASS" if fired else "FAIL, CHECK IS BLIND"))
         passed += bool(fired)
     print("\n%d of %d discovery checks proven to fire" % (passed, len(results)))
     return 0 if passed == len(results) else 2
+
+
+# --------------------------------------------------------------------------------------
+# Documentation drift
+# --------------------------------------------------------------------------------------
+# The prose files are load bearing in this project: CLAUDE.md tells a fresh session to read
+# SESSION-HANDOFF.md first, and PROJECT.md is the master case documentation. They drift from
+# the data silently, and a wrong score in a file people actually read is worse than a wrong
+# score in a file they do not. On 25 August 2026 SESSION-HANDOFF.md described Monica Reza as
+# P3 against an adjudicated P2, contradicting its own counts table on the same page.
+
+DOC_FILES = ["SESSION-HANDOFF.md", "PROJECT.md", "README.md", "THESIS-NOTES.md"]
+SCORE_RE = re.compile(r"\b(S[0-3])\s*/\s*(P[0-3])\s*/\s*(I[0-3])\b")
+
+
+def check_doc_scores(data):
+    """Find S/P/I triples in prose that disagree with the data.
+
+    Only fires when a case name appears on the same line, so it cannot guess.
+    """
+    cases = {c["label"]: c for c in data["cases"]}
+    surnames = {c["label"].split()[-1]: c for c in data["cases"]}
+    problems = []
+    for fname in DOC_FILES:
+        path = os.path.join(ROOT, fname)
+        if not os.path.exists(path):
+            continue
+        for n, line in enumerate(open(path, encoding="utf-8"), 1):
+            m = SCORE_RE.search(line)
+            if not m:
+                continue
+            case = None
+            for label, c in cases.items():
+                if label in line:
+                    case = c
+                    break
+            if case is None:
+                for sur, c in surnames.items():
+                    if sur in line:
+                        case = c
+                        break
+            if case is None:
+                continue
+            want = ("S%d" % case["S"], "P%d" % case["P"], "I%d" % case["I"])
+            got = (m.group(1), m.group(2), m.group(3))
+            if got != want:
+                problems.append((fname, n, case["id"], "/".join(got), "/".join(want)))
+    return problems
 
 
 if __name__ == "__main__":
