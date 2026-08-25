@@ -59,37 +59,97 @@ Affiliations as recorded in the sibling project's dataset.
 authors: James Lacatski (AAWSAP government programme manager), Colm Kelleher (BAASS deputy
 administrator), Harry Reid, Tim Burchett, James Clapper.
 
-## The honesty note, and it is load bearing
+## Results, 25 August 2026
 
-**The sibling project records all 23 of these people with status `active`. At least three of
-them are dead.** Vincent Teofilo died 10 January 2026 aged 81, Claudio Maccone in 2025 aged
-77, Paul Czysz in 2013.
+Vital status established for **20 of 23**.
 
-**That field is therefore not evidence of anything, and this cohort's mortality has NOT been
-established.** What exists today is:
+| Outcome | n |
+|---|---|
+| Dead | **4** (Baker, Czysz, Maccone, Teofilo) |
+| Alive | 16 |
+| Undetermined | 3 (Golightly, Wells, Albertine) |
+| Deaths inside the tracker's 2021-present window | **3** (Baker 2023, Maccone 2025, Teofilo 2026) |
 
-- A verified roster of 23 names.
-- Three deaths located incidentally, none anomalous, none asserted by anyone to be.
-- **No systematic vital-status check across the cohort.**
+| Death | Date | Age | Cause as published |
+|---|---|---|---|
+| Robert M. L. Baker, Jr. | January 2023 | 92 | None published |
+| Claudio Maccone | 20 August 2025 | 77 | None published |
+| Vincent L. Teofilo | 10 January 2026 | 81 | **Alzheimer's disease**, at home |
+| Paul A. Czysz | August 2013 (pre-window) | 78 or 79 | None published |
 
-**Until that check is run, this page supports no claim in either direction.** It does not show
-the cohort is unaffected, and it does not show the tracker is wrong. Anyone citing it before
-then is citing a roster as though it were a result.
+**Zero disappearances. Zero contested causes. Zero unexplained facts. Nobody has publicly
+called any of the four unusual.** Every determination came from an obituary, a memorial
+notice, or a collaborator's acknowledgement.
 
-Recording this plainly because the temptation runs the other way: the cohort is rhetorically
-useful the moment it is mentioned, and useful-but-unverified is exactly the failure mode this
-project exists to avoid.
+**The cohort is old, and structurally so.** Median age of the living is **74**, mean 77; four
+are 90 or older. DIRD authorship in 2008-2010 required an established senior career, so the
+sampling frame selects for age in a way the tracked fifteen may not.
 
-## What it would take to make this real
+### Two data-hygiene notes worth keeping
 
-1. **Establish vital status for all 23**, from obituaries, institutional pages, recent
-   publications or professional registries. Three are already known.
-2. **Record ages and dates**, so an expected-deaths figure can be computed rather than
-   asserted.
-3. **State the comparison honestly.** The cohort is small, older on average than the tracked
-   fifteen, and drawn from a different selection process. A base-rate comparison across 23
-   people carries wide uncertainty and the write-up must say so.
-4. **Report the result whichever way it falls**, and in the tracker's own voice.
+**A name search would have recorded a false death.** Searching "Richard Genik" returns an
+obituary for Richard "Rick" Genik, died 25 October 2016, a retired Ford electrical engineer,
+whose obituary names his son as "Dr. Richard J. II". **The DIRD author is Richard J. Genik II.
+The 2016 death is the father's.** Exactly the class of error that put the wrong NASA record on
+Amy Eskridge.
+
+**A live source conflict, logged not resolved.** Wikipedia still lists Robert M. L. Baker Jr.
+in "Living people". arXiv 2303.03974, whose authors were his direct collaborators, records his
+death in January 2023 in its acknowledgements. The collaborators are weighted higher, but no
+obituary or institutional memorial was found and Wikipedia has not been corrected.
+
+## The finding that matters most, and it is not the count
+
+**There is no denominator on the other side.**
+
+The tracked fifteen are selected **on the outcome**. That is what the tracker is. Their
+mortality rate cannot be computed, because the population they were drawn from is unknown.
+The DIRD cohort does yield a rate. **There is nothing to compare it against.**
+
+**That is a study-design problem, not a sample-size problem, and no amount of extra names
+fixes it.**
+
+Two further problems sit on top:
+
+| Problem | Effect |
+|---|---|
+| n=23, three events in window. A Poisson 95% interval around 3 events runs roughly **0.6 to 8.8**, a factor of fifteen | Any ratio would span "half as many" to "three times as many" |
+| Severe age confounding. US life tables put annual mortality near 3% at 74 and near 15% at 90. **Three deaths in 5.6 years across this age structure is unremarkable on its face** | A raw comparison to a younger tracked cohort measures age, not exposure |
+
+## What this cohort can and cannot be used for
+
+**CANNOT: a base-rate or ratio comparison.** Do not compute one. Do not describe the cohort as
+showing "no elevated rate", because a rate with no comparator is not a finding. An earlier
+draft of `THESIS-NOTES.md` called this the best available answer to Novella's base-rate
+objection. **That was wrong and has been corrected.**
+
+**CAN: a qualitative negative control on the character of events, not their frequency.**
+
+Twenty-three scientists with documented, publicly listed, contract-level proximity to a DIA
+advanced-aerospace programme, sampled by a frame this project did not choose. Across roughly
+five and a half years: four deaths, **zero disappearances, zero contested causes, zero
+unexplained facts, zero cases anyone has publicly called unusual.**
+
+That is a real and reportable result. It shows what the **texture** of ordinary mortality
+looks like in a programme-proximate population, and it gives Tier A's "an unexplained fact no
+published source accounts for" something concrete to be measured against. **It says nothing
+about how often people in such populations die and cannot be made to.**
+
+The zero-disappearances figure has the most teeth and even it is weak: 0 of 23 carries a 95%
+upper bound near 13%, which cannot exclude a disappearance rate that would look dramatic in a
+list of fifteen.
+
+**If a real rate comparison is ever wanted**, the frame needs to be one or two orders of
+magnitude larger, which realistically means an institutional roster such as a national-lab
+staff directory or a society fellowship list, not a 38-document author list.
+
+## Coverage limits, stated
+
+Five of the sixteen living rest **only** on a current institutional listing plus the absence
+of an obituary. That is weak inference; a stale faculty page is not evidence of a heartbeat.
+No systematic obituary-database check was run, and Legacy.com returns 403 to automated
+requests, so the Teofilo and Czysz details come from search-engine summaries rather than from
+reading those pages directly.
 
 ## What it must never be used for
 
