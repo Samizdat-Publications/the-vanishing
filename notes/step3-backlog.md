@@ -130,7 +130,7 @@ All in `notes/research/`, none merged. See each brief for its full sourcing and 
 
 | Item | Detail |
 |---|---|
-| **Verify or drop "Prior NASA-adjacent propulsion work" on Amy Eskridge** | Moved to her `unverified` array. Her own December 2018 deck calls her "Chemist, Entrepreneur" and names her father separately as "Retired NASA Engineer, Scientist". **This touches her P2** |
+| ~~Verify or drop "Prior NASA-adjacent propulsion work" on Amy Eskridge~~ | **REVIEWED AND ACCEPTED by Stewart, 25 Aug 2026.** Stays in her `unverified` array until sourced. He noted separately that he believes the Eskridge case is ultimately real, which the correction does not bear on: the pass removed an unsupported attribution and added a documented one (HoloChron LLC), leaving her own "psychological war" statement and Tier B untouched |
 | Retrieve the USPTO file wrapper for application 15/141,270 | Contains Examiner Bonzell's rejection in his own words |
 | Re-check two `esd.whs.mil` URLs from a browser | They underpin the SAP cover-mechanism citation and return 403 to automated requests |
 | Build the AAWSAP DIRD author cohort out as a comparison population | The control group. Worth more as a denominator than any case is as a numerator. See `THESIS-NOTES.md` |
