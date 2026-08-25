@@ -84,3 +84,27 @@ is allowed to use.
 4. Kirtland / Wright-Patterson / LANL / Sandia claims as I-axis support. **Do not import the thin ones and pretend they are support**
 5. Bennewitz as documented precedent
 6. `richard-doty` node, **with The Program's own credibility guard attached. Cite Doty for what he did, never for what he says is true**
+
+## Build issues found at the checkpoint
+
+| Item | Detail |
+|---|---|
+| **`dist/` cannot find the photographs** | `build_dashboard.py` writes to `dist/the-vanishing.html`, but the page loads `assets/photos/*` by relative path, so from `dist/` that resolves to `dist/assets/photos/` and 404s. Verified: serving the repo root gives 200 at `/assets/photos/leblanc.jpg` and 404 at `/dist/assets/photos/leblanc.jpg`. **The byte-identical output is correct; the output location is not self-sufficient.** Step 3 needs the build to either copy or symlink `assets/` into `dist/`, or emit a configurable asset base path. Do not "fix" this by editing the relative paths, which would break the reference equality |
+
+## Research findings staged and awaiting merge
+
+All in `notes/research/`, none merged. See each brief for its full sourcing and caveats.
+
+| Finding | Affects |
+|---|---|
+| **The committee's list is not independent.** All four Oversight letters footnote their enumeration to Daily Mail and NY Post reporting | How the eleven-way match may be described. **Never as external corroboration** |
+| Chavez described as a retired **construction foreman** by both Wikipedia and PolitiFact | Direct challenge to his **P1**. Verify and re-score |
+| Casias: family plus NM State Police position that she left voluntarily under financial stress | The tracker's strongest **S3** does not currently carry this counterargument |
+| Reza employer conflict: Oversight letter says JPL Materials Processing Group, tracker says Rocketdyne/Boeing | Case record |
+| **PROJECT.md open question 15 is closed.** Exact-phrase search of oversight.house.gov for "Matthew Sullivan" returns no posts | Open questions list |
+| Source inventory holds only the FBI letter; **all four resolve** | Sources |
+| The Pentagon's "no active national security investigations" line is a **staff email reply**, not a press statement | Framing |
+| **Burlison did address the scientists publicly on 9 June 2026.** The silence claim holds for press releases only | Corrects a project note |
+| **McDonald rejected as an analogue**, retained as a mechanism citation. The tracker's "Conte, little green men" anchor story is unverified and contradicted by Conte's own archive | `LEADS.md` sections B, C and E |
+| **Philip J. Klass** as the control case: what a real discrediting campaign by a lone private citizen looks like | The null hypothesis every future campaign claim must beat |
+| Sullivan photo credit asserts USAF authorship, which is the one thing not established | `PHOTOS.md` |
