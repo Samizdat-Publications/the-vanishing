@@ -19,10 +19,13 @@ scientists, military officials and defense-connected individuals since 2021. Wor
 Git repository. Remote `https://github.com/Samizdat-Publications/the-vanishing.git`
 (private, Samizdat-Publications). Branch is **`master`**, not `main`.
 
-**As of 25 August 2026 the project works out of the GitHub repo, not a local folder.**
-Sessions run in Claude Code and clone the repo fresh. The former local working copy at
-`C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker\` is no longer
-the source of truth. Treat `origin/master` as authoritative and pull before starting work.
+**Two environments, one repo.** As of 25 August 2026 the project is worked on from both a
+cloud Claude Code session, which clones the repo fresh and can push, and Stewart's local
+machine at `C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker\`.
+Both are live. Neither working tree sees the other's uncommitted work.
+
+**`origin/master` is the only source of truth. Always pull before starting and push when
+done.** Do not assume the working tree reflects everything that exists.
 
 **Do not confuse this with The Legacy Program Dashboard.** That is a different project,
 a different git repo (`the-legacy-program-dashboard`), and lives at
@@ -232,6 +235,8 @@ because that is the thing it is trying to demonstrate.
 | `PORT-FROM-THE-PROGRAM.md` | What ports from the sibling repo, ranked, with the honest limits on each |
 | `SNYDER-DOCKET-RETRIEVAL.md` | Manual retrieval script for the one open court record |
 | `README.md` | Repo entry point |
+| `CLAUDE.md` | Loads automatically at session start. The rules, condensed, so they do not depend on anyone thinking to read this file |
+| `FIRST-TASKS.md` | Ranked opening moves with reasoning |
 
 ## E. Discovery protocol, added after a named failure
 

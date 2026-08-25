@@ -1,93 +1,104 @@
-# The Vanishing -- project instructions
+# The Vanishing -- instructions for Claude
 
-Personal research project of Stewart Gregerson. Tracks deaths and disappearances of US
+Personal research project of Stewart Gregerson tracking deaths and disappearances of US
 scientists, military officials and defense-connected individuals since 2021.
+**Personal research. Not employer work. No employer branding in any output.**
 
-**This is not employer work. No employer branding anywhere.**
+## Read these first, in this order
 
-## Read order for a fresh session
+1. `SESSION-HANDOFF.md` -- current state, open items, working rules. Self-sufficient by design.
+2. `FIRST-TASKS.md` -- ranked opening moves with reasoning.
+3. `DISCOVERY-PROTOCOL.md` -- **required before any research pass.**
+4. `LEADS.md` -- the unverified queue. Read at the start of a pass, append during it.
+5. `ARCHITECTURE.md`, `THESIS-NOTES.md`, `PORT-FROM-THE-PROGRAM.md` as the task requires.
 
-1. `SESSION-HANDOFF.md` -- current state, open items, working rules. Read this first.
-2. `PROJECT.md` -- the case records and the full argument.
-3. The latest `scientist-tracker-state-*.md`.
-4. `ARCHITECTURE.md` before any structural work. `THESIS-NOTES.md` before any scoring work.
-5. `DISCOVERY-PROTOCOL.md` and `LEADS.md` before any research sweep. Both are required steps,
-   not suggestions.
+`PROJECT.md` is the master case documentation. The latest `scientist-tracker-state-*.md` is
+authoritative on case facts.
 
-## Repository facts
+## Repository
 
-| Item | Value |
-|---|---|
-| Remote | `https://github.com/Samizdat-Publications/the-vanishing` (private) |
-| Default branch | **`master`**, not `main` |
-| Entry point | `the-vanishing-v2.html`, served from the repo root |
-
-Do not confuse this with **The Legacy Program Dashboard**
-(`Samizdat-Publications/the-legacy-program-dashboard`). Different project, different repo.
-The only crossover is that The Program pins a frozen copy of `the-vanishing-v2.html`
-at its own `ref/`. Changes here do not propagate there, and that copy is never edited.
+Branch is **`master`**, not `main`. Probing `origin/main` returns exit 128; that is expected
+and is not an error worth investigating.
 
 ## Serving the dashboard
 
-The HTML is one file but it is **not** self-contained: it loads `assets/photos/*` by relative
-path. Ship the folder, not the file.
+`the-vanishing-v2.html` is one file but it is **not** self-contained: it loads
+`assets/photos/*` by relative path. Ship the folder, not the file. `file://` will not work,
+so serve it:
 
 ```bash
 cd /home/user/the-vanishing
 python3 -m http.server 8971
 ```
-Then open `http://127.0.0.1:8971/the-vanishing-v2.html`.
+Then open `http://127.0.0.1:8971/the-vanishing-v2.html`. On Stewart's machine, `cd` to the
+local path in "Two environments, one repo" below and use `python` instead of `python3`.
 
-## Writing rules
+## Rebuild in progress
 
-- **No em dashes.** Not in generated text, UI copy, documentation or commit messages.
-  Use double hyphens or restructure. This has been held on every file so far. Keep it that way.
+The single-file constraint is dropped. `ARCHITECTURE.md` has the target layout and the
+migration order. **Do not do step 3 before step 2.** Extracting the case records and changing
+the schema in the same step is how records get silently mangled, and regenerating the current
+HTML byte-for-byte from extracted data is the checkpoint that proves nothing was lost.
+`the-vanishing-v2.html` stays in the repo as the reference output until that checkpoint passes.
+
+## Output rules
+
+- **No em dashes.** Anywhere. Generated text, UI copy, documentation, commit messages. Use double hyphens or restructure.
 - Tables over bullet lists for comparative content. Charts get data labels.
 - Terminal commands include the `cd`, so they are copy-pasteable.
+- Be concise. Remove words that do not change the meaning.
 
 ## Research rules
 
-- **Never fabricate connections.** Always carry counterarguments. Distinguish confirmed fact
-  from allegation from open question. Flag anything unverifiable. Note where sources conflict.
-- **Never fabricate URLs, case numbers or document numbers.** If a URL cannot be verified to
-  resolve, say so.
-- Anything Stewart names in conversation that is not already tracked goes into `LEADS.md`
-  immediately, marked unverified. Called out once should mean captured forever.
-- Do not cite: strangehappen.com, theheartysoul.com, hannahhowell.com, mysterylores.com,
-  frontpagenewspaper.com, headlinereporter.com, factually.co, slaynews.com, vigilantfox.com,
-  ConservativeBrief, Medium reposts. These recycle identical errors and manufacture
-  timestamps on old material.
-- These are real deaths and real missing people. Several families have publicly asked not to
-  have their losses treated as conspiracy material. The tracker records those statements
-  accurately and does not argue with them.
+- **Never fabricate connections, sources, URLs, case numbers or document numbers.** If a URL cannot be verified to resolve, say so.
+- Always carry counterarguments. Distinguish confirmed fact from allegation from open question. Flag anything unverifiable. Note where sources conflict, and several genuine conflicts are logged.
+- **State search coverage, not just findings.** "Searched by name across four collections" is a very different claim from "read the full entity index." Say which one it was.
+- Do not cite: strangehappen.com, theheartysoul.com, hannahhowell.com, mysterylores.com, frontpagenewspaper.com, headlinereporter.com, factually.co, slaynews.com, vigilantfox.com, ConservativeBrief, Medium reposts.
+- These are real deaths and real missing people. Several families have publicly asked not to have their losses treated as conspiracy material. The tracker records those statements accurately and does not argue with them.
+
+## Editorial stance
+
+Built on the working hypothesis that a pattern **exists**, for an audience receptive to that
+framing. Core insight: **an event prosaic in isolation may not be prosaic in sequence.**
+Civilian academics count even without documented clearances, on the JASON precedent.
+
+**Stewart explicitly does not want fake or specious connections. The rigor serves the
+argument rather than opposing it.** Skeptical literature is a grading instrument, not a
+rebuttal section. Tier C cases are retained deliberately, to prove the list is not curated.
 
 ## Scoring
 
-Three independent axes plus a composite tier. **The axes are never summed.**
+Three axes, 0 to 3, **never summed.** S sequence anomaly, P personal program proximity,
+I institutional channel. Tier A requires an unexplained fact no published source accounts
+for, plus S2 or higher, or P3, or I3.
 
-| Axis | Range | Question |
-|---|---|---|
-| **S** Sequence Anomaly | 0-3 | How many independently documented, individually unexplained links form a chain? |
-| **P** Personal Program Proximity | 0-3 | What sensitive access did this person personally hold? |
-| **I** Institutional Channel | 0-3 | Does the employer have documented history as a conduit for classified work? |
+## Photograph rights
 
-Tier A = an unexplained fact no source accounts for, plus (S2+ or P3 or I3).
+Publicly findable images are used, with per-image credit. Stewart has acknowledged and
+accepted the risk; it is personal research for a small private audience. **Do not
+re-litigate this.** See `PHOTOS.md`.
 
-Do not raise axis scores on the strength of the neutralisation frame alone. See
-`THESIS-NOTES.md`, which records the frame and the falsifiability problem it creates.
-
-## Settled decisions -- do not re-litigate
-
-- **Photograph rights.** Publicly findable images are used with per-image credit. The licence
-  grading in `PHOTOS.md` is information, not a gate. Stewart has accepted the risk on the
-  basis that this is personal research for a small private audience.
-- **Tier C cases are retained deliberately**, to prove the list is not curated.
-- **The single-file HTML constraint is dropped.** See `ARCHITECTURE.md` for the migration
-  order, and do not do step 3 before step 2.
-
-## Adversarial review
+## Adversarial review protocol
 
 At the end of any deliverable that feels final, ask: **"Do you want to run adversarial review
-audit?"** Only run it when he says yes, because it consumes context. When running it, act as
-his managers, the management he presents to. Pick apart anything that looks odd or does not
-parse at first glance, and actually inspect the rendered output.
+audit?"** Run it only on an explicit yes, because it consumes context. When running it, act
+as his managers, the management Stewart presents to. Pick apart anything that looks odd or
+does not parse at first glance, and actually inspect the rendered output rather than
+reasoning about it.
+
+## Two environments, one repo
+
+This repo is worked on from both a **cloud Claude Code session** (GitHub-attached) and
+**Stewart's local machine** at
+`C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker\`.
+
+**Always `git pull` before starting work, and push when done.** A cloud session cannot see
+uncommitted local work and vice versa. Do not assume the working tree reflects everything
+that exists.
+
+## Do not touch
+
+**The Legacy Program Dashboard** is a separate project, separate repo
+(`the-legacy-program-dashboard`), under active development in its own thread. It consumes
+this project's built dashboard as a frozen build input at its own `ref/the-vanishing-v2.html`.
+That is a pinned copy. Changes here do not propagate there, and nothing here should modify it.
