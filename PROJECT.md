@@ -221,6 +221,36 @@ A second pass ran the two highest-value open research tasks. Full detail in `FIN
 
 **Also corrected:** the Wikipedia overview describes LeBlanc as "found in a lake" -- that detail belongs to Jason Thomas and is an error. Wikipedia additionally mis-dates its Taos News citation as July 9, 2026; the article is from **2025**.
 
+### Corrections and imports applied August 25, 2026
+
+The first import from The Legacy Program Dashboard, per `PORT-FROM-THE-PROGRAM.md`.
+**Governing rule applied throughout: copy the claim and its source, never the conclusion.**
+No axis score moved. Full briefs in `notes/research/`.
+
+| Case | Change | Basis |
+|---|---|---|
+| **Ning Li** | Three claims added for `DIA-08-1003-013`, "The Role of Superconductors in Gravity Research", DIA Acquisition Threat Support series, 23 March 2010, produced under the AAWSA programme and FOIA-released. Retention rationale rewritten. **I stays at 2.** | The DIRD reviews the rotating-superconductor claims associated with Podkletnov and her work. It is a document about her research line, not a fact about UAH as an employer, and `RESEARCH-PROCESS.md` scores I on the employer. Raising UAH to I3 on it would repeat the error the August 10 adjudication fixed. Tier C stands and the seven-year gap remains the governing counterargument |
+| **Ning Li** | Old rationale said the case was "retained for the research continuity to Eskridge rather than for its own anomaly." Now records both that continuity and the DIRD. | The old wording was too weak on documentary grounds |
+| **Ning Li** | Recorded that the paper was written by Dr George Hathaway, who had run a Podkletnov replication 1996-2003 and obtained null results | Imported as the claim. **The Program's inference from it is not imported** |
+| **McCasland** | Two claims added: Burlison stated his staff had been attempting to contact McCasland about a separate congressional investigation before he disappeared, and that his disappearance is what triggered the Oversight probe. One dated sequence entry, 21 April 2026. **S stays at 2.** | Fox News, 21 April 2026, URL verified to resolve. The chain entry is **not** marked anomalous: congressional staff trying to reach a retired general is not anomalous on its own, and marking it so would import the conclusion |
+| **McCasland** | Affiliation now reads "Air Force Research Laboratory, former commander (AFRL headquarters, Wright-Patterson AFB)" | The two projects described the posting differently and should not silently disagree. Both are true across a career: AFRL is headquartered at Wright-Patterson, and this tracker separately records the Kirtland Phillips Research Site connection |
+| **Sullivan** | Photograph credit changed from "US Air Force service portrait via family obituary" to "Service portrait, via family obituary (Dignity Memorial)" | The old string asserted USAF authorship, which is precisely what could not be established. See `PHOTOS.md` |
+| Open question 15 | Closed as a negative | Exact-phrase search of oversight.house.gov for "Matthew Sullivan" returns no posts |
+
+#### Rejected for import, and why it matters
+
+**The Program's claim that McCasland left behind "his phone, prescription glasses, hiking
+boots, wallet, and a .38-caliber revolver" (Fox News, 21 April 2026) is SUPERSEDED and was
+not imported.** BCSO formally corrected the record on 26 June 2026. This tracker already
+carries the corrected version: he **took** the wallet, hiking boots, .38 revolver and a
+distinctive red backpack, and **left** the iPhone, GPS devices, Garmin watch, medication and
+glasses. Importing the earlier version would have regressed a corrected record back to its
+pre-correction state on the strength of a source that is real but out of date.
+
+That is the concrete argument for the import rule. A sourced claim is not automatically a
+current one, and the sibling project may wish to know its own record is stale here. **The
+Program was not modified.**
+
 ### Geographic Clusters
 1. **California / JPL Corridor:** Maiwald, Hicks, Reza, Grillmair (Altadena / Sunland / Angeles NF / Llano)
 2. **New Mexico:** Chavez (LANL), Casias (LANL), Garcia (KCNSC), McCasland (AFRL ret.)

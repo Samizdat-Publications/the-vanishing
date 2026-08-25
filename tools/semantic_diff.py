@@ -35,6 +35,65 @@ EXPECTED_CHANGES = {
         "NASIC image corpus and the complete nasic.af.mil biography index found no federal "
         "original, so 'US Air Force service portrait' asserted the one thing not established"
     ),
+    # Step 5 imports from The Program. Claim and source only, never the conclusion.
+    "cases.0.claims.3.text": "step 5: Ning Li DIRD, Tier 1 existence claim",
+    "cases.0.claims.3.tier": "step 5: Ning Li DIRD, Tier 1 existence claim",
+    "cases.0.claims.3.sources.0.name": "step 5: Ning Li DIRD source",
+    "cases.0.claims.3.sources.0.url": "step 5: Ning Li DIRD source, verified 200",
+    "cases.0.claims.3.sources.0.date": "step 5: Ning Li DIRD source",
+    "cases.0.claims.4.text": "step 5: Ning Li DIRD, Tier 2 subject-matter claim with the Hathaway null-result context",
+    "cases.0.claims.4.tier": "step 5",
+    "cases.0.claims.4.sources.0.name": "step 5",
+    "cases.0.claims.4.sources.0.url": "step 5",
+    "cases.0.claims.4.sources.0.date": "step 5",
+    "cases.0.claims.5.text": "step 5: records that the dia.mil copy returned 403 here and was not independently verified",
+    "cases.0.claims.5.tier": "step 5",
+    "cases.0.claims.5.sources.0.name": "step 5",
+    "cases.0.claims.5.sources.0.url": "step 5",
+    "cases.0.claims.5.sources.0.date": "step 5",
+    "cases.0.narrative": "step 5: retention rationale no longer says the case is kept only for continuity to Eskridge, which the DIRD makes wrong on documentary grounds",
+    "cases.0.tierRationale": "step 5: records that the DIRD shows interest in the research line, not in her, and does not disturb Tier C",
+    "cases.0.sources.3.outlet": "step 5: Black Vault DIA FOIA mirror",
+    "cases.0.sources.3.url": "step 5: Black Vault DIA FOIA mirror, verified 200",
+    "cases.0.sources.3.date": "step 5: Black Vault DIA FOIA mirror",
+    "cases.13.claims.2.text": "step 5: McCasland, Burlison staff contact attempt",
+    "cases.13.claims.2.tier": "step 5",
+    "cases.13.claims.2.sources.0.name": "step 5",
+    "cases.13.claims.2.sources.0.url": "step 5: Fox News, verified 200",
+    "cases.13.claims.2.sources.0.date": "step 5",
+    "cases.13.claims.3.text": "step 5: McCasland disappearance triggered the Oversight probe",
+    "cases.13.claims.3.tier": "step 5",
+    "cases.13.claims.3.sources.0.name": "step 5",
+    "cases.13.claims.3.sources.0.url": "step 5",
+    "cases.13.claims.3.sources.0.date": "step 5",
+    "cases.13.affiliations.0": "step 5: AFRL commander made explicit as Wright-Patterson HQ so the two projects stop silently disagreeing",
+    "cases.13.sequenceChain.*.date": "step 5: Burlison contact entry added to the chain",
+    "cases.13.sequenceChain.*.event": "step 5: Burlison contact entry added to the chain",
+    "cases.13.sequenceChain.*.isAnomalous": "step 5: added entry is explicitly NOT marked anomalous",
+    "cases.13.sequenceChain.*.source": "step 5: Burlison contact entry added to the chain",
+    "cases.13.sources.4.outlet": "step 5: Fox News",
+    "cases.13.sources.4.url": "step 5: Fox News, verified 200",
+    "cases.13.sources.4.date": "step 5: Fox News",
+    # Collection-level declarations. These say the SHAPE of the collection changed, which
+    # would otherwise report every entry as removed-and-re-added. They deliberately do not
+    # blind the gate to content: NEW_CLAIM_TEXTS below is an exact allowlist, and every
+    # baseline claim text must still be present.
+    "cases.*.claims": "step 3 reshaped claim source (string) into sources (array); step 5 appended claims",
+    "cases.*.sources": "step 5 appended verified sources",
+    "cases.13.sequenceChain": "step 5 appended the Burlison contact entry, which re-sorts the chain by date",
+    "cases.13.affiliations": "step 5 made the AFRL commander posting explicit as Wright-Patterson HQ",
+}
+
+# Every claim text present in the baseline must still be present. Any claim text that is NEW
+# has to appear here, verbatim and truncated to 70 chars, so an import cannot slip a claim in
+# unremarked. This is what keeps the collection-level declaration above from being a blank
+# cheque.
+NEW_CLAIM_TEXTS = {
+    "A Defense Intelligence Reference Document titled 'The Role of S",
+    "The paper reviews the rotating-superconductor gravity-modificat",
+    "The DIA FOIA Electronic Reading Room copy is at FileId/170046. ",
+    "Rep. Eric Burlison stated that his staff had been attempting to",
+    "Burlison stated that McCasland's disappearance is what triggere",
 }
 
 # Invariants that must hold no matter what the schema does. These are the facts the
@@ -48,16 +107,44 @@ INVARIANTS = {
 }
 
 
-def flatten(node, path="", out=None):
+# Collections whose order is derived rather than authored. sequenceChain and chronology are
+# date-sorted, so inserting a dated entry renumbers everything after it. Diffing those
+# positionally reports a dozen "changes" for one insertion, which buries a real change in
+# noise and trains you to skim the output. They are compared as sets of whole entries
+# instead: added and removed entries are reported, a reorder is not a finding.
+UNORDERED = {"sequenceChain", "chronology", "claims", "sources", "affiliations",
+             "conflicts", "unverified", "leftBehind", "tookWith", "domains"}
+
+
+def collections(node, path="", out=None):
+    """Pull out the unordered collections so they can be compared by content."""
+    if out is None:
+        out = {}
+    if isinstance(node, dict):
+        for k, v in node.items():
+            sub = "%s.%s" % (path, k) if path else k
+            if k in UNORDERED and isinstance(v, list):
+                out[sub] = [json.dumps(x, sort_keys=True, ensure_ascii=False) for x in v]
+            else:
+                collections(v, sub, out)
+    elif isinstance(node, list):
+        for i, v in enumerate(node):
+            collections(v, "%s.%d" % (path, i), out)
+    return out
+
+
+def flatten(node, path="", out=None, skip_unordered=False):
     """Flatten to leaf paths, with list indices collapsed to * for pattern matching."""
     if out is None:
         out = {}
     if isinstance(node, dict):
         for k, v in node.items():
-            flatten(v, "%s.%s" % (path, k) if path else k, out)
+            if skip_unordered and k in UNORDERED and isinstance(v, list):
+                continue
+            flatten(v, "%s.%s" % (path, k) if path else k, out, skip_unordered)
     elif isinstance(node, list):
         for i, v in enumerate(node):
-            flatten(v, "%s.%d" % (path, i), out)
+            flatten(v, "%s.%d" % (path, i), out, skip_unordered)
     else:
         out[path] = node
     return out
@@ -74,7 +161,8 @@ def main():
     with open(os.path.join(ROOT, "data", "dataset.json"), encoding="utf-8") as fh:
         live = json.load(fh)
 
-    fb, fl = flatten(base), flatten(live)
+    fb, fl = flatten(base, skip_unordered=True), flatten(live, skip_unordered=True)
+    cb, cl = collections(base), collections(live)
     removed = set(fb) - set(fl)
     added = set(fl) - set(fb)
     changed = {k for k in set(fb) & set(fl) if fb[k] != fl[k]}
@@ -109,6 +197,44 @@ def main():
                     print("    %s" % p)
             if len(items) > 25:
                 print("    ... and %d more" % (len(items) - 25))
+
+    # Unordered collections, compared by content rather than position.
+    coll_added, coll_removed = [], []
+    for key in sorted(set(cb) | set(cl)):
+        was, now = cb.get(key, []), cl.get(key, [])
+        for entry in now:
+            if entry not in was and not allowed(key):
+                coll_added.append((key, entry))
+        for entry in was:
+            if entry not in now and not allowed(key):
+                coll_removed.append((key, entry))
+    if coll_removed:
+        ok = False
+        print("\n  ENTRIES REMOVED FROM COLLECTIONS (%d):" % len(coll_removed))
+        for key, entry in coll_removed[:15]:
+            print("    %s\n      %s" % (key, entry[:170]))
+    if coll_added:
+        ok = False
+        print("\n  UNDECLARED ENTRIES ADDED TO COLLECTIONS (%d):" % len(coll_added))
+        for key, entry in coll_added[:15]:
+            print("    %s\n      %s" % (key, entry[:170]))
+
+    # Claim text preservation. The collection declaration above allows the shape to change;
+    # this makes sure the content did not.
+    base_texts = {c["text"] for case in base["cases"] for c in case.get("claims", [])}
+    live_texts = {c["text"] for case in live["cases"] for c in case.get("claims", [])}
+    dropped = sorted(base_texts - live_texts)
+    undeclared_new = sorted(t for t in (live_texts - base_texts) if t[:63] not in NEW_CLAIM_TEXTS)
+    if dropped:
+        ok = False
+        print("\n  CLAIM TEXT DROPPED (%d):" % len(dropped))
+        for t in dropped[:10]:
+            print("    %s" % t[:160])
+    if undeclared_new:
+        ok = False
+        print("\n  UNDECLARED NEW CLAIM (%d). Add its first 63 chars to NEW_CLAIM_TEXTS:" % len(undeclared_new))
+        for t in undeclared_new[:10]:
+            print("    %r" % t[:63])
 
     print("\n  invariants:")
     actual = {
@@ -156,6 +282,8 @@ def main():
     else:
         n = sum(len(c.get("claims", [])) for c in base["cases"])
         print("    %-18s %3d  every claim source string preserved verbatim" % ("claim sources", n))
+    print("    %-18s %3d  baseline claim texts all still present, %d new declared"
+          % ("claim texts", len(base_texts), len(live_texts) - len(base_texts)))
 
     print("\n%s" % ("PASS  only declared changes present" if ok
                     else "FAIL  undeclared differences, see above"))

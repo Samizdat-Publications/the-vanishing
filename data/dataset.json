@@ -20,13 +20,13 @@
         "d-prop",
         "d-exotic"
       ],
-      "narrative": "Chinese-American physicist who emigrated in 1983 and spent two decades at the UAH Center for Space Plasma and Aeronomic Research working on gravitomagnetism, extending the Meissner effect from electromagnetism to gravity. She founded AC Gravity LLC in 1999, won a 448,970 dollar DoD grant in 2001, and moved into classified work at Redstone Arsenal after 2003. She was struck by a car on the UAH campus in 2014 and suffered permanent brain damage; reporting indicates the injury led to an Alzheimer’s diagnosis shortly afterward. She died of natural causes in 2021. The seven-year gap between the collision and her death substantially weakens any suspicious-death framing, and the case is retained for the research continuity to Eskridge rather than for its own anomaly.",
+      "narrative": "Chinese-American physicist who emigrated in 1983 and spent two decades at the UAH Center for Space Plasma and Aeronomic Research working on gravitomagnetism, extending the Meissner effect from electromagnetism to gravity. She founded AC Gravity LLC in 1999, won a 448,970 dollar DoD grant in 2001, and moved into classified work at Redstone Arsenal after 2003. She was struck by a car on the UAH campus in 2014 and suffered permanent brain damage; reporting indicates the injury led to an Alzheimer’s diagnosis shortly afterward. She died of natural causes in 2021. The seven-year gap between the collision and her death substantially weakens any suspicious-death framing, and the case is retained both for the research continuity to Eskridge and because her research line is the subject of a FOIA-released DIA reference document, DIA-08-1003-013.",
       "affiliations": [
         "UAH Center for Space Plasma and Aeronomic Research (1983-1999)",
         "AC Gravity LLC (founder, 1999)",
         "Redstone Arsenal / US Army AMCOM (classified, post-2003)"
       ],
-      "tierRationale": "A conventional explanation is documented and holds: a 2014 campus vehicle collision, resulting brain damage, and death of natural causes seven years later.",
+      "tierRationale": "A conventional explanation is documented and holds: a 2014 campus vehicle collision, resulting brain damage, and death of natural causes seven years later. The DIA reference document on her research line shows institutional interest in the subject matter, not in her, and does not disturb that. Tier C stands and the seven-year gap remains the governing counterargument.",
       "chronology": [
         {
           "date": "1983",
@@ -86,6 +86,39 @@
               "name": "Logged as a skeptic error, not as support for the pattern"
             }
           ]
+        },
+        {
+          "tier": 1,
+          "text": "A Defense Intelligence Reference Document titled 'The Role of Superconductors in Gravity Research', DIA document number DIA-08-1003-013, series 'Acquisition Threat Support', published 23 March 2010, was produced under the DIA Advanced Aerospace Weapon System Applications programme and released under FOIA.",
+          "sources": [
+            {
+              "name": "Defense Intelligence Reference Document, The Role of Superconductors in Gravity Research (The Black Vault FOIA release)",
+              "url": "https://documents2.theblackvault.com/documents/dia/AAWSAP-DIRDs/DIRD_14-DIRD_The_Role_of_Superconductors_in_Gravity_Research.pdf",
+              "date": "2010-03-23"
+            }
+          ]
+        },
+        {
+          "tier": 2,
+          "text": "The paper reviews the rotating-superconductor gravity-modification claims associated with Evgeny Podkletnov and the work of Ning Li. It was written by Dr George Hathaway, who had personally run a Podkletnov replication between 1996 and 2003 and obtained null results.",
+          "sources": [
+            {
+              "name": "Defense Intelligence Reference Document, The Role of Superconductors in Gravity Research (The Black Vault FOIA release)",
+              "url": "https://documents2.theblackvault.com/documents/dia/AAWSAP-DIRDs/DIRD_14-DIRD_The_Role_of_Superconductors_in_Gravity_Research.pdf",
+              "date": "2010-03-23"
+            }
+          ]
+        },
+        {
+          "tier": 1,
+          "text": "The DIA FOIA Electronic Reading Room copy is at FileId/170046. That URL returned HTTP 403 to automated requests from this environment, which is consistent with bot filtering rather than absence, so it is recorded as not independently verified here. The Black Vault mirror of the same FOIA release was verified to resolve.",
+          "sources": [
+            {
+              "name": "Defense Intelligence Reference Document, The Role of Superconductors in Gravity Research (The Black Vault FOIA release)",
+              "url": "https://documents2.theblackvault.com/documents/dia/AAWSAP-DIRDs/DIRD_14-DIRD_The_Role_of_Superconductors_in_Gravity_Research.pdf",
+              "date": "2010-03-23"
+            }
+          ]
         }
       ],
       "sources": [
@@ -93,6 +126,11 @@
           "outlet": "Newsweek",
           "url": "https://www.newsweek.com/huntsville-mystery-are-two-dead-scientists-same-town-connected-11869617",
           "date": "2026-04-24"
+        },
+        {
+          "outlet": "The Black Vault (DIA FOIA release)",
+          "url": "https://documents2.theblackvault.com/documents/dia/AAWSAP-DIRDs/DIRD_14-DIRD_The_Role_of_Superconductors_in_Gravity_Research.pdf",
+          "date": "2010-03-23"
         }
       ]
     },
@@ -1323,7 +1361,7 @@
       ],
       "narrative": "Retired Major General and former AFRL commander, missing from Albuquerque since February 27 2026. The Bernalillo County Sheriff’s Office issued a formal correction set in June 2026 that dismantles most of what circulated about him: there is no Pentagon connection, likely a conflation with Riverside Research, a DoD contractor; he held a standard retiree clearance rather than active operational access; law enforcement emphasized his wife never said he made a desperate attempt to resign; and BCSO states there is no known connection between this case and the other missing-scientist cases. His wife wrote publicly that he had only very commonly held clearances since retiring more than thirteen years earlier, and that it seems quite unlikely he was taken to extract very dated secrets. Investigators confirmed he stepped down from consulting roles citing brain fog, though LA Magazine could not independently verify that in the FOIA documents it obtained. The search has stalled with no confirmed sighting since a store surveillance image on February 26 2026.",
       "affiliations": [
-        "Air Force Research Laboratory, former commander",
+        "Air Force Research Laboratory, former commander (AFRL headquarters, Wright-Patterson AFB)",
         "Sandia National Laboratories (consulting)",
         "Riverside Research (consulting)",
         "Kirtland Partnership"
@@ -1361,6 +1399,12 @@
           "event": "Wife states publicly he held only very commonly held clearances since retiring",
           "isAnomalous": false,
           "source": "Facebook public post"
+        },
+        {
+          "date": "2026-04-21",
+          "event": "Burlison publicly states his staff had been trying to contact McCasland about a separate congressional investigation before he disappeared",
+          "isAnomalous": false,
+          "source": "Fox News"
         },
         {
           "date": "2026-06-26",
@@ -1410,6 +1454,28 @@
               "name": "BCSO"
             }
           ]
+        },
+        {
+          "tier": 2,
+          "text": "Rep. Eric Burlison stated that his staff had been attempting to contact McCasland regarding a separate congressional investigation before his disappearance.",
+          "sources": [
+            {
+              "name": "Fox News, Missing scientists probe was sparked after 'UFO General' disappeared, Republican lawmaker reveals",
+              "url": "https://www.foxnews.com/politics/missing-scientists-probe-sparked-after-ufo-general-disappeared-republican-lawmaker-reveals",
+              "date": "2026-04-21"
+            }
+          ]
+        },
+        {
+          "tier": 2,
+          "text": "Burlison stated that McCasland's disappearance is what triggered the House Oversight investigation into deaths and disappearances of scientists.",
+          "sources": [
+            {
+              "name": "Fox News, Missing scientists probe was sparked after 'UFO General' disappeared, Republican lawmaker reveals",
+              "url": "https://www.foxnews.com/politics/missing-scientists-probe-sparked-after-ufo-general-disappeared-republican-lawmaker-reveals",
+              "date": "2026-04-21"
+            }
+          ]
         }
       ],
       "sources": [
@@ -1422,6 +1488,11 @@
           "outlet": "Newsweek",
           "url": "https://www.newsweek.com/neil-mccasland-update-sheriff-addresses-speculation-missing-general-11827036",
           "date": "2026-04"
+        },
+        {
+          "outlet": "Fox News",
+          "url": "https://www.foxnews.com/politics/missing-scientists-probe-sparked-after-ufo-general-disappeared-republican-lawmaker-reveals",
+          "date": "2026-04-21"
         }
       ]
     },
