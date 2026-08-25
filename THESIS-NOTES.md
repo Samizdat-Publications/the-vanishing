@@ -282,3 +282,48 @@ on staged accidents, poisoning, induced illness, or vehicle collision as method.
 such material does not contain it. Both suspicions stay in `LEADS.md` as suspicions, now with
 a stated search behind the absence rather than an untested assumption. Neither may be
 asserted about any tracked case.
+
+## Documented institutional interest, and the line it does not cross
+
+Verified 25 August 2026 from primary sources. **This section exists to hold a real finding
+and its limit in the same place, because the limit is the part that gets dropped.**
+
+Three dated instances of the US government pursuing the rotating-superconductor and
+gravity-modification research line:
+
+| When | What | Status |
+|---|---|---|
+| 2001 | DoD grant to Ning Li's AC Gravity LLC | Already in the tracker |
+| 2008-2010 | DIA AAWSAP commissions `DIA-08-1003-013`, reviewing the rotating-superconductor claims associated with Podkletnov and Li's work | Imported 25 Aug 2026 |
+| 2015-2019 | Navy files six patent applications by a NAWCAD engineer covering inertial mass reduction, high-frequency gravitational waves, room-temperature superconductivity and plasma compression fusion, all assigned to the Secretary of the Navy | Verified from USPTO PDFs |
+
+**That is roughly two decades of documented, funded, agency-level interest in one research
+area.** It is the strongest available support for the proposition that this subject matter
+attracts real institutional attention, and none of it requires believing anything about the
+phenomenon itself.
+
+### The three things that must travel with it
+
+**1. Every one of those efforts ended in a negative or an abandonment.** NAWCAD spent
+$508,000 across three fiscal years and concluded the effect could not be proven. The
+superconductor and fusion applications were abandoned for failure to respond to an office
+action, the cheapest way to let a filing die. Both flagship granted patents were allowed to
+lapse for non-payment of maintenance fees in 2023. The DIRD itself was **commissioned from a
+researcher with a documented record of failing to replicate the effect.**
+
+**2. The documents do not connect to each other through Ning Li.** The complete reference
+lists of all three granted Pais patents were read in full. Neither Li, nor Podkletnov, nor
+Hathaway, nor `DIA-08-1003-013` appears in any of them. The link runs through **Puthoff**.
+**The overlap with her case is thematic, at the level of subject area, and must be written in
+exactly those words.**
+
+**3. There is no victim anywhere in this thread.** Salvatore Pais is alive. James Sheehy,
+Philip Bonzell and the rest are people who did their jobs, and one of them, Bonzell, is the
+documented internal objection: a federal examiner who said no in writing and was overridden
+by rank. **He is worth more to this tracker's credibility than the patents are**, because he
+shows the institution containing its own friction.
+
+**The move this forecloses.** It is tempting to run the sequence 2001 grant, 2010 DIRD, 2015
+patents, and land on a tracked person. Nothing in the documents supports that step, and
+taking it would be the specious connection the project's editorial stance exists to prevent.
+**Institutional interest in a subject is not evidence about a person who worked on it.**
