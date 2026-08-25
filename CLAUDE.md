@@ -20,6 +20,27 @@ authoritative on case facts.
 Branch is **`master`**, not `main`. Probing `origin/main` returns exit 128; that is expected
 and is not an error worth investigating.
 
+## Serving the dashboard
+
+`the-vanishing-v2.html` is one file but it is **not** self-contained: it loads
+`assets/photos/*` by relative path. Ship the folder, not the file. `file://` will not work,
+so serve it:
+
+```bash
+cd /home/user/the-vanishing
+python3 -m http.server 8971
+```
+Then open `http://127.0.0.1:8971/the-vanishing-v2.html`. On Stewart's machine, `cd` to the
+local path in "Two environments, one repo" below and use `python` instead of `python3`.
+
+## Rebuild in progress
+
+The single-file constraint is dropped. `ARCHITECTURE.md` has the target layout and the
+migration order. **Do not do step 3 before step 2.** Extracting the case records and changing
+the schema in the same step is how records get silently mangled, and regenerating the current
+HTML byte-for-byte from extracted data is the checkpoint that proves nothing was lost.
+`the-vanishing-v2.html` stays in the repo as the reference output until that checkpoint passes.
+
 ## Output rules
 
 - **No em dashes.** Anywhere. Generated text, UI copy, documentation, commit messages. Use double hyphens or restructure.

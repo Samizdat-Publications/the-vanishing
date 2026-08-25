@@ -7,9 +7,10 @@ defense-connected individuals since 2021.
 
 Serve the folder and open `the-vanishing-v2.html`:
 
-```powershell
-cd "C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker"
-python -m http.server 8971
+```bash
+git clone https://github.com/Samizdat-Publications/the-vanishing.git
+cd the-vanishing
+python3 -m http.server 8971
 ```
 Then browse to `http://127.0.0.1:8971/the-vanishing-v2.html`.
 

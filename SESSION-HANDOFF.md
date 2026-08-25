@@ -16,12 +16,16 @@ scientists, military officials and defense-connected individuals since 2021. Wor
 
 ## 2. Where it lives, and what it is NOT
 
-```
-C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker\
-```
-
 Git repository. Remote `https://github.com/Samizdat-Publications/the-vanishing.git`
 (private, Samizdat-Publications). Branch is **`master`**, not `main`.
+
+**Two environments, one repo.** As of 25 August 2026 the project is worked on from both a
+cloud Claude Code session, which clones the repo fresh and can push, and Stewart's local
+machine at `C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker\`.
+Both are live. Neither working tree sees the other's uncommitted work.
+
+**`origin/master` is the only source of truth. Always pull before starting and push when
+done.** Do not assume the working tree reflects everything that exists.
 
 **Do not confuse this with The Legacy Program Dashboard.** That is a different project,
 a different git repo (`the-legacy-program-dashboard`), and lives at
@@ -44,9 +48,9 @@ Ship the folder, not the file.
 **Local viewing note.** The Chrome tooling cannot open `file://` URLs. To inspect it, serve
 the folder and browse to it:
 
-```powershell
-cd "C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker"
-python -m http.server 8971
+```bash
+cd /home/user/the-vanishing
+python3 -m http.server 8971
 ```
 Then open `http://127.0.0.1:8971/the-vanishing-v2.html`.
 
@@ -69,13 +73,20 @@ Then open `http://127.0.0.1:8971/the-vanishing-v2.html`.
 
 | Item | Value |
 |---|---|
-| Last commit | `4817eed` "Guard URL syncing and harden paint against a single surface throwing" |
-| origin/master | in sync as of that commit |
-| Uncommitted as of this handoff | `the-vanishing-v2.html`, `PHOTOS.md`, and 5 files under `assets/photos/` |
+| Last commit | `b42720b` "Add discovery protocol and leads file after a named recall failure" |
+| origin/master | in sync at `b42720b` |
+| Uncommitted | none, working tree clean |
 
-Claude cannot push. Write files to disk, then Stewart runs git himself from PowerShell.
-If git reports `Unable to create ... index.lock: File exists`, delete `.git\index.lock` and retry.
-Historic gotcha: bare `git push` once silently failed where `git push origin master` worked.
+**Claude can push now.** That changed with the move to the GitHub repo on 25 August 2026.
+Work happens on a feature branch and lands through a pull request, rather than by writing
+files to disk for Stewart to commit from PowerShell. Always push with the explicit form:
+
+```bash
+git push -u origin <branch-name>
+```
+
+The old PowerShell notes are retained only as history. The `index.lock` collisions and the
+bare `git push` gotcha were artefacts of the local OneDrive working copy and should not recur.
 
 ## 4. What closed since the August 7 handoff
 
@@ -224,6 +235,8 @@ because that is the thing it is trying to demonstrate.
 | `PORT-FROM-THE-PROGRAM.md` | What ports from the sibling repo, ranked, with the honest limits on each |
 | `SNYDER-DOCKET-RETRIEVAL.md` | Manual retrieval script for the one open court record |
 | `README.md` | Repo entry point |
+| `CLAUDE.md` | Loads automatically at session start. The rules, condensed, so they do not depend on anyone thinking to read this file |
+| `FIRST-TASKS.md` | Ranked opening moves with reasoning |
 
 ## E. Discovery protocol, added after a named failure
 
