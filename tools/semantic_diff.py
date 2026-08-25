@@ -82,6 +82,10 @@ EXPECTED_CHANGES = {
     "cases.*.sources": "step 5 appended verified sources",
     "cases.13.sequenceChain": "step 5 appended the Burlison contact entry, which re-sorts the chain by date",
     "cases.13.affiliations": "step 5 made the AFRL commander posting explicit as Wright-Patterson HQ",
+    "cases.1.affiliations": "Eskridge: HoloChron LLC added as a documented affiliation; the unsupported NASA attribution moved to unverified",
+    "cases.1.unverified": "Eskridge: the NASA-adjacent claim moved here pending verification",
+    "cases.1.conflicts": "Eskridge: registered name versus trade name recorded rather than resolved silently",
+    "cases.1.sources": "Eskridge: HAL5 deck and Alabama SoS record added, both verified to resolve",
 }
 
 # Every claim text present in the baseline must still be present. Any claim text that is NEW
@@ -94,6 +98,10 @@ NEW_CLAIM_TEXTS = {
     "The DIA FOIA Electronic Reading Room copy is at FileId/170046. ",
     "Rep. Eric Burlison stated that his staff had been attempting to",
     "Burlison stated that McCasland's disappearance is what triggere",
+    "Amy Eskridge was CEO and co-founder of HoloChron LLC, a Huntsvi",
+    "HoloChron LLC was formed in Alabama on 16 July 2018 and dissolv",
+    "In December 2018 she stated that \"Independently funded research",
+    "Neither HoloChron LLC, the Institute for Exotic Science, nor Am",
 }
 
 # Invariants that must hold no matter what the schema does. These are the facts the

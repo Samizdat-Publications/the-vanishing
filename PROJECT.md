@@ -184,7 +184,7 @@ Assigned separately from the case table because the unit being scored is the emp
 | Ning Li | Univ. of Alabama Huntsville | I2 | Major research university, DoD-funded anti-gravity work |
 | Reza | Rocketdyne / Boeing | I2 | Defense contractor, no FFRDC status |
 | Moffatt | UAH Research Center | I2 | Major research university, prior NASA JSC work |
-| Eskridge | Institute for Exotic Science | I1 | Small private institute, no documented channel |
+| Eskridge | HoloChron LLC / Institute for Exotic Science | I1 | **I1 stands, and is better supported than before.** Checked 25 Aug 2026 against primary records. Her actual employer was **HoloChron LLC** (Alabama 000-524-283), a two-member father-daughter company formed 16 Jul 2018 and **dissolved 28 Dec 2022**, with no principal address, no disclosed members and a blank nature of business. **Zero federal contracts or grants** to the company, to the Institute for Exotic Science, or to her personally. The Institute for Exotic Science has **no Alabama registration at all**, so the previous rationale's "small private institute" was an assumption. Decisive against a raise: her own December 2018 slide states **"Independently funded research by private interests is required"** and asks **"Promising results always disappear into the classified realm, how do we fix this?"** A documented institutional channel is the thing she was on record saying she did not have and did not want |
 | Thomas | Novartis | **I0** | Pharmaceutical company, no government research nexus |
 
 **The regulatory basis for I3, added 25 August 2026.** The I axis previously rested on the

@@ -156,12 +156,13 @@
       ],
       "narrative": "Anti-gravity and advanced propulsion researcher in Huntsville, ruled a self-inflicted gunshot in June 2022. Before her death she stated on a podcast that she was the target of a psychological war aimed at stopping her anti-gravity work. That is a documented fact about her own stated belief and state of mind; it is not evidence of targeting. The widely circulated text reading that she most definitely did not kill herself, and the directed-energy-weapon claim, are attributed to a friend and to a resurfaced video, not to her family. Her family points the other way: her father, a retired NASA employee, told Newsweek that scientists die also, just like other people, and the family declined to characterize the death as unusual, citing chronic pain.",
       "affiliations": [
-        "Institute for Exotic Science",
-        "Prior NASA-adjacent propulsion work"
+        "Institute for Exotic Science (President)",
+        "HoloChron LLC, CEO and co-founder, 2018 to 2022"
       ],
       "tierRationale": "Unresolved in the sense that her own stated fears are documented, but a prosaic explanation exists, is supported by the family, and is not ruled out.",
       "conflicts": [
-        "The pattern framing describes a family dispute of the official ruling. The located family statements support the official ruling. The disputing statements come from a friend and a resurfaced video."
+        "The pattern framing describes a family dispute of the official ruling. The located family statements support the official ruling. The disputing statements come from a friend and a resurfaced video.",
+        "Company name. The registered entity is HoloChron LLC (Alabama 000-524-283). Her own bio copy and Newsweek both use the trade name \"HoloChron Engineering\", which is not a registered name. Both are correct in their own register. \"Holocron\" is a mistranscription and matches no entity."
       ],
       "chronology": [
         {
@@ -207,6 +208,50 @@
               "name": "Newsweek"
             }
           ]
+        },
+        {
+          "tier": 1,
+          "text": "Amy Eskridge was CEO and co-founder of HoloChron LLC, a Huntsville father-daughter gravity-modification R&D company, with her father Richard Eskridge, a retired NASA engineer, as CTO and co-founder. Her own slide reads \"CEO >> HoloChron LLC\".",
+          "sources": [
+            {
+              "name": "Amy Eskridge, \"A Historical Perspective on Anti-Gravity Technology\", talk to the Huntsville Alabama L5 Society (HAL5)",
+              "url": "https://www.hal5.org/PDF/HAL5-Dec2018-Talk-AntiGravity.pdf",
+              "date": "2018-12-06"
+            }
+          ]
+        },
+        {
+          "tier": 1,
+          "text": "HoloChron LLC was formed in Alabama on 16 July 2018 and dissolved on 28 December 2022. No principal address, members or nature of business are disclosed in the filing.",
+          "sources": [
+            {
+              "name": "Alabama Secretary of State, Business Entity Records, HoloChron LLC, entity 000-524-283",
+              "url": "https://arc-sos.state.al.us/cgi/corpdetail.mbr/detail?corp=000524283&page=name&file=D&type=ALL&status=ALL&place=ALL&city=",
+              "date": "2026-08-25"
+            }
+          ]
+        },
+        {
+          "tier": 1,
+          "text": "In December 2018 she stated that \"Independently funded research by private interests is required\" and asked \"Promising results always disappear into the classified realm, how do we fix this?\" Her stated position was that this work had to remain outside government funding, which cuts against reading her institutional proximity as a channel.",
+          "sources": [
+            {
+              "name": "Amy Eskridge, \"A Historical Perspective on Anti-Gravity Technology\", talk to the Huntsville Alabama L5 Society (HAL5)",
+              "url": "https://www.hal5.org/PDF/HAL5-Dec2018-Talk-AntiGravity.pdf",
+              "date": "2018-12-06"
+            }
+          ]
+        },
+        {
+          "tier": 1,
+          "text": "Neither HoloChron LLC, the Institute for Exotic Science, nor Amy Eskridge personally received any federal contract or grant. USAspending recipient and keyword searches across contracts and grants return zero for all three.",
+          "sources": [
+            {
+              "name": "USAspending.gov API, recipient and award searches",
+              "url": "https://api.usaspending.gov/",
+              "date": "2026-08-25"
+            }
+          ]
         }
       ],
       "sources": [
@@ -219,7 +264,20 @@
           "outlet": "Newsweek",
           "url": "https://www.newsweek.com/amy-eskridge-cause-of-death-investigated-as-new-video-of-scientist-surfaces-11868762",
           "date": "2026-04"
+        },
+        {
+          "outlet": "Amy Eskridge",
+          "url": "https://www.hal5.org/PDF/HAL5-Dec2018-Talk-AntiGravity.pdf",
+          "date": "2018-12-06"
+        },
+        {
+          "outlet": "Alabama Secretary of State",
+          "url": "https://arc-sos.state.al.us/cgi/corpdetail.mbr/detail?corp=000524283&page=name&file=D&type=ALL&status=ALL&place=ALL&city=",
+          "date": "2026-08-25"
         }
+      ],
+      "unverified": [
+        "Prior NASA-adjacent propulsion work, previously carried as an affiliation. No documentation of NASA work by Amy Eskridge herself was located. Her own December 2018 slide describes her as \"Chemist, Entrepreneur\" and names her father Richard Eskridge separately as \"Retired NASA Engineer, Scientist\". The tracker may have been inheriting his record onto hers. Verify or drop."
       ]
     },
     {
