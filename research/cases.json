@@ -1,0 +1,1342 @@
+[
+  {
+    "id": "li",
+    "label": "Ning Li",
+    "status": "dead",
+    "date": "2021-07-27",
+    "age": 78,
+    "loc": "Huntsville, AL",
+    "locId": "l-hsv",
+    "instId": "uah",
+    "sub": "UAH / AC Gravity LLC",
+    "cluster": "huntsville",
+    "tier": "C",
+    "S": 0,
+    "P": 2,
+    "I": 2,
+    "domains": [
+      "d-prop",
+      "d-exotic"
+    ],
+    "narrative": "Chinese-American physicist who emigrated in 1983 and spent two decades at the UAH Center for Space Plasma and Aeronomic Research working on gravitomagnetism, extending the Meissner effect from electromagnetism to gravity. She founded AC Gravity LLC in 1999, won a 448,970 dollar DoD grant in 2001, and moved into classified work at Redstone Arsenal after 2003. She was struck by a car on the UAH campus in 2014 and suffered permanent brain damage; reporting indicates the injury led to an Alzheimer’s diagnosis shortly afterward. She died of natural causes in 2021. The seven-year gap between the collision and her death substantially weakens any suspicious-death framing, and the case is retained for the research continuity to Eskridge rather than for its own anomaly.",
+    "affiliations": [
+      "UAH Center for Space Plasma and Aeronomic Research (1983-1999)",
+      "AC Gravity LLC (founder, 1999)",
+      "Redstone Arsenal / US Army AMCOM (classified, post-2003)"
+    ],
+    "tierRationale": "A conventional explanation is documented and holds: a 2014 campus vehicle collision, resulting brain damage, and death of natural causes seven years later.",
+    "chronology": [
+      {
+        "date": "1983",
+        "event": "Emigrates to the United States, joins UAH",
+        "precision": "year"
+      },
+      {
+        "date": "1999",
+        "event": "Founds AC Gravity LLC",
+        "precision": "year"
+      },
+      {
+        "date": "2001",
+        "event": "Wins a 448,970 dollar DoD grant",
+        "precision": "year"
+      },
+      {
+        "date": "2003",
+        "event": "Work moves to Redstone Arsenal and goes classified",
+        "precision": "year"
+      },
+      {
+        "date": "2014",
+        "event": "Struck by a car on the UAH campus; permanent brain damage",
+        "precision": "year"
+      },
+      {
+        "date": "2021-07-27",
+        "event": "Dies at 78 of natural causes",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 2,
+        "text": "A May 2003 private email to colleagues claimed an observed 11 kilowatts of output effect during an experiment.",
+        "source": "Reported secondhand"
+      },
+      {
+        "tier": 2,
+        "text": "Plasma physicist John Brandenburg wrote in April 2026 that he regarded her extension of the Meissner effect to the gravity potential as solid physics.",
+        "source": "X post, April 2026"
+      },
+      {
+        "tier": 3,
+        "text": "Skeptic magazine presents the 2014 collision and the Alzheimer’s death as unrelated events. The Huntsville Business Journal reporting says the collision caused the brain damage that led to the diagnosis.",
+        "source": "Logged as a skeptic error, not as support for the pattern"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "Newsweek",
+        "url": "https://www.newsweek.com/huntsville-mystery-are-two-dead-scientists-same-town-connected-11869617",
+        "date": "2026-04-24"
+      }
+    ]
+  },
+  {
+    "id": "eskridge",
+    "label": "Amy Eskridge",
+    "status": "dead",
+    "date": "2022-06-11",
+    "age": 34,
+    "loc": "Huntsville, AL",
+    "locId": "l-hsv",
+    "instId": "ies",
+    "sub": "Institute for Exotic Science",
+    "cluster": "huntsville",
+    "tier": "B",
+    "S": 1,
+    "P": 2,
+    "I": 1,
+    "domains": [
+      "d-prop",
+      "d-exotic"
+    ],
+    "narrative": "Anti-gravity and advanced propulsion researcher in Huntsville, ruled a self-inflicted gunshot in June 2022. Before her death she stated on a podcast that she was the target of a psychological war aimed at stopping her anti-gravity work. That is a documented fact about her own stated belief and state of mind; it is not evidence of targeting. The widely circulated text reading that she most definitely did not kill herself, and the directed-energy-weapon claim, are attributed to a friend and to a resurfaced video, not to her family. Her family points the other way: her father, a retired NASA employee, told Newsweek that scientists die also, just like other people, and the family declined to characterize the death as unusual, citing chronic pain.",
+    "affiliations": [
+      "Institute for Exotic Science",
+      "Prior NASA-adjacent propulsion work"
+    ],
+    "tierRationale": "Unresolved in the sense that her own stated fears are documented, but a prosaic explanation exists, is supported by the family, and is not ruled out.",
+    "conflicts": [
+      "The pattern framing describes a family dispute of the official ruling. The located family statements support the official ruling. The disputing statements come from a friend and a resurfaced video."
+    ],
+    "chronology": [
+      {
+        "date": "2022-06-11",
+        "event": "Dies in Huntsville. Ruled self-inflicted gunshot",
+        "precision": "day"
+      },
+      {
+        "date": "2026-04",
+        "event": "Video resurfaces; case enters national coverage",
+        "precision": "month"
+      },
+      {
+        "date": "2026-04-24",
+        "event": "Father tells Newsweek scientists die also, just like other people",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "Stated on a podcast before her death that she was the target of a psychological war aimed at stopping her anti-gravity work.",
+        "source": "EFE, April 22 2026"
+      },
+      {
+        "tier": 2,
+        "text": "A friend attributes to her a text reading that she most definitely did not kill herself.",
+        "source": "Attributed to a friend, not to family"
+      },
+      {
+        "tier": 1,
+        "text": "Retired FBI Special Agent Jennifer Coffindaffer said there is no doubt she took her own life, based on her behavior beforehand.",
+        "source": "Newsweek"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "NewsNation",
+        "url": "https://www.newsnationnow.com/missing/amy-eskridge-energy-weapon-attack/",
+        "date": "2026-04"
+      },
+      {
+        "outlet": "Newsweek",
+        "url": "https://www.newsweek.com/amy-eskridge-cause-of-death-investigated-as-new-video-of-scientist-surfaces-11868762",
+        "date": "2026-04"
+      }
+    ]
+  },
+  {
+    "id": "hicks",
+    "label": "Michael David Hicks",
+    "status": "dead",
+    "date": "2023-07-30",
+    "age": 59,
+    "loc": "Sunland, CA",
+    "locId": "l-sun",
+    "instId": "jpl",
+    "sub": "NASA JPL (1998-2022)",
+    "cluster": "california",
+    "tier": "C",
+    "S": 0,
+    "P": 1,
+    "I": 3,
+    "domains": [
+      "d-astro"
+    ],
+    "narrative": "JPL astronomer who studied comets and asteroids, not propulsion or weapons. No cause of death has been publicly disclosed, and the case is listed as natural causes. His daughter said he suffered from known medical issues and that there is no train of logic to follow that would implicate him. His brother said he is going to be remembered for some baloney rather than for his scientific contributions. PolitiFact specifically corrected the record on his research area, which the pattern framing had described as defense-adjacent.",
+    "affiliations": [
+      "NASA Jet Propulsion Laboratory (1998-2022)"
+    ],
+    "tierRationale": "A conventional explanation is documented and holds. Family attributes the death to known medical issues. Research area is not defense-adjacent.",
+    "chronology": [
+      {
+        "date": "2023-07-30",
+        "event": "Dies at 59. No public cause disclosed",
+        "precision": "day"
+      },
+      {
+        "date": "2026-04-21",
+        "event": "Daughter and brother publicly reject the pattern framing",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "Studied comets and asteroids. The characterization of his work as defense-adjacent is a documented error.",
+        "source": "PolitiFact, April 28 2026"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "CNN",
+        "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+        "date": "2026-04-21"
+      }
+    ]
+  },
+  {
+    "id": "sullivan",
+    "label": "Matthew James Sullivan",
+    "status": "dead",
+    "date": "2024-05-12",
+    "age": 39,
+    "loc": "Falls Church, VA",
+    "locId": "l-fal",
+    "instId": "nsa",
+    "sub": "USAF Intelligence / NSA / NASIC",
+    "cluster": "other",
+    "tier": "B",
+    "S": 1,
+    "P": 3,
+    "I": 3,
+    "domains": [
+      "d-intel"
+    ],
+    "narrative": "Air Force intelligence officer with NSA, NASIC and Air Force Intelligence Agency service, and a Bronze Star for valor in Operation Enduring Freedom. He holds the highest personal program proximity in the file. The widely circulated framing that he died shortly before scheduled Congressional testimony was checked directly on August 7 2026 and does not hold. The November 13 2024 House Oversight hearing that outlets place him weeks before was announced on November 8 2024, one hundred and eighty days after his death, and its four-name witness list does not include him. What survives is Representative Eric Burlison stating that Sullivan was scheduled to come in for an interview and died within two weeks, undated, with no corroborating Oversight record, related roughly two years after the fact, and in the same breath characterizing the death as a suicide when the medical examiner ruled it an accidental overdose. He stays Tier B. His P3 never rested on the timing claim and survives it intact.",
+    "affiliations": [
+      "US Air Force Intelligence",
+      "NSA",
+      "National Air and Space Intelligence Center"
+    ],
+    "tierRationale": "High personal proximity and a documented intelligence role, but the death has a documented prosaic explanation that is not ruled out, and the testimony timing was checked and failed.",
+    "conflicts": [
+      "Three separate things have been collapsed into one claim. An informal Congressional interview Burlison says was scheduled, with no date given. Grusch helping him come forward, with no date established. And the November 13 2024 public hearing, which is six months after the death and did not exist as a scheduled event until November 8 2024. Outlets disagree on days versus weeks versus months because they are not describing the same event.",
+      "Burlison characterizes the death as a suicide. The Northern District Office of the Chief Medical Examiner ruled it an accidental overdose from alcohol, alprazolam, cyclobenzaprine and imipramine."
+    ],
+    "unverified": [
+      "The date of the Congressional interview Burlison says was scheduled. Never stated by anyone, in any source.",
+      "Any documentary corroboration that the interview was scheduled. No Oversight scheduling notice, transcribed-interview record, subpoena or correspondence names him."
+    ],
+    "chronology": [
+      {
+        "date": "2024-05-12",
+        "event": "Found dead at his Falls Church home at 39. Ruled an accidental overdose: alcohol, alprazolam, cyclobenzaprine, imipramine",
+        "precision": "day"
+      },
+      {
+        "date": "2024-11-08",
+        "event": "House Oversight announces the November 13 UAP hearing. One hundred and eighty days after his death. Witness list: Gallaudet, Elizondo, Gold, Shellenberger. He is not on it",
+        "precision": "day"
+      },
+      {
+        "date": "2024-11-13",
+        "event": "Hearing held. He is not a witness and is not named in it",
+        "precision": "day"
+      },
+      {
+        "date": "2026-04-16",
+        "event": "Burlison writes to FBI Director Kash Patel asking for a formal inquiry",
+        "precision": "day"
+      },
+      {
+        "date": "2026-04",
+        "event": "Name enters the House Oversight and FBI review",
+        "precision": "month"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "Major General David Abba, Director of Special Programs and head of the DoD Special Access Program Central Office 2021 to 2024, and his former supervisor at Langley Air Force Base, spoke at his funeral and described him as carrying the burden that a select few in this nation have of truly understanding what is going on. This is the strongest evidence of program proximity in the record, and it is independent of the timing claim.",
+        "source": "Funeral webcast, reported by Liberation Times, April 24 2026"
+      },
+      {
+        "tier": 1,
+        "text": "The November 13 2024 House Oversight hearing was announced on November 8 2024, one hundred and eighty days after his death, with a four-name witness list that does not include him.",
+        "source": "Rep. Tim Burchett press release, November 8 2024"
+      },
+      {
+        "tier": 1,
+        "text": "The Northern District Office of the Chief Medical Examiner ruled the death an accidental overdose.",
+        "source": "PolitiFact, April 28 2026"
+      },
+      {
+        "tier": 2,
+        "text": "Burlison: he was scheduled to come in for an interview, and within two weeks he had suspiciously committed suicide. An interview, not testimony. Undated and uncorroborated, and the suicide characterization contradicts the medical examiner.",
+        "source": "Rep. Eric Burlison, quoted by Liberation Times, April 24 2026"
+      },
+      {
+        "tier": 2,
+        "text": "Described as a source for whistleblower David Grusch, who was helping him come forward. Grusch and Sullivan had previously served together in the Air Force.",
+        "source": "Burlison to the Daily Mail; Liberation Times"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "Rep. Tim Burchett (hearing announcement)",
+        "url": "https://burchett.house.gov/media/press-releases/house-oversight-committee-announces-uap-hearing",
+        "date": "2024-11-08"
+      },
+      {
+        "outlet": "House Committee Repository (witness list)",
+        "url": "https://docs.house.gov/Committee/Calendar/ByEvent.aspx?EventId=117722",
+        "date": "2024-11-13"
+      },
+      {
+        "outlet": "Liberation Times",
+        "url": "https://www.liberationtimes.com/home/late-air-force-officer-linked-to-alleged-legacy-ufo-program",
+        "date": "2026-04-24"
+      },
+      {
+        "outlet": "NewsNation",
+        "url": "https://www.newsnationnow.com/space/ufo/uap-witness-overdose-death-congress/",
+        "date": "2026-04"
+      }
+    ]
+  },
+  {
+    "id": "maiwald",
+    "label": "Frank Maiwald",
+    "status": "dead",
+    "date": "2024-07-04",
+    "age": 61,
+    "loc": "Los Angeles, CA",
+    "locId": "l-la",
+    "instId": "jpl",
+    "sub": "NASA JPL",
+    "cluster": "california",
+    "tier": "A",
+    "S": 1,
+    "P": 2,
+    "I": 3,
+    "domains": [
+      "d-astro"
+    ],
+    "narrative": "JPL researcher who worked on SWOT and imaging spectroscopy. No cause of death has been publicly disclosed. This is the thinnest file in the set and it is also the one entry where skeptics have offered no specific alternative explanation, only the base rate. That combination is why it holds Tier A despite a low sequence score: there is nothing anomalous in the record, and there is also nothing in the record at all.",
+    "affiliations": [
+      "NASA Jet Propulsion Laboratory"
+    ],
+    "tierRationale": "Contains a specific unexplained fact no source accounts for, and sits inside an I3 institution.",
+    "unexplainedResidual": "No cause of death has been made public more than two years on, and no skeptic has offered a specific alternative explanation. The rebuttal to this case is the base rate alone.",
+    "chronology": [
+      {
+        "date": "2024-07-04",
+        "event": "Dies at 61 in Los Angeles. No public cause disclosed",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "No public cause of death, more than two years on.",
+        "source": "Absence of record"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "Los Angeles Times",
+        "url": "https://www.latimes.com/politics/story/2026-04-21/fbi-probes-missing-or-dead-scientists-including-four-from-la-area",
+        "date": "2026-04-21"
+      },
+      {
+        "outlet": "Boston Globe",
+        "url": "https://www.bostonglobe.com/2026/04/24/nation/missing-deceased-scientists-investigation/",
+        "date": "2026-04-24"
+      }
+    ]
+  },
+  {
+    "id": "chavez",
+    "label": "Anthony Chavez",
+    "status": "missing",
+    "date": "2025-05-08",
+    "age": 78,
+    "loc": "Los Alamos, NM",
+    "locId": "l-los",
+    "instId": "lanl",
+    "sub": "LANL. Occupation disputed",
+    "cluster": "new-mexico",
+    "tier": "A",
+    "S": 2,
+    "P": 1,
+    "I": 3,
+    "domains": [
+      "d-nuc"
+    ],
+    "leftBehind": [
+      "wallet",
+      "keys",
+      "bicycle",
+      "car"
+    ],
+    "narrative": "Missing from Los Alamos since May 8 2025. Los Alamos Police closed the investigation on October 6 2025 citing no new information, witnesses, or evidence, while New Mexico DPS still carries him as an active missing-person entry. Police reports obtained by Los Angeles Magazine in June 2026 record a friend telling investigators that Chavez had been working on quantum physics with an unidentified scientist, researching matter existing in two places simultaneously, possibly meeting at the local library. That is a tip recorded in a police report, an allegation rather than a confirmed fact, and Futurism notes explicitly that no evidence connects it to his disappearance. A handwritten journal was found at the home; its contents have not been described. He had no cell phone at all, only a landline, so he cannot be counted in any left-the-phone-behind analysis.",
+    "affiliations": [
+      "Los Alamos National Laboratory"
+    ],
+    "tierRationale": "Two independently documented and individually unexplained facts: an agency case closed for lack of evidence that remains open at the state level, and an uncharacterized journal.",
+    "unexplainedResidual": "Los Alamos PD closed the case on October 6 2025 for lack of evidence while New Mexico DPS still lists him as an active missing person. Both are true at the same time, and neither agency has reconciled them.",
+    "conflicts": [
+      "Occupation. Los Angeles Magazine, citing police reports, says retired HVAC technician, age 78. Union Leader and aggregators say construction foreman. PolitiFact says retired construction foreman. The police-report sourcing is stronger."
+    ],
+    "unverified": [
+      "The widely repeated detail that he was last seen near the Rio Grande does not appear in any primary record located."
+    ],
+    "sequenceChain": [
+      {
+        "date": "2025-05-08",
+        "event": "Disappears from Los Alamos. Wallet, keys, bicycle and recently purchased Acura left at the home",
+        "isAnomalous": false,
+        "source": "NM DPS record M99969"
+      },
+      {
+        "date": "2025-05",
+        "event": "Friend tells police Chavez had been working on quantum physics with an unidentified scientist",
+        "isAnomalous": true,
+        "source": "Los Alamos PD reports via LA Mag"
+      },
+      {
+        "date": "2025-05",
+        "event": "Handwritten journal found at the home. Contents never described in the report",
+        "isAnomalous": true,
+        "source": "Los Alamos PD reports via LA Mag"
+      },
+      {
+        "date": "2025-10-06",
+        "event": "Los Alamos PD closes the investigation citing no new information, witnesses, or evidence",
+        "isAnomalous": true,
+        "source": "LA Mag public-records request"
+      },
+      {
+        "date": "2026-06-26",
+        "event": "LA Mag obtains the reports. NM DPS listing still active. No substantive FBI activity reported despite the White House review",
+        "isAnomalous": true,
+        "source": "LA Mag"
+      }
+    ],
+    "chronology": [
+      {
+        "date": "2025-05-08",
+        "event": "Reported missing from Los Alamos",
+        "precision": "day"
+      },
+      {
+        "date": "2025-10-06",
+        "event": "Los Alamos PD closes the case",
+        "precision": "day"
+      },
+      {
+        "date": "2026-06-26",
+        "event": "Police reports released under public-records request",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 2,
+        "text": "A friend told police he had been researching matter existing in two places simultaneously with an unidentified scientist.",
+        "source": "Police report. An allegation on the record, not a finding"
+      },
+      {
+        "tier": 1,
+        "text": "He had no cell phone at all. Landline only.",
+        "source": "Friend statement in police report"
+      },
+      {
+        "tier": 1,
+        "text": "The friend obtained power of attorney, hired a private investigator, and told police he believed the case warranted a homicide investigation.",
+        "source": "LA Mag"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "LA Magazine",
+        "url": "https://lamag.com/crimeinla/strange-quantum-physics-lead-emerges-in-missing-los-alamos-anthony-chavezs-case/",
+        "date": "2026-06-26"
+      },
+      {
+        "outlet": "Futurism",
+        "url": "https://futurism.com/future-society/man-vanishes-experiments-quantum-physics",
+        "date": "2026-07-03"
+      },
+      {
+        "outlet": "NM DPS",
+        "url": "https://missingpersons.dps.nm.gov/mpweb/mpdetailreport_serv?id=M99969",
+        "date": "2026"
+      }
+    ]
+  },
+  {
+    "id": "reza",
+    "label": "Monica Reza",
+    "status": "missing",
+    "date": "2025-06-22",
+    "age": 60,
+    "loc": "Angeles National Forest, CA",
+    "locId": "l-anf",
+    "instId": "boeing",
+    "sub": "Rocketdyne, later Boeing associate technical fellow",
+    "cluster": "california",
+    "tier": "A",
+    "S": 2,
+    "P": 2,
+    "I": 2,
+    "domains": [
+      "d-prop"
+    ],
+    "narrative": "Vanished while hiking near Mount Waterman in the Angeles National Forest. She was last seen smiling and waving to a companion roughly thirty feet away and was gone within seconds. The only item recovered in the initial search was a beanie about six hundred feet below the trail. She is a co-inventor of Mondaloy, a nickel-based superalloy developed at Rocketdyne for rocket engines, which is the substantive link to the propulsion thread. Her frequently cited JPL affiliation is unconfirmed: Wikipedia flags it as unverified while Union Leader and solvethecase.org state it as fact.",
+    "affiliations": [
+      "Rocketdyne (mid-1990s)",
+      "Boeing associate technical fellow (2004)",
+      "JPL affiliation unconfirmed"
+    ],
+    "tierRationale": "The disappearance itself is the unexplained fact. She vanished within seconds inside a companion’s line of sight.",
+    "unexplainedResidual": "She vanished within seconds while in sight of a companion roughly thirty feet away. The only item recovered was a beanie about six hundred feet below the trail.",
+    "conflicts": [
+      "JPL affiliation. Wikipedia flags it unverified; Union Leader and solvethecase.org state it as fact. Treat as unresolved.",
+      "Age. Priority 4 sourcing gives 60; the earlier tracked estimate was mid-forties."
+    ],
+    "unverified": [
+      "A Substack claim that she was declared dead four days after she vanished. Not corroborated in any primary or mainstream source."
+    ],
+    "sequenceChain": [
+      {
+        "date": "2025-06-22",
+        "event": "Last seen smiling and waving to a companion about thirty feet away near Mount Waterman",
+        "isAnomalous": false,
+        "source": "LASD case 2025-56"
+      },
+      {
+        "date": "2025-06-22",
+        "event": "Vanishes within seconds, inside the companion’s line of sight",
+        "isAnomalous": true,
+        "source": "LASD case 2025-56"
+      },
+      {
+        "date": "2025-06",
+        "event": "Only item recovered is a beanie roughly six hundred feet below the trail",
+        "isAnomalous": true,
+        "source": "Solve the Case"
+      }
+    ],
+    "chronology": [
+      {
+        "date": "2025-06-22",
+        "event": "Disappears near Mount Waterman",
+        "precision": "day"
+      },
+      {
+        "date": "2026-08-07",
+        "event": "Still missing. No search updates or remains discovery",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "Co-inventor of Mondaloy, a nickel-based superalloy for rocket engines developed at Rocketdyne.",
+        "source": "Patent record"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Monica_Reza",
+        "date": "2026"
+      },
+      {
+        "outlet": "Solve the Case",
+        "url": "https://www.solvethecase.org/case/2025-56/monica-reza",
+        "date": "2026"
+      }
+    ]
+  },
+  {
+    "id": "casias",
+    "label": "Melissa Casias",
+    "status": "dead",
+    "date": "2025-06-26",
+    "age": null,
+    "loc": "Carson National Forest, NM",
+    "locId": "l-carson",
+    "instId": "lanl",
+    "sub": "LANL administrative assistant",
+    "cluster": "new-mexico",
+    "tier": "A",
+    "S": 3,
+    "P": 1,
+    "I": 3,
+    "domains": [
+      "d-nuc"
+    ],
+    "leftBehind": [
+      "wallet",
+      "keys",
+      "phones"
+    ],
+    "narrative": "Disappeared June 26 2025; remains identified May 31 2026. Cause and manner of death remain undetermined more than a year on, complicated by the remains being skeletonized. She was an administrative assistant at LANL, not a scientist, a correction PolitiFact made explicitly. The case carries the strongest set of evidence-handling problems in the file. Investigators corrected a surveillance timestamp by thirteen hours and fifty-eight minutes with no explanation given. The Mondragon family independently recovered additional evidence at the scene that law enforcement had not collected. A registered black Springfield handgun was found near the remains and police have not disclosed the registered owner or whether she had any connection to it. Sources also conflict on the nature of the disappearance: the family said she ran away of her own volition due to stress, while her wallet, keys, and phones reset to factory settings were found at home, a detail nobody has reconciled with a simple voluntary departure.",
+    "affiliations": [
+      "Los Alamos National Laboratory, administrative assistant"
+    ],
+    "tierRationale": "Three independently documented and individually unexplained facts: an unexplained fourteen-hour timestamp correction, evidence the family recovered that police had not, and an undisclosed registered firearm at the scene.",
+    "unexplainedResidual": "A surveillance timestamp was corrected by thirteen hours and fifty-eight minutes with no explanation provided, and the family recovered evidence at the scene that investigators had not collected.",
+    "conflicts": [
+      "Nature of the disappearance. Family and NM State Police lean toward voluntary departure. Wallet, keys and factory-reset phones at the home sit awkwardly with that and have not been reconciled.",
+      "Discovery date versus identification date. Remains discovered late May 2026, identified May 31 2026. Both may be correct."
+    ],
+    "unverified": [
+      "A NewsNation report of a security-clearance revocation. Article unreachable; no LANL, NNSA or DOE confirmation found."
+    ],
+    "sequenceChain": [
+      {
+        "date": "2025-06-26",
+        "event": "Disappears. Wallet, keys and phones reset to factory settings found at home",
+        "isAnomalous": true,
+        "source": "Union Leader"
+      },
+      {
+        "date": "2025-06-27",
+        "event": "Surveillance timestamp later corrected from June 27 4:16 a.m. to June 26 2:18 p.m., a gap of 13 hours 58 minutes, unexplained",
+        "isAnomalous": true,
+        "source": "Police reports via LA Mag"
+      },
+      {
+        "date": "2026-05-31",
+        "event": "Skeletonized remains identified in Carson National Forest",
+        "isAnomalous": false,
+        "source": "NBC News"
+      },
+      {
+        "date": "2026-06",
+        "event": "Mondragon family independently recovers evidence at the scene that law enforcement had not collected",
+        "isAnomalous": true,
+        "source": "LA Mag"
+      },
+      {
+        "date": "2026-08-04",
+        "event": "Handgun found near remains identified as a registered black Springfield. Owner not disclosed",
+        "isAnomalous": true,
+        "source": "LA Mag"
+      },
+      {
+        "date": "2026-08-07",
+        "event": "Cause and manner of death still undetermined",
+        "isAnomalous": true,
+        "source": "NM Office of the Medical Investigator"
+      }
+    ],
+    "chronology": [
+      {
+        "date": "2025-06-26",
+        "event": "Disappears from the Taos area",
+        "precision": "day"
+      },
+      {
+        "date": "2026-05-31",
+        "event": "Remains identified",
+        "precision": "day"
+      },
+      {
+        "date": "2026-07-20",
+        "event": "Investigators state there are no new updates",
+        "precision": "day"
+      },
+      {
+        "date": "2026-08-04",
+        "event": "Handgun identified as registered. Owner undisclosed",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "Administrative assistant at LANL. Early coverage calling her a scientist is inaccurate.",
+        "source": "PolitiFact and Wikipedia"
+      },
+      {
+        "tier": 1,
+        "text": "Cause and manner of death undetermined more than thirteen months after the disappearance.",
+        "source": "NM OMI"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "LA Magazine",
+        "url": "https://lamag.com/crimeinla/melissa-casias-death-still-shrouded-in-mystery-over-one-year-later/",
+        "date": "2026-07-17"
+      },
+      {
+        "outlet": "NBC News",
+        "url": "https://www.nbcnews.com/news/us-news/remains-new-mexico-melissa-casias-vanished-rcna347794",
+        "date": "2026-05-31"
+      }
+    ]
+  },
+  {
+    "id": "leblanc",
+    "label": "Joshua Kyle LeBlanc",
+    "status": "dead",
+    "date": "2025-07-22",
+    "age": 29,
+    "loc": "Walker County, AL",
+    "locId": "l-walker",
+    "instId": "nasa",
+    "sub": "NASA Marshall, DRACO nuclear propulsion",
+    "cluster": "huntsville",
+    "tier": "A",
+    "S": 2,
+    "P": 3,
+    "I": 3,
+    "domains": [
+      "d-nuc",
+      "d-prop"
+    ],
+    "leftBehind": [
+      "phone",
+      "wallet"
+    ],
+    "narrative": "Electrical engineer at NASA Marshall Space Flight Center from 2019, working on nuclear propulsion including DRACO, the DARPA and NASA joint program. He left his phone and wallet at home, told no one of any travel plans, and vehicle data showed his Tesla had been parked at Huntsville International Airport for four hours that morning. The burned vehicle was found at 2:45 p.m. on July 22 2025 in Walker County, well outside Huntsville, after a single-vehicle crash into a guardrail and trees. His family reported him missing the morning of the day he was found and had worried he had been abducted. He is the clearest example of the redesign’s purpose: he scores high on all three axes and version one buried him as a routine entry.",
+    "affiliations": [
+      "NASA Marshall Space Flight Center (2019-2025)",
+      "DRACO, DARPA and NASA joint program"
+    ],
+    "tierRationale": "Active nuclear propulsion access at an I3 institution, plus two documented and individually unexplained facts on the day of death.",
+    "unexplainedResidual": "Vehicle data places his Tesla at Huntsville International Airport for four unexplained hours that morning. He left his phone and wallet at home and told no one of travel plans.",
+    "conflicts": [
+      "The Wikipedia overview article summarizes him as found in a lake after disappearing three months prior. That detail belongs to Jason Thomas. Every dedicated source describes the burned-Tesla crash on the same day."
+    ],
+    "sequenceChain": [
+      {
+        "date": "2025-07-22",
+        "event": "Leaves phone and wallet at home. Tells no one of travel plans",
+        "isAnomalous": true,
+        "source": "Family, via Newsweek"
+      },
+      {
+        "date": "2025-07-22",
+        "event": "Vehicle data shows the Tesla parked at Huntsville International Airport for four hours that morning",
+        "isAnomalous": true,
+        "source": "Fox News"
+      },
+      {
+        "date": "2025-07-22",
+        "event": "Family reports him missing, fearing abduction",
+        "isAnomalous": false,
+        "source": "1819 News"
+      },
+      {
+        "date": "2025-07-22",
+        "event": "Burned vehicle found at 2:45 p.m. in Walker County after a single-vehicle crash into a guardrail and trees",
+        "isAnomalous": false,
+        "source": "Newsweek"
+      },
+      {
+        "date": "2025-07",
+        "event": "Body identified days later by forensic officials",
+        "isAnomalous": false,
+        "source": "Wikipedia"
+      }
+    ],
+    "chronology": [
+      {
+        "date": "2019",
+        "event": "Joins NASA Marshall Space Flight Center",
+        "precision": "year"
+      },
+      {
+        "date": "2025-07-22",
+        "event": "Dies at 29 in Walker County, Alabama",
+        "precision": "day"
+      },
+      {
+        "date": "2026-05-25",
+        "event": "Standalone Wikipedia article deleted at AfD as non-notable outside the conspiracy narrative",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "Worked on DRACO, a DARPA and NASA joint nuclear propulsion program.",
+        "source": "NASA"
+      },
+      {
+        "tier": 1,
+        "text": "Four unexplained hours with the vehicle at the airport that morning.",
+        "source": "Vehicle data, via Fox News"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "Newsweek",
+        "url": "https://www.newsweek.com/huntsville-mystery-are-two-dead-scientists-same-town-connected-11869617",
+        "date": "2026-04-24"
+      },
+      {
+        "outlet": "Fox News",
+        "url": "https://www.foxnews.com/us/nasa-nuclear-engineer-found-dead-burned-tesla-vanishing-alabama-home-last-year",
+        "date": "2026"
+      }
+    ]
+  },
+  {
+    "id": "garcia",
+    "label": "Steven Abel Garcia",
+    "status": "missing",
+    "date": "2025-08-28",
+    "age": 47,
+    "loc": "Albuquerque, NM",
+    "locId": "l-abq",
+    "instId": "kcnsc",
+    "sub": "Property custodian, contracted out of KCNSC",
+    "cluster": "new-mexico",
+    "tier": "A",
+    "S": 2,
+    "P": 1,
+    "I": 3,
+    "domains": [
+      "d-nuc"
+    ],
+    "leftBehind": [
+      "phone",
+      "wallet",
+      "keys",
+      "car"
+    ],
+    "tookWith": [
+      "handgun"
+    ],
+    "narrative": "Missing from Albuquerque since August 28 2025, with APD listing and the FBI assisting. He abandoned his car, phone, wallet and keys, took a handgun, and left on foot. The state case carries a Missing Person Other-Caution flag consistent with being armed. His role has been widely mischaracterized: the Santa Fe New Mexican describes him as a property custodian, and the top clearance with nuclear weapons access claim that circulated is not supported by any primary source and has been removed from this record. He is the strongest single case in the left-everything-behind thread precisely because neither reading fully explains him: the abduction reading does not account for the handgun, and the suicidal-intent reading does not account for the car.",
+    "affiliations": [
+      "Kansas City National Security Campus, contractor",
+      "Property custodian role per Santa Fe New Mexican"
+    ],
+    "tierRationale": "A documented combination of departure facts that neither the abduction reading nor the suicide reading accounts for, at an I3 institution.",
+    "unexplainedResidual": "He abandoned car, phone, wallet and keys while taking a handgun and leaving on foot. Neither the abduction reading nor the suicidal-intent reading accounts for that combination.",
+    "conflicts": [
+      "Role. Santa Fe New Mexican says property custodian. Union Leader says government contractor with security clearance. Fox4KC says contracted out of KCNSC."
+    ],
+    "unverified": [
+      "The top clearance and nuclear weapons access characterization. Not supported by primary sources. Removed from this record."
+    ],
+    "sequenceChain": [
+      {
+        "date": "2025-08-28",
+        "event": "Leaves on foot from Albuquerque, abandoning car, phone, wallet and keys",
+        "isAnomalous": true,
+        "source": "NM DPS record M101688"
+      },
+      {
+        "date": "2025-08-28",
+        "event": "Takes a handgun with him",
+        "isAnomalous": true,
+        "source": "NM DPS"
+      },
+      {
+        "date": "2025-08",
+        "event": "State case flagged Missing Person Other-Caution, consistent with being armed",
+        "isAnomalous": false,
+        "source": "NM DPS"
+      },
+      {
+        "date": "2026-04",
+        "event": "FBI assisting. Last substantive reporting",
+        "isAnomalous": false,
+        "source": "Santa Fe New Mexican"
+      }
+    ],
+    "chronology": [
+      {
+        "date": "2025-08-28",
+        "event": "Disappears from Albuquerque at 47",
+        "precision": "day"
+      },
+      {
+        "date": "2026-04-21",
+        "event": "Named among the four missing New Mexicans in the federal review",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "Described as a property custodian by the Santa Fe New Mexican.",
+        "source": "Santa Fe New Mexican, April 21 2026"
+      },
+      {
+        "tier": 3,
+        "text": "The nuclear weapons access claim originated in aggregator coverage and traces to no primary source.",
+        "source": "Removed from the record"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "Santa Fe New Mexican",
+        "url": "https://www.santafenewmexican.com/news/local_news/4-missing-new-mexicans-among-disappearances-deaths-prompting-federal-investigation/article_ed85c2ec-7bb6-433d-9548-dead3a124a78.html",
+        "date": "2026-04-21"
+      },
+      {
+        "outlet": "Cybernews",
+        "url": "https://cybernews.com/news/steven-garcia-ufo-uap-mccasland/",
+        "date": "2026"
+      }
+    ]
+  },
+  {
+    "id": "thomas",
+    "label": "Jason Thomas",
+    "status": "dead",
+    "date": "2025-12-13",
+    "age": 45,
+    "loc": "Wakefield, MA",
+    "locId": "l-wak",
+    "instId": "novartis",
+    "sub": "Chemical biology, Novartis",
+    "cluster": "northeast",
+    "tier": "C",
+    "S": 0,
+    "P": 0,
+    "I": 0,
+    "isNonDefense": true,
+    "domains": [
+      "d-chem"
+    ],
+    "leftBehind": [
+      "phone",
+      "wallet",
+      "watch"
+    ],
+    "narrative": "Chemical biology researcher and director at Novartis, a pharmaceutical company with no defense connection. Reported missing December 13 2025 from Wakefield, Massachusetts; his body was found in Lake Quannapowitt on March 17 2026. His wife noted he was depressed at the time. The Middlesex County Medical Examiner found no foul play. He is retained in this file deliberately, tagged non-defense, to demonstrate that the list is not curated to fit the thesis. The frequently repeated December 12 death date is wrong; that is the date he was last seen.",
+    "affiliations": [
+      "Novartis, chemical biology research director"
+    ],
+    "tierRationale": "A conventional explanation is documented and holds. No defense connection on any axis. Retained for completeness.",
+    "chronology": [
+      {
+        "date": "2025-12-13",
+        "event": "Reported missing from Wakefield, Massachusetts",
+        "precision": "day"
+      },
+      {
+        "date": "2026-03-17",
+        "event": "Body found in Lake Quannapowitt",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "Middlesex County Medical Examiner found no foul play.",
+        "source": "Middlesex County ME"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "Boston Globe",
+        "url": "https://www.bostonglobe.com/2026/04/24/nation/missing-deceased-scientists-investigation/",
+        "date": "2026-04-24"
+      },
+      {
+        "outlet": "CNN",
+        "url": "https://www.cnn.com/2026/04/30/us/missing-scientists-media-conspiracy-theories-cec",
+        "date": "2026-04-30"
+      }
+    ]
+  },
+  {
+    "id": "loureiro",
+    "label": "Nuno Loureiro",
+    "status": "resolved",
+    "date": "2025-12-15",
+    "age": 47,
+    "loc": "Cambridge, MA",
+    "locId": "l-cam",
+    "instId": "mit",
+    "sub": "MIT Plasma Science and Fusion Center",
+    "cluster": "northeast",
+    "tier": "C",
+    "S": 0,
+    "P": 1,
+    "I": 3,
+    "domains": [
+      "d-plasma"
+    ],
+    "narrative": "Fatally shot at his Boston-area home on December 15 2025. On April 29 2026 the FBI and the US Attorney for the District of Massachusetts conclusively determined that Claudio Manuel Neves Valente, a Portuguese national and former classmate, acted alone, with no nexus to terrorism, motivated by personal dissatisfaction and a fixation on Loureiro’s success. Valente is also the Brown University shooting suspect. Investigators released a transcript of videos Valente made. This case is closed in every sense and is no longer an open question.",
+    "affiliations": [
+      "MIT Plasma Science and Fusion Center"
+    ],
+    "tierRationale": "Formally resolved by federal investigators. Perpetrator identified, motive established, no terrorism nexus.",
+    "chronology": [
+      {
+        "date": "2025-12-15",
+        "event": "Fatally shot at his home at 47",
+        "precision": "day"
+      },
+      {
+        "date": "2026-04-29",
+        "event": "FBI and US Attorney determine Valente acted alone. Case closed",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "Perpetrator identified, acted alone, no nexus to terrorism, personal motive.",
+        "source": "FBI and USAO-Massachusetts, April 29 2026"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Nuno_Loureiro",
+        "date": "2026"
+      }
+    ]
+  },
+  {
+    "id": "grillmair",
+    "label": "Carl Grillmair",
+    "status": "dead",
+    "date": "2026-02-16",
+    "age": null,
+    "loc": "Llano, CA",
+    "locId": "l-llano",
+    "instId": "ipac",
+    "sub": "Caltech IPAC, dark matter and exoplanets",
+    "cluster": "california",
+    "tier": "A",
+    "S": 3,
+    "P": 1,
+    "I": 3,
+    "domains": [
+      "d-astro"
+    ],
+    "narrative": "Shot once on his own front porch in Llano on February 16 2026. He has the strongest documented sequence in the entire file, and it is a sequence about the criminal justice system rather than about classified work. Someone reported his eventual killer for trespassing on December 20 2025; deputies found the man in Palmdale carrying a loaded unregistered rifle and arrested him on a felony weapons charge; he was released after three days; the charges were dismissed on February 5 or 6 2026; and he killed Grillmair eleven days later. Note the correction of August 7 2026: the chain has always been told as Grillmair reporting the man who killed him, and his widow told the BBC that her husband did not call 911. The sequence does not depend on who placed the call and holds without it. Grillmair studied dark matter and exoplanets and held no documented clearance, while working at Caltech IPAC, inside the institution that manages JPL. All three of those facts have to be visible at once, which is exactly why the three axes are not summed. His widow, Louise Grillmair, rejects the missing-scientists framing as absolute nonsense and says her husband would laugh at those promoting it; she believes he was targeted in a misguided revenge plot.",
+    "affiliations": [
+      "Caltech Infrared Processing and Analysis Center"
+    ],
+    "tierRationale": "S3 on three independently documented and individually unexplained links: the three-day release, the return with a bat, and the dismissal eleven days out. I3 on the institution, P1 on the research. The contested December call is excluded from the count and the score holds without it.",
+    "unexplainedResidual": "The felony weapons charge against the man who killed him was dismissed eleven days before the shooting, and no reason has ever been published. LASD denied a public records request for the file on May 5 2026 and the District Attorney declined to comment. Separately, the first-degree residential burglary charged alongside the murder is for conduct in late December 2025, charged only after the killing.",
+    "sequenceChain": [
+      {
+        "date": "2025-12-20",
+        "event": "Someone reports Freddy Snyder for trespassing. Sources conflict on who: NY Post and LA Times say Grillmair, LA Magazine says neighbours, and his widow told the BBC he did not call 911. Excluded from the anomaly count",
+        "isAnomalous": false,
+        "source": "Contested. See conflicts"
+      },
+      {
+        "date": "2025-12-20",
+        "event": "Deputies find Snyder in Palmdale carrying a loaded, unregistered rifle and arrest him on a felony weapons charge",
+        "isAnomalous": false,
+        "source": "LA County DA"
+      },
+      {
+        "date": "2025-12-23",
+        "event": "Snyder released after three days",
+        "isAnomalous": true,
+        "source": "LA County DA"
+      },
+      {
+        "date": "2026-02-02",
+        "event": "Snyder returns to the property with a baseball bat, roughly two weeks before the shooting",
+        "isAnomalous": true,
+        "source": "Family statement"
+      },
+      {
+        "date": "2026-02-05",
+        "event": "The felony weapons charge is dismissed. Eleven days before the shooting. No reason has ever been published, LA Magazine’s records request was denied by LASD on May 5 2026, and the DA declined to comment",
+        "isAnomalous": true,
+        "source": "Court records via Newsweek and NY Post. LA Magazine dates it February 6"
+      },
+      {
+        "date": "2026-02-16",
+        "event": "Snyder arms himself with two rifles, fires into his mother’s ceiling to take her car keys, drives to Llano and shoots Grillmair once. The DA says the neck; the LA County Medical Examiner reported a single torso wound",
+        "isAnomalous": false,
+        "source": "LA County DA; Medical Examiner via The Guardian"
+      }
+    ],
+    "chronology": [
+      {
+        "date": "2025-12-20",
+        "event": "Reports Snyder for trespassing. Snyder arrested",
+        "precision": "day"
+      },
+      {
+        "date": "2026-02-05",
+        "event": "Charges dropped",
+        "precision": "day"
+      },
+      {
+        "date": "2026-02-16",
+        "event": "Killed on his front porch",
+        "precision": "day"
+      },
+      {
+        "date": "2026-05-26",
+        "event": "Snyder pleads not guilty. Bail 3.175 million dollars",
+        "precision": "day"
+      },
+      {
+        "date": "2026-06-05",
+        "event": "Preliminary hearing set, Department A2. Outcome confirmed unreported in every open source checked on August 7 2026",
+        "precision": "day"
+      },
+      {
+        "date": "2026-06-18",
+        "event": "A further court date, the last documented event in the case. No coverage of any kind since",
+        "precision": "day"
+      }
+    ],
+    "conflicts": [
+      "Who contacted law enforcement on December 20 2025. NY Post and the LA Times say Grillmair called; LA Magazine says neighbours reported a possible trespasser; his widow told the BBC that her husband did not call 911 and believes Snyder wrongly blamed him for the police contact. This is the opening link of the chain and it is not established.",
+      "The wound location. The District Attorney says the neck. The LA County Medical Examiner reported a single wound to the torso.",
+      "The dismissal date and the moving party. Newsweek and the NY Post say February 5 citing court records; LA Magazine says February 6. LA Magazine says the judge and prosecutors dropped it; the NY Post says prosecutors moved to drop. Under Penal Code 1385 the court orders the dismissal, so the moving party matters and is unsettled."
+    ],
+    "unverified": [
+      "The outcome of the June 5 2026 preliminary hearing. Confirmed absent from every open source checked: no outlet, no DA release, no accessible court record. The LA Superior Court portal is reCAPTCHA-gated and LASD denied the records request.",
+      "The Penal Code section numbers and enhancement subdivisions. No public source lists them.",
+      "What late-December conduct supports the first-degree residential burglary count, and why it was charged only after the killing."
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "Case 26AVCF00232. One felony count each of murder, carjacking and first-degree residential burglary, with an allegation of personal use of a rifle.",
+        "source": "LA County DA, May 28 2026"
+      },
+      {
+        "tier": 1,
+        "text": "The burglary count is not part of the February 16 incident. City News Service and the Antelope Valley Press both state it was allegedly committed in late December, meaning prosecutors charged a late-December offence only after the killing. This sits directly against the dismissed December weapons charge.",
+        "source": "City News Service via Antelope Valley Press, February 2026"
+      },
+      {
+        "tier": 2,
+        "text": "The firearm enhancement may have softened. The February complaint alleged personal and intentional discharge causing great bodily injury; the May 28 DA release alleges only personal use of a rifle. Either the release is loose, or the enhancement was amended down. Only the charging documents settle it.",
+        "source": "Comparison of the February complaint reporting and the May 28 DA release"
+      },
+      {
+        "tier": 1,
+        "text": "Widow Louise Grillmair calls the missing-scientists framing absolute nonsense and believes the motive was a misguided revenge plot.",
+        "source": "BBC News, April 23 2026"
+      },
+      {
+        "tier": 3,
+        "text": "Snyder claimed he had walked there to go to the post office. Property records indicate the post office was in the opposite direction from his home.",
+        "source": "LA County DA"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "LA County DA",
+        "url": "https://da.lacounty.gov/media/news/charged-murderer-pleads-not-guilty-shooting-death-caltech-scientist",
+        "date": "2026-05-28"
+      }
+    ]
+  },
+  {
+    "id": "mccasland",
+    "label": "Neil McCasland",
+    "status": "missing",
+    "date": "2026-02-27",
+    "age": null,
+    "loc": "Albuquerque, NM",
+    "locId": "l-abq",
+    "instId": "afrl",
+    "sub": "Maj Gen (ret.), former AFRL commander",
+    "cluster": "new-mexico",
+    "tier": "A",
+    "S": 2,
+    "P": 2,
+    "I": 3,
+    "domains": [
+      "d-prop",
+      "d-intel"
+    ],
+    "leftBehind": [
+      "Garmin watch",
+      "GPS devices",
+      "medication",
+      "iPhone",
+      "glasses"
+    ],
+    "tookWith": [
+      "wallet",
+      "hiking boots",
+      ".38 revolver",
+      "red backpack"
+    ],
+    "narrative": "Retired Major General and former AFRL commander, missing from Albuquerque since February 27 2026. The Bernalillo County Sheriff’s Office issued a formal correction set in June 2026 that dismantles most of what circulated about him: there is no Pentagon connection, likely a conflation with Riverside Research, a DoD contractor; he held a standard retiree clearance rather than active operational access; law enforcement emphasized his wife never said he made a desperate attempt to resign; and BCSO states there is no known connection between this case and the other missing-scientist cases. His wife wrote publicly that he had only very commonly held clearances since retiring more than thirteen years earlier, and that it seems quite unlikely he was taken to extract very dated secrets. Investigators confirmed he stepped down from consulting roles citing brain fog, though LA Magazine could not independently verify that in the FOIA documents it obtained. The search has stalled with no confirmed sighting since a store surveillance image on February 26 2026.",
+    "affiliations": [
+      "Air Force Research Laboratory, former commander",
+      "Sandia National Laboratories (consulting)",
+      "Riverside Research (consulting)",
+      "Kirtland Partnership"
+    ],
+    "tierRationale": "High personal proximity by career history and a documented departure pattern, tempered heavily by the sheriff’s corrections. Retained at A for the unexplained item split.",
+    "unexplainedResidual": "He left his phone, GPS devices, glasses and medication behind and took a revolver, hiking boots and a distinctive red backpack. No confirmed sighting since a store surveillance image on February 26 2026.",
+    "conflicts": [
+      "Clearance level. A woman who served with him initially claimed top-level clearance, then acknowledged uncertainty. BCSO and his wife say standard retiree clearance.",
+      "Pentagon connection. Widely circulated, denied by BCSO, likely a conflation with Riverside Research."
+    ],
+    "unverified": [
+      "The brain fog account. Investigators confirmed it; LA Mag could not verify it in the FOIA documents obtained."
+    ],
+    "sequenceChain": [
+      {
+        "date": "2026-02-26",
+        "event": "Captured on REI store surveillance. Last confirmed sighting",
+        "isAnomalous": false,
+        "source": "BCSO"
+      },
+      {
+        "date": "2026-02-27",
+        "event": "Leaves behind iPhone, GPS devices, Garmin watch, medication and glasses",
+        "isAnomalous": true,
+        "source": "BCSO inventory"
+      },
+      {
+        "date": "2026-02-27",
+        "event": "Takes wallet, hiking boots, a .38-caliber revolver with holster, and a distinctive red backpack",
+        "isAnomalous": true,
+        "source": "BCSO inventory"
+      },
+      {
+        "date": "2026-03-06",
+        "event": "Wife states publicly he held only very commonly held clearances since retiring",
+        "isAnomalous": false,
+        "source": "Facebook public post"
+      },
+      {
+        "date": "2026-06-26",
+        "event": "BCSO formally corrects the Pentagon, clearance and resignation claims",
+        "isAnomalous": false,
+        "source": "LA Mag"
+      },
+      {
+        "date": "2026-08-04",
+        "event": "Search stalled. BCSO has no updates for release",
+        "isAnomalous": true,
+        "source": "LA Mag"
+      }
+    ],
+    "chronology": [
+      {
+        "date": "2026-02-27",
+        "event": "Disappears from Albuquerque",
+        "precision": "day"
+      },
+      {
+        "date": "2026-06-26",
+        "event": "Sheriff pushes back on circulating claims",
+        "precision": "day"
+      },
+      {
+        "date": "2026-08-04",
+        "event": "Search confirmed stalled",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 1,
+        "text": "BCSO: no known connection between this case and human trafficking, gang activity, or other missing scientist cases.",
+        "source": "BCSO, June 26 2026"
+      },
+      {
+        "tier": 1,
+        "text": "BCSO April statement: no evidence developed establishing that the disappearance is connected to his classified work.",
+        "source": "BCSO"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "LA Magazine",
+        "url": "https://lamag.com/crimeinla/exclusive-sheriff-pushes-back-on-reports-surrounding-retired-missing-air-force-general-william-neil-mccasland/",
+        "date": "2026-06-26"
+      },
+      {
+        "outlet": "Newsweek",
+        "url": "https://www.newsweek.com/neil-mccasland-update-sheriff-addresses-speculation-missing-general-11827036",
+        "date": "2026-04"
+      }
+    ]
+  },
+  {
+    "id": "moffatt",
+    "label": "James Moffatt",
+    "status": "dead",
+    "date": "2026-04-17",
+    "age": 60,
+    "loc": "Union County, SC",
+    "locId": "l-union",
+    "instId": "uah",
+    "sub": "Aerospace engineer, UAH Research Center",
+    "cluster": "other",
+    "tier": "C",
+    "S": 0,
+    "P": 2,
+    "I": 2,
+    "mediaLinkedOnly": true,
+    "domains": [
+      "d-prop"
+    ],
+    "narrative": "Aerospace and defense engineer, retired Army aviation lieutenant colonel, founder of Moffatt Systems, and director of the Digital Engineering Transformation Lab at the UAH Research Center, with prior NASA work through Johnson Space Center. He died with three family members when his Mooney M20 came down near Union County Airport in South Carolina on April 17 2026. His son Andrew, a research engineer, was also killed. The FAA and NTSB are investigating and no cause has been determined. He is tagged media-linked rather than criteria-linked: he qualifies mainly because Fox News framed the story against the existing pattern, and he appears on no mainstream list, not Wikipedia, not the House Oversight list. Including him without that qualifier would be an instance of the near-enough effect the skeptical literature specifically names.",
+    "affiliations": [
+      "Moffatt Systems Inc (founder)",
+      "UAH Research Center, Digital Engineering Transformation Lab",
+      "US Army aviation (lieutenant colonel, ret. 2008)",
+      "NASA Johnson Space Center (prior)"
+    ],
+    "tierRationale": "An aircraft accident under routine NTSB investigation with no determined cause and no family dispute. Qualifies on the media-linkage prong alone.",
+    "conflicts": [
+      "Inclusion itself is contested. He appears on no mainstream list and was surfaced only by Fox and wire coverage plus advocacy trackers."
+    ],
+    "chronology": [
+      {
+        "date": "2026-04-17",
+        "event": "Mooney M20 comes down near Union County Airport. Four family members killed",
+        "precision": "day"
+      },
+      {
+        "date": "2026-04-21",
+        "event": "Fox News frames the story against the existing pattern",
+        "precision": "day"
+      }
+    ],
+    "claims": [
+      {
+        "tier": 3,
+        "text": "Appears on no mainstream list. Not on Wikipedia, not on the House Oversight list.",
+        "source": "Verified absence"
+      }
+    ],
+    "sources": [
+      {
+        "outlet": "Fox News",
+        "url": "https://www.foxnews.com/us/aerospace-defense-engineer-military-veteran-killed-plane-crash-family",
+        "date": "2026-04-21"
+      }
+    ]
+  }
+]

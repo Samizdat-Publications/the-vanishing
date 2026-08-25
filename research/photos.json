@@ -1,0 +1,62 @@
+{
+  "casias": [
+    "assets/photos/casias.jpg",
+    "New Mexico State Police via NM DPS"
+  ],
+  "chavez": [
+    "assets/photos/chavez.jpg",
+    "Los Alamos Police Department via NM DPS"
+  ],
+  "garcia": [
+    "assets/photos/garcia.jpg",
+    "Albuquerque Police Department via NM DPS"
+  ],
+  "mccasland": [
+    "assets/photos/mccasland.jpg",
+    "Bernalillo County Sheriff's Office via NM DPS"
+  ],
+  "grillmair": [
+    "assets/photos/grillmair.jpg",
+    "Caltech IPAC"
+  ],
+  "hicks": [
+    "assets/photos/hicks.jpg",
+    "University of Arizona LPL"
+  ],
+  "li": [
+    "assets/photos/li.jpg",
+    "Obituary portrait"
+  ],
+  "loureiro": [
+    "assets/photos/loureiro.jpg",
+    "Wikimedia Commons, CC BY-SA 4.0"
+  ],
+  "reza": [
+    "assets/photos/reza.jpg",
+    "Missing person circulation"
+  ],
+  "thomas": [
+    "assets/photos/thomas.webp",
+    "Wakefield Police Department"
+  ],
+  "eskridge": [
+    "assets/photos/eskridge.png",
+    "Supplied by the project owner"
+  ],
+  "maiwald": [
+    "assets/photos/maiwald.jpg",
+    "Family obituary photograph via Legacy.com"
+  ],
+  "leblanc": [
+    "assets/photos/leblanc.jpg",
+    "Family obituary photograph via Dignity Memorial"
+  ],
+  "sullivan": [
+    "assets/photos/sullivan.jpg",
+    "US Air Force service portrait via family obituary"
+  ],
+  "moffatt": [
+    "assets/photos/moffatt.jpg",
+    "UAH Research and Engineering Support Center"
+  ]
+}

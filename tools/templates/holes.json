@@ -1,0 +1,90 @@
+[
+  {
+    "block": "PEOPLE",
+    "group": "cases"
+  },
+  {
+    "block": "INSTITUTIONS",
+    "group": "entities"
+  },
+  {
+    "block": "PROGRAMS",
+    "group": "entities"
+  },
+  {
+    "block": "LOCATIONS",
+    "group": "entities"
+  },
+  {
+    "block": "DOMAINS",
+    "group": "entities"
+  },
+  {
+    "block": "ENTITY_INFO",
+    "group": "entities"
+  },
+  {
+    "block": "ENTITY_SOURCES",
+    "group": "entities"
+  },
+  {
+    "block": "PROGRAM_EDGES",
+    "group": "graph"
+  },
+  {
+    "block": "IN_FBI",
+    "group": "graph"
+  },
+  {
+    "block": "IN_OVERSIGHT",
+    "group": "graph"
+  },
+  {
+    "block": "INSTITUTION_PLACES",
+    "group": "graph"
+  },
+  {
+    "block": "TEMPORAL_WINDOW_DAYS",
+    "group": "graph"
+  },
+  {
+    "block": "SOURCES",
+    "group": "entities"
+  },
+  {
+    "block": "CLUSTERS",
+    "group": "taxonomy"
+  },
+  {
+    "block": "TIERS",
+    "group": "taxonomy"
+  },
+  {
+    "block": "AXES",
+    "group": "taxonomy"
+  },
+  {
+    "block": "STATUS_LABEL",
+    "group": "taxonomy"
+  },
+  {
+    "block": "PRECEDENT",
+    "group": "timeline"
+  },
+  {
+    "block": "TIMELINE",
+    "group": "timeline"
+  },
+  {
+    "block": "STRANDS",
+    "group": "taxonomy"
+  },
+  {
+    "block": "PRECISION_LABEL",
+    "group": "taxonomy"
+  },
+  {
+    "block": "PHOTOS",
+    "group": "photos"
+  }
+]

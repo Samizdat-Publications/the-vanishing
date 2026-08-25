@@ -1,0 +1,936 @@
+{
+  "INSTITUTIONS": [
+    {
+      "id": "jpl",
+      "cls": "institution",
+      "label": "NASA JPL",
+      "cluster": "california",
+      "sub": "FFRDC",
+      "desc": "Federally Funded Research and Development Center operated for NASA by the California Institute of Technology. Its FFRDC status is the basis for the I3 channel score on every case attached to it: an FFRDC is designed to sit between government and academia, which is exactly the condition that makes a personal clearance record a poor test of what work someone was doing. Employs roughly 4,500 people, and that headcount is also the denominator the base-rate argument uses against the geographic cluster thesis."
+    },
+    {
+      "id": "ipac",
+      "cls": "institution",
+      "label": "Caltech IPAC",
+      "cluster": "california",
+      "sub": "Academic, manages JPL",
+      "desc": "The Infrared Processing and Analysis Center at Caltech. Caltech manages JPL, and Caltech is a documented JASON-recruiting institution, which is why an astronomer with no clearance on record still scores I3 here. An astronomer's core competencies, faint-signal detection, adaptive optics, image processing and sensor characterisation, transfer directly to overhead reconnaissance."
+    },
+    {
+      "id": "lanl",
+      "cls": "institution",
+      "label": "LANL",
+      "cluster": "new-mexico",
+      "sub": "National laboratory",
+      "desc": "Los Alamos National Laboratory, an NNSA national laboratory operated by Triad National Security LLC. Nuclear weapons design and stewardship. Roughly 18,000 employees, which Novella's base-rate analysis uses to argue that two to three cases from this population is far below the expected all-cause figure."
+    },
+    {
+      "id": "afrl",
+      "cls": "institution",
+      "label": "AFRL",
+      "cluster": "new-mexico",
+      "sub": "Military research",
+      "desc": "Air Force Research Laboratory. Neil McCasland commanded it at Wright-Patterson before retiring. The I3 basis recorded for this case is not AFRL alone but his later consulting: Sandia, a national laboratory, and Riverside Research, a DoD contractor. Bernalillo County confirmed his clearance was standard retiree status, not active operational access."
+    },
+    {
+      "id": "uah",
+      "cls": "institution",
+      "label": "UAH",
+      "cluster": "huntsville",
+      "sub": "Academic",
+      "desc": "University of Alabama in Huntsville. Major research university with substantial DoD funding, and the institution that hosted Ning Li's gravitomagnetism work, which drew a 448,970 dollar DoD grant in 2001 before moving to Redstone Arsenal and going classified. I2 rather than I3: a real defence-funded channel, but no FFRDC status."
+    },
+    {
+      "id": "ies",
+      "cls": "institution",
+      "label": "Inst. for Exotic Science",
+      "cluster": "huntsville",
+      "sub": "Private",
+      "desc": "The Institute for Exotic Science, the small private Huntsville institute where Amy Eskridge worked on advanced propulsion. I1: no documented classified channel of any kind. It is in the file because of her own stated belief that she was the target of a psychological war, not because the institute has a demonstrated conduit."
+    },
+    {
+      "id": "nsa",
+      "cls": "institution",
+      "label": "NSA / NASIC",
+      "cluster": "other",
+      "sub": "Intelligence",
+      "desc": "The National Security Agency and the National Air and Space Intelligence Center, the two intelligence-community postings on Matthew Sullivan's record along with the Air Force Intelligence Agency. NASIC is the Air Force's primary source for foreign air and space threat analysis. This is the clearest institutional channel in the file and it is why Sullivan holds the highest personal proximity score."
+    },
+    {
+      "id": "mit",
+      "cls": "institution",
+      "label": "MIT PSFC",
+      "cluster": "northeast",
+      "sub": "Academic",
+      "desc": "The MIT Plasma Science and Fusion Center, where Nuno Loureiro worked on plasma physics and magnetic reconnection. MIT operates Lincoln Laboratory, an FFRDC, and has documented JASON lineage. Note the live disagreement: this product scores the institution I1 while PROJECT.md scores it I3 on that FFRDC basis. See SCORING-DISCREPANCIES.md."
+    },
+    {
+      "id": "kcnsc",
+      "cls": "institution",
+      "label": "KCNSC",
+      "cluster": "new-mexico",
+      "sub": "NNSA campus",
+      "desc": "The Kansas City National Security Campus, an NNSA facility operated by Honeywell that manufactures the non-nuclear components of the US nuclear stockpile. Steven Garcia was a contractor there. His role is recorded as property custodian; the widely repeated claim that he held top clearance with nuclear weapons access was not supported by any primary source and has been removed from this file."
+    },
+    {
+      "id": "novartis",
+      "cls": "institution",
+      "label": "Novartis",
+      "cluster": "northeast",
+      "sub": "Pharmaceutical, non-defense",
+      "desc": "Swiss pharmaceutical company. I0, the only institution in the file with no government research nexus of any kind. Jason Thomas is retained here deliberately: a list that quietly drops its own counterexample is not a tracker, it is an argument."
+    },
+    {
+      "id": "boeing",
+      "cls": "institution",
+      "label": "Rocketdyne",
+      "cluster": "california",
+      "sub": "Private aerospace, now L3Harris",
+      "desc": "Aerojet Rocketdyne, later a Boeing associate operation. Defence contractor, no FFRDC status, so I2. Monica Reza co-invented Mondaloy here, a nickel superalloy developed for rocket engines, which is genuine propulsion intellectual property and the basis for her program proximity score."
+    },
+    {
+      "id": "nasa",
+      "cls": "institution",
+      "label": "NASA Marshall",
+      "cluster": "huntsville",
+      "sub": "Government",
+      "desc": "NASA Marshall Space Flight Center in Huntsville, where Joshua LeBlanc was an electrical engineer on DRACO. I3 on the DRACO channel rather than on Marshall alone. Marshall employs more than 6,000 people in Huntsville, which Newsweek used directly against the Huntsville cluster thesis when it examined the Eskridge and LeBlanc pairing and found no connection between them."
+    }
+  ],
+  "PROGRAMS": [
+    {
+      "id": "oversight",
+      "cls": "program",
+      "label": "House Oversight",
+      "cluster": "other",
+      "sub": "Investigation",
+      "desc": "The House Committee on Oversight and Government Reform. Chairman Comer and Representative Burlison wrote to the FBI on April 20 2026 requesting a staff-level briefing by April 27. No readout of that briefing has ever been published, which is one of the open questions in this file. The committee separately held an MKULTRA hearing on June 30 2026, not on these cases."
+    },
+    {
+      "id": "fbi",
+      "cls": "program",
+      "label": "FBI Review",
+      "cluster": "other",
+      "sub": "Investigation",
+      "desc": "The federal review of the deaths and disappearances, confirmed by CNN on April 21 2026. Its only published output to date is the Loureiro determination of April 29 2026, which closed that case as a lone actor with no nexus to terrorism. No report, no findings and no public statement on any other case in this file."
+    },
+    {
+      "id": "pursue",
+      "cls": "program",
+      "label": "PURSUE Files",
+      "cluster": "other",
+      "sub": "Disclosure",
+      "desc": "The PURSUE declassification releases, the tranches of UAP files released from May 2026 onward. The fifth release on August 7 2026 covered 41 files spanning 1950 to 2026. Relevant to this tracker as context for the disclosure environment, not as evidence about any individual case."
+    },
+    {
+      "id": "grusch",
+      "cls": "program",
+      "label": "Grusch Proceedings",
+      "cluster": "other",
+      "sub": "Testimony",
+      "desc": "The whistleblower proceedings arising from David Grusch's July 26 2023 testimony to Congress. Grusch referred a set of witnesses to the Intelligence Community Inspector General. Matthew Sullivan is described as one of those sources and as a personal friend; the two had served together in the Air Force. This is the witness chain that connects Sullivan to the oversight track."
+    },
+    {
+      "id": "draco",
+      "cls": "program",
+      "label": "DRACO",
+      "cluster": "other",
+      "sub": "DARPA and NASA nuclear propulsion",
+      "desc": "The Demonstration Rocket for Agile Cislunar Operations, a joint DARPA and NASA nuclear thermal propulsion programme. It was active when Joshua LeBlanc worked it and was cancelled by DARPA in 2025, after his death. It is the reason he carries the highest program proximity score in the file alongside Sullivan. Anyone working the engineering on DRACO holds exactly the kind of access the P axis is trying to measure."
+    },
+    {
+      "id": "mondaloy",
+      "cls": "program",
+      "label": "Mondaloy",
+      "cluster": "other",
+      "sub": "Rocketdyne superalloy",
+      "desc": "A nickel-based superalloy developed at Rocketdyne for rocket engine components, co-invented by Monica Reza. Rocketdyne was sold by Boeing to GenCorp in 2013 and the combined Aerojet Rocketdyne was acquired by L3Harris in 2023, so the employer of record has changed twice since. Real, patented propulsion intellectual property rather than a general research interest, which is what separates her record from a case where the domain is merely adjacent."
+    }
+  ],
+  "LOCATIONS": [
+    {
+      "id": "l-hsv",
+      "cls": "location",
+      "label": "Huntsville AL",
+      "cluster": "huntsville"
+    },
+    {
+      "id": "l-walker",
+      "cls": "location",
+      "label": "Walker County AL",
+      "cluster": "huntsville"
+    },
+    {
+      "id": "l-sun",
+      "cls": "location",
+      "label": "Sunland CA",
+      "cluster": "california"
+    },
+    {
+      "id": "l-la",
+      "cls": "location",
+      "label": "Los Angeles CA",
+      "cluster": "california"
+    },
+    {
+      "id": "l-anf",
+      "cls": "location",
+      "label": "Angeles Natl Forest CA",
+      "cluster": "california"
+    },
+    {
+      "id": "l-llano",
+      "cls": "location",
+      "label": "Llano CA",
+      "cluster": "california"
+    },
+    {
+      "id": "l-pas",
+      "cls": "location",
+      "label": "Pasadena CA",
+      "cluster": "california"
+    },
+    {
+      "id": "l-los",
+      "cls": "location",
+      "label": "Los Alamos NM",
+      "cluster": "new-mexico"
+    },
+    {
+      "id": "l-carson",
+      "cls": "location",
+      "label": "Carson Natl Forest NM",
+      "cluster": "new-mexico"
+    },
+    {
+      "id": "l-abq",
+      "cls": "location",
+      "label": "Albuquerque NM",
+      "cluster": "new-mexico"
+    },
+    {
+      "id": "l-fal",
+      "cls": "location",
+      "label": "Falls Church VA",
+      "cluster": "other"
+    },
+    {
+      "id": "l-cam",
+      "cls": "location",
+      "label": "Cambridge MA",
+      "cluster": "northeast",
+      "sub": "MIT PSFC. Scene was Brookline"
+    },
+    {
+      "id": "l-wak",
+      "cls": "location",
+      "label": "Wakefield MA",
+      "cluster": "northeast"
+    },
+    {
+      "id": "l-union",
+      "cls": "location",
+      "label": "Union County SC",
+      "cluster": "other"
+    }
+  ],
+  "DOMAINS": [
+    {
+      "id": "d-prop",
+      "cls": "domain",
+      "label": "Propulsion",
+      "cluster": "other"
+    },
+    {
+      "id": "d-nuc",
+      "cls": "domain",
+      "label": "Nuclear",
+      "cluster": "other"
+    },
+    {
+      "id": "d-astro",
+      "cls": "domain",
+      "label": "Astrophysics",
+      "cluster": "other"
+    },
+    {
+      "id": "d-intel",
+      "cls": "domain",
+      "label": "Intelligence",
+      "cluster": "other"
+    },
+    {
+      "id": "d-plasma",
+      "cls": "domain",
+      "label": "Plasma",
+      "cluster": "other"
+    },
+    {
+      "id": "d-exotic",
+      "cls": "domain",
+      "label": "Exotic materials",
+      "cluster": "other"
+    },
+    {
+      "id": "d-chem",
+      "cls": "domain",
+      "label": "Chemical biology",
+      "cluster": "other"
+    }
+  ],
+  "ENTITY_INFO": {
+    "l-hsv": {
+      "desc": "Huntsville sits in the Tennessee Valley of Madison County, north Alabama, and is built around Redstone Arsenal, an Army installation assembled from about 38,000 acres of farmland in 1941. NASA's Marshall Space Flight Center occupies roughly 1,800 acres inside the Arsenal boundary, and the University of Alabama in Huntsville lies a few miles north of it in the city proper. Ning Li, formerly of UAH's Center for Space Plasma and Aeronomic Research, died in July 2021 after years of declining health that followed a 2014 collision with a vehicle on campus. Amy Eskridge, co-founder of the Huntsville-based Institute for Exotic Science, was found dead of a gunshot wound in June 2022 and the death was ruled a suicide. Both are municipal matters held by Huntsville police and Madison County, and neither investigative file has been publicly released.",
+      "sources": [
+        {
+          "name": "NASA, Visit Marshall Space Flight Center",
+          "url": "https://www.nasa.gov/marshall/visit-marshall-space-flight-center/",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "Huntsville Business Journal",
+          "url": "https://huntsvillebusinessjournal.com/news/2023/07/30/solving-the-mystery-of-huntsvilles-brilliant-scientist-disappearing/",
+          "date": "2023-07-30"
+        }
+      ]
+    },
+    "l-walker": {
+      "desc": "Walker County is in northwestern Alabama, county seat Jasper, roughly 35 to 40 miles northwest of Birmingham. It covers about 805 square miles of pine and oak forest over the Warrior Coal Field, and away from the US 78 and I-22 corridor the road network is narrow, wooded and lightly travelled. The crash that killed Joshua LeBlanc, a Huntsville resident who worked at NASA's Marshall Space Flight Center, occurred on Hill Road near Drummond Switch Cut Off Road, about two miles south of the community of Empire, at roughly 2:45 p.m. on July 22 2025. The vehicle left the road, struck a guardrail and several trees, and burned. Troopers with the Alabama Law Enforcement Agency's Highway Patrol Division investigate the crash, and identification was made through the Alabama Department of Forensic Sciences. No federal agency has jurisdiction over the wreck itself.",
+      "sources": [
+        {
+          "name": "WAFF 48",
+          "url": "https://www.waff.com/2025/07/31/huntsville-man-killed-after-tesla-crashes-catches-fire-walker-county/",
+          "date": "2025-07-31"
+        },
+        {
+          "name": "ABC 33/40",
+          "url": "https://abc3340.com/news/local/huntsville-man-dies-in-fiery-single-vehicle-crash-in-walker-county-07-31-2025",
+          "date": "2025-07-31"
+        }
+      ]
+    },
+    "l-sun": {
+      "desc": "Sunland is a neighbourhood at the far northeastern edge of the San Fernando Valley within the City of Los Angeles, set in the Crescenta Valley between the Verdugo Mountains and the front range of the San Gabriels. It is semi-rural by Los Angeles standards, with large lots, horse property and chaparral slopes running up to Angeles National Forest land at the city boundary. Policing falls to the LAPD's Foothill Community Police Station, which covers Sunland, Tujunga, Shadow Hills and Lakeview Terrace across about 46 square miles. Michael David Hicks, a JPL research scientist who worked on comets and asteroids at the lab from 1998 to 2022, lived in Sunland and died on July 30 2023 at 59. No cause of death has been publicly disclosed. JPL lies east along the same foothill line.",
+      "sources": [
+        {
+          "name": "AAS Division for Planetary Sciences",
+          "url": "https://dps.aas.org/news/michael-david-hicks-1964-2023/",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "LAPD Foothill Community Police Station",
+          "url": "https://www.lapdonline.org/lapd-contact/valley-bureau/foothill-community-police-station/",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "l-la": {
+      "desc": "This node marks a city of record rather than an identified scene. Frank Maiwald, a JPL principal who joined the laboratory in 1999 and worked on instruments for planetary missions, died in Los Angeles on July 4 2024 at 61. Reporting states that no autopsy was performed and that no cause of death has been made public, so there is no established location within the city beyond the death record itself. The distinction matters for jurisdiction: JPL is not in the City of Los Angeles. It sits about six miles from Caltech's campus on the Pasadena and La Canada Flintridge line, with a Pasadena mailing address. A death inside the city proper therefore falls to the Los Angeles Police Department and the Los Angeles County Medical Examiner, not to any federal, county or campus authority.",
+      "sources": [
+        {
+          "name": "CNN",
+          "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+          "date": "2026-04-21"
+        },
+        {
+          "name": "NASA JPL, Directions and Maps",
+          "url": "https://www.jpl.nasa.gov/jpl-and-the-community/directions-and-maps/",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "l-anf": {
+      "desc": "The Angeles National Forest covers nearly 700,000 acres of the San Gabriel Mountains directly above the Los Angeles basin, with elevations from about 1,200 feet to 10,064 feet. Dense chaparral on the lower slopes gives way to pine and fir higher up. Waterman Mountain, reached from the Angeles Crest Highway, stands at about 8,038 feet, and the ground around it is steep, brushy and cut by drainages that drop hundreds of feet below the trail line. Monica Reza was last seen there on the morning of June 22 2025. A beanie recovered roughly 600 feet below the trail was the only item found, and teams from across Southern California worked about a week before the active search phase ended. The Forest Service manages the land, but search and rescue and the missing-person case belong to the Los Angeles County Sheriff's Department, case 2025-56.",
+      "sources": [
+        {
+          "name": "US Forest Service, Angeles National Forest",
+          "url": "https://www.fs.usda.gov/r05/angeles/about-area",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "US Forest Service, Mt. Waterman Trail",
+          "url": "https://www.fs.usda.gov/r05/angeles/recreation/trails/mt-waterman-1-trail",
+          "date": "2026-01-26"
+        },
+        {
+          "name": "Crescenta Valley Weekly",
+          "url": "https://www.crescentavalleyweekly.com/news/06/24/2025/ongoing-search-for-missing-hiker-monica-reza/",
+          "date": "2025-06-24"
+        }
+      ]
+    },
+    "l-llano": {
+      "desc": "Llano is an unincorporated community in the Antelope Valley of eastern Los Angeles County, on the high desert bench at the northern foot of the San Gabriel Mountains. Lots are large, houses are widely spaced and there is no municipal police force. Carl Grillmair, an astronomer at Caltech's IPAC for about three decades, was found shot on the front porch of his home in the 30700 block of 165th Street East at around 6:10 a.m. on February 16 2026. Deputies from the Los Angeles County Sheriff's Department Palmdale Station responded and the Homicide Bureau took the case. Unlike most entries in this file it has a charged suspect, and detectives have said the two men did not know each other.",
+      "sources": [
+        {
+          "name": "CBS Los Angeles",
+          "url": "https://www.cbsnews.com/losangeles/news/llano-fatal-shooting-homicide-investigation-antelope-valley/",
+          "date": "2026-02-19"
+        },
+        {
+          "name": "ABC7 Los Angeles",
+          "url": "https://abc7.com/post/man-charged-killing-caltech-astrophysicist-carl-grillmair-llano-carjacking-own-relative-burglarizing-home/18626990/",
+          "date": "2026-02-21"
+        },
+        {
+          "name": "Caltech IPAC memorial",
+          "url": "https://www.ipac.caltech.edu/news/408",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "l-pas": {
+      "desc": "Pasadena lies at the base of the San Gabriel Mountains northeast of downtown Los Angeles, and anchors the institutional corridor that several cases in this file share. Caltech's campus is in the south of the city. JPL, which Caltech manages for NASA as a federally funded research and development center, sits about six miles away on the Pasadena and La Canada Flintridge boundary and uses a Pasadena mailing address. IPAC, where Carl Grillmair worked, is a Caltech science and data center on the Pasadena campus. No case in this file took place in Pasadena itself. The node marks a shared employer rather than a scene, and its cases are spread across Sunland, the City of Los Angeles, Llano and the Angeles National Forest, each of which falls to a different local agency.",
+      "sources": [
+        {
+          "name": "NASA JPL, Directions and Maps",
+          "url": "https://www.jpl.nasa.gov/jpl-and-the-community/directions-and-maps/",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "Caltech, Jet Propulsion Laboratory",
+          "url": "https://www.caltech.edu/research/jpl",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "l-los": {
+      "desc": "Los Alamos is both an incorporated county and a townsite in north central New Mexico, built on the finger mesas of the Pajarito Plateau at roughly 7,400 feet and separated by deep, rugged canyons draining east toward the Rio Grande. Los Alamos National Laboratory occupies much of the plateau around and below the town, so undeveloped ground begins within a few blocks of residential streets. Anthony Chavez, 78, a LANL retiree, left his home on 37th Street on foot on May 4 2025 and was reported missing on May 8. His car, wallet, keys and personal items were left at the house and he carried no phone. A friend told the Los Alamos Reporter that Chavez often hiked in Pueblo Canyon but was not dressed for it and the weather was poor. The Los Alamos Police Department holds the case, number 2025-0254.",
+      "sources": [
+        {
+          "name": "Los Alamos Reporter",
+          "url": "https://losalamosreporter.com/2025/05/12/social-media-pages-voice-concern-about-anthony-tony-chavez-of-los-alamos-last-seen-may-4/",
+          "date": "2025-05-12"
+        },
+        {
+          "name": "National Park Service, Pajarito Site",
+          "url": "https://www.nps.gov/articles/000/preserving-the-pajarito-site-at-los-alamos-national-laboratory.htm",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "l-carson": {
+      "desc": "The Carson National Forest covers about 1.5 million acres of northern New Mexico, taking in parts of the Sangre de Cristo and San Juan ranges, with elevations from roughly 6,000 feet to 13,161 feet at Wheeler Peak. It is high, timbered, heavily dissected country with long distances between roads, and the Camino Real Ranger District alone carries more than 252 miles of trail out of its Taos office. Searching ground of that scale exhaustively is not practical. Melissa Casias, an administrative assistant at Los Alamos National Laboratory, was reported missing on June 26 2025 after she failed to arrive at work. On May 28 2026 a hiker found human remains in the McGaffey Ridge area of the forest, with a handgun alongside them. New Mexico State Police and the Office of the Medical Investigator identified them as Casias. Cause and manner of death remained undetermined.",
+      "sources": [
+        {
+          "name": "Los Alamos Reporter",
+          "url": "https://losalamosreporter.com/2026/05/30/new-mexico-state-police-identifies-remains-as-missing-taos-woman-melissa-casias/",
+          "date": "2026-05-30"
+        },
+        {
+          "name": "US Forest Service, Carson National Forest",
+          "url": "https://www.fs.usda.gov/r03/carson",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "US Forest Service, Camino Real Ranger District",
+          "url": "https://www.fs.usda.gov/r03/carson/offices/camino-real-ranger-district",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "l-abq": {
+      "desc": "Albuquerque covers about 188 square miles of the Rio Grande valley and rises eastward into the Sandia Mountains foothills, which crest at 10,678 feet and pass into Cibola National Forest land a short distance from residential streets. Kirtland Air Force Base, host to Sandia National Laboratories, adjoins the city on the southeast, and the Kansas City National Security Campus runs its New Mexico Operations site in the city. The two cases here sit with different agencies. Steven Garcia, a KCNSC property custodian, was last seen leaving his Albuquerque home on foot on August 28 2025, and the Albuquerque Police Department holds that case. Neil McCasland, a retired Air Force major general and former AFRL commander, left his Northeast Heights home on foot on February 27 2026. The Bernalillo County Sheriff's Office leads, with FBI Albuquerque assisting and state search and rescue coordinating field teams.",
+      "sources": [
+        {
+          "name": "Bernalillo County Sheriff's Office",
+          "url": "https://www.bernco.gov/bernalillo-county-sheriff/wp-content/uploads/sites/48/2026/03/PressRelease3.12.2026.pdf",
+          "date": "2026-03-12"
+        },
+        {
+          "name": "CNN",
+          "url": "https://www.cnn.com/2026/03/11/us/retired-air-force-general-fbi-search",
+          "date": "2026-03-11"
+        },
+        {
+          "name": "KCNSC, New Mexico Operations",
+          "url": "https://kcnsc.doe.gov/about-us/new-mexico-operations/",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "l-fal": {
+      "desc": "Falls Church is an independent city of about 2.2 square miles in Northern Virginia, surrounded by Arlington and Fairfax counties and a short drive from the Pentagon and Washington. It is dense, residential and fully urban, and as a Virginia independent city it runs its own police department and courts separately from the counties around it. Matthew James Sullivan, 39, an Air Force intelligence officer whose obituary records service with the National Air and Space Intelligence Center, the National Security Agency and the Air Force Intelligence Agency, died on May 12 2024. Virginia's Office of the Chief Medical Examiner, Northern District, recorded the cause as an accidental overdose involving alcohol and three prescription drugs. The installations associated with his career are not local to this address: NASIC is at Wright-Patterson Air Force Base in Ohio, and NSA is at Fort Meade in Maryland.",
+      "sources": [
+        {
+          "name": "Dignity Memorial obituary",
+          "url": "https://www.dignitymemorial.com/obituaries/falls-church-va/matthew-sullivan-11814621",
+          "date": "2024-05-12"
+        },
+        {
+          "name": "City of Falls Church",
+          "url": "http://www.fallschurchva.gov/31/Community",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "l-cam": {
+      "desc": "This node marks the workplace, not the scene, and that is a correction rather than a nicety. Cambridge is where MIT's Plasma Science and Fusion Center sits, occupying about seven buildings on Albany Street on the main campus, across the Charles River from Boston. Nuno Loureiro, the center's director and a professor in physics and in nuclear science and engineering, was shot at his home on Gibbs Street in Brookline on December 15 2025 and died the following day. Brookline is a separate municipality in Norfolk County, so the Norfolk District Attorney's Office investigated, not Cambridge police or the Middlesex DA. Officials later attributed the shooting to the same man responsible for the attack at Brown University two days earlier, and the FBI and the US Attorney for Massachusetts published joint findings covering both incidents.",
+      "sources": [
+        {
+          "name": "MIT News",
+          "url": "https://news.mit.edu/2025/nuno-loureiro-professor-director-plasma-science-and-fusion-center-dies-1216",
+          "date": "2025-12-16"
+        },
+        {
+          "name": "MIT Plasma Science and Fusion Center",
+          "url": "https://www.psfc.mit.edu/contact-us/",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "l-wak": {
+      "desc": "Wakefield is a town in Middlesex County, Massachusetts, just off Route 128 north of Boston. Lake Quannapowitt lies at its northern edge, a glacial kettle pond of about 254 acres with roughly 3.6 miles of shoreline, an average depth near six feet and a maximum around eleven, ringed by parkland and streets. Jason Thomas, 45, walked away from his Wakefield home on December 12 2025 and was reported missing the next day. Wakefield police searched with K9 units and drones drawn from the Northeastern Massachusetts Law Enforcement Council, but the lake froze and stayed frozen through most of the winter, which pushed any dive and sonar search to spring. A detective spotted a body in the thawing water on March 17 2026. The Middlesex District Attorney's Office said no foul play was suspected.",
+      "sources": [
+        {
+          "name": "Town of Wakefield",
+          "url": "https://www.wakefieldma.gov/m/newsflash/home/detail/113",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "Boston.com",
+          "url": "https://www.boston.com/news/local-news/2026/03/17/body-pulled-from-wakefield-lake-believed-to-be-that-of-missing-man/",
+          "date": "2026-03-17"
+        },
+        {
+          "name": "Mass.gov, Lake Quannapowitt",
+          "url": "https://www.mass.gov/info-details/lake-quannapowitt",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "l-union": {
+      "desc": "Union County is a rural county in the Piedmont of upstate South Carolina, wooded and thinly settled, containing a large share of the Enoree Ranger District of the Sumter National Forest. Union County Airport, Troy Shelton Field, is a single-runway general aviation field at about 610 feet elevation, with a runway designated 5/23 and no control tower. On April 17 2026 a Mooney M20J, N1151H, departed runway 23 after a refuelling stop on a flight home to Huntsville, banked right and rolled left, and came down in trees near the field. All four aboard were killed: pilot James Moffatt, an aerospace engineer, his wife and their two sons. Forestry crews had to clear trees to reach the wreckage. The NTSB leads the investigation with the FAA, alongside the Union County Sheriff's Office and the Union County Coroner's Office.",
+      "sources": [
+        {
+          "name": "Fox Carolina",
+          "url": "https://www.foxcarolina.com/2026/04/18/live-fire-crews-responding-union-county-airport/",
+          "date": "2026-04-18"
+        },
+        {
+          "name": "Fox Carolina, NTSB preliminary report",
+          "url": "https://www.foxcarolina.com/2026/05/06/ntsb-releases-preliminary-report-plane-crash-near-upstate-airport-that-killed-4-people/",
+          "date": "2026-05-06"
+        },
+        {
+          "name": "South Carolina Aeronautics Commission",
+          "url": "https://aeronautics.sc.gov/airports/union-county-troy-shelton-fld-airport",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "d-prop": {
+      "desc": "Propulsion research covers how vehicles generate thrust: chemical rockets, electric and ion drives, nuclear thermal systems, and a small speculative fringe investigating whether inertia or gravitation can be manipulated. The dual-use route here is not inferential. Rocket propulsion is export-controlled because the physics of putting a payload into orbit is the physics of delivering a warhead, and the same engineers, test stands and materials serve both. Nuclear thermal propulsion sits further inside that boundary still. DARPA's DRACO program was a joint DARPA and NASA effort to flight-qualify a nuclear thermal rocket engine and its reactor, which places reactor design, fuel handling and DOE oversight in the same room as a civil space mission. The honest limit is that propulsion is also an enormous open field. Thousands of engineers publish freely on turbomachinery, combustion and nozzle design with no classified involvement whatsoever, and a propulsion title establishes subject matter, not access. Separately, the JASON advisory panel, formed in 1960, shows that civilian technical specialists have been brought into classified DoD review for over sixty years without the arrangement appearing on a public CV.",
+      "sources": [
+        {
+          "name": "DARPA, DRACO program",
+          "url": "https://www.darpa.mil/research/programs/demonstration-rocket-for-agile-cislunar-operations",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "Federation of American Scientists, JASON Defense Advisory Panel Reports",
+          "url": "https://irp.fas.org/agency/dod/jason/",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "d-nuc": {
+      "desc": "Nuclear work in the United States splits into three fairly distinct populations: civilian power and reactor engineering, basic nuclear and particle science, and the weapons complex run by the National Nuclear Security Administration. The third is where access questions become real. NNSA sites include Los Alamos National Laboratory and the Kansas City National Security Campus, which manufactures and procures the nonnuclear components of nuclear weapons, and employment there is governed by DOE personnel security rather than ordinary corporate vetting. That is a documented structure, not an inference. The limit matters just as much. These are very large employers with tens of thousands of staff across engineering, manufacturing, logistics, procurement and administration, and most hold either no clearance or a routine one tied narrowly to a job function. Presence at a weapons site indicates that a classified channel exists at the institution, not that any particular person was inside it. JASON has performed studies under contract to the Department of Energy and NNSA, which shows the advisory route exists as a matter of record. It says nothing about who in this file, if anyone, used it.",
+      "sources": [
+        {
+          "name": "NNSA, Kansas City National Security Campus contract",
+          "url": "https://www.energy.gov/nnsa/kansas-city-national-security-campus-contract",
+          "date": "2026-03-05"
+        },
+        {
+          "name": "Los Alamos National Laboratory, About",
+          "url": "https://www.lanl.gov/about",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "Federation of American Scientists, JASON Defense Advisory Panel Reports",
+          "url": "https://irp.fas.org/agency/dod/jason/",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "d-astro": {
+      "desc": "Astrophysics studies objects beyond Earth: stellar populations, dark matter distributions, planets around other stars, comets and asteroids, and the instruments needed to observe them. On its face this is the least defense-adjacent field in the file, and critics have made exactly that point. The technical overlap is nonetheless real and documented. Astronomers spend their careers pulling faint signals out of noisy backgrounds, characterizing detectors, correcting atmospheric distortion through adaptive optics, and building image processing pipelines for wide-field survey data. Those are the competencies overhead reconnaissance and space surveillance require, which is why DARPA's Space Surveillance Telescope was built on survey-astronomy optical design and later transferred to military operation. The limit is equally plain. Studying dark matter or cometary orbits carries no classified content, requires no clearance, and produces publications written to be read. What the domain establishes is transferable skill and institutional adjacency, particularly at FFRDCs such as JPL and at universities with documented advisory lineage going back to JASON in 1960. It does not establish that any astronomer in this file held sensitive access, and no such access is asserted.",
+      "sources": [
+        {
+          "name": "DARPA, Space Surveillance Telescope",
+          "url": "https://www.darpa.mil/research/programs/space-surveillance-telescope",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "National Academies, Optics and Photonics",
+          "url": "https://nap.nationalacademies.org/catalog/13491/optics-and-photonics-essential-technologies-for-our-nation",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "Caltech IPAC",
+          "url": "https://www.ipac.caltech.edu/",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "d-intel": {
+      "desc": "Intelligence work is categorically different from the scientific domains around it. Analysts, collectors and technical specialists in organizations such as the National Security Agency and the National Air and Space Intelligence Center operate inside clearance and compartmentation systems by default rather than by exception. Access is the job. Where an academic scientist may or may not hold a clearance, a serving intelligence officer's employment presupposes one, and frequently presupposes compartmented or special access authorizations layered above it. That makes program proximity easier to establish here than anywhere else in the file, and it also makes it easier to overstate. A clearance describes what a person could be shown in principle. It does not identify which compartments they were read into, what they worked on, or whether any of it bears on the circumstances of a death. Compartmentation exists precisely so that clearance and knowledge are not the same thing. MKULTRA, run through more than eighty institutions and in many cases without participants' knowledge, is the historical reminder that intelligence programs have reached well outside their own payroll. That is a statement about the population, not about anyone named here.",
+      "sources": [
+        {
+          "name": "Federation of American Scientists, Intelligence Resource Program",
+          "url": "https://irp.fas.org/agency/",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "US Senate, Project MKULTRA joint hearing",
+          "url": "https://www.intelligence.senate.gov/sites/default/files/hearings/95mkultra.pdf",
+          "date": "1977-08-03"
+        }
+      ]
+    },
+    "d-plasma": {
+      "desc": "Plasma physics studies ionized gas, the fourth state of matter, which makes up most of the visible universe and behaves according to coupled electromagnetic and fluid dynamics. Magnetic reconnection, the process by which magnetic field lines break and reconfigure while releasing stored energy, is a central problem in the field. It drives solar flares and geomagnetic storms and limits the performance of fusion devices, and NASA flies a dedicated four-spacecraft mission to measure it directly. The dual-use route runs through fusion rather than through plasma as such. Inertial confinement fusion at the National Ignition Facility is funded through NNSA and is an explicit component of stockpile stewardship, because imploding a fuel capsule reproduces conditions relevant to weapons physics without nuclear testing. Magnetic confinement fusion, the branch pursued at university plasma centers, sits on the civilian energy side of that split and is published openly and internationally. The limit is therefore specific rather than general. Plasma physics contains a genuinely weapons-adjacent branch, academic magnetic confinement research is not that branch, and both sit inside institutions that hold substantial federal defense contracts.",
+      "sources": [
+        {
+          "name": "MIT Plasma Science and Fusion Center",
+          "url": "https://www.psfc.mit.edu/",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "NASA, Magnetospheric Multiscale mission",
+          "url": "https://science.nasa.gov/mission/mms/",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "Lawrence Livermore, National Ignition Facility",
+          "url": "https://lasers.llnl.gov/",
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "d-exotic": {
+      "desc": "Exotic materials covers two things that should not be confused. The first is conventional but demanding materials engineering: nickel superalloys, burn-resistant and oxidation-resistant metals, and coatings such as the Mondaloy family developed to survive oxygen-rich, high-temperature rocket turbomachinery. This is real, patented, commercially valuable intellectual property, and it is export-controlled for the same reason propulsion is, because turbopump metallurgy is a limiting factor in launch vehicles and missile systems alike. The second strand is speculative: proposals involving gravitomagnetic coupling, inertial modification or anti-gravity effects. That work is not classified so much as unvalidated, and it has drawn federal and institutional grant money at various points without producing a replicated result. Both strands appear in this file and they carry different weight. Superalloy development implies proprietary knowledge that is commercially and militarily sensitive, which is a specific and defensible claim. Speculative gravitation research implies neither classified access nor settled physics, and treating it as evidence of either would be an error. Neither strand, standing alone, establishes anything about an individual's clearance status.",
+      "sources": [
+        {
+          "name": "US Patent Application 2010/0266442 A1, burn-resistant high tensile strength metal alloys",
+          "url": "https://patentimages.storage.googleapis.com/42/e6/c6/78f0b09171ed45/US20100266442A1.pdf",
+          "date": "2010-10-21"
+        },
+        {
+          "name": "USPTO 2017/0082070 A1, turbopump naming Mondaloy coating",
+          "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/20170082070",
+          "date": "2017-03-23"
+        }
+      ]
+    },
+    "d-chem": {
+      "desc": "Chemical biology uses small molecules to probe and manipulate biological systems. In a pharmaceutical setting it is the discipline behind target identification, hit-to-lead chemistry and mechanism-of-action work in commercial drug discovery. This domain is in the file as a counterexample and should be read as one. Chemistry does have a genuine dual-use boundary, and it is drawn explicitly: the Chemical Weapons Convention schedules toxic chemicals and their precursors, and separate biosecurity oversight covers a narrow class of pathogen research. Commercial small-molecule therapeutic discovery at a private pharmaceutical company falls outside both. There is no FFRDC, no national laboratory, no federal defense or energy funding stream, no clearance requirement and no plausible classified channel. The individual attached to this domain worked for a Swiss pharmaceutical company on non-defense research and has no defense, aerospace, nuclear or intelligence nexus of any kind. The case is retained precisely to show that the file is not curated toward its own hypothesis. On this domain the correct answer, stated without hedging, is that the research area implies nothing at all.",
+      "sources": [
+        {
+          "name": "OPCW, Chemical Weapons Convention",
+          "url": "https://www.opcw.org/chemical-weapons-convention",
+          "date": "2026-08-10"
+        },
+        {
+          "name": "Novartis, Research and Development",
+          "url": "https://www.novartis.com/research-development",
+          "date": "2026-08-10"
+        }
+      ]
+    }
+  },
+  "ENTITY_SOURCES": {
+    "jpl": [
+      {
+        "name": "NASA Jet Propulsion Laboratory",
+        "url": "https://www.jpl.nasa.gov/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "JPL, Who We Are (FFRDC managed by Caltech for NASA)",
+        "url": "https://www.jpl.nasa.gov/who-we-are/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "NSF master government list of FFRDCs",
+        "url": "https://www.nsf.gov/statistics/ffrdclist/",
+        "date": "2026-08-10"
+      }
+    ],
+    "ipac": [
+      {
+        "name": "IPAC, Caltech",
+        "url": "https://www.ipac.caltech.edu/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "IPAC About",
+        "url": "https://www.ipac.caltech.edu/page/about",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "IPAC Image Use Policy",
+        "url": "https://www.ipac.caltech.edu/page/image-use-policy",
+        "date": "2026-08-10"
+      }
+    ],
+    "lanl": [
+      {
+        "name": "Los Alamos National Laboratory",
+        "url": "https://www.lanl.gov/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "LANL About, Triad National Security LLC operator",
+        "url": "https://www.lanl.gov/about",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "NNSA, Los Alamos National Laboratory",
+        "url": "https://www.energy.gov/nnsa/los-alamos-national-laboratory",
+        "date": "2026-08-10"
+      }
+    ],
+    "afrl": [
+      {
+        "name": "Air Force Research Laboratory",
+        "url": "https://afresearchlab.com/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "AFRL About",
+        "url": "https://afresearchlab.com/about/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "DVIDS unit page, AFRL, Wright-Patterson AFB Ohio",
+        "url": "https://www.dvidshub.net/unit/AFRL",
+        "date": "2026-08-10"
+      }
+    ],
+    "uah": [
+      {
+        "name": "University of Alabama in Huntsville",
+        "url": "https://www.uah.edu/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "UAH Research",
+        "url": "https://www.uah.edu/research",
+        "date": "2026-08-10"
+      }
+    ],
+    "ies": [
+      {
+        "name": "Amy Eskridge obituary, The Arab Tribune, naming her as chair and president of the Institute for Exotic Science",
+        "url": "https://www.thearabtribune.com/obituaries/amy-eskridge/article_3779ff44-ecd0-11ec-b084-a70e496e902a.html",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "Newsweek, Who is Amy Eskridge",
+        "url": "https://www.newsweek.com/who-is-amy-eskridge-scientist-death-queried-us-expert-mysteries-11843659",
+        "date": "2026-08-10"
+      }
+    ],
+    "nsa": [
+      {
+        "name": "National Security Agency",
+        "url": "https://www.nsa.gov/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "National Air and Space Intelligence Center",
+        "url": "https://www.nasic.af.mil/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "DVIDS unit page, NASIC",
+        "url": "https://www.dvidshub.net/unit/NASIC",
+        "date": "2026-08-10"
+      }
+    ],
+    "mit": [
+      {
+        "name": "MIT Plasma Science and Fusion Center",
+        "url": "https://www.psfc.mit.edu/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "MIT Lincoln Laboratory, About, FFRDC",
+        "url": "https://www.ll.mit.edu/about",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "NSF master government list of FFRDCs",
+        "url": "https://www.nsf.gov/statistics/ffrdclist/",
+        "date": "2026-08-10"
+      }
+    ],
+    "kcnsc": [
+      {
+        "name": "Kansas City National Security Campus",
+        "url": "https://kcnsc.doe.gov/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "KCNSC Overview",
+        "url": "https://kcnsc.doe.gov/about-us/overview/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "NNSA, Kansas City National Security Campus",
+        "url": "https://www.energy.gov/nnsa/kansas-city-national-security-campus",
+        "date": "2026-08-10"
+      }
+    ],
+    "novartis": [
+      {
+        "name": "Novartis",
+        "url": "https://www.novartis.com/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "Novartis, About us",
+        "url": "https://www.novartis.com/about",
+        "date": "2026-08-10"
+      }
+    ],
+    "boeing": [
+      {
+        "name": "L3Harris, Aerojet Rocketdyne history",
+        "url": "https://www.l3harris.com/aerojet-rocketdyne-history",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "L3Harris completes Aerojet Rocketdyne acquisition",
+        "url": "https://www.l3harris.com/newsroom/press-release/2023/07/l3harris-completes-aerojet-rocketdyne-acquisition",
+        "date": "2023-07-28"
+      }
+    ],
+    "nasa": [
+      {
+        "name": "NASA Marshall Space Flight Center",
+        "url": "https://www.nasa.gov/marshall/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "NASA Marshall center page",
+        "url": "https://www.nasa.gov/marshall-space-flight-center/",
+        "date": "2026-08-10"
+      }
+    ],
+    "oversight": [
+      {
+        "name": "House Committee on Oversight and Government Reform",
+        "url": "https://oversight.house.gov/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "Comer and Burlison Seek Information on Missing Nuclear and Rocket Scientists",
+        "url": "https://oversight.house.gov/release/comer-burlison-seek-information-on-missing-nuclear-and-rocket-scientists/",
+        "date": "2026-04-20"
+      },
+      {
+        "name": "Comer and Burlison letter to FBI Director Patel, PDF",
+        "url": "https://oversight.house.gov/wp-content/uploads/2026/04/FBI-Missing-Scientists-Letter_4.20.26.pdf",
+        "date": "2026-04-20"
+      }
+    ],
+    "fbi": [
+      {
+        "name": "Fortune, FBI looks into dead or missing nuclear and space defense scientists",
+        "url": "https://fortune.com/2026/04/21/scientists-disappear-die-nasa-space-blue-origin-spacex/",
+        "date": "2026-04-21"
+      },
+      {
+        "name": "Boston Globe via Boston.com",
+        "url": "https://www.boston.com/news/the-boston-globe/2026/04/28/fbi-is-investigating-cases-of-10-scientists-who-have-died-or-mysteriously-vanished-including-two-in-mass/",
+        "date": "2026-04-28"
+      },
+      {
+        "name": "FBI Boston and US Attorney Massachusetts, findings closing the Loureiro case",
+        "url": "https://www.fbi.gov/contact-us/field-offices/boston/news/fbi-and-us-attorneys-office-for-the-district-of-massachusetts-release-findings-on-brown-university-and-brookline-shootings",
+        "date": "2026-08-10"
+      }
+    ],
+    "pursue": [
+      {
+        "name": "PURSUE official release portal, Department of War",
+        "url": "https://www.war.gov/ufo/",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "ABC News, Pentagon releases declassified UFO files",
+        "url": "https://abcnews.go.com/Politics/pentagon-begins-release-decades-unresolved-ufo-files/story?id=132780534",
+        "date": "2026-05-08"
+      },
+      {
+        "name": "CBS News, Pentagon releases new batch of UFO files",
+        "url": "https://www.cbsnews.com/news/ufo-files-pentagon-5th-release-documents-videos/",
+        "date": "2026-08-10"
+      }
+    ],
+    "grusch": [
+      {
+        "name": "House Oversight hearing, UAP: Implications on National Security, Public Safety, and Government Transparency",
+        "url": "https://oversight.house.gov/hearing/unidentified-anomalous-phenomena-implications-on-national-security-public-safety-and-government-transparency/",
+        "date": "2023-07-26"
+      },
+      {
+        "name": "GPO govinfo official hearing record CHRG-118hhrg53823",
+        "url": "https://www.govinfo.gov/content/pkg/CHRG-118hhrg53823/pdf/CHRG-118hhrg53823.pdf",
+        "date": "2023-07-26"
+      }
+    ],
+    "draco": [
+      {
+        "name": "DARPA, DRACO programme",
+        "url": "https://www.darpa.mil/research/programs/demonstration-rocket-for-agile-cislunar-operations",
+        "date": "2026-08-10"
+      },
+      {
+        "name": "NASA, NASA and DARPA Will Test Nuclear Engine for Future Mars Missions",
+        "url": "https://www.nasa.gov/news-release/nasa-darpa-will-test-nuclear-engine-for-future-mars-missions/",
+        "date": "2023-01-24"
+      },
+      {
+        "name": "NASA TechPort project record 105665",
+        "url": "https://techport.nasa.gov/projects/105665",
+        "date": "2026-08-10"
+      }
+    ],
+    "mondaloy": [
+      {
+        "name": "US Patent Application 2010/0266442 A1, burn-resistant high tensile strength metal alloys",
+        "url": "https://patentimages.storage.googleapis.com/42/e6/c6/78f0b09171ed45/US20100266442A1.pdf",
+        "date": "2010-10-21"
+      },
+      {
+        "name": "USPTO 2017/0082070 A1, turbopump naming Mondaloy coating",
+        "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/20170082070",
+        "date": "2017-03-23"
+      }
+    ]
+  },
+  "SOURCES": {
+    "oversight": [
+      {
+        "name": "House Oversight",
+        "url": "https://oversight.house.gov/release/comer-burlison-seek-information-on-missing-nuclear-and-rocket-scientists/"
+      }
+    ],
+    "fbi": [
+      {
+        "name": "CNN",
+        "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation"
+      }
+    ],
+    "pursue": [
+      {
+        "name": "DefenseScoop",
+        "url": "https://defensescoop.com/2026/05/14/uap-trump-first-pursue-ufo-file-drop/"
+      }
+    ]
+  }
+}
