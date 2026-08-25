@@ -43,14 +43,35 @@ plus a mechanism, because a mechanism makes predictions. This one does: it predi
 incapacitation and discrediting events should appear alongside deaths, and that they should
 cluster on the same institutional channels.
 
-**It has a documented precedent.** See `PORT-FROM-THE-PROGRAM.md` section 4. Paul Bennewitz,
-a physicist beside Kirtland AFB, was fed fabricated material by AFOSI calibrated to what he
-already half-believed, was hospitalised in 1988, and the operation was publicly admitted by
-one of its participants in 1989. That is neutralisation without death, by a US
-counterintelligence organisation, against a private scientist. The Program's own dossier
-calls it "the only place in this domain where the state's method is documented rather than
-inferred." **A frame with one documented instance is in a different category from a frame
-with none.**
+**It has a documented precedent, and the precedent is narrower than it first reads.** See
+`PORT-FROM-THE-PROGRAM.md` section 4. Paul Bennewitz, a physicist beside Kirtland AFB, was fed
+fabricated material by AFOSI calibrated to what he already half-believed, and the operation
+was publicly admitted by one of its participants in 1989. The Program's own dossier calls it
+"the only place in this domain where the state's method is documented rather than inferred."
+**A frame with one documented instance is in a different category from a frame with none.**
+
+**But the sourcing was checked on 25 August 2026, and it splits.** The full brief is
+`notes/research/2026-08-25-bennewitz.md`. The result governs how this precedent may be cited:
+
+| Element | Strength |
+|---|---|
+| The AFOSI operation existed and was run against him | Documented. Contemporaneous federal records, plus the operator on the record |
+| He died 23 June 2003 | Documented. VA National Gravesite Locator record 7139602, verified directly |
+| Cause of death | No public record found |
+| He was hospitalised in 1988 | Testimony. Family and associate accounts relayed in Greg Bishop, *Project Beta*, 2005 |
+| The operation caused the hospitalisation | Inference, and stated as one by its own sources |
+
+**The operation is documented. Its effect is testimony.** That is the whole of the finding,
+and it bites here rather than anywhere else, because "neutralisation without death" is a
+claim about the **effect**.
+
+So the precedent still does real work, stated accurately: **a US counterintelligence
+organisation ran a calibrated disinformation operation against a private scientist, and one of
+its participants admitted it.** That is the fact this frame needs, and it is on the record.
+What is **not** on the record, at the standard this project applies to its own cases, is what
+the operation did to him. **Cite the operation. Do not cite the breakdown as documented.**
+There is no further search that closes this gap: psychiatric admission records of a private
+citizen are not public.
 
 **It explains a real selection problem.** If the tracker only counts deaths, it is measuring
 the most expensive and least likely tool in the kit and calling that the pattern.

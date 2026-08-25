@@ -133,10 +133,16 @@ Moore, begins supplying Bennewitz with fabricated material about underground bas
 and biological experimentation, tailored to what he already half-believed. 1988, Bennewitz
 is hospitalised. July 1989, Moore stands up at a MUFON conference and admits the whole thing.
 
-**Nobody killed Paul Bennewitz.** He was fed material calibrated to discredit him, and the
-discrediting worked, and he broke. That is a documented instance of neutralisation without
-death, run by a US counterintelligence organisation, against a private physicist, adjacent to
-a facility that appears in this tracker.
+**Nobody killed Paul Bennewitz.** He was fed material calibrated to discredit him, by a US
+counterintelligence organisation, against a private physicist, adjacent to a facility that
+appears in this tracker.
+
+**Sourcing checked 25 August 2026, and the 1988 line above is weaker than the rest of the
+sequence.** The operation is documented and the death is documented; **the hospitalisation
+rests on family testimony relayed in Greg Bishop's *Project Beta* (2005), and the causal link
+between the two is an inference its own sources state as one.** Port the sequence, but do not
+port "the discrediting worked, and he broke" as a documented fact. Full brief:
+`notes/research/2026-08-25-bennewitz.md`; the citation rule is in `THESIS-NOTES.md`.
 
 **And the officer who ran it came forward.** The Program carries person node `richard-doty`
 (tier B, C1/A2/D2): USAF AFOSI Special Agent 1979-1988, "the only US counterintelligence

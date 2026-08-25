@@ -196,6 +196,19 @@ def self_test():
             json.dump(data, fh, ensure_ascii=False, indent=2)
         ok, _ = gate_semantic()
         results.append(("semantic gate rejects a changed axis score", not ok))
+
+        # Retiring a claim is allowed only when declared. Without this test the
+        # RETIRED_CLAIM_TEXTS escape hatch could silently widen into a blank cheque,
+        # which is the failure mode the whole gate exists to prevent.
+        data = json.loads(original)
+        for case in data["cases"]:
+            if case["id"] == "grillmair" and case.get("claims"):
+                case["claims"] = case["claims"][1:]
+                break
+        with open(path, "w", encoding="utf-8", newline="\n") as fh:
+            json.dump(data, fh, ensure_ascii=False, indent=2)
+        ok, _ = gate_semantic()
+        results.append(("semantic gate rejects an undeclared claim retirement", not ok))
     finally:
         with open(path, "w", encoding="utf-8", newline="\n") as fh:
             fh.write(original)

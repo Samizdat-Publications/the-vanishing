@@ -105,7 +105,35 @@ a complaint.
 its emptiness is inferred from search engine coverage rather than searched. Thinnest part of
 this pass.
 
-**Adjacent and untracked:** Garcia and Frost, the cc'd minority. A minority-side statement,
+## The minority side, checked 25 August 2026
+
+This brief listed Garcia and Frost as "adjacent and untracked" and said nobody had checked.
+Checked now, and it is a clean negative with a tight scope.
+
+| Source | Coverage | Result |
+|---|---|---|
+| Ranking Member **Robert Garcia**, own press release index | Page 1 read in full, **15 Jul 2026 back to 31 Mar 2026**, 10 releases. Fully contains the 20 April letters and the 27 April deadline | **Zero** mentions of the scientists or McCasland |
+| Rep. **Maxwell Frost**, own press release index | Read in full, **4 Aug 2026 back to 11 Feb 2026**, 20 releases. Contains the entire window | **Zero** mentions |
+| `oversightdemocrats.house.gov` | Site search returns 403 to automated requests; three domain-restricted engine queries run instead | **Nothing on the scientists** |
+
+**Both members published inside the deadline window and neither mentioned it.** Frost issued
+releases on 16, 22 and 30 April 2026. Garcia issued releases on 24 and **27 April 2026, the
+deadline date itself.** Neither concerns the scientists.
+
+**What this is worth, stated carefully.** It is a documented absence, not a finding about
+whether the briefings happened. Silence is weak evidence and it runs in more than one
+direction: it is equally consistent with no briefing having occurred and nobody minding, with
+the minority judging the matter not worth engaging, and with a briefing having been delivered
+uneventfully. What it does rule out is the one loud alternative: **the cc'd minority did not
+publicly object, and did not publicly corroborate.** Combined with the majority-side finding
+that Oversight has a documented habit of publicising non-compliance and did not here, the
+whole record after 20 April 2026 is silence from every direction.
+
+**Note the site-search caveat.** The minority committee site refuses `/search` to automated
+requests, so its emptiness rests on domain-restricted engine queries rather than on reading
+its index. The two members' own indexes **were** read directly. Say which one it was.
+
+**Adjacent and untracked:** the remaining items. Garcia and Frost are now checked. A minority-side statement,
 or its absence, is an independent read on whether anything was delivered and nobody has
 checked. Also Peter Spectre, and the House Appropriations and Armed Services committees,
 which have their own DoW and DOE channels.

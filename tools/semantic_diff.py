@@ -74,6 +74,12 @@ EXPECTED_CHANGES = {
     "cases.13.sources.4.outlet": "step 5: Fox News",
     "cases.13.sources.4.url": "step 5: Fox News, verified 200",
     "cases.13.sources.4.date": "step 5: Fox News",
+    # Record-gap pass, 25 August 2026.
+    "cases.10.narrative": (
+        "Thomas: the narrative attributed the no-foul-play finding to a Middlesex County "
+        "Medical Examiner. Massachusetts has no county medical examiners, and the statement "
+        "came from the District Attorney and the Wakefield chief of police. Corrected, and "
+        "the pending state OCME determination stated"),
     # Collection-level declarations. These say the SHAPE of the collection changed, which
     # would otherwise report every entry as removed-and-re-added. They deliberately do not
     # blind the gate to content: NEW_CLAIM_TEXTS below is an exact allowlist, and every
@@ -115,6 +121,45 @@ NEW_CLAIM_TEXTS = {
     "HoloChron LLC was formed in Alabama on 16 July 2018 and dissolv",
     "In December 2018 she stated that \"Independently funded research",
     "Neither HoloChron LLC, the Institute for Exotic Science, nor Am",
+    # Record-gap pass, 25 August 2026. Four of the five negative-space gaps closed against
+    # reported sourcing; the fifth is recorded as a documented absence instead.
+    "The statement that no foul play is suspected came from Middlese",
+    "Massachusetts has no county medical examiners. The statewide Of",
+    "The Alabama Law Enforcement Agency investigated the crash. His ",
+    "The Los Angeles County Sheriff's Department is the lead agency,",
+    "No investigating agency has ever been publicly named, and no me",
+    "This tracker's own line that the death is 'listed as natural ca",
+    # PolitiFact read in full, 25 August 2026. Skeptical literature as a grading
+    # instrument, per CLAUDE.md: two counterarguments the tracker did not carry, and one
+    # confirmation of a claim that was load bearing for a Tier A.
+    "Authorities believe Grillmair and the man arrested did not know",
+    "His wife Susan McCasland Wilkerson wrote that he had a brief as",
+    "The PolitiFact fact-check of 28 April 2026 names him and offers",
+    # The four 20 April 2026 Oversight letters read directly, 25 August 2026. Claim and
+    # source only, never the conclusion: the alleged Reza-McCasland link is carried with
+    # the Committee's own hedge and its New York Post attribution intact.
+    "The 20 April 2026 Oversight letters state she \"served as the di",
+    "The Oversight letters record that \"Reports have even alleged a ",
+    "The Oversight letters record an alleged \"close professional con",
+    "Every one of the eight footnotes in the FBI letter is a press r",
+    # The named insider counterargument, verified 25 August 2026. CLAUDE.md requires
+    # counterarguments be carried rather than avoided, and this is the strongest one
+    # available: the only person on record who worked directly with two tracked cases.
+    "Joe Masiero, a Caltech IPAC solar system scientist, worked alon",
+    "Joe Masiero worked closely with Grillmair at Caltech IPAC for f",
+}
+
+# A claim may be REMOVED only if it is declared here, with the reason. Without this the
+# gate has no way to express a correction, and the only route to fixing a wrong claim is
+# to loosen the gate, which is how gates die. Retiring a claim stays a deliberate,
+# reviewable act: the text has to be written out in full and a reason given.
+RETIRED_CLAIM_TEXTS = {
+    "Middlesex County Medical Examiner found no foul play.":
+        "wrong on two counts. Massachusetts abolished county medical examiners in favour of "
+        "a statewide Office of the Chief Medical Examiner, so the office named does not "
+        "exist; and the no-foul-play statement was issued by the Middlesex District Attorney "
+        "and the Wakefield chief of police, not by any medical examiner. The OCME had not "
+        "determined cause or manner. Replaced by two claims that attribute it correctly",
 }
 
 # Invariants that must hold no matter what the schema does. These are the facts the
@@ -246,13 +291,19 @@ def main():
     # this makes sure the content did not.
     base_texts = {c["text"] for case in base["cases"] for c in case.get("claims", [])}
     live_texts = {c["text"] for case in live["cases"] for c in case.get("claims", [])}
-    dropped = sorted(base_texts - live_texts)
+    dropped = sorted(t for t in (base_texts - live_texts) if t not in RETIRED_CLAIM_TEXTS)
+    retired = sorted(t for t in (base_texts - live_texts) if t in RETIRED_CLAIM_TEXTS)
     undeclared_new = sorted(t for t in (live_texts - base_texts) if t[:63] not in NEW_CLAIM_TEXTS)
     if dropped:
         ok = False
-        print("\n  CLAIM TEXT DROPPED (%d):" % len(dropped))
+        print("\n  CLAIM TEXT DROPPED (%d). Undeclared. To retire one deliberately, add it"
+              " verbatim to RETIRED_CLAIM_TEXTS with the reason:" % len(dropped))
         for t in dropped[:10]:
             print("    %s" % t[:160])
+    if retired:
+        print("\n  CLAIM TEXT RETIRED, declared (%d):" % len(retired))
+        for t in retired:
+            print("    %s\n      reason: %s" % (t[:120], RETIRED_CLAIM_TEXTS[t][:200]))
     if undeclared_new:
         ok = False
         print("\n  UNDECLARED NEW CLAIM (%d). Add its first 63 chars to NEW_CLAIM_TEXTS:" % len(undeclared_new))
@@ -296,12 +347,19 @@ def main():
     # The claim source conversion must be lossless. A migration that quietly rewords a
     # citation is the exact failure this project cannot afford, so compare the old string
     # against the new first entry's name rather than trusting the shapes to line up.
+    # Matched by claim text rather than by position. Zipping positionally broke the moment
+    # a claim was appended or retired: every later claim compared against its neighbour and
+    # the output filled with mismatches that were really an off-by-one.
     lost = []
     for b_case, l_case in zip(base["cases"], live["cases"]):
-        for b_claim, l_claim in zip(b_case.get("claims", []), l_case.get("claims", [])):
+        live_by_text = {c["text"]: c for c in l_case.get("claims", [])}
+        for b_claim in b_case.get("claims", []):
             old = b_claim.get("source")
-            if old is None:
+            if old is None or b_claim["text"] in RETIRED_CLAIM_TEXTS:
                 continue
+            l_claim = live_by_text.get(b_claim["text"])
+            if l_claim is None:
+                continue  # already reported as a dropped claim
             new = (l_claim.get("sources") or [{}])[0].get("name")
             if old != new:
                 lost.append("%s: %r -> %r" % (b_case["id"], old, new))

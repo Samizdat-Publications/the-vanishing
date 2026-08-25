@@ -53,6 +53,28 @@ Then open `http://127.0.0.1:8971/dist/the-vanishing.html`. On Stewart's machine 
 **`verify.py` passing is the definition of shippable**, and every check is itself tested
 against input it must reject (`--self-test`). Same for `discovery_checks.py`.
 
+```bash
+cd /home/user/the-vanishing
+python3 tools/verify.py --self-test            # 5 gates proven to reject bad input
+python3 tools/discovery_checks.py --self-test  # 21 checks proven to fire
+node tools/test_claim_sources.js && node tools/test_source_render.js
+```
+
+**Two things about the gates worth knowing before you edit data.**
+
+**A claim cannot be removed silently.** The semantic gate requires every baseline claim text
+to still be present. To retire one deliberately, write it out verbatim in
+`RETIRED_CLAIM_TEXTS` in `tools/semantic_diff.py` with the reason. An undeclared removal
+fails, and that is proven by a self-test. New claims are declared the same way in
+`NEW_CLAIM_TEXTS`.
+
+**The negative-space check has three states, not two.** Answered, **documented absence**
+(the record says plainly that no such fact is public), and gap (the record says nothing
+either way). Before 25 August 2026 a negation read as coverage, so writing "no investigating
+agency has ever been named" silenced that record's gap. The distinction is substantive:
+Maiwald's Tier A rests on there being nothing in the record at all, which only means
+something if the tracker can tell "we looked and found nothing" from "we did not look."
+
 **`the-vanishing-v2.html` is now the frozen historical reference and must not be edited.**
 It is what `data/baseline.json` was extracted from, and `verify.py` asserts its hash so the
 semantic gate keeps its anchor. It is no longer the build target.
@@ -166,10 +188,10 @@ the Grillmair tail is "confirmed unreported", which is honest.
 | 2 | Late-December 2025 conduct behind Snyder's burglary count | Charged only after the killing. Sits against the "random disturbed neighbour" reading |
 | 3 | Who contacted law enforcement about Snyder on December 20 2025 | Sources conflict. The widow says it was not Grillmair |
 | 4 | Was the firearm enhancement amended down between the February complaint and the May arraignment? | |
-| 5 | Frank Maiwald's cause of death | Still undisclosed |
+| 5 | Frank Maiwald's cause of death | Still undisclosed, and now **recorded as a documented absence rather than left silent**: no investigating agency has ever been publicly named either. Checked 25 Aug 2026 against the PolitiFact fact-check, which names him and offers **no alternative explanation at all**. His Tier A rests on the absence of skeptical engagement, so that absence is now verified rather than assumed |
 | 6 | Source "Prior NASA-adjacent propulsion work" on Amy Eskridge, or leave it unverified | **Stewart reviewed and agreed with the correction on 25 Aug 2026. It stays in her `unverified` array until something sources it.** Her own December 2018 deck calls her "Chemist, Entrepreneur" and names her father separately as "Retired NASA Engineer, Scientist". **Open only in the sense that a source could still turn up. Not a live doubt about the case.** See the Eskridge note in section 5 |
 | 7 | Is the Institute for Exotic Science registered in any state? | No Alabama registration exists. Delaware not searched, its name search is CAPTCHA-gated. **An open question, not a finding of impropriety** |
-| 8 | Retrieve the USPTO file wrapper for application 15/141,270 | Contains Examiner Bonzell's rejection in his own words. The highest-value document outstanding on the Pais thread |
+| 8 | Retrieve the USPTO file wrapper for application 15/141,270 | Contains Examiner Bonzell's rejection in his own words. The highest-value document outstanding on the Pais thread. **Attempted 25 Aug 2026 and blocked, not for want of trying: the Open Data Portal API returns 401 without a key, PEDS is retired and unreachable, and Patent Center returns 405 to every public method.** The unblock is a **free ODP API key** from `data.uspto.gov`, which needs a browser. See `LEADS.md` section D for the four routes and how each failed |
 | 9 | Re-check two `esd.whs.mil` URLs from a browser | They underpin the SAP cover-mechanism citation and return 403 to automated requests |
 
 ### Closed since the last handoff
@@ -182,6 +204,11 @@ the Grillmair tail is "confirmed unreported", which is honest.
 | Verify James E. McDonald | **Rejected as an analogue.** The campaign was real but privately authored by Philip Klass. Retained as a mechanism citation only |
 | Were the 27 April 2026 briefings delivered? | **No public record from any of the four agencies**, and none on record refusing |
 | Holocron Engineering | **Resolved to HoloChron LLC.** She was CEO and co-founder, not a lecturer. Channel question closed as a negative |
+| **Can the Bennewitz precedent bear its weight?** | **Answered 25 Aug 2026, and it splits.** Death sourced Tier 1 to a federal interment record; hospitalisation is testimony, not record. See section B |
+| **The five negative-space record gaps** | **All five closed.** LeBlanc to ALEA and the Alabama Department of Forensic Sciences; Reza to LASD Homicide Bureau Missing Persons Unit; Hicks and Maiwald recorded as documented absences; Thomas turned out to be **a wrong Tier 1 claim**, corrected |
+| **PolitiFact, 28 Apr 2026** | **Read in full.** Three things attached that the tracker did not carry, including McCasland's wife's account of his UFO-community association as consulting on a fiction book |
+| **The cc'd minority, Garcia and Frost** | **Checked, clean negative.** Both own release indexes read directly across the full window. Zero mentions. Both published on days around the deadline and did not raise it |
+| **What the Oversight enumeration rests on** | **Confirmed by reading the FBI letter itself.** All eight footnotes are press: two Daily Mail, three NY Post, two The Hill. The Committee calls its own basis "unconfirmed public reporting" |
 
 ## 7. Research cadence
 
@@ -251,11 +278,26 @@ it.** The object tracked is people attached to sensitive programmes who fell out
 standing and were removed from play, by whatever means, because discrediting is cheaper and
 more durable than killing.
 
-**Read `THESIS-NOTES.md`.** It records the frame, the documented precedent that supports it
-(Bennewitz, hospitalised 1988, method admitted publicly 1989), and, importantly, **the
-falsifiability problem it creates and how to keep it honest.** The recommendation there is to
-implement the frame as an `outcome` field in the schema rather than as a thumb on the S/P/I
-scores. Do not raise axis scores on the strength of the frame alone.
+**Read `THESIS-NOTES.md`.** It records the frame, the precedent that supports it, and,
+importantly, **the falsifiability problem it creates and how to keep it honest.** The
+recommendation there is to implement the frame as an `outcome` field in the schema rather
+than as a thumb on the S/P/I scores. Do not raise axis scores on the strength of the frame
+alone.
+
+**The precedent was sourced on 25 August 2026 and it splits. Know this before citing it.**
+
+| Element | Strength |
+|---|---|
+| The AFOSI operation existed and was run against Bennewitz | **Documented.** Federal records, plus the operator on the record |
+| He died 23 June 2003 | **Tier 1.** VA National Gravesite Locator record 7139602, queried directly |
+| Cause of death | No public record found |
+| He was hospitalised in 1988 | **Testimony.** Family and associate accounts relayed in Greg Bishop, *Project Beta*, 2005 |
+| The operation caused the hospitalisation | Inference, and stated as one by its own sources |
+
+**The operation is documented. Its effect is testimony.** Since "neutralisation without
+death" is a claim about the effect, **cite the operation and do not cite the breakdown as
+documented.** No further searching closes this: psychiatric admission records of a private
+citizen are not public. Full brief: `notes/research/2026-08-25-bennewitz.md`.
 
 ## C. Cross-repo survey against The Legacy Program Dashboard
 

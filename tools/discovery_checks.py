@@ -40,6 +40,11 @@ NOT_PEOPLE = {
     "Plasma Science", "Fusion Center", "Materials Processing", "Security Campus",
     "House Oversight", "Congressional", "Committee", "Department", "University",
     "Institute", "Laboratory", "Center", "Centre", "Bureau", "Agency", "Office",
+    # Outlets that are cited in prose without being a cited source name, so
+    # outlet_names() below cannot derive them.
+    "New York Post", "York Post", "Daily Mail", "Fox News", "LA Magazine",
+    "Angeles Magazine", "Union Leader", "Scientific American", "Skeptic Magazine",
+    "The Hill", "Hill",
 }
 
 # Instrument-shaped tokens: document numbers, docket numbers, case references.
@@ -72,6 +77,49 @@ EXPECTED_COVERAGE = {
 # for one is not a gap, it is the point of the record.
 CAUSE_APPLIES_TO = {"dead", "resolved"}
 
+# Negation reads as coverage unless it is handled, and that is a worse bug than the false
+# positives fixed above. "No investigating agency has ever been publicly named" contains
+# "investigat", so a record that documents an absence would score as having answered the
+# question, and a real gap would go silent.
+#
+# So there are three states, not two:
+#
+#   answered           the record names the agency, or the cause
+#   documented absence the record explicitly says no such fact is public
+#   gap                the record says nothing either way
+#
+# The distinction is substantive rather than cosmetic. Maiwald's Tier A rests on the claim
+# that there is nothing in the record at all, which is only meaningful if the tracker can
+# tell "we looked and found nothing" apart from "we did not look."
+# Stems are prefixes with a leading boundary only, never a trailing one, exactly as the
+# EXPECTED_COVERAGE patterns are. A trailing \b silently excluded every plural: \bcause\b
+# does not match "causes", so "listed as natural causes is unsourced" read as a positive
+# statement of cause. The two pattern sets have to agree on word shape or the negation
+# handling applies to a different vocabulary than the coverage test.
+_STEMS = (r"cause|manner|autopsy|agency|agencies|investigat|disclos|releas|named|public|"
+          r"determin|record|report")
+NEGATION_RE = re.compile(
+    r"\b(?:no|not|never|nothing|none|without|absence of|neither|unsourced)\b[^.;]{0,80}?"
+    r"(?=[^.;]*\b(?:%s))"
+    r"|\b(?:%s)[^.;]{0,80}?\b(?:no|not|never|nothing|none|unsourced)\b" % (_STEMS, _STEMS),
+    re.I)
+
+
+def strip_negated(text):
+    """Drop clauses that assert an absence, so a documented absence stops reading as coverage.
+
+    Clause-level rather than sentence-level: "He worked at JPL. No cause was released."
+    must keep the first half. Splitting on sentence and clause boundaries both, then
+    dropping only the clauses that carry a negation near a coverage term, is what keeps
+    "Police investigated. No cause released." reporting a cause gap and not an agency gap.
+    """
+    keep = []
+    for clause in re.split(r"[.;\n]", text):
+        if NEGATION_RE.search(clause):
+            continue
+        keep.append(clause)
+    return " ".join(keep)
+
 # Single spaces only. \s would span newlines and glue the end of one field to the start
 # of the next, manufacturing names like "Alabama Standalone" that nobody wrote.
 NAME_RE = re.compile(r"\b[A-Z][a-z]+(?:[ ](?:[A-Z]\.|[A-Z][a-z]+)){1,2}\b")
@@ -93,6 +141,39 @@ def case_text(case):
     return "\n".join(p for p in parts if p)
 
 
+def outlet_names(data):
+    """Every source name the dataset already cites, as whole strings and as tokens.
+
+    Outlets are the dominant false positive in the actor check, because "New York Post"
+    and "The Hill" are capitalised multi-word sequences exactly like a person's name is.
+    Deriving the list from the data beats hardcoding one: cite a new outlet and it is
+    excluded automatically, with no stoplist to remember to update.
+
+    Person tokens win ties. A tracked person's name is never excluded on the strength of
+    a source that happens to share a word with it, because swallowing a real name is the
+    one failure this check cannot afford.
+    """
+    person_tokens = set()
+    for c in data["cases"]:
+        person_tokens.update(c["label"].split())
+
+    names = set()
+    for c in data["cases"]:
+        for src in c.get("sources", []):
+            if src.get("name"):
+                names.add(src["name"])
+        for claim in c.get("claims", []):
+            for src in claim.get("sources", []):
+                if src.get("name"):
+                    names.add(src["name"])
+
+    out = set()
+    for name in names:
+        out.add(name)
+        out.update(tok for tok in name.split() if tok not in person_tokens)
+    return out
+
+
 def known_names(data):
     known = set()
     for c in data["cases"]:
@@ -104,6 +185,7 @@ def known_names(data):
             known.add(r.get("label", ""))
             for tok in r.get("label", "").split():
                 known.add(tok)
+    known |= outlet_names(data)
     return known
 
 
@@ -114,7 +196,19 @@ def check_actors(data):
     for case in data["cases"]:
         for m in NAME_RE.finditer(case_text(case)):
             name = m.group(0)
+            # A leading "The" is never part of a person's name, and leaving it attached
+            # let "The Committee" past a stoplist that already contained "Committee".
+            if name.startswith("The ") and len(name.split()) > 1:
+                name = name[4:]
             if name in known or name in NOT_PEOPLE:
+                continue
+            # Any two-word window landing in the stoplist disqualifies the whole match.
+            # "Chief Medical Examiner" is three tokens, so testing only the whole string
+            # or only the tail missed the "Medical Examiner" already sitting in the list.
+            toks = name.split()
+            if any(" ".join(toks[i:i + 2]) in NOT_PEOPLE for i in range(len(toks) - 1)):
+                continue
+            if toks[-1] in NOT_PEOPLE:
                 continue
             if any(part in NOT_PEOPLE for part in [name.rsplit(" ", 1)[0]]):
                 continue
@@ -137,10 +231,11 @@ def check_instruments(data):
 
 def check_negative_space(data):
     """Which cases cannot answer a question every case ought to answer."""
-    gaps = {}
+    gaps, absences = {}, {}
     for case in data["cases"]:
         text = case_text(case).lower()
-        missing = []
+        positive = strip_negated(text)
+        missing, noted = [], []
         for field, pattern in EXPECTED_COVERAGE.items():
             if field == "employer":
                 if not case.get("instId"):
@@ -148,13 +243,21 @@ def check_negative_space(data):
                 continue
             if field == "cause or manner" and case.get("status") not in CAUSE_APPLIES_TO:
                 continue
-            if not re.search(pattern, text, re.I):
+            if re.search(pattern, positive, re.I):
+                continue
+            # Matches only inside a negated clause: the record answers the question by
+            # documenting that there is no answer. That is a finding, not a gap.
+            if re.search(pattern, text, re.I):
+                noted.append(field)
+            else:
                 missing.append(field)
         if not case.get("sources"):
             missing.append("sources")
         if missing:
             gaps[case["id"]] = missing
-    return gaps
+        if noted:
+            absences[case["id"]] = noted
+    return gaps, absences
 
 
 def check_adjacency(data, actors):
@@ -166,7 +269,7 @@ def run(verbose=True):
     data = load()
     actors = check_actors(data)
     instruments = check_instruments(data)
-    gaps = check_negative_space(data)
+    gaps, absences = check_negative_space(data)
     adjacency = check_adjacency(data, actors)
     doc_drift = check_doc_scores(data)
 
@@ -190,6 +293,13 @@ def run(verbose=True):
         if not gaps:
             print("   none. Every case names an investigating agency, a cause and an employer.")
 
+        print("\n3b. Documented absence, the record says plainly that no such fact is public (%d)"
+              % len(absences))
+        for cid, noted in sorted(absences.items()):
+            print("   %-12s absent on record: %s" % (cid, ", ".join(noted)))
+        if not absences:
+            print("   none.")
+
         print("\n4. Adjacency, a name in more than one case (%d)" % len(adjacency))
         for name, ids in sorted(adjacency.items(), key=lambda kv: -len(kv[1])):
             print("   %-32s %s" % (name, ", ".join(sorted(ids))))
@@ -206,7 +316,7 @@ def run(verbose=True):
         print("\nThese are research prompts, not defects. Anything worth pursuing goes into")
         print("LEADS.md as unverified. The checks read the corpus the project already has")
         print("and cannot find what it does not contain.")
-    return actors, instruments, gaps, adjacency, doc_drift
+    return actors, instruments, gaps, adjacency, doc_drift, absences
 
 
 def self_test():
@@ -229,7 +339,7 @@ def self_test():
     }
     actors = check_actors(fake)
     instruments = check_instruments(fake)
-    gaps = check_negative_space(fake)
+    gaps, _abs = check_negative_space(fake)
     adjacency = check_adjacency(fake, actors)
 
     results = [
@@ -266,12 +376,83 @@ def self_test():
                        "sources": [{"name": "x"}]}],
             "entities": {"INSTITUTIONS": [], "PROGRAMS": [], "LOCATIONS": [], "DOMAINS": []}}
     results.append(("a shooting counts as a cause on file",
-                    "cause or manner" not in check_negative_space(shot).get("shot", [])))
+                    "cause or manner" not in check_negative_space(shot)[0].get("shot", [])))
     gone = {"cases": [{"id": "gone", "label": "G T", "status": "missing", "instId": "jpl",
                        "narrative": "Vanished. Police searched.", "sources": [{"name": "x"}]}],
             "entities": {"INSTITUTIONS": [], "PROGRAMS": [], "LOCATIONS": [], "DOMAINS": []}}
     results.append(("a missing person is not asked for a cause of death",
-                    "cause or manner" not in check_negative_space(gone).get("gone", [])))
+                    "cause or manner" not in check_negative_space(gone)[0].get("gone", [])))
+    # Negation must not read as coverage. This is the hole that opening the third state
+    # closes: before it, writing "no investigating agency was ever named" into a record
+    # silenced that record's agency gap, because the sentence contains "investigat".
+    def env(narr, status="dead"):
+        return {"cases": [{"id": "n", "label": "N T", "status": status, "instId": "jpl",
+                           "narrative": narr, "sources": [{"name": "x"}]}],
+                "entities": {"INSTITUTIONS": [], "PROGRAMS": [], "LOCATIONS": [],
+                             "DOMAINS": []}}
+
+    g_neg, a_neg = check_negative_space(env(
+        "No investigating agency has ever been publicly named. "
+        "No cause of death was released."))
+    results.append(("a documented absence is not counted as coverage",
+                    "investigating agency" not in g_neg.get("n", [])
+                    and "investigating agency" in a_neg.get("n", [])))
+    results.append(("a documented absence is not counted as a gap either",
+                    "cause or manner" not in g_neg.get("n", [])
+                    and "cause or manner" in a_neg.get("n", [])))
+
+    g_mix, a_mix = check_negative_space(env(
+        "The Alabama Law Enforcement Agency investigated. "
+        "No cause of death has been released."))
+    results.append(("negation in one clause does not erase coverage in another",
+                    "investigating agency" not in g_mix.get("n", [])
+                    and "investigating agency" not in a_mix.get("n", [])
+                    and "cause or manner" in a_mix.get("n", [])))
+
+    # A plural must be caught too. \bcause\b does not match "causes", and that one missing
+    # letter was enough to make a claim about the ABSENCE of a cause read as a cause.
+    g_pl, a_pl = check_negative_space(env(
+        "Police investigated. The line calling it natural causes is unsourced and no source "
+        "for it was found."))
+    results.append(("negation handles plurals, not just singulars",
+                    "cause or manner" not in g_pl.get("n", [])
+                    and "cause or manner" in a_pl.get("n", [])))
+
+    # And the broadened negation must not swallow a record that plainly answers.
+    g_ans, a_ans = check_negative_space(env(
+        "Deputies investigated. The autopsy ruled the death an overdose."))
+    results.append(("a plainly answered record is neither gap nor absence",
+                    not g_ans.get("n") and not a_ans.get("n")))
+
+    # Outlet names were the dominant false positive in the actor check. All four adjacency
+    # hits at one point were outlets and titles, which is the same degradation that made
+    # the negative-space check useless: a warning list that is entirely noise gets skimmed.
+    outlets = {"cases": [{"id": "o", "label": "Case One", "status": "dead", "instId": "jpl",
+                          "narrative": "Reported by the Gotham Herald. Jane Fairweather "
+                                       "investigated. The Committee asked. Cause undetermined.",
+                          "sources": [{"name": "Gotham Herald"}]}],
+               "entities": {"INSTITUTIONS": [], "PROGRAMS": [], "LOCATIONS": [],
+                            "DOMAINS": []}}
+    found = check_actors(outlets)
+    results.append(("an outlet named in a cited source is not a candidate actor",
+                    "Gotham Herald" not in found))
+    results.append(("a leading The does not smuggle a stoplisted word past the filter",
+                    "The Committee" not in found and "Committee" not in found))
+    results.append(("a real two-word person name is still found", "Jane Fairweather" in found))
+
+    windows = {"cases": [{"id": "w", "label": "Case Two", "status": "dead", "instId": "jpl",
+                          "narrative": "The Chief Medical Examiner ruled it. Police investigated.",
+                          "sources": [{"name": "x"}]}],
+               "entities": {"INSTITUTIONS": [], "PROGRAMS": [], "LOCATIONS": [],
+                            "DOMAINS": []}}
+    results.append(("a stoplisted two-word window disqualifies a longer match",
+                    "Chief Medical Examiner" not in check_actors(windows)))
+
+    g_sil, a_sil = check_negative_space(env("He worked on rocket engines."))
+    results.append(("a silent record is still a gap, not an absence",
+                    "investigating agency" in g_sil.get("n", [])
+                    and "investigating agency" not in a_sil.get("n", [])))
+
     passed = 0
     for name, fired in results:
         print("  %-46s %s" % (name, "PASS" if fired else "FAIL, CHECK IS BLIND"))
