@@ -10,6 +10,10 @@
     "locId": "l-hsv",
     "instId": "uah",
     "sub": "UAH / AC Gravity LLC",
+    "photo": [
+      "assets/photos/li.jpg",
+      "Obituary portrait"
+    ],
     "cluster": "huntsville",
     "tier": "C",
     "S": 0,
@@ -144,6 +148,10 @@
     "locId": "l-hsv",
     "instId": "ies",
     "sub": "Institute for Exotic Science",
+    "photo": [
+      "assets/photos/eskridge.png",
+      "Supplied by the project owner"
+    ],
     "cluster": "huntsville",
     "tier": "B",
     "S": 1,
@@ -290,6 +298,10 @@
     "locId": "l-sun",
     "instId": "jpl",
     "sub": "NASA JPL (1998-2022)",
+    "photo": [
+      "assets/photos/hicks.jpg",
+      "University of Arizona LPL"
+    ],
     "cluster": "california",
     "tier": "C",
     "S": 0,
@@ -386,6 +398,10 @@
     "locId": "l-fal",
     "instId": "nsa",
     "sub": "USAF Intelligence / NSA / NASIC",
+    "photo": [
+      "assets/photos/sullivan.jpg",
+      "Service portrait, via family obituary (Dignity Memorial)"
+    ],
     "cluster": "other",
     "tier": "B",
     "S": 1,
@@ -517,6 +533,10 @@
     "locId": "l-la",
     "instId": "jpl",
     "sub": "NASA JPL",
+    "photo": [
+      "assets/photos/maiwald.jpg",
+      "Family obituary photograph via Legacy.com"
+    ],
     "cluster": "california",
     "tier": "A",
     "S": 1,
@@ -605,6 +625,10 @@
     "locId": "l-los",
     "instId": "lanl",
     "sub": "LANL. Occupation disputed",
+    "photo": [
+      "assets/photos/chavez.jpg",
+      "Los Alamos Police Department via NM DPS"
+    ],
     "cluster": "new-mexico",
     "tier": "A",
     "S": 2,
@@ -738,6 +762,10 @@
     "locId": "l-anf",
     "instId": "boeing",
     "sub": "Rocketdyne, later Boeing associate technical fellow",
+    "photo": [
+      "assets/photos/reza.jpg",
+      "Missing person circulation"
+    ],
     "cluster": "california",
     "tier": "A",
     "S": 2,
@@ -871,6 +899,10 @@
     "locId": "l-carson",
     "instId": "lanl",
     "sub": "LANL administrative assistant",
+    "photo": [
+      "assets/photos/casias.jpg",
+      "New Mexico State Police via NM DPS"
+    ],
     "cluster": "new-mexico",
     "tier": "A",
     "S": 3,
@@ -1001,6 +1033,10 @@
     "locId": "l-walker",
     "instId": "nasa",
     "sub": "NASA Marshall, DRACO nuclear propulsion",
+    "photo": [
+      "assets/photos/leblanc.jpg",
+      "Family obituary photograph via Dignity Memorial"
+    ],
     "cluster": "huntsville",
     "tier": "A",
     "S": 2,
@@ -1128,6 +1164,10 @@
     "locId": "l-abq",
     "instId": "kcnsc",
     "sub": "Property custodian, contracted out of KCNSC",
+    "photo": [
+      "assets/photos/garcia.jpg",
+      "Albuquerque Police Department via NM DPS"
+    ],
     "cluster": "new-mexico",
     "tier": "A",
     "S": 2,
@@ -1240,6 +1280,10 @@
     "locId": "l-wak",
     "instId": "novartis",
     "sub": "Chemical biology, Novartis",
+    "photo": [
+      "assets/photos/thomas.webp",
+      "Wakefield Police Department"
+    ],
     "cluster": "northeast",
     "tier": "C",
     "S": 0,
@@ -1324,6 +1368,10 @@
     "locId": "l-cam",
     "instId": "mit",
     "sub": "MIT Plasma Science and Fusion Center",
+    "photo": [
+      "assets/photos/loureiro.jpg",
+      "Wikimedia Commons, CC BY-SA 4.0"
+    ],
     "cluster": "northeast",
     "tier": "C",
     "S": 0,
@@ -1379,6 +1427,10 @@
     "locId": "l-llano",
     "instId": "ipac",
     "sub": "Caltech IPAC, dark matter and exoplanets",
+    "photo": [
+      "assets/photos/grillmair.jpg",
+      "Caltech IPAC"
+    ],
     "cluster": "california",
     "tier": "A",
     "S": 3,
@@ -1571,6 +1623,10 @@
     "locId": "l-abq",
     "instId": "afrl",
     "sub": "Maj Gen (ret.), former AFRL commander",
+    "photo": [
+      "assets/photos/mccasland.jpg",
+      "Bernalillo County Sheriff's Office via NM DPS"
+    ],
     "cluster": "new-mexico",
     "tier": "A",
     "S": 2,
@@ -1784,6 +1840,10 @@
     "locId": "l-union",
     "instId": "uah",
     "sub": "Aerospace engineer, UAH Research Center",
+    "photo": [
+      "assets/photos/moffatt.jpg",
+      "UAH Research and Engineering Support Center"
+    ],
     "cluster": "other",
     "tier": "C",
     "S": 0,

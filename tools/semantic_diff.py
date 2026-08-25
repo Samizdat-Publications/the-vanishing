@@ -105,6 +105,15 @@ EXPECTED_CHANGES = {
     "counterarguments.SKEPTIC_OVERREACH.*.title": "was hardcoded inside viewCounterargs",
     "counterarguments.SKEPTIC_OVERREACH.*.text": "was hardcoded inside viewCounterargs",
     "counterarguments.FAMILY_POSITIONS": "was hardcoded inside viewCounterargs",
+    # PHOTOS folded into the case record. research/photos.json is deleted and merge.py
+    # derives the block from cases, so adding a case is one edit rather than two in two
+    # formats with nothing checking the second happened. The photos.* leaves are unchanged
+    # and still compared, which is what proves the fold lossless: same fifteen keys, same
+    # paths, same credits, including the sullivan credit correction already declared above.
+    # One key, not two: pattern() collapses every numeric segment, so the pair indices
+    # collapse alongside the case index and cases.0.photo.1 arrives here as
+    # cases.*.photo.*. Declaring .0 and .1 separately silently matches nothing.
+    "cases.*.photo.*": "PHOTOS folded into the case record; paths and credits unchanged",
 }
 
 # Every claim text present in the baseline must still be present. Any claim text that is NEW

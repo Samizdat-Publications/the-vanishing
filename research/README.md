@@ -34,7 +34,7 @@ yet the live source.** The dashboard still ships from `the-vanishing-v2.html`. S
 | `entities.json` | `INSTITUTIONS`, `PROGRAMS`, `LOCATIONS`, `DOMAINS`, `ENTITY_INFO`, `ENTITY_SOURCES`, `SOURCES` | 39 non-person nodes plus their dossiers and bibliographies |
 | `timeline.json` | `TIMELINE`, `PRECEDENT` | 42 timeline entries, 4 historical precedents |
 | `graph.json` | `PROGRAM_EDGES`, `IN_FBI`, `IN_OVERSIGHT`, `INSTITUTION_PLACES`, `TEMPORAL_WINDOW_DAYS` | The hand-authored editorial edges and membership lists |
-| `photos.json` | `PHOTOS` | 15 image paths with per-image credit |
+| ~~`photos.json`~~ | `PHOTOS` | **Deleted 25 Aug 2026.** Each case now carries `photo: [path, credit]` and `merge.py` derives the `PHOTOS` block from the case records, so adding a case is one edit. A case with no photo fails the merge |
 | `taxonomy.json` | `CLUSTERS`, `TIERS`, `AXES`, `STRANDS`, `STATUS_LABEL`, `PRECISION_LABEL` | Scoring and display taxonomy |
 | `case_defaults.json` | the `P_` factory | Mirror of the defaults. `verify.py` asserts it still matches the shell |
 | `counterarguments.json` | `COUNTERS`, `SKEPTIC_OVERREACH`, `FAMILY_POSITIONS` | The skeptical case, the four places skeptics overreach, and the family-position statement |
