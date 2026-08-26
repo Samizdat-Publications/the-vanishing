@@ -238,6 +238,37 @@ def self_test():
         rc = subprocess.call([sys.executable, os.path.join(ROOT, "tools", "merge.py")],
                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         results.append(("merge rejects a case with no photo", rc != 0))
+
+        # derivedFrom has to have referential integrity or independence is uncomputable,
+        # and an uncomputable independence count silently reads as full independence,
+        # which is the exact overstatement the field exists to prevent.
+        for bad, label in (
+            ({"name": "Ghost", "derivedFrom": "A Source Never Cited Here"},
+             "merge rejects derivedFrom naming an uncited source"),
+            ({"name": "Ouroboros", "derivedFrom": "Ouroboros"},
+             "merge rejects a source derived from itself"),
+        ):
+            cases = json.loads(corig)
+            cases[0].setdefault("claims", [])
+            cases[0]["claims"].append(
+                {"tier": 2, "text": "self-test probe", "sources": [bad]})
+            with open(cpath, "w", encoding="utf-8", newline="\n") as fh:
+                json.dump(cases, fh, ensure_ascii=False, indent=2)
+            rc = subprocess.call([sys.executable, os.path.join(ROOT, "tools", "merge.py")],
+                                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            results.append((label, rc != 0))
+
+        # A contested entry with no source is an assertion wearing a citation's clothes.
+        cases = json.loads(corig)
+        cases[0].setdefault("claims", [])
+        cases[0]["claims"].append({"tier": 2, "text": "self-test probe",
+                                   "sources": [{"name": "S"}],
+                                   "contested": [{"text": "says otherwise"}]})
+        with open(cpath, "w", encoding="utf-8", newline="\n") as fh:
+            json.dump(cases, fh, ensure_ascii=False, indent=2)
+        rc = subprocess.call([sys.executable, os.path.join(ROOT, "tools", "merge.py")],
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        results.append(("merge rejects an unsourced contested entry", rc != 0))
     finally:
         with open(cpath, "w", encoding="utf-8", newline="\n") as fh:
             fh.write(corig)

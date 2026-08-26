@@ -260,6 +260,51 @@ def check_negative_space(data):
     return gaps, absences
 
 
+def independent_roots(claim):
+    """How many genuinely independent sources stand behind a claim.
+
+    Follows derivedFrom to a root and counts distinct roots. Five citations that all
+    repeat one origin count as one, which is the whole point: the Oversight letters
+    footnote eight press reports that trace to a single chain, and before this they
+    scored exactly like eight independent attestations.
+    """
+    edges = {src["name"]: src.get("derivedFrom")
+             for src in claim.get("sources", []) if src.get("name")}
+    roots = set()
+    for name in edges:
+        node, seen = name, set()
+        while edges.get(node) is not None and node not in seen:
+            seen.add(node)
+            node = edges[node]
+        roots.add(node)
+    return len(roots)
+
+
+def check_convergence(data):
+    """Claims whose support is thinner than their citation count suggests.
+
+    Reports two things that are not defects and are worth looking at:
+
+      repetition  more citations than independent roots. The gap is the exact size of
+                  the overstatement a reader would make counting sources naively.
+      contested   the record carries a competing account, attached to the claim it
+                  competes with. A contested claim is a HEALTHY record, not a broken
+                  one: the alternative is a file that carries one side and does not
+                  know it.
+    """
+    repetition, contested = {}, {}
+    for case in data["cases"]:
+        for claim in case.get("claims", []):
+            cited = len([s for s in claim.get("sources", []) if s.get("name")])
+            roots = independent_roots(claim)
+            if cited > roots:
+                repetition.setdefault(case["id"], []).append(
+                    (claim["text"][:60], cited, roots))
+            if claim.get("contested"):
+                contested.setdefault(case["id"], []).append(claim["text"][:60])
+    return repetition, contested
+
+
 def check_adjacency(data, actors):
     """Names appearing in more than one case narrative. Cross-case actor candidates."""
     return {n: ids for n, ids in actors.items() if len(ids) > 1}
@@ -270,6 +315,7 @@ def run(verbose=True):
     actors = check_actors(data)
     instruments = check_instruments(data)
     gaps, absences = check_negative_space(data)
+    repetition, contested = check_convergence(data)
     adjacency = check_adjacency(data, actors)
     doc_drift = check_doc_scores(data)
 
@@ -300,6 +346,20 @@ def run(verbose=True):
         if not absences:
             print("   none.")
 
+        print("\n3c. Repetition, more citations than independent sources (%d)" % len(repetition))
+        for cid, rows in sorted(repetition.items()):
+            for text, cited, roots in rows:
+                print("   %-12s %d cited, %d independent  %s" % (cid, cited, roots, text))
+        if not repetition:
+            print("   none. Every claim's citations are independent of each other.")
+
+        print("\n3d. Contested, the record carries a competing account (%d)" % len(contested))
+        for cid, rows in sorted(contested.items()):
+            for text in rows:
+                print("   %-12s %s" % (cid, text))
+        if not contested:
+            print("   none.")
+
         print("\n4. Adjacency, a name in more than one case (%d)" % len(adjacency))
         for name, ids in sorted(adjacency.items(), key=lambda kv: -len(kv[1])):
             print("   %-32s %s" % (name, ", ".join(sorted(ids))))
@@ -316,7 +376,7 @@ def run(verbose=True):
         print("\nThese are research prompts, not defects. Anything worth pursuing goes into")
         print("LEADS.md as unverified. The checks read the corpus the project already has")
         print("and cannot find what it does not contain.")
-    return actors, instruments, gaps, adjacency, doc_drift, absences
+    return actors, instruments, gaps, adjacency, doc_drift, absences, repetition, contested
 
 
 def self_test():
@@ -452,6 +512,40 @@ def self_test():
     results.append(("a silent record is still a gap, not an absence",
                     "investigating agency" in g_sil.get("n", [])
                     and "investigating agency" not in a_sil.get("n", [])))
+
+    # Convergence. The failure this exists to prevent is FALSE convergence: several
+    # citations that look independent and trace to one origin. The tracker holds a real
+    # worked example in the Oversight letters, so this is not hypothetical.
+    def claimcase(claim):
+        return {"cases": [{"id": "c", "label": "C T", "status": "dead", "instId": "jpl",
+                           "narrative": "Police investigated. Cause undetermined.",
+                           "sources": [{"name": "x"}], "claims": [claim]}],
+                "entities": {"INSTITUTIONS": [], "PROGRAMS": [], "LOCATIONS": [],
+                             "DOMAINS": []}}
+
+    chain = {"tier": 2, "text": "Repeated everywhere, sourced once.", "sources": [
+        {"name": "Origin Wire"},
+        {"name": "Second Paper", "derivedFrom": "Origin Wire"},
+        {"name": "Third Paper", "derivedFrom": "Second Paper"},
+    ]}
+    rep, _ = check_convergence(claimcase(chain))
+    results.append(("three citations down one chain count as one source",
+                    independent_roots(chain) == 1 and "c" in rep))
+
+    real = {"tier": 2, "text": "Two genuinely separate attestations.", "sources": [
+        {"name": "Court Record"},
+        {"name": "A Witness"},
+    ]}
+    rep2, _ = check_convergence(claimcase(real))
+    results.append(("two independent citations count as two, and are not flagged",
+                    independent_roots(real) == 2 and "c" not in rep2))
+
+    disputed = {"tier": 2, "text": "One account of a disputed fact.",
+                "sources": [{"name": "Source A"}],
+                "contested": [{"text": "Another account says otherwise.",
+                               "sources": [{"name": "Source B"}]}]}
+    _, con = check_convergence(claimcase(disputed))
+    results.append(("a contested claim is surfaced", "c" in con))
 
     passed = 0
     for name, fired in results:

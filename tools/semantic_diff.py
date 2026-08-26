@@ -114,6 +114,15 @@ EXPECTED_CHANGES = {
     # collapse alongside the case index and cases.0.photo.1 arrives here as
     # cases.*.photo.*. Declaring .0 and .1 separately silently matches nothing.
     "cases.*.photo.*": "PHOTOS folded into the case record; paths and credits unchanged",
+    # Source independence and contested claims. Neither field asserts who is right; they
+    # make the shape of the evidence visible so convergence can be told from repetition
+    # and so a record cannot carry one side of a disagreement without anything noticing.
+    "cases.*.claims.*.sources.*.derivedFrom": "names the source this one repeats, so independence is countable",
+    "cases.*.claims.*.contested.*.text": "the competing account, attached to the claim it competes with",
+    "cases.*.claims.*.contested.*.sources.*.name": "a competing account must cite a source",
+    "cases.*.claims.*.contested.*.sources.*.url": "competing account source url",
+    "cases.*.claims.*.contested.*.sources.*.date": "competing account source date",
+    "cases.*.claims.*.contested": "contested is a new collection on the claim",
 }
 
 # Every claim text present in the baseline must still be present. Any claim text that is NEW
@@ -156,6 +165,20 @@ NEW_CLAIM_TEXTS = {
     # available: the only person on record who worked directly with two tracked cases.
     "Joe Masiero, a Caltech IPAC solar system scientist, worked alon",
     "Joe Masiero worked closely with Grillmair at Caltech IPAC for f",
+    # The widow's own 6 March 2026 Facebook post, read directly rather than through the
+    # PolitiFact paraphrase. First use of the contested field: her account of the DeLonge
+    # association carries the Podesta email as the competing account, attached to the claim
+    # it competes with rather than left loose in the narrative.
+    "The agencies his wife named as working the disappearance are th",
+    "She states the Silver Alert's mention of medical conditions has",
+    "On his access she writes: \"It is true that when Neil was in the",
+    "On the UFO connection she writes that Neil \"had a brief associa",
+    # @TMBSPACESHIPS. Carried deliberately as a worked example of the new fields: the
+    # account's existence and bio are Tier 1 and checkable, the attribution to McCasland
+    # is Tier 3 and its three citations declare one shared origin, so the repetition
+    # check reports 3 cited / 1 independent rather than letting it read as corroboration.
+    "An X account @TMBSPACESHIPS exists, display name \"ELECTRIC PROP",
+    "That the account is McCasland's is an attribution made by onlin",
 }
 
 # A claim may be REMOVED only if it is declared here, with the reason. Without this the

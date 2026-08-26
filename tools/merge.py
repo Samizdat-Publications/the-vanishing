@@ -76,6 +76,67 @@ def main():
             if not isinstance(v, int) or isinstance(v, bool) or not 0 <= v <= 3:
                 problems.append("%s.%s is %r, expected an int 0 to 3" % (case["id"], axis, v))
 
+    # ------------------------------------------------------------------------------
+    # Source independence, and contested claims.
+    # ------------------------------------------------------------------------------
+    # Two related problems the tier system alone could not express.
+    #
+    # ONE: convergence is not the same as repetition. The tracker's strongest cases are
+    # convergence-shaped, where no single source carries the claim but several independent
+    # ones agree. The tracker also holds a worked example of FALSE convergence: the four
+    # Oversight letters footnote eight press reports that look like several sources and
+    # trace to one chain. Without a way to say "this source repeats that one", five
+    # citations of one origin score exactly like five independent attestations, and the
+    # weakest kind of evidence looks like the strongest.
+    #
+    # A source may therefore declare `derivedFrom`, naming the source it repeats. A claim's
+    # independent support is the number of distinct ROOTS after following those pointers,
+    # not the number of citations.
+    #
+    # TWO: a record could carry only one side of a disagreement and nothing would notice.
+    # A claim may declare `contested`, attaching the competing account to the claim it
+    # competes with rather than leaving it loose in the narrative or absent entirely.
+    #
+    # Neither field asserts who is right. That stays an editorial judgement; these only
+    # make the shape of the evidence visible and checkable.
+    for case in cases:
+        for ci, claim in enumerate(case.get("claims", [])):
+            where = "%s.claims[%d]" % (case["id"], ci)
+            names = [src.get("name") for src in claim.get("sources", [])]
+            if len(names) != len(set(names)):
+                problems.append("%s cites the same source name twice, so independence "
+                                "cannot be counted" % where)
+
+            for src in claim.get("sources", []):
+                parent = src.get("derivedFrom")
+                if parent is None:
+                    continue
+                if parent == src.get("name"):
+                    problems.append("%s: source %r derives from itself" % (where, parent))
+                elif parent not in names:
+                    problems.append("%s: source %r derivesFrom %r, which it does not cite"
+                                    % (where, src.get("name"), parent))
+
+            # A cycle would make independence uncomputable and loop the resolver.
+            edges = {src["name"]: src.get("derivedFrom")
+                     for src in claim.get("sources", []) if src.get("name")}
+            for start in edges:
+                seen, node = set(), start
+                while node is not None and node in edges:
+                    if node in seen:
+                        problems.append("%s: derivedFrom cycle through %r" % (where, node))
+                        break
+                    seen.add(node)
+                    node = edges[node]
+
+            for k, entry in enumerate(claim.get("contested", [])):
+                if not isinstance(entry, dict) or not entry.get("text"):
+                    problems.append("%s.contested[%d] has no text" % (where, k))
+                elif not entry.get("sources"):
+                    problems.append("%s.contested[%d] cites no source, so it is an "
+                                    "assertion rather than a competing account"
+                                    % (where, k))
+
     # PHOTOS is derived from the case records rather than authored beside them. It used to
     # be its own file keyed by case id, which meant adding a case was two edits in two
     # places in two formats, and nothing checked that the second one happened. Deriving it

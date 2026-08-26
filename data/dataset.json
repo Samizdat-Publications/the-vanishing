@@ -1800,6 +1800,86 @@
               "date": "2026-04-20"
             }
           ]
+        },
+        {
+          "tier": 1,
+          "text": "The agencies his wife named as working the disappearance are the Bernalillo County Sheriff's Office as lead, the Albuquerque field office of the FBI, New Mexico State Search and Rescue, Albuquerque Mountain Rescue, the Albuquerque Police Department, and the Air Force Office of Special Investigations.",
+          "sources": [
+            {
+              "name": "Susan McCasland Wilkerson, public Facebook post",
+              "date": "2026-03-06"
+            }
+          ]
+        },
+        {
+          "tier": 1,
+          "text": "She states the Silver Alert's mention of medical conditions has been read as Alzheimer's and is wrong: \"Neil is at some risk, but not from dementia. He was not confused and disoriented.\" She also calls the reported concerning Friday-morning telephone call to a close relative \"a complete fabrication\", saying she has been in contact with all his close relatives.",
+          "sources": [
+            {
+              "name": "Susan McCasland Wilkerson, public Facebook post",
+              "date": "2026-03-06"
+            }
+          ]
+        },
+        {
+          "tier": 2,
+          "text": "On his access she writes: \"It is true that when Neil was in the Air Force, he had access to some highly classified programs and information. He retired from the AF almost 13 years ago and has had only very commonly held clearances since. It seems quite unlikely that he was taken to extract very dated secrets from him.\" The last sentence is offered as her inference and reads as one. A spouse is not positioned to know the contents of a special access programme, so this bounds what was plausible rather than establishing it.",
+          "sources": [
+            {
+              "name": "Susan McCasland Wilkerson, public Facebook post",
+              "date": "2026-03-06"
+            }
+          ]
+        },
+        {
+          "tier": 2,
+          "text": "On the UFO connection she writes that Neil \"had a brief association with the UFO community through Tom DeLonge\", worked with him \"for a bit shortly after his Air Force retirement as an unpaid (Neil's choice) consultant on military and technical/scientific matters to lend verisimilitude to Tom's fiction book and media activities\", and that after the Podesta emails were published there was less contact. She adds that \"Neil does not have any special knowledge about the ET bodies and debris from the Roswell crash stored at Wright-Patt.\" She confirms the association and characterises it as minor; she does not deny it occurred, and she cites the Podesta hack herself.",
+          "sources": [
+            {
+              "name": "Susan McCasland Wilkerson, public Facebook post",
+              "date": "2026-03-06"
+            }
+          ],
+          "contested": [
+            {
+              "text": "DeLonge's own account to Podesta describes a materially larger relationship: four months of work, a four-hour presentation on the entire project, and that McCasland \"helped assemble my advisory team\". The two accounts agree the association happened and disagree on its scope and significance. Neither is disinterested: she is his wife, and DeLonge was promoting a venture to a campaign chairman.",
+              "sources": [
+                {
+                  "name": "WikiLeaks Podesta email 3099",
+                  "url": "https://wikileaks.org/podesta-emails/emailid/3099",
+                  "date": "2016-01-25"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tier": 1,
+          "text": "An X account @TMBSPACESHIPS exists, display name \"ELECTRIC PROPULSIVE SPACECRAFT SYSTEMS\", joined November 2022. Its bio reads: \"ELECTRIC PROPULSIVE SPACECRAFT and SPACECRAFT SYSTEMS MANUFACTURING. Experience: Retired 38 year Active Duty USAF PhD Engineer. AFIT/AETC/AFMC - UT/OU\". That is a career shape consistent with an AFRL commander. It is a category, not an identification.",
+          "sources": [
+            {
+              "name": "@TMBSPACESHIPS profile page",
+              "url": "https://x.com/TMBSPACESHIPS"
+            }
+          ]
+        },
+        {
+          "tier": 3,
+          "text": "That the account is McCasland's is an attribution made by online sleuths and relayed by press. It is reported that its final post was 27 February 2026, the day he vanished, which is the whole interest of the claim. NO official or law-enforcement source has confirmed the attribution, and the last-post date is NOT independently verified here: the Fear & Wine write-up that makes the case also states the account \"is still active\". The three citations below are three retellings of one origin.",
+          "sources": [
+            {
+              "name": "Online sleuths, X and Reddit threads"
+            },
+            {
+              "name": "New York Post",
+              "derivedFrom": "Online sleuths, X and Reddit threads"
+            },
+            {
+              "name": "The Express",
+              "date": "2026-03-16",
+              "derivedFrom": "Online sleuths, X and Reddit threads"
+            }
+          ]
         }
       ],
       "sources": [
