@@ -862,6 +862,68 @@
             "url": "https://oversight.house.gov/wp-content/uploads/2026/04/FBI-Missing-Scientists-Letter_4.20.26.pdf",
             "date": "2026-04-20"
           }
+        ],
+        "contested": [
+          {
+            "text": "His official service biography refutes the alleged early-2000s programmatic link. The AFRL cost-share began in 1999, when he was Chief Engineer of the Navstar GPS Joint Program Office at Los Angeles AFB and held no AFRL post at all. His early-2000s AFRL post, October 2001 to May 2004, was Materiel Wing Director of the SPACE VEHICLES Directorate and Commander of Phillips Research Site at Kirtland AFB, New Mexico. Mondaloy's documented government partner is the MATERIALS Directorate at Wright-Patterson AFB, Ohio. Different directorate, different base, different technical domain. He did not command AFRL until May 2011, roughly a decade after the work in question, and commanding a laboratory is not overseeing a programme inside it. No document was found placing him and Reza on the same programme, contract, review board, panel, publication, award or facility at any time.",
+            "sources": [
+              {
+                "name": "Maj. Gen. William N. McCasland official biography, af.mil",
+                "url": "https://www.af.mil/About-Us/Biographies/Display/article/104776/major-general-william-n-mccasland/"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tier": 1,
+        "text": "The Mondaloy patent family is three US applications sharing a September 2001 priority: 09/954,835, 10/769,195 and 12/626,205, titled \"Burn-resistant and high tensile strength metal alloys\". Inventors are Monica A. Jacinto and Dallis Ann Hardwick, two of two. All three were ABANDONED and no US patent was ever granted. The trade name Mondaloy appears in none of them.",
+        "sources": [
+          {
+            "name": "Google Patents, US20030053926A1",
+            "url": "https://patents.google.com/patent/US20030053926A1/en"
+          }
+        ]
+      },
+      {
+        "tier": 1,
+        "text": "None of the three applications carries a government-interest clause. Established as absent rather than unfound: the full text of all three was searched for \"government\", \"federally sponsor\", \"certain rights\", \"under contract\" and \"Air Force\", zero matches on all five in all three, and the conventional heading is absent from the description. The patent record therefore names no funding agency and no contract number.",
+        "sources": [
+          {
+            "name": "Google Patents, US20030053926A1",
+            "url": "https://patents.google.com/patent/US20030053926A1/en"
+          }
+        ]
+      },
+      {
+        "tier": 1,
+        "text": "A patent on the alloy was GRANTED in the Russian Federation and never in the United States: RU2301276C2, filed 17 September 2002, granted 20 June 2007, assignee United Technologies Corporation, since lapsed. Recorded as a bare record fact. The ordinary explanation is prosecution and assignment mechanics at a company operating internationally.",
+        "sources": [
+          {
+            "name": "Google Patents, RU2301276C2",
+            "url": "https://patents.google.com/patent/RU2301276C2/en"
+          }
+        ]
+      },
+      {
+        "tier": 2,
+        "text": "She describes the Air Force relationship herself: \"In 1999, we entered the first cost-sharing program with the Air Force Research Laboratory.\" The AFRL element named in Aerojet Rocketdyne's own 2016 release as co-developer of Mondaloy 200 is the Materials Directorate at Wright-Patterson AFB, Ohio.",
+        "sources": [
+          {
+            "name": "SpaceNews, Debra Werner",
+            "url": "https://spacenews.com/what-is-mondaloy-and-why-should-you-care/",
+            "date": "2017-12-20"
+          }
+        ]
+      },
+      {
+        "tier": 3,
+        "text": "\"Lead inventor\" is not supported as stated. US patents designate no lead inventor and inventor order carries no legal weight. She is first-named of two; the other is Dallis Ann Hardwick of the Rockwell Science Center, who died in 2015. The alloy name is a portmanteau of both: Monica and Dallis.",
+        "sources": [
+          {
+            "name": "Google Patents, US20030053926A1",
+            "url": "https://patents.google.com/patent/US20030053926A1/en"
+          }
         ]
       }
     ],
@@ -885,6 +947,19 @@
         "name": "House Oversight letter to FBI Director Patel",
         "url": "https://oversight.house.gov/wp-content/uploads/2026/04/FBI-Missing-Scientists-Letter_4.20.26.pdf",
         "date": "2026-04-20"
+      },
+      {
+        "name": "Google Patents, US20030053926A1",
+        "url": "https://patents.google.com/patent/US20030053926A1/en"
+      },
+      {
+        "name": "SpaceNews, Debra Werner",
+        "url": "https://spacenews.com/what-is-mondaloy-and-why-should-you-care/",
+        "date": "2017-12-20"
+      },
+      {
+        "name": "Maj. Gen. William N. McCasland official biography, af.mil",
+        "url": "https://www.af.mil/About-Us/Biographies/Display/article/104776/major-general-william-n-mccasland/"
       }
     ]
   },
@@ -1787,6 +1862,17 @@
             "url": "https://oversight.house.gov/wp-content/uploads/2026/04/FBI-Missing-Scientists-Letter_4.20.26.pdf",
             "date": "2026-04-20"
           }
+        ],
+        "contested": [
+          {
+            "text": "His official service biography refutes the alleged early-2000s programmatic link. The AFRL cost-share began in 1999, when he was Chief Engineer of the Navstar GPS Joint Program Office at Los Angeles AFB and held no AFRL post at all. His early-2000s AFRL post, October 2001 to May 2004, was Materiel Wing Director of the SPACE VEHICLES Directorate and Commander of Phillips Research Site at Kirtland AFB, New Mexico. Mondaloy's documented government partner is the MATERIALS Directorate at Wright-Patterson AFB, Ohio. Different directorate, different base, different technical domain. He did not command AFRL until May 2011, roughly a decade after the work in question, and commanding a laboratory is not overseeing a programme inside it. No document was found placing him and Reza on the same programme, contract, review board, panel, publication, award or facility at any time.",
+            "sources": [
+              {
+                "name": "Maj. Gen. William N. McCasland official biography, af.mil",
+                "url": "https://www.af.mil/About-Us/Biographies/Display/article/104776/major-general-william-n-mccasland/"
+              }
+            ]
+          }
         ]
       },
       {
@@ -1906,6 +1992,10 @@
         "name": "House Oversight letter to FBI Director Patel",
         "url": "https://oversight.house.gov/wp-content/uploads/2026/04/FBI-Missing-Scientists-Letter_4.20.26.pdf",
         "date": "2026-04-20"
+      },
+      {
+        "name": "Maj. Gen. William N. McCasland official biography, af.mil",
+        "url": "https://www.af.mil/About-Us/Biographies/Display/article/104776/major-general-william-n-mccasland/"
       }
     ]
   },

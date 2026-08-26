@@ -179,6 +179,15 @@ NEW_CLAIM_TEXTS = {
     # check reports 3 cited / 1 independent rather than letting it read as corroboration.
     "An X account @TMBSPACESHIPS exists, display name \"ELECTRIC PROP",
     "That the account is McCasland's is an attribution made by onlin",
+    # Mondaloy pass, 26 August 2026. The headline finding cuts AGAINST the tracker's
+    # framing and is recorded as a finding: the alleged Reza-McCasland programmatic link
+    # does not survive his own service biography, and the refutation is attached as a
+    # contested entry on both records rather than left in a note.
+    "The Mondaloy patent family is three US applications sharing a S",
+    "None of the three applications carries a government-interest cl",
+    "A patent on the alloy was GRANTED in the Russian Federation and",
+    "She describes the Air Force relationship herself: \"In 1999, we ",
+    "\"Lead inventor\" is not supported as stated. US patents designat",
 }
 
 # A claim may be REMOVED only if it is declared here, with the reason. Without this the
