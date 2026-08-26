@@ -188,6 +188,8 @@ NEW_CLAIM_TEXTS = {
     "A patent on the alloy was GRANTED in the Russian Federation and",
     "She describes the Air Force relationship herself: \"In 1999, we ",
     "\"Lead inventor\" is not supported as stated. US patents designat",
+    # The @TMBSPACESHIPS bio checked against McCasland's official biography: two hard
+    # mismatches, carried as a contested entry on the claim that describes the bio.
 }
 
 # A claim may be REMOVED only if it is declared here, with the reason. Without this the
