@@ -367,6 +367,28 @@
             "date": "2026-04-18"
           }
         ]
+      },
+      {
+        "tier": 1,
+        "text": "His daughter Julia Hicks spoke to CNN directly: \"From what I know of my dad, there's no train of logic to follow that would implicate him in this potential federal investigation. I don't understand the connection between my dad's death and the other missing scientists.\" She said the speculation has her shaken up.",
+        "sources": [
+          {
+            "name": "CNN",
+            "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+            "date": "2026-04-22"
+          }
+        ]
+      },
+      {
+        "tier": 1,
+        "text": "As of 21 April 2026, the day after the Oversight letters went out, Julia Hicks told CNN that NO ONE in elected office or at any federal agency had contacted her about her father's death. His is the case the committee's own timeline opens with.",
+        "sources": [
+          {
+            "name": "CNN",
+            "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+            "date": "2026-04-22"
+          }
+        ]
       }
     ],
     "sources": [
@@ -731,6 +753,17 @@
             "name": "LA Mag"
           }
         ]
+      },
+      {
+        "tier": 1,
+        "text": "CNN reports him as a 78-year-old retiree who worked as a foreman supervising construction at Los Alamos. A Los Alamos police detective told CNN there are no signs of foul play, but that exhaustive searches have yielded no sign of activity and no indication he was planning to leave.",
+        "sources": [
+          {
+            "name": "CNN",
+            "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+            "date": "2026-04-22"
+          }
+        ]
       }
     ],
     "sources": [
@@ -748,6 +781,11 @@
         "name": "NM DPS",
         "url": "https://missingpersons.dps.nm.gov/mpweb/mpdetailreport_serv?id=M99969",
         "date": "2026"
+      },
+      {
+        "name": "CNN",
+        "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+        "date": "2026-04-22"
       }
     ]
   },
@@ -925,6 +963,23 @@
             "url": "https://patents.google.com/patent/US20030053926A1/en"
           }
         ]
+      },
+      {
+        "tier": 2,
+        "text": "CNN repeats the JPL attribution and names its own source for it: \"She served as the director of the NASA Lab's Materials Processing Group, the House Oversight Committee said.\" The Committee footnotes the New York Post. So the chain is now visible end to end: Post, then Committee citing the Post, then CNN citing the Committee, then Wikipedia citing the Committee. Four citations, one origin.",
+        "sources": [
+          {
+            "name": "CNN",
+            "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+            "date": "2026-04-22",
+            "derivedFrom": "House Oversight letter to FBI Director Patel"
+          },
+          {
+            "name": "House Oversight letter to FBI Director Patel",
+            "url": "https://oversight.house.gov/wp-content/uploads/2026/04/FBI-Missing-Scientists-Letter_4.20.26.pdf",
+            "date": "2026-04-20"
+          }
+        ]
       }
     ],
     "sources": [
@@ -960,6 +1015,11 @@
       {
         "name": "Maj. Gen. William N. McCasland official biography, af.mil",
         "url": "https://www.af.mil/About-Us/Biographies/Display/article/104776/major-general-william-n-mccasland/"
+      },
+      {
+        "name": "CNN",
+        "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+        "date": "2026-04-22"
       }
     ]
   },
@@ -1082,6 +1142,17 @@
             "name": "NM OMI"
           }
         ]
+      },
+      {
+        "tier": 2,
+        "text": "She was last seen walking on a highway near Talpa, New Mexico, leaving her belongings at home and a phone that had been FACTORY RESET. NM Department of Public Safety told CNN the missing-person investigation is open and no foul play is suspected.",
+        "sources": [
+          {
+            "name": "CNN",
+            "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+            "date": "2026-04-22"
+          }
+        ]
       }
     ],
     "sources": [
@@ -1094,6 +1165,11 @@
         "name": "NBC News",
         "url": "https://www.nbcnews.com/news/us-news/remains-new-mexico-melissa-casias-vanished-rcna347794",
         "date": "2026-05-31"
+      },
+      {
+        "name": "CNN",
+        "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+        "date": "2026-04-22"
       }
     ]
   },

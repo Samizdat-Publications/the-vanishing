@@ -84,10 +84,15 @@ worth stating against the weaker elements:
   by SA Richard C. Doty.
 - **The operator described his own role publicly and on the record**, which is the fact that
   makes this case categorically different from an inferred one.
-- **AARO Historical Record Report Volume I** is cited on the node. It **could not be re-checked
-  here**: both `aaro.mil` and `media.defense.gov` return **403 to automated requests**. Same
-  pattern as the two `esd.whs.mil` URLs already flagged. Added to the browser re-check list
-  rather than treated as broken.
+- **AARO Historical Record Report Volume I is cited on the node, and it does NOT mention him.**
+  Retrieved 26 August 2026 from Wikimedia Commons after both `aaro.mil` and
+  `media.defense.gov` returned 403 here and the aaro.mil path 404'd from a browser. Identity
+  confirmed by the DOPSR clearance stamp of 6 March 2024. **Full text searched: zero
+  occurrences of Bennewitz, Doty, Kirtland, AFOSI, Special Investigations or Project Beta.**
+  The only hits for "disinformation" and "Albuquerque" are a general passage on modern
+  misinformation and a 1950s Project GRUDGE note. **It is a misattributed source.** That does
+  not weaken the operation, which rests on the FOIA-released AFOSI records and Doty's own
+  statements, but the citation itself should be dropped rather than carried.
 
 ## What this changes
 
