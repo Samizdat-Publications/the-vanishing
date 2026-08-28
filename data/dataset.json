@@ -368,6 +368,28 @@
               "date": "2026-04-18"
             }
           ]
+        },
+        {
+          "tier": 1,
+          "text": "His daughter Julia Hicks spoke to CNN directly: \"From what I know of my dad, there's no train of logic to follow that would implicate him in this potential federal investigation. I don't understand the connection between my dad's death and the other missing scientists.\" She said the speculation has her shaken up.",
+          "sources": [
+            {
+              "name": "CNN",
+              "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+              "date": "2026-04-22"
+            }
+          ]
+        },
+        {
+          "tier": 1,
+          "text": "As of 21 April 2026, the day after the Oversight letters went out, Julia Hicks told CNN that NO ONE in elected office or at any federal agency had contacted her about her father's death. His is the case the committee's own timeline opens with.",
+          "sources": [
+            {
+              "name": "CNN",
+              "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+              "date": "2026-04-22"
+            }
+          ]
         }
       ],
       "sources": [
@@ -732,6 +754,17 @@
               "name": "LA Mag"
             }
           ]
+        },
+        {
+          "tier": 1,
+          "text": "CNN reports him as a 78-year-old retiree who worked as a foreman supervising construction at Los Alamos. A Los Alamos police detective told CNN there are no signs of foul play, but that exhaustive searches have yielded no sign of activity and no indication he was planning to leave.",
+          "sources": [
+            {
+              "name": "CNN",
+              "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+              "date": "2026-04-22"
+            }
+          ]
         }
       ],
       "sources": [
@@ -749,6 +782,11 @@
           "name": "NM DPS",
           "url": "https://missingpersons.dps.nm.gov/mpweb/mpdetailreport_serv?id=M99969",
           "date": "2026"
+        },
+        {
+          "name": "CNN",
+          "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+          "date": "2026-04-22"
         }
       ]
     },
@@ -926,6 +964,23 @@
               "url": "https://patents.google.com/patent/US20030053926A1/en"
             }
           ]
+        },
+        {
+          "tier": 2,
+          "text": "CNN repeats the JPL attribution and names its own source for it: \"She served as the director of the NASA Lab's Materials Processing Group, the House Oversight Committee said.\" The Committee footnotes the New York Post. So the chain is now visible end to end: Post, then Committee citing the Post, then CNN citing the Committee, then Wikipedia citing the Committee. Four citations, one origin.",
+          "sources": [
+            {
+              "name": "CNN",
+              "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+              "date": "2026-04-22",
+              "derivedFrom": "House Oversight letter to FBI Director Patel"
+            },
+            {
+              "name": "House Oversight letter to FBI Director Patel",
+              "url": "https://oversight.house.gov/wp-content/uploads/2026/04/FBI-Missing-Scientists-Letter_4.20.26.pdf",
+              "date": "2026-04-20"
+            }
+          ]
         }
       ],
       "sources": [
@@ -961,6 +1016,11 @@
         {
           "name": "Maj. Gen. William N. McCasland official biography, af.mil",
           "url": "https://www.af.mil/About-Us/Biographies/Display/article/104776/major-general-william-n-mccasland/"
+        },
+        {
+          "name": "CNN",
+          "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+          "date": "2026-04-22"
         }
       ]
     },
@@ -1083,6 +1143,17 @@
               "name": "NM OMI"
             }
           ]
+        },
+        {
+          "tier": 2,
+          "text": "She was last seen walking on a highway near Talpa, New Mexico, leaving her belongings at home and a phone that had been FACTORY RESET. NM Department of Public Safety told CNN the missing-person investigation is open and no foul play is suspected.",
+          "sources": [
+            {
+              "name": "CNN",
+              "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+              "date": "2026-04-22"
+            }
+          ]
         }
       ],
       "sources": [
@@ -1095,6 +1166,11 @@
           "name": "NBC News",
           "url": "https://www.nbcnews.com/news/us-news/remains-new-mexico-melissa-casias-vanished-rcna347794",
           "date": "2026-05-31"
+        },
+        {
+          "name": "CNN",
+          "url": "https://www.cnn.com/2026/04/21/us/deaths-disappearances-scientists-investigation",
+          "date": "2026-04-22"
         }
       ]
     },
@@ -3664,6 +3740,12 @@
         "when": "2026-04-28",
         "title": "Not all of them were scientists",
         "text": "PolitiFact tracked fourteen people and found the claim that nearly all worked together unsupported: employers spanned NASA, LANL, USAF, MIT, Caltech and private firms, and no public confirmation exists that any accessed classified UAP or nuclear-weapons programmes. Specific corrections adopted into this file: Casias was an administrative assistant, Chavez was retired, Hicks studied comets and asteroids, Grillmair studied dark matter and exoplanets. Snopes called the conspiracy framing purely conjecture."
+      },
+      {
+        "who": "Rep. James Walkinshaw, House Oversight Committee",
+        "when": "2026-04-22",
+        "title": "The denominator objection, from inside the committee",
+        "text": "A Democratic member of the same committee running the investigation agrees a probe is warranted and says he is not convinced there is a coordinated motive. To CNN's Erin Burnett: \"The United States has thousands of nuclear scientists and nuclear experts. It's not the kind of nuclear program that potentially a foreign adversary could significantly impact by targeting 10 individuals.\" This is the strongest form of the base-rate objection because it is an argument about EFFICACY rather than coincidence: even granting a hostile actor, ten people is not a lever on a workforce that size. It also comes from a member with access to the same briefings as the chairman, which no outside skeptic has."
       }
     ],
     "SKEPTIC_OVERREACH": [

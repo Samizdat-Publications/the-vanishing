@@ -188,6 +188,14 @@ NEW_CLAIM_TEXTS = {
     "A patent on the alloy was GRANTED in the Russian Federation and",
     "She describes the Air Force relationship herself: \"In 1999, we ",
     "\"Lead inventor\" is not supported as stated. US patents designat",
+    # CNN of 22 Apr 2026, full text supplied by Stewart from the browser after the page
+    # returned 451 here. The Walkinshaw quote is confirmed verbatim, and four further
+    # findings came out of the same page.
+    "His daughter Julia Hicks spoke to CNN directly: \"From what I kn",
+    "As of 21 April 2026, the day after the Oversight letters went o",
+    "She was last seen walking on a highway near Talpa, New Mexico, ",
+    "CNN reports him as a 78-year-old retiree who worked as a forema",
+    "CNN repeats the JPL attribution and names its own source for it",
     # The @TMBSPACESHIPS bio checked against McCasland's official biography: two hard
     # mismatches, carried as a contested entry on the claim that describes the bio.
 }
@@ -212,7 +220,11 @@ INVARIANTS = {
     "timeline entries": 42,
     "precedents": 4,
     "photos": 15,
-    "counterarguments": 5,
+    # 6 since 26 Aug 2026: Rep. James Walkinshaw added. A sitting member of the committee
+    # running the investigation, dissenting on efficacy rather than coincidence, and with
+    # access to the same briefings as the chairman. The count is an invariant precisely so
+    # that adding to the tracker's own skeptical section is a deliberate act.
+    "counterarguments": 6,
     "skeptic overreach": 4,
     "programme edges": 10,
 }
