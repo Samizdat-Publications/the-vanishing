@@ -6,7 +6,7 @@ An interactive, fully sourced tracker of US scientists and defense-connected peo
 
 ![The Vanishing: the network map with Neil McCasland's case file open](docs/media/hero.jpg)
 
-**[Open the tracker](https://the-vanishing.pages.dev)** · **[Report a correction](https://github.com/Samizdat-Publications/the-vanishing/issues)**
+**[Open the tracker](https://the-vanishing.pages.dev)** · **[Landing page](https://the-vanishing-landing.pages.dev)** · **[Report a correction](https://github.com/Samizdat-Publications/the-vanishing/issues)**
 
 ## How to read this
 
@@ -77,7 +77,7 @@ python -m http.server 8971
 
 Then open `http://127.0.0.1:8971/dist/the-vanishing.html`. Opening the file directly (`file://`) does not work, because the page loads its photographs by relative path.
 
-To publish: `python tools/build_site.py` assembles `site-dist/`, which deploys to Cloudflare Pages with `npx --yes wrangler@4 pages deploy site-dist --project-name the-vanishing --branch main`.
+To publish: `python tools/build_site.py` assembles `site-dist/`, which deploys to Cloudflare Pages with `npx --yes wrangler@4 pages deploy site-dist --project-name the-vanishing --branch master` (the project's production branch is `master`; `--branch main` publishes only a preview). The landing page source is in `site/`.
 
 ## Files
 

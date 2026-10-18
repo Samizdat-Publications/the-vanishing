@@ -6,17 +6,22 @@
   "version": "2.0.0",
   "kind": "investigation",
   "started": "2026-08-06",
-  "updated": "2026-10-17",
-  "tech": ["JavaScript", "WebGPU", "Python", "Public records"],
+  "updated": "2026-10-18",
+  "tech": [
+    "JavaScript",
+    "WebGPU",
+    "Python",
+    "Public records"
+  ],
   "links": {
-    "landing": "https://the-vanishing.pages.dev",
+    "landing": "https://the-vanishing-landing.pages.dev",
     "play": "https://the-vanishing.pages.dev",
     "devlog": ""
   },
   "hero": {
     "gif": "",
-    "poster": "docs/media/hero.jpg",
-    "clip": ""
+    "poster": "site/media/hero.jpg",
+    "clip": "site/media/hero.mp4"
   },
   "stills": [
     "docs/media/hero.jpg",
@@ -24,7 +29,15 @@
     "docs/media/counterarguments.jpg"
   ],
   "credits": [
-    { "what": "Photographs of the fifteen people", "who": "Credited per image in PHOTOS.md and on each dossier", "licence": "Each keeps its own terms; most are not public domain" },
-    { "what": "IBM Plex Mono", "who": "IBM, via Google Fonts", "licence": "SIL Open Font License 1.1" }
+    {
+      "what": "Photographs of the fifteen people",
+      "who": "Credited per image in PHOTOS.md and on each dossier",
+      "licence": "Each keeps its own terms; most are not public domain"
+    },
+    {
+      "what": "IBM Plex Mono",
+      "who": "IBM, via Google Fonts",
+      "licence": "SIL Open Font License 1.1"
+    }
   ]
 }

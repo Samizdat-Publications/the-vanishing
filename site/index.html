@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Vanishing: a sourced tracker of fifteen cases</title>
+<meta name="description" content="An interactive, fully sourced tracker of US scientists and defense-connected people who died or went missing, 2021 to 2026. Every case links its public sources, and each is graded against the skeptical record.">
+<meta name="theme-color" content="#0f1216">
+<meta property="og:title" content="The Vanishing">
+<meta property="og:description" content="A fully sourced tracker of fifteen US scientists and defense-connected people who died or went missing, 2021 to 2026. Every case cites its public sources.">
+<meta property="og:image" content="media/og.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230f1216'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%235ed4e6' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='2.6' fill='%235ed4e6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+<a class="skip" href="#notice">Skip to the reading notes</a>
+
+<header class="bar">
+  <a class="bar-mark" href="#top" aria-label="The Vanishing, back to the top">THE VANISHING</a>
+  <nav class="bar-links" aria-label="Sections">
+    <a href="#notice">Read first</a>
+    <a href="#board">The board</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#files">Case files</a>
+    <a href="#skeptics">Counterarguments</a>
+    <a href="#making">How it was made</a>
+  </nav>
+  <a class="btn btn-small" href="https://github.com/Samizdat-Publications/the-vanishing">Source</a>
+</header>
+
+<main>
+
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero-frame">
+    <video class="hero-video" id="hero-video" muted loop playsinline autoplay preload="auto" poster="media/hero.jpg" aria-label="The network map of fifteen cases. One case file is opened, then its chain of events and its list of sources.">
+      <source src="media/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-text wrap">
+    <p class="pill"><span class="pill-dot"></span>In development</p>
+    <h1 id="hero-title">The Vanishing</h1>
+    <p class="tagline">An interactive tracker of US scientists and defense-connected people who died or went missing between 2021 and 2026. Every case is built from public sources and links them.</p>
+    <div class="cta">
+      <a class="btn" href="https://the-vanishing.pages.dev">Open the live dashboard</a>
+      <a class="btn btn-ghost" href="https://github.com/Samizdat-Publications/the-vanishing">Source on GitHub</a>
+    </div>
+    <dl class="counts" aria-label="The record at a glance">
+      <div><dt>Cases</dt><dd>15</dd></div>
+      <div><dt>Dead</dt><dd>10</dd></div>
+      <div><dt>Missing</dt><dd>4</dd></div>
+      <div><dt>Resolved</dt><dd>1</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="notice" id="notice" aria-labelledby="notice-title">
+  <div class="wrap">
+    <p class="label">Before anything else</p>
+    <h2 id="notice-title">How to read this</h2>
+    <p class="lede">These are real people, and some of their families are still waiting for answers. The tracker is built so that a skeptical reader can check every link in it.</p>
+    <ul class="notes">
+      <li><b>Public sources only.</b> Every case is built from material already published: news reporting, official releases, court and agency records, documents released under FOIA, and public statements. Each claim carries its source. Home addresses and private contact details are left out even where reporting printed them.</li>
+      <li><b>Inclusion is not a claim of foul play.</b> A name on the board means the death or disappearance was publicly reported and fits the tracker's scope. It does not mean anyone was harmed by anyone. Five of the fifteen cases have a conventional explanation that holds, and they are labelled that way on purpose.</li>
+      <li><b>Fact, claim and open question are kept apart.</b> A confidence key on every page marks what is confirmed, what is only alleged, and what nobody knows.</li>
+      <li><b>Families have spoken.</b> Several have publicly asked that their losses not be treated as conspiracy material. Where they have, the tracker records what they said accurately and does not argue with it.</li>
+      <li><b>Corrections are welcome.</b> If something is wrong, out of date or should not be here, <a href="https://github.com/Samizdat-Publications/the-vanishing/issues">open an issue</a> with the case name, what is wrong, and a public source if you have one. Requests from family members are handled first.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="feature" id="board" aria-labelledby="board-title">
+  <div class="wrap feature-grid">
+    <div class="feature-text">
+      <p class="label">Network map</p>
+      <h2 id="board-title">Fifteen cases on one board</h2>
+      <p>The tracker holds ten deaths, four people still missing and one resolved case, between July 2021 and 2026. Many were named in the April 2026 House Oversight letters and the federal review that followed.</p>
+      <p>The network map puts people, institutions, programmes, places and research domains on one canvas. Click any of them and its dossier opens: narrative, chronology, the connections with a plain-language reason for each, and the sources. The first five connection types are derived by rule from the case records, so adding a case adds its connections without anyone drawing them. The last three are editorial and hand-sourced.</p>
+    </div>
+    <figure class="screen">
+      <img src="media/still-map.jpg" width="1280" height="720" loading="lazy" alt="The network map with one case file open in the panel on the right: status, tier, three axis scores, and the narrative.">
+      <figcaption>The network map with a case file open. Connection types are colour-coded and listed in the key.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="feature flip" id="timeline" aria-labelledby="timeline-title">
+  <div class="wrap feature-grid">
+    <div class="feature-text">
+      <p class="label">Timeline</p>
+      <h2 id="timeline-title">The sequence, in order</h2>
+      <p>The timeline lays out 42 dated entries on a single axis, case events beside the oversight and disclosure events around them, with year, quarter and month zoom. Dates are shown at the precision the sources give, no finer.</p>
+      <p>The tracker's idea is that an event which looks ordinary on its own may not look ordinary in sequence. The timeline is where that sequence can be read, and where it can be challenged.</p>
+    </div>
+    <figure class="screen">
+      <video data-inview muted loop playsinline preload="none" poster="media/timeline.jpg" aria-label="The timeline view scrolling down through dated entries from 2021 onward.">
+        <source src="media/timeline.mp4" type="video/mp4">
+      </video>
+      <figcaption>Scrolling the timeline view.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="feature" id="files" aria-labelledby="files-title">
+  <div class="wrap feature-grid">
+    <div class="feature-text">
+      <p class="label">Case files</p>
+      <h2 id="files-title">Every case carries its own file</h2>
+      <p>Each case card shows the three axis scores up front and opens into the full record. Blocks are labelled for what they are: an unexplained residual, where sources disagree, and claims that are unverified and deliberately not propagated into other cases.</p>
+      <p>Sources sit at the bottom of every file with a confidence tier. Across the fifteen cases the record cites 43 distinct linked sources: news reporting, fact checks, official and agency records, and documents released under FOIA.</p>
+    </div>
+    <figure class="screen">
+      <video data-inview muted loop playsinline preload="none" poster="media/cases.jpg" aria-label="The case files grid, then one case file opened and scrolled down to its chronology and sources.">
+        <source src="media/cases.mp4" type="video/mp4">
+      </video>
+      <figcaption>The case file grid, then one file opened down to its sources.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="feature flip" id="skeptics" aria-labelledby="skeptics-title">
+  <div class="wrap feature-grid">
+    <div class="feature-text">
+      <p class="label">Counterarguments</p>
+      <h2 id="skeptics-title">Graded against the skeptical record</h2>
+      <p>The counterarguments view carries the skeptical reporting in full, not trimmed. It draws on Scientific American, Skeptic, NeuroLogica, Snopes and PolitiFact, and it is used to grade the cases rather than to rebut the board.</p>
+      <p>That is why the five cases with a conventional explanation stay in. They show the list is not curated to fit a story, and removing them would weaken the tracker.</p>
+    </div>
+    <figure class="screen">
+      <video data-inview muted loop playsinline preload="none" poster="media/counter.jpg" aria-label="The counterarguments view scrolling through cards of skeptical analysis.">
+        <source src="media/counter.mp4" type="video/mp4">
+      </video>
+      <figcaption>The counterarguments view.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="scoring" id="scoring" aria-labelledby="scoring-title">
+  <div class="wrap">
+    <p class="label">Method</p>
+    <h2 id="scoring-title">Three scores, never added up</h2>
+    <p class="lede">Each case is scored 0 to 3 on three axes. They are never summed, because a case can be extraordinary on one axis and unremarkable on another, and a single number would hide that.</p>
+    <div class="axes">
+      <div><span class="axis-k">S</span><h3>Sequence anomaly</h3><p>How many independently documented, individually unexplained links form a chain?</p></div>
+      <div><span class="axis-k">P</span><h3>Personal programme proximity</h3><p>What sensitive access did this person personally hold?</p></div>
+      <div><span class="axis-k">I</span><h3>Institutional channel</h3><p>Does the employer have a documented history as a conduit for classified work?</p></div>
+    </div>
+    <p class="fine">Tier A requires an unexplained fact that no published source accounts for, plus S2 or higher, or P3, or I3. Tier B is unresolved with a prosaic reading available. Tier C has a conventional explanation that holds. The board currently holds 8 Tier A, 2 Tier B and 5 Tier C.</p>
+  </div>
+</section>
+
+<section class="stills" aria-labelledby="stills-title">
+  <div class="wrap">
+    <p class="label">Gallery</p>
+    <h2 id="stills-title">More views</h2>
+    <div class="still-grid">
+      <figure><img src="media/still-sources.jpg" width="1280" height="720" loading="lazy" alt="A case file's Sources tab, listing sources with their confidence tier."><figcaption>The Sources tab of a case file.</figcaption></figure>
+      <figure><img src="media/still-timeline.jpg" width="1280" height="720" loading="lazy" alt="The timeline view, with entries for cases and for oversight events."><figcaption>Timeline, at year zoom.</figcaption></figure>
+      <figure><img src="media/still-geography.jpg" width="1280" height="720" loading="lazy" alt="The geography view, grouping cases into named clusters with a note on how distances are derived."><figcaption>Geography: named clusters, with a note that distances come from reporting, not coordinates.</figcaption></figure>
+      <figure><img src="media/still-cases.jpg" width="1280" height="720" loading="lazy" alt="The case file grid, fifteen cards with photographs, status badges and three axis meters."><figcaption>Case files: fifteen cards.</figcaption></figure>
+      <figure><img src="media/still-counter.jpg" width="1280" height="720" loading="lazy" alt="The counterarguments view, with skeptical analyses laid out as cards."><figcaption>Counterarguments.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="making" id="making" aria-labelledby="making-title">
+  <div class="wrap">
+    <p class="label">Behind the board</p>
+    <h2 id="making-title">How it was made</h2>
+    <div class="making-grid">
+      <p>The dashboard is built from data, not edited by hand. Case records, entities, the timeline and the graph live in the repository as JSON. A merge script assembles them and a build script renders the single HTML page.</p>
+      <p>A verification script defines what is shippable. It runs schema checks, a semantic diff against a frozen baseline so no claim can be removed or changed without a declared reason, and discovery checks that flag gaps, contested claims and sources that only repeat each other. Every check is itself tested against input it must reject.</p>
+      <p>The page is plain HTML, CSS and JavaScript, with a WebGPU renderer for the map's connection lines and WebGL2 and Canvas 2D fallbacks. The build and checks are Python. The research method is written down in the repository.</p>
+      <p>An optional analyst panel answers questions about the case file if you paste your own Anthropic API key. The key stays in your browser and goes only to api.anthropic.com. Without a key, everything still works by hand.</p>
+    </div>
+    <p><a class="btn btn-ghost" href="https://github.com/Samizdat-Publications/the-vanishing">Read the method and the data on GitHub</a></p>
+  </div>
+</section>
+
+<section class="credits" id="credits" aria-labelledby="credits-title">
+  <div class="wrap">
+    <p class="label">Credits</p>
+    <h2 id="credits-title">Sources and licences</h2>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>What</th><th>Who</th><th>Licence</th></tr></thead>
+      <tbody>
+        <tr><td>Photographs of the fifteen people</td><td>Credited individually on each dossier and in the repository's photo notes: police and sheriff's departments via New Mexico DPS, Wakefield Police Department, Caltech IPAC, University of Arizona LPL, UAH, family obituary photographs (Legacy.com, Dignity Memorial), Wikimedia Commons</td><td>Each keeps its own terms; most are not public domain. Nuno Loureiro's portrait is CC BY-SA 4.0 (Wikimedia Commons).</td></tr>
+        <tr><td>Reporting and records</td><td>The outlets and agencies cited on each case, among them CNN, Los Angeles Times, NBC News, Boston Globe, PolitiFact, the House Oversight Committee, the LA County District Attorney and New Mexico DPS</td><td>Cited and linked, not reproduced</td></tr>
+        <tr><td>IBM Plex Mono and IBM Plex Sans</td><td>IBM, via Google Fonts</td><td>SIL Open Font License 1.1</td></tr>
+        <tr><td>The Vanishing's own code</td><td>Stewart Gregerson</td><td>MIT</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="fine">The screenshots and clips on this page show the live dashboard as it is today, including the photographs and quoted source titles it displays.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <p>The Vanishing is personal research by Stewart Gregerson, published by <a href="https://github.com/Samizdat-Publications">Samizdat Publications</a>.</p>
+    <p><a href="https://the-vanishing.pages.dev">Dashboard</a> &middot; <a href="https://github.com/Samizdat-Publications/the-vanishing">Source</a> &middot; <a href="https://github.com/Samizdat-Publications/the-vanishing/issues">Report a correction</a></p>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

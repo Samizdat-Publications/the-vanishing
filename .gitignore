@@ -95,3 +95,6 @@ dist/
 
 # Cloudflare Pages build output (tools/build_site.py)
 site-dist/
+
+# Landing page build output (site/ copied here, then finish-site.mjs)
+landing-dist/
