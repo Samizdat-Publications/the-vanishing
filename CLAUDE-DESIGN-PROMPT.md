@@ -261,7 +261,7 @@ This is what separates a research tool from a conspiracy board. It is a design r
 
 - **NO** Bootstrap aesthetic or generic dashboard look
 - **NO** conspiracy corkboard -- no red string, no pushpins, no cork texture, no ransom-note typography
-- **NO** employer branding. This is personal, not corporate.
+- **NO** employer or corporate branding. This is personal.
 - **NO** em dashes in any generated text. Use double hyphens (--) or restructure the sentence.
 - **DO** make the network map genuinely useful for discovering connections, not just pretty
 - **DO** include all 14 cases with full data from `PROJECT.md`

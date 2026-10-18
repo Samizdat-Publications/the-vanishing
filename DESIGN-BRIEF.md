@@ -182,7 +182,7 @@ Individual themes: `.claude/skills/typeui-{name}/SKILL.md`
 - Make it look like a generic Bootstrap dashboard
 - Use campy conspiracy-theory aesthetics (no red string, no corkboard)
 - Sacrifice readability for style
-- Use employer branding (this is personal, not work)
+- Use employer or corporate branding (this is personal, not work)
 - Include em dashes in any text (Stewart's preference)
 
 ## DO

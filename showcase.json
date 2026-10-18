@@ -1,0 +1,30 @@
+{
+  "name": "The Vanishing",
+  "repo": "the-vanishing",
+  "pitch": "An interactive, fully sourced tracker of US scientists and defense-connected people who died or went missing, 2021 to 2026.",
+  "status": "in-development",
+  "version": "2.0.0",
+  "kind": "investigation",
+  "started": "2026-08-06",
+  "updated": "2026-10-17",
+  "tech": ["JavaScript", "WebGPU", "Python", "Public records"],
+  "links": {
+    "landing": "https://the-vanishing.pages.dev",
+    "play": "https://the-vanishing.pages.dev",
+    "devlog": ""
+  },
+  "hero": {
+    "gif": "",
+    "poster": "docs/media/hero.jpg",
+    "clip": ""
+  },
+  "stills": [
+    "docs/media/hero.jpg",
+    "docs/media/network-map.jpg",
+    "docs/media/counterarguments.jpg"
+  ],
+  "credits": [
+    { "what": "Photographs of the fifteen people", "who": "Credited per image in PHOTOS.md and on each dossier", "licence": "Each keeps its own terms; most are not public domain" },
+    { "what": "IBM Plex Mono", "who": "IBM, via Google Fonts", "licence": "SIL Open Font License 1.1" }
+  ]
+}

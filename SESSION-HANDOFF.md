@@ -12,7 +12,7 @@ This file is written to be self-sufficient. You should not need any prior conver
 
 Stewart Gregerson's personal research project tracking deaths and disappearances of US
 scientists, military officials and defense-connected individuals since 2021. Working title
-**"The Vanishing."** Personal research, **not employer work.** No employer branding anywhere.
+**"The Vanishing."** Personal research, **not work-related.** No employer branding anywhere.
 
 ## 2. Where it lives, and what it is NOT
 
@@ -21,7 +21,7 @@ Git repository. Remote `https://github.com/Samizdat-Publications/the-vanishing.g
 
 **Two environments, one repo.** As of 25 August 2026 the project is worked on from both a
 cloud Claude Code session, which clones the repo fresh and can push, and Stewart's local
-machine at `C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker\`.
+machine at `C:\Users\stewa\Documents\Claude\Cowork files\scientist-tracker\`.
 Both are live. Neither working tree sees the other's uncommitted work.
 
 **`origin/master` is the only source of truth. Always pull before starting and push when

@@ -2,7 +2,7 @@
 
 Personal research project of Stewart Gregerson tracking deaths and disappearances of US
 scientists, military officials and defense-connected individuals since 2021.
-**Personal research. Not employer work. No employer branding in any output.**
+**Personal research. Not work-related. No employer branding in any output.**
 
 ## Read these first, in this order
 
@@ -130,7 +130,7 @@ reasoning about it.
 
 This repo is worked on from both a **cloud Claude Code session** (GitHub-attached) and
 **Stewart's local machine** at
-`C:\Users\stewa\OneDrive\Documents\Claude\Cowork files\scientist-tracker\`.
+`C:\Users\stewa\Documents\Claude\Cowork files\scientist-tracker\`.
 
 **Always `git pull` before starting work, and push when done.** A cloud session cannot see
 uncommitted local work and vice versa. Do not assume the working tree reflects everything

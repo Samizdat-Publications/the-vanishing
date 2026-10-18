@@ -107,7 +107,7 @@ These surfaced while chasing the docket and were not being sought. All four affe
 
 | # | Tracker currently says | Sources say | Grade |
 |---|---|---|---|
-| 1 | Killed in **Pearblossom** | Every source says **Llano**, 30700 block of 165th Street East. The Dec 20 arrest was in **Palmdale** | **Confirmed error. Correct it** |
+| 1 | Killed in **Pearblossom** | Every source says **Llano** (street detail deliberately not reproduced here). The Dec 20 arrest was in **Palmdale** | **Confirmed error. Correct it** |
 | 2 | **Grillmair reported** Snyder for trespassing | NY Post and LA Times say Grillmair called. LA Magazine says **neighbors** reported a possible trespasser. **Louise Grillmair told the BBC her husband did not call 911** and believes Snyder wrongly blamed him for the police contact | **Genuine conflict. Do not state either version as fact** |
 | 3 | Shot once in the **neck** | DA and most outlets say neck. **The LA County Medical Examiner reported a single wound to the torso** (via The Guardian); NY Post described deputies finding him bleeding from the torso | **Genuine conflict. Flag it** |
 | 4 | Dismissal by **Feb 5, 2026** | Newsweek and NY Post say Feb 5 citing court records; LA Magazine says **Feb 6**. Also unresolved: LA Magazine says "Judge Osman Abbasi **and prosecutors** dropped the charge," NY Post says "**prosecutors moved** to drop." Under PC 1385 the court orders the dismissal, so the moving party matters and is unsettled | One-day conflict, minor. Moving-party conflict, material |

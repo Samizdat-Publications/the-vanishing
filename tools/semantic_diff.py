@@ -123,6 +123,12 @@ EXPECTED_CHANGES = {
     "cases.*.claims.*.contested.*.sources.*.url": "competing account source url",
     "cases.*.claims.*.contested.*.sources.*.date": "competing account source date",
     "cases.*.claims.*.contested": "contested is a new collection on the claim",
+    # Public release, 2026-10-17. Privacy, not content: the scene is still Llano and the
+    # time, porch and agency are unchanged.
+    "entities.ENTITY_INFO.l-llano.desc": (
+        "drops the street block of the Grillmair home before the repo goes public; "
+        "a family home address does not belong in a public tracker"
+    ),
 }
 
 # Every claim text present in the baseline must still be present. Any claim text that is NEW

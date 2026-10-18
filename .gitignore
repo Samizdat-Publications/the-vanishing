@@ -92,3 +92,6 @@ _scratch/
 # QA screenshots, regenerated on demand
 .qa/
 dist/
+
+# Cloudflare Pages build output (tools/build_site.py)
+site-dist/
